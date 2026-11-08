@@ -1,0 +1,8943 @@
+{
+ "CONTENT_VERSION": "1.0.0",
+ "ROLES": [
+  "vanguard",
+  "striker",
+  "controller",
+  "support",
+  "scout"
+ ],
+ "FORMATION_LANES": [
+  "front",
+  "center",
+  "rear"
+ ],
+ "COLOR_TAGS": [
+  "red",
+  "blue",
+  "green",
+  "yellow",
+  "purple",
+  "white"
+ ],
+ "LOCATION_TYPES": [
+  "port",
+  "island",
+  "dungeon",
+  "wreck",
+  "arena",
+  "secret"
+ ],
+ "KNOWLEDGE_STATES": [
+  "hidden",
+  "revealed",
+  "visited",
+  "cleared"
+ ],
+ "INVESTMENT_TRACKS": [
+  "market",
+  "tavern",
+  "workshop",
+  "quest_board",
+  "navigation"
+ ],
+ "FACILITY_CATEGORIES": [
+  "command",
+  "living",
+  "training",
+  "medical",
+  "production",
+  "navigation",
+  "storage",
+  "pet",
+  "social",
+  "defense"
+ ],
+ "STANCES": [
+  "aggressive",
+  "balanced",
+  "defensive",
+  "escape"
+ ],
+ "PRIORITIES": [
+  "auto",
+  "survival",
+  "control",
+  "damage",
+  "support"
+ ],
+ "SKILL_CATS": [
+  "damage",
+  "control",
+  "support",
+  "survival"
+ ],
+ "ORIGINS": [
+  "dawnwater_fishers",
+  "ember_forges",
+  "verdant_villages",
+  "glass_reefs",
+  "crown_courts",
+  "storm_harbors",
+  "moon_isles",
+  "trench_divers",
+  "ring_nomads",
+  "horizon_wanderers"
+ ],
+ "TRAITS": [
+  "brave",
+  "cautious",
+  "cheerful",
+  "stubborn",
+  "curious",
+  "loyal",
+  "thrifty",
+  "calm",
+  "reckless",
+  "kind",
+  "proud",
+  "sleepy"
+ ],
+ "CREW_EVENTS": [
+  "homesick",
+  "proving",
+  "feast",
+  "collector"
+ ],
+ "APTITUDES": {
+  "quick_learner": {
+   "xpPct": 0.2
+  },
+  "devoted": {
+   "masteryPct": 0.25
+  },
+  "deckhand": {
+   "jobPct": 0.5
+  },
+  "brawny": {
+   "hpPct": 0.08
+  },
+  "sharp": {
+   "atkPct": 0.06
+  },
+  "nimble": {
+   "spd": 2
+  },
+  "tough": {
+   "defPct": 0.08
+  },
+  "beast_friend": {
+   "petPct": 0.2
+  }
+ },
+ "FACTIONS": [
+  "conclave",
+  "league",
+  "tidebound",
+  "pennants"
+ ],
+ "SKILLS": {
+  "shield_bash": {
+   "cat": "control",
+   "cd": 8,
+   "scope": "enemy",
+   "power": 0.8,
+   "fx": {
+    "stun": 1.5
+   }
+  },
+  "hold_the_line": {
+   "cat": "survival",
+   "cd": 12,
+   "scope": "self",
+   "fx": {
+    "taunt": 4,
+    "shield": 0.2
+   }
+  },
+  "guardian_wall": {
+   "cat": "survival",
+   "cd": 14,
+   "scope": "front_allies",
+   "fx": {
+    "shield": 0.12
+   }
+  },
+  "quake_slam": {
+   "cat": "control",
+   "cd": 10,
+   "scope": "enemy_lane",
+   "power": 1,
+   "fx": {
+    "slow": 3
+   }
+  },
+  "lunge": {
+   "cat": "damage",
+   "cd": 6,
+   "scope": "enemy",
+   "power": 1.6
+  },
+  "riposte": {
+   "cat": "survival",
+   "cd": 12,
+   "scope": "self",
+   "fx": {
+    "evade": 4
+   }
+  },
+  "whirling_blades": {
+   "cat": "damage",
+   "cd": 9,
+   "scope": "enemy_lane",
+   "power": 1.15
+  },
+  "call_out": {
+   "cat": "damage",
+   "cd": 10,
+   "scope": "enemy",
+   "power": 1.9,
+   "fx": {
+    "boss": 0.5,
+    "mark": 3
+   }
+  },
+  "piercing_thrust": {
+   "cat": "damage",
+   "cd": 7,
+   "scope": "enemy",
+   "power": 1.4,
+   "fx": {
+    "pierce": 0.3,
+    "reachAll": true
+   }
+  },
+  "sweep_spear": {
+   "cat": "control",
+   "cd": 9,
+   "scope": "enemy_lane",
+   "power": 0.8,
+   "fx": {
+    "slow": 3
+   }
+  },
+  "harpoon_pull": {
+   "cat": "control",
+   "cd": 10,
+   "scope": "enemy",
+   "power": 1.2,
+   "fx": {
+    "stun": 1,
+    "mark": 4,
+    "reachAll": true
+   }
+  },
+  "sky_dive": {
+   "cat": "damage",
+   "cd": 12,
+   "scope": "enemy",
+   "power": 2.3,
+   "fx": {
+    "reachAll": true
+   }
+  },
+  "aimed_shot": {
+   "cat": "damage",
+   "cd": 7,
+   "scope": "enemy",
+   "power": 1.7,
+   "fx": {
+    "snipe": true
+   }
+  },
+  "smoke_shell": {
+   "cat": "control",
+   "cd": 12,
+   "scope": "enemies",
+   "power": 0.35,
+   "fx": {
+    "slow": 3
+   }
+  },
+  "headshot": {
+   "cat": "damage",
+   "cd": 12,
+   "scope": "enemy",
+   "power": 2.3,
+   "fx": {
+    "execute": 1,
+    "snipe": true
+   }
+  },
+  "scatter_volley": {
+   "cat": "damage",
+   "cd": 10,
+   "scope": "enemies",
+   "power": 0.75
+  },
+  "haymaker": {
+   "cat": "control",
+   "cd": 9,
+   "scope": "enemy",
+   "power": 1.2,
+   "fx": {
+    "stun": 1.5
+   }
+  },
+  "brawl": {
+   "cat": "damage",
+   "cd": 8,
+   "scope": "enemy_lane",
+   "power": 1
+  },
+  "armor_crush": {
+   "cat": "control",
+   "cd": 10,
+   "scope": "enemy",
+   "power": 1.3,
+   "fx": {
+    "sunder": 6
+   }
+  },
+  "suplex": {
+   "cat": "control",
+   "cd": 13,
+   "scope": "enemy",
+   "power": 1.5,
+   "fx": {
+    "stun": 2.5
+   }
+  },
+  "first_aid": {
+   "cat": "support",
+   "cd": 6,
+   "scope": "ally",
+   "heal": 1.8
+  },
+  "cleanse": {
+   "cat": "support",
+   "cd": 10,
+   "scope": "allies",
+   "heal": 0.5,
+   "fx": {
+    "cleanse": true
+   }
+  },
+  "emergency_surgery": {
+   "cat": "survival",
+   "cd": 14,
+   "scope": "ally",
+   "heal": 3.6,
+   "cond": "critical"
+  },
+  "renewal": {
+   "cat": "support",
+   "cd": 14,
+   "scope": "allies",
+   "heal": 0.9,
+   "fx": {
+    "regen": 0.02,
+    "regenDur": 5
+   }
+  },
+  "hearty_snack": {
+   "cat": "support",
+   "cd": 8,
+   "scope": "ally",
+   "heal": 1.2,
+   "fx": {
+    "buffAtk": 0.1,
+    "buffDur": 5
+   }
+  },
+  "spice_bomb": {
+   "cat": "control",
+   "cd": 11,
+   "scope": "enemies",
+   "power": 0.5,
+   "fx": {
+    "slow": 2
+   }
+  },
+  "supply_drop": {
+   "cat": "survival",
+   "cd": 14,
+   "scope": "allies",
+   "fx": {
+    "buffDef": 0.2,
+    "buffDur": 6
+   }
+  },
+  "grand_feast": {
+   "cat": "support",
+   "cd": 16,
+   "scope": "allies",
+   "heal": 0.6,
+   "fx": {
+    "buffAtk": 0.25,
+    "buffDur": 6
+   }
+  },
+  "mark_target": {
+   "cat": "control",
+   "cd": 8,
+   "scope": "enemy",
+   "power": 0.6,
+   "fx": {
+    "mark": 5,
+    "snipe": true
+   }
+  },
+  "quick_read": {
+   "cat": "support",
+   "cd": 14,
+   "scope": "allies",
+   "fx": {
+    "meter": 35
+   }
+  },
+  "shortcut_strike": {
+   "cat": "damage",
+   "cd": 8,
+   "scope": "enemy",
+   "power": 1.6,
+   "fx": {
+    "reachAll": true,
+    "snipe": true
+   }
+  },
+  "ebb_tide": {
+   "cat": "control",
+   "cd": 12,
+   "scope": "enemies",
+   "power": 0.45,
+   "fx": {
+    "slow": 4
+   }
+  },
+  "deploy_barrier": {
+   "cat": "survival",
+   "cd": 10,
+   "scope": "ally",
+   "fx": {
+    "shield": 0.25
+   }
+  },
+  "spring_trap": {
+   "cat": "control",
+   "cd": 10,
+   "scope": "self",
+   "fx": {
+    "trap": 1.5,
+    "trapStun": 1.5
+   }
+  },
+  "turret": {
+   "cat": "damage",
+   "cd": 15,
+   "scope": "enemies",
+   "fx": {
+    "dot": 0.35,
+    "dotDur": 5
+   }
+  },
+  "snare_net": {
+   "cat": "control",
+   "cd": 16,
+   "scope": "enemies",
+   "power": 0.3,
+   "fx": {
+    "stun": 1.2
+   }
+  },
+  "sic_em": {
+   "cat": "damage",
+   "cd": 7,
+   "scope": "enemy",
+   "power": 1.2,
+   "fx": {
+    "pet": 1.6
+   }
+  },
+  "soothing_call": {
+   "cat": "support",
+   "cd": 10,
+   "scope": "ally",
+   "heal": 1.2
+  },
+  "pack_guard": {
+   "cat": "survival",
+   "cd": 13,
+   "scope": "front_allies",
+   "fx": {
+    "shield": 0.1
+   }
+  },
+  "call_of_wild": {
+   "cat": "control",
+   "cd": 12,
+   "scope": "enemies",
+   "power": 0.9,
+   "fx": {
+    "slow": 2
+   }
+  },
+  "frost_bolt": {
+   "cat": "control",
+   "cd": 7,
+   "scope": "enemy",
+   "power": 1.3,
+   "fx": {
+    "slow": 3,
+    "reachAll": true
+   }
+  },
+  "arc_burst": {
+   "cat": "damage",
+   "cd": 10,
+   "scope": "enemies",
+   "power": 0.8
+  },
+  "chain_lightning": {
+   "cat": "damage",
+   "cd": 13,
+   "scope": "enemies",
+   "power": 1.25,
+   "fx": {
+    "stun": 0.8
+   }
+  },
+  "dispel_hex": {
+   "cat": "control",
+   "cd": 12,
+   "scope": "enemies",
+   "power": 0.6,
+   "fx": {
+    "dispel": true,
+    "cleanseAllies": true
+   }
+  },
+  "rally_banner": {
+   "cat": "support",
+   "cd": 14,
+   "scope": "allies",
+   "fx": {
+    "buffAtk": 0.2,
+    "buffDur": 6
+   }
+  },
+  "brace": {
+   "cat": "survival",
+   "cd": 14,
+   "scope": "allies",
+   "fx": {
+    "buffDef": 0.2,
+    "buffDur": 5
+   }
+  },
+  "tribute": {
+   "cat": "damage",
+   "cd": 9,
+   "scope": "enemy",
+   "power": 1.3,
+   "fx": {
+    "plunder": 1
+   }
+  },
+  "hold_colors": {
+   "cat": "survival",
+   "cd": 16,
+   "scope": "allies",
+   "fx": {
+    "buffDef": 0.3,
+    "buffDur": 6,
+    "cleanse": true
+   }
+  },
+  "e_slash": {
+   "cat": "damage",
+   "cd": 6,
+   "scope": "enemy",
+   "power": 1.3
+  },
+  "e_crush": {
+   "cat": "control",
+   "cd": 10,
+   "scope": "enemy",
+   "power": 1.5,
+   "fx": {
+    "stun": 1
+   }
+  },
+  "e_volley": {
+   "cat": "damage",
+   "cd": 9,
+   "scope": "enemies",
+   "power": 0.55
+  },
+  "e_hex": {
+   "cat": "control",
+   "cd": 9,
+   "scope": "enemy",
+   "power": 0.9,
+   "fx": {
+    "slow": 3,
+    "mark": 3,
+    "reachAll": true
+   }
+  },
+  "e_mend": {
+   "cat": "support",
+   "cd": 8,
+   "scope": "ally",
+   "heal": 1.6
+  },
+  "e_roar": {
+   "cat": "support",
+   "cd": 15,
+   "scope": "allies",
+   "fx": {
+    "buffAtk": 0.2,
+    "buffDur": 6
+   }
+  },
+  "e_charge": {
+   "cat": "damage",
+   "cd": 11,
+   "scope": "enemy",
+   "power": 3.2,
+   "fx": {
+    "windup": 2.5
+   }
+  },
+  "e_shell": {
+   "cat": "survival",
+   "cd": 9,
+   "scope": "self",
+   "fx": {
+    "shield": 0.22
+   }
+  },
+  "e_stun_all": {
+   "cat": "control",
+   "cd": 13,
+   "scope": "enemies",
+   "power": 0.4,
+   "fx": {
+    "stun": 1
+   }
+  }
+ },
+ "PASSIVES": {
+  "steadfast": {
+   "defPct": 0.1,
+   "intercept": 0.15
+  },
+  "sentinel": {
+   "intercept": 0.35,
+   "hpPct": 0.08
+  },
+  "iron_hide": {
+   "thorns": 0.2,
+   "defPct": 0.1
+  },
+  "keen_edge": {
+   "crit": 0.15
+  },
+  "flowing_step": {
+   "spd": 3,
+   "dodge": 0.08
+  },
+  "giant_slayer": {
+   "bossDmg": 0.25
+  },
+  "armor_breaker": {
+   "defIgnore": 0.15
+  },
+  "tidebreaker": {
+   "markedDmg": 0.2
+  },
+  "momentum": {
+   "spd": 2,
+   "crit": 0.08
+  },
+  "steady_aim": {
+   "atkPct": 0.1
+  },
+  "eagle_eye": {
+   "crit": 0.2
+  },
+  "quick_reload": {
+   "cdr": 0.15
+  },
+  "thick_skin": {
+   "hpPct": 0.12
+  },
+  "shatter": {
+   "defIgnore": 0.2
+  },
+  "iron_grip": {
+   "controlPct": 0.25
+  },
+  "bedside_manner": {
+   "healPct": 0.15
+  },
+  "precise_hands": {
+   "healPct": 0.25
+  },
+  "life_ward": {
+   "auraRegen": 0.006
+  },
+  "thrifty_kitchen": {
+   "foodSave": 1
+  },
+  "ration_master": {
+   "supplyPct": 0.25,
+   "foodSave": 1
+  },
+  "comfort_food": {
+   "hpPct": 0.08,
+   "healPct": 0.1
+  },
+  "weather_eye": {
+   "xpPct": 0.1,
+   "avoid": 0.1
+  },
+  "trailblazer": {
+   "lootPct": 0.2
+  },
+  "foresight": {
+   "auraDodge": 0.06
+  },
+  "handy": {
+   "jobPct": 0.25
+  },
+  "reinforced_plating": {
+   "teamShield": 0.08
+  },
+  "hidden_blades": {
+   "thorns": 0.15,
+   "crit": 0.05
+  },
+  "beast_bond": {
+   "petPct": 0.3
+  },
+  "alpha_bond": {
+   "petPct": 0.5,
+   "hpPct": 0.05
+  },
+  "wild_heart": {
+   "petPct": 0.3,
+   "atkPct": 0.08
+  },
+  "attunement": {
+   "atkPct": 0.12
+  },
+  "static_field": {
+   "crit": 0.1,
+   "atkPct": 0.06
+  },
+  "warding": {
+   "hazardResist": 1,
+   "defPct": 0.08
+  },
+  "ledger_keeper": {
+   "goldPct": 0.15
+  },
+  "deep_pockets": {
+   "goldPct": 0.3,
+   "lootPct": 0.1
+  },
+  "inspiring_presence": {
+   "auraAtk": 0.05
+  }
+ },
+ "BASE_CLASSES": {
+  "guard": {
+   "roles": [
+    "vanguard"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 150,
+    "atk": 11,
+    "def": 15,
+    "spd": 8
+   },
+   "weapons": [
+    "shield",
+    "blade"
+   ],
+   "skills": [
+    "shield_bash",
+    "hold_the_line"
+   ],
+   "passive": "steadfast",
+   "jobs": [
+    "boarding_gate",
+    "guard_post",
+    "barricade_room"
+   ],
+   "branches": [
+    "guardian",
+    "bulwark"
+   ]
+  },
+  "duelist": {
+   "roles": [
+    "striker"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 110,
+    "atk": 18,
+    "def": 8,
+    "spd": 13
+   },
+   "weapons": [
+    "blade"
+   ],
+   "skills": [
+    "lunge",
+    "riposte"
+   ],
+   "passive": "keen_edge",
+   "jobs": [
+    "practice_deck"
+   ],
+   "branches": [
+    "blade_dancer",
+    "challenger"
+   ]
+  },
+  "spearfighter": {
+   "roles": [
+    "striker",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 120,
+    "atk": 15,
+    "def": 10,
+    "spd": 10
+   },
+   "weapons": [
+    "spear"
+   ],
+   "skills": [
+    "piercing_thrust",
+    "sweep_spear"
+   ],
+   "passive": "armor_breaker",
+   "jobs": [
+    "material_bench",
+    "guard_post"
+   ],
+   "branches": [
+    "harpooner",
+    "dragoon"
+   ]
+  },
+  "gunner": {
+   "roles": [
+    "striker"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 92,
+    "atk": 16,
+    "def": 7,
+    "spd": 11
+   },
+   "weapons": [
+    "gun"
+   ],
+   "skills": [
+    "aimed_shot",
+    "smoke_shell"
+   ],
+   "passive": "steady_aim",
+   "jobs": [
+    "lookout"
+   ],
+   "branches": [
+    "sharpshooter",
+    "skirmisher"
+   ]
+  },
+  "brawler": {
+   "roles": [
+    "controller",
+    "vanguard"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 135,
+    "atk": 14,
+    "def": 11,
+    "spd": 10
+   },
+   "weapons": [
+    "fist"
+   ],
+   "skills": [
+    "haymaker",
+    "brawl"
+   ],
+   "passive": "thick_skin",
+   "jobs": [
+    "material_bench",
+    "practice_deck"
+   ],
+   "branches": [
+    "breaker",
+    "grappler"
+   ]
+  },
+  "medic": {
+   "roles": [
+    "support"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 96,
+    "atk": 10,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "kit"
+   ],
+   "skills": [
+    "first_aid",
+    "cleanse"
+   ],
+   "passive": "bedside_manner",
+   "jobs": [
+    "infirmary",
+    "recovery_room"
+   ],
+   "branches": [
+    "surgeon",
+    "lifekeeper"
+   ]
+  },
+  "cook": {
+   "roles": [
+    "support"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 115,
+    "atk": 11,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "ladle",
+    "blade"
+   ],
+   "skills": [
+    "hearty_snack",
+    "spice_bomb"
+   ],
+   "passive": "thrifty_kitchen",
+   "jobs": [
+    "galley",
+    "mess_hall"
+   ],
+   "branches": [
+    "provisioner",
+    "feastmaster"
+   ]
+  },
+  "navigator": {
+   "roles": [
+    "scout",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 98,
+    "atk": 12,
+    "def": 8,
+    "spd": 14
+   },
+   "weapons": [
+    "gun",
+    "blade"
+   ],
+   "skills": [
+    "mark_target",
+    "quick_read"
+   ],
+   "passive": "weather_eye",
+   "jobs": [
+    "chart_table",
+    "compass_room",
+    "lookout"
+   ],
+   "branches": [
+    "pathfinder",
+    "tide_reader"
+   ]
+  },
+  "tinkerer": {
+   "roles": [
+    "support",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 104,
+    "atk": 12,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "tool",
+    "gun"
+   ],
+   "skills": [
+    "deploy_barrier",
+    "spring_trap"
+   ],
+   "passive": "handy",
+   "jobs": [
+    "workshop",
+    "material_bench"
+   ],
+   "branches": [
+    "engineer",
+    "trapper"
+   ]
+  },
+  "beastkeeper": {
+   "roles": [
+    "support",
+    "striker"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 108,
+    "atk": 13,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "whip",
+    "spear"
+   ],
+   "skills": [
+    "sic_em",
+    "soothing_call"
+   ],
+   "passive": "beast_bond",
+   "jobs": [
+    "hatchery",
+    "pet_lab",
+    "creature_pens"
+   ],
+   "branches": [
+    "beastwarden",
+    "wildspeaker"
+   ]
+  },
+  "mystic": {
+   "roles": [
+    "controller"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 88,
+    "atk": 17,
+    "def": 7,
+    "spd": 10
+   },
+   "weapons": [
+    "staff"
+   ],
+   "skills": [
+    "frost_bolt",
+    "arc_burst"
+   ],
+   "passive": "attunement",
+   "jobs": [
+    "tide_archive",
+    "class_hall"
+   ],
+   "branches": [
+    "stormcaller",
+    "hexbreaker"
+   ]
+  },
+  "quartermaster": {
+   "roles": [
+    "support",
+    "vanguard"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 125,
+    "atk": 12,
+    "def": 12,
+    "spd": 9
+   },
+   "weapons": [
+    "banner",
+    "blade"
+   ],
+   "skills": [
+    "rally_banner",
+    "brace"
+   ],
+   "passive": "ledger_keeper",
+   "jobs": [
+    "tavern_corner",
+    "mess_hall",
+    "cargo_hold"
+   ],
+   "branches": [
+    "purser",
+    "standard_bearer"
+   ]
+  }
+ },
+ "BRANCHES": {
+  "guardian": {
+   "parent": "guard",
+   "skill": "guardian_wall",
+   "passive": "sentinel",
+   "mult": {
+    "hp": 1.18,
+    "atk": 1.05,
+    "def": 1.18,
+    "spd": 1
+   }
+  },
+  "bulwark": {
+   "parent": "guard",
+   "skill": "quake_slam",
+   "passive": "iron_hide",
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.12,
+    "def": 1.12,
+    "spd": 1.05
+   },
+   "roles": [
+    "vanguard",
+    "controller"
+   ]
+  },
+  "blade_dancer": {
+   "parent": "duelist",
+   "skill": "whirling_blades",
+   "passive": "flowing_step",
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.15,
+    "def": 1.05,
+    "spd": 1.12
+   }
+  },
+  "challenger": {
+   "parent": "duelist",
+   "skill": "call_out",
+   "passive": "giant_slayer",
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.18,
+    "def": 1.08,
+    "spd": 1
+   }
+  },
+  "harpooner": {
+   "parent": "spearfighter",
+   "skill": "harpoon_pull",
+   "passive": "tidebreaker",
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.12,
+    "def": 1.1,
+    "spd": 1.05
+   }
+  },
+  "dragoon": {
+   "parent": "spearfighter",
+   "skill": "sky_dive",
+   "passive": "momentum",
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.2,
+    "def": 1.05,
+    "spd": 1.08
+   },
+   "roles": [
+    "striker"
+   ]
+  },
+  "sharpshooter": {
+   "parent": "gunner",
+   "skill": "headshot",
+   "passive": "eagle_eye",
+   "mult": {
+    "hp": 1.05,
+    "atk": 1.2,
+    "def": 1.05,
+    "spd": 1.05
+   }
+  },
+  "skirmisher": {
+   "parent": "gunner",
+   "skill": "scatter_volley",
+   "passive": "quick_reload",
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.12,
+    "def": 1.08,
+    "spd": 1.12
+   },
+   "roles": [
+    "striker",
+    "controller"
+   ]
+  },
+  "breaker": {
+   "parent": "brawler",
+   "skill": "armor_crush",
+   "passive": "shatter",
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.1,
+    "spd": 1.05
+   }
+  },
+  "grappler": {
+   "parent": "brawler",
+   "skill": "suplex",
+   "passive": "iron_grip",
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.1,
+    "def": 1.12,
+    "spd": 1
+   }
+  },
+  "surgeon": {
+   "parent": "medic",
+   "skill": "emergency_surgery",
+   "passive": "precise_hands",
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.1,
+    "spd": 1.05
+   }
+  },
+  "lifekeeper": {
+   "parent": "medic",
+   "skill": "renewal",
+   "passive": "life_ward",
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.12,
+    "def": 1.12,
+    "spd": 1
+   }
+  },
+  "provisioner": {
+   "parent": "cook",
+   "skill": "supply_drop",
+   "passive": "ration_master",
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.08,
+    "def": 1.12,
+    "spd": 1.05
+   },
+   "roles": [
+    "support",
+    "vanguard"
+   ]
+  },
+  "feastmaster": {
+   "parent": "cook",
+   "skill": "grand_feast",
+   "passive": "comfort_food",
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.12,
+    "def": 1.08,
+    "spd": 1
+   }
+  },
+  "pathfinder": {
+   "parent": "navigator",
+   "skill": "shortcut_strike",
+   "passive": "trailblazer",
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.18,
+    "def": 1.05,
+    "spd": 1.1
+   },
+   "roles": [
+    "scout",
+    "striker"
+   ]
+  },
+  "tide_reader": {
+   "parent": "navigator",
+   "skill": "ebb_tide",
+   "passive": "foresight",
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.12,
+    "def": 1.1,
+    "spd": 1.08
+   }
+  },
+  "engineer": {
+   "parent": "tinkerer",
+   "skill": "turret",
+   "passive": "reinforced_plating",
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.12,
+    "spd": 1
+   }
+  },
+  "trapper": {
+   "parent": "tinkerer",
+   "skill": "snare_net",
+   "passive": "hidden_blades",
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.15,
+    "def": 1.08,
+    "spd": 1.1
+   },
+   "roles": [
+    "controller"
+   ]
+  },
+  "beastwarden": {
+   "parent": "beastkeeper",
+   "skill": "pack_guard",
+   "passive": "alpha_bond",
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.08,
+    "def": 1.15,
+    "spd": 1
+   },
+   "roles": [
+    "support",
+    "vanguard"
+   ]
+  },
+  "wildspeaker": {
+   "parent": "beastkeeper",
+   "skill": "call_of_wild",
+   "passive": "wild_heart",
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.18,
+    "def": 1.05,
+    "spd": 1.08
+   },
+   "roles": [
+    "striker",
+    "controller"
+   ]
+  },
+  "stormcaller": {
+   "parent": "mystic",
+   "skill": "chain_lightning",
+   "passive": "static_field",
+   "mult": {
+    "hp": 1.06,
+    "atk": 1.2,
+    "def": 1.05,
+    "spd": 1.06
+   },
+   "roles": [
+    "controller",
+    "striker"
+   ]
+  },
+  "hexbreaker": {
+   "parent": "mystic",
+   "skill": "dispel_hex",
+   "passive": "warding",
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.1,
+    "def": 1.15,
+    "spd": 1.04
+   },
+   "roles": [
+    "controller",
+    "support"
+   ]
+  },
+  "purser": {
+   "parent": "quartermaster",
+   "skill": "tribute",
+   "passive": "deep_pockets",
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.08,
+    "spd": 1.06
+   },
+   "roles": [
+    "support",
+    "striker"
+   ]
+  },
+  "standard_bearer": {
+   "parent": "quartermaster",
+   "skill": "hold_colors",
+   "passive": "inspiring_presence",
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.08,
+    "def": 1.15,
+    "spd": 1
+   }
+  }
+ },
+ "CLASSES": {
+  "guard": {
+   "id": "guard",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "vanguard"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 150,
+    "atk": 11,
+    "def": 15,
+    "spd": 8
+   },
+   "weapons": [
+    "shield",
+    "blade"
+   ],
+   "skills": [
+    "shield_bash",
+    "hold_the_line"
+   ],
+   "passive": "steadfast",
+   "jobs": [
+    "boarding_gate",
+    "guard_post",
+    "barricade_room"
+   ],
+   "branches": [
+    "guardian",
+    "bulwark"
+   ]
+  },
+  "duelist": {
+   "id": "duelist",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "striker"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 110,
+    "atk": 18,
+    "def": 8,
+    "spd": 13
+   },
+   "weapons": [
+    "blade"
+   ],
+   "skills": [
+    "lunge",
+    "riposte"
+   ],
+   "passive": "keen_edge",
+   "jobs": [
+    "practice_deck"
+   ],
+   "branches": [
+    "blade_dancer",
+    "challenger"
+   ]
+  },
+  "spearfighter": {
+   "id": "spearfighter",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "striker",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 120,
+    "atk": 15,
+    "def": 10,
+    "spd": 10
+   },
+   "weapons": [
+    "spear"
+   ],
+   "skills": [
+    "piercing_thrust",
+    "sweep_spear"
+   ],
+   "passive": "armor_breaker",
+   "jobs": [
+    "material_bench",
+    "guard_post"
+   ],
+   "branches": [
+    "harpooner",
+    "dragoon"
+   ]
+  },
+  "gunner": {
+   "id": "gunner",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "striker"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 92,
+    "atk": 16,
+    "def": 7,
+    "spd": 11
+   },
+   "weapons": [
+    "gun"
+   ],
+   "skills": [
+    "aimed_shot",
+    "smoke_shell"
+   ],
+   "passive": "steady_aim",
+   "jobs": [
+    "lookout"
+   ],
+   "branches": [
+    "sharpshooter",
+    "skirmisher"
+   ]
+  },
+  "brawler": {
+   "id": "brawler",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "controller",
+    "vanguard"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 135,
+    "atk": 14,
+    "def": 11,
+    "spd": 10
+   },
+   "weapons": [
+    "fist"
+   ],
+   "skills": [
+    "haymaker",
+    "brawl"
+   ],
+   "passive": "thick_skin",
+   "jobs": [
+    "material_bench",
+    "practice_deck"
+   ],
+   "branches": [
+    "breaker",
+    "grappler"
+   ]
+  },
+  "medic": {
+   "id": "medic",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "support"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 96,
+    "atk": 10,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "kit"
+   ],
+   "skills": [
+    "first_aid",
+    "cleanse"
+   ],
+   "passive": "bedside_manner",
+   "jobs": [
+    "infirmary",
+    "recovery_room"
+   ],
+   "branches": [
+    "surgeon",
+    "lifekeeper"
+   ]
+  },
+  "cook": {
+   "id": "cook",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "support"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 115,
+    "atk": 11,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "ladle",
+    "blade"
+   ],
+   "skills": [
+    "hearty_snack",
+    "spice_bomb"
+   ],
+   "passive": "thrifty_kitchen",
+   "jobs": [
+    "galley",
+    "mess_hall"
+   ],
+   "branches": [
+    "provisioner",
+    "feastmaster"
+   ]
+  },
+  "navigator": {
+   "id": "navigator",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "scout",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 98,
+    "atk": 12,
+    "def": 8,
+    "spd": 14
+   },
+   "weapons": [
+    "gun",
+    "blade"
+   ],
+   "skills": [
+    "mark_target",
+    "quick_read"
+   ],
+   "passive": "weather_eye",
+   "jobs": [
+    "chart_table",
+    "compass_room",
+    "lookout"
+   ],
+   "branches": [
+    "pathfinder",
+    "tide_reader"
+   ]
+  },
+  "tinkerer": {
+   "id": "tinkerer",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "support",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 104,
+    "atk": 12,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "tool",
+    "gun"
+   ],
+   "skills": [
+    "deploy_barrier",
+    "spring_trap"
+   ],
+   "passive": "handy",
+   "jobs": [
+    "workshop",
+    "material_bench"
+   ],
+   "branches": [
+    "engineer",
+    "trapper"
+   ]
+  },
+  "beastkeeper": {
+   "id": "beastkeeper",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "support",
+    "striker"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 108,
+    "atk": 13,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "whip",
+    "spear"
+   ],
+   "skills": [
+    "sic_em",
+    "soothing_call"
+   ],
+   "passive": "beast_bond",
+   "jobs": [
+    "hatchery",
+    "pet_lab",
+    "creature_pens"
+   ],
+   "branches": [
+    "beastwarden",
+    "wildspeaker"
+   ]
+  },
+  "mystic": {
+   "id": "mystic",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "controller"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 88,
+    "atk": 17,
+    "def": 7,
+    "spd": 10
+   },
+   "weapons": [
+    "staff"
+   ],
+   "skills": [
+    "frost_bolt",
+    "arc_burst"
+   ],
+   "passive": "attunement",
+   "jobs": [
+    "tide_archive",
+    "class_hall"
+   ],
+   "branches": [
+    "stormcaller",
+    "hexbreaker"
+   ]
+  },
+  "quartermaster": {
+   "id": "quartermaster",
+   "tier": "base",
+   "parent": null,
+   "mult": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "spd": 1
+   },
+   "roles": [
+    "support",
+    "vanguard"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 125,
+    "atk": 12,
+    "def": 12,
+    "spd": 9
+   },
+   "weapons": [
+    "banner",
+    "blade"
+   ],
+   "skills": [
+    "rally_banner",
+    "brace"
+   ],
+   "passive": "ledger_keeper",
+   "jobs": [
+    "tavern_corner",
+    "mess_hall",
+    "cargo_hold"
+   ],
+   "branches": [
+    "purser",
+    "standard_bearer"
+   ]
+  },
+  "guardian": {
+   "id": "guardian",
+   "tier": "branch",
+   "parent": "guard",
+   "roles": [
+    "vanguard"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 150,
+    "atk": 11,
+    "def": 15,
+    "spd": 8
+   },
+   "weapons": [
+    "shield",
+    "blade"
+   ],
+   "skills": [
+    "shield_bash",
+    "guardian_wall"
+   ],
+   "passive": "sentinel",
+   "jobs": [
+    "boarding_gate",
+    "guard_post",
+    "barricade_room"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.18,
+    "atk": 1.05,
+    "def": 1.18,
+    "spd": 1
+   }
+  },
+  "bulwark": {
+   "id": "bulwark",
+   "tier": "branch",
+   "parent": "guard",
+   "roles": [
+    "vanguard",
+    "controller"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 150,
+    "atk": 11,
+    "def": 15,
+    "spd": 8
+   },
+   "weapons": [
+    "shield",
+    "blade"
+   ],
+   "skills": [
+    "shield_bash",
+    "quake_slam"
+   ],
+   "passive": "iron_hide",
+   "jobs": [
+    "boarding_gate",
+    "guard_post",
+    "barricade_room"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.12,
+    "def": 1.12,
+    "spd": 1.05
+   }
+  },
+  "blade_dancer": {
+   "id": "blade_dancer",
+   "tier": "branch",
+   "parent": "duelist",
+   "roles": [
+    "striker"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 110,
+    "atk": 18,
+    "def": 8,
+    "spd": 13
+   },
+   "weapons": [
+    "blade"
+   ],
+   "skills": [
+    "lunge",
+    "whirling_blades"
+   ],
+   "passive": "flowing_step",
+   "jobs": [
+    "practice_deck"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.15,
+    "def": 1.05,
+    "spd": 1.12
+   }
+  },
+  "challenger": {
+   "id": "challenger",
+   "tier": "branch",
+   "parent": "duelist",
+   "roles": [
+    "striker"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 110,
+    "atk": 18,
+    "def": 8,
+    "spd": 13
+   },
+   "weapons": [
+    "blade"
+   ],
+   "skills": [
+    "lunge",
+    "call_out"
+   ],
+   "passive": "giant_slayer",
+   "jobs": [
+    "practice_deck"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.18,
+    "def": 1.08,
+    "spd": 1
+   }
+  },
+  "harpooner": {
+   "id": "harpooner",
+   "tier": "branch",
+   "parent": "spearfighter",
+   "roles": [
+    "striker",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 120,
+    "atk": 15,
+    "def": 10,
+    "spd": 10
+   },
+   "weapons": [
+    "spear"
+   ],
+   "skills": [
+    "piercing_thrust",
+    "harpoon_pull"
+   ],
+   "passive": "tidebreaker",
+   "jobs": [
+    "material_bench",
+    "guard_post"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.12,
+    "def": 1.1,
+    "spd": 1.05
+   }
+  },
+  "dragoon": {
+   "id": "dragoon",
+   "tier": "branch",
+   "parent": "spearfighter",
+   "roles": [
+    "striker"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 120,
+    "atk": 15,
+    "def": 10,
+    "spd": 10
+   },
+   "weapons": [
+    "spear"
+   ],
+   "skills": [
+    "piercing_thrust",
+    "sky_dive"
+   ],
+   "passive": "momentum",
+   "jobs": [
+    "material_bench",
+    "guard_post"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.2,
+    "def": 1.05,
+    "spd": 1.08
+   }
+  },
+  "sharpshooter": {
+   "id": "sharpshooter",
+   "tier": "branch",
+   "parent": "gunner",
+   "roles": [
+    "striker"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 92,
+    "atk": 16,
+    "def": 7,
+    "spd": 11
+   },
+   "weapons": [
+    "gun"
+   ],
+   "skills": [
+    "aimed_shot",
+    "headshot"
+   ],
+   "passive": "eagle_eye",
+   "jobs": [
+    "lookout"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.05,
+    "atk": 1.2,
+    "def": 1.05,
+    "spd": 1.05
+   }
+  },
+  "skirmisher": {
+   "id": "skirmisher",
+   "tier": "branch",
+   "parent": "gunner",
+   "roles": [
+    "striker",
+    "controller"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 92,
+    "atk": 16,
+    "def": 7,
+    "spd": 11
+   },
+   "weapons": [
+    "gun"
+   ],
+   "skills": [
+    "aimed_shot",
+    "scatter_volley"
+   ],
+   "passive": "quick_reload",
+   "jobs": [
+    "lookout"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.12,
+    "def": 1.08,
+    "spd": 1.12
+   }
+  },
+  "breaker": {
+   "id": "breaker",
+   "tier": "branch",
+   "parent": "brawler",
+   "roles": [
+    "controller",
+    "vanguard"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 135,
+    "atk": 14,
+    "def": 11,
+    "spd": 10
+   },
+   "weapons": [
+    "fist"
+   ],
+   "skills": [
+    "haymaker",
+    "armor_crush"
+   ],
+   "passive": "shatter",
+   "jobs": [
+    "material_bench",
+    "practice_deck"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.1,
+    "spd": 1.05
+   }
+  },
+  "grappler": {
+   "id": "grappler",
+   "tier": "branch",
+   "parent": "brawler",
+   "roles": [
+    "controller",
+    "vanguard"
+   ],
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 135,
+    "atk": 14,
+    "def": 11,
+    "spd": 10
+   },
+   "weapons": [
+    "fist"
+   ],
+   "skills": [
+    "haymaker",
+    "suplex"
+   ],
+   "passive": "iron_grip",
+   "jobs": [
+    "material_bench",
+    "practice_deck"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.1,
+    "def": 1.12,
+    "spd": 1
+   }
+  },
+  "surgeon": {
+   "id": "surgeon",
+   "tier": "branch",
+   "parent": "medic",
+   "roles": [
+    "support"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 96,
+    "atk": 10,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "kit"
+   ],
+   "skills": [
+    "first_aid",
+    "emergency_surgery"
+   ],
+   "passive": "precise_hands",
+   "jobs": [
+    "infirmary",
+    "recovery_room"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.1,
+    "spd": 1.05
+   }
+  },
+  "lifekeeper": {
+   "id": "lifekeeper",
+   "tier": "branch",
+   "parent": "medic",
+   "roles": [
+    "support"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 96,
+    "atk": 10,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "kit"
+   ],
+   "skills": [
+    "first_aid",
+    "renewal"
+   ],
+   "passive": "life_ward",
+   "jobs": [
+    "infirmary",
+    "recovery_room"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.12,
+    "def": 1.12,
+    "spd": 1
+   }
+  },
+  "provisioner": {
+   "id": "provisioner",
+   "tier": "branch",
+   "parent": "cook",
+   "roles": [
+    "support",
+    "vanguard"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 115,
+    "atk": 11,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "ladle",
+    "blade"
+   ],
+   "skills": [
+    "hearty_snack",
+    "supply_drop"
+   ],
+   "passive": "ration_master",
+   "jobs": [
+    "galley",
+    "mess_hall"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.08,
+    "def": 1.12,
+    "spd": 1.05
+   }
+  },
+  "feastmaster": {
+   "id": "feastmaster",
+   "tier": "branch",
+   "parent": "cook",
+   "roles": [
+    "support"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 115,
+    "atk": 11,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "ladle",
+    "blade"
+   ],
+   "skills": [
+    "hearty_snack",
+    "grand_feast"
+   ],
+   "passive": "comfort_food",
+   "jobs": [
+    "galley",
+    "mess_hall"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.12,
+    "def": 1.08,
+    "spd": 1
+   }
+  },
+  "pathfinder": {
+   "id": "pathfinder",
+   "tier": "branch",
+   "parent": "navigator",
+   "roles": [
+    "scout",
+    "striker"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 98,
+    "atk": 12,
+    "def": 8,
+    "spd": 14
+   },
+   "weapons": [
+    "gun",
+    "blade"
+   ],
+   "skills": [
+    "mark_target",
+    "shortcut_strike"
+   ],
+   "passive": "trailblazer",
+   "jobs": [
+    "chart_table",
+    "compass_room",
+    "lookout"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.18,
+    "def": 1.05,
+    "spd": 1.1
+   }
+  },
+  "tide_reader": {
+   "id": "tide_reader",
+   "tier": "branch",
+   "parent": "navigator",
+   "roles": [
+    "scout",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 98,
+    "atk": 12,
+    "def": 8,
+    "spd": 14
+   },
+   "weapons": [
+    "gun",
+    "blade"
+   ],
+   "skills": [
+    "mark_target",
+    "ebb_tide"
+   ],
+   "passive": "foresight",
+   "jobs": [
+    "chart_table",
+    "compass_room",
+    "lookout"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.12,
+    "def": 1.1,
+    "spd": 1.08
+   }
+  },
+  "engineer": {
+   "id": "engineer",
+   "tier": "branch",
+   "parent": "tinkerer",
+   "roles": [
+    "support",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 104,
+    "atk": 12,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "tool",
+    "gun"
+   ],
+   "skills": [
+    "deploy_barrier",
+    "turret"
+   ],
+   "passive": "reinforced_plating",
+   "jobs": [
+    "workshop",
+    "material_bench"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.12,
+    "spd": 1
+   }
+  },
+  "trapper": {
+   "id": "trapper",
+   "tier": "branch",
+   "parent": "tinkerer",
+   "roles": [
+    "controller"
+   ],
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 104,
+    "atk": 12,
+    "def": 10,
+    "spd": 9
+   },
+   "weapons": [
+    "tool",
+    "gun"
+   ],
+   "skills": [
+    "deploy_barrier",
+    "snare_net"
+   ],
+   "passive": "hidden_blades",
+   "jobs": [
+    "workshop",
+    "material_bench"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.15,
+    "def": 1.08,
+    "spd": 1.1
+   }
+  },
+  "beastwarden": {
+   "id": "beastwarden",
+   "tier": "branch",
+   "parent": "beastkeeper",
+   "roles": [
+    "support",
+    "vanguard"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 108,
+    "atk": 13,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "whip",
+    "spear"
+   ],
+   "skills": [
+    "sic_em",
+    "pack_guard"
+   ],
+   "passive": "alpha_bond",
+   "jobs": [
+    "hatchery",
+    "pet_lab",
+    "creature_pens"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.08,
+    "def": 1.15,
+    "spd": 1
+   }
+  },
+  "wildspeaker": {
+   "id": "wildspeaker",
+   "tier": "branch",
+   "parent": "beastkeeper",
+   "roles": [
+    "striker",
+    "controller"
+   ],
+   "lane": "center",
+   "range": "reach",
+   "base": {
+    "hp": 108,
+    "atk": 13,
+    "def": 9,
+    "spd": 11
+   },
+   "weapons": [
+    "whip",
+    "spear"
+   ],
+   "skills": [
+    "sic_em",
+    "call_of_wild"
+   ],
+   "passive": "wild_heart",
+   "jobs": [
+    "hatchery",
+    "pet_lab",
+    "creature_pens"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.08,
+    "atk": 1.18,
+    "def": 1.05,
+    "spd": 1.08
+   }
+  },
+  "stormcaller": {
+   "id": "stormcaller",
+   "tier": "branch",
+   "parent": "mystic",
+   "roles": [
+    "controller",
+    "striker"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 88,
+    "atk": 17,
+    "def": 7,
+    "spd": 10
+   },
+   "weapons": [
+    "staff"
+   ],
+   "skills": [
+    "frost_bolt",
+    "chain_lightning"
+   ],
+   "passive": "static_field",
+   "jobs": [
+    "tide_archive",
+    "class_hall"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.06,
+    "atk": 1.2,
+    "def": 1.05,
+    "spd": 1.06
+   }
+  },
+  "hexbreaker": {
+   "id": "hexbreaker",
+   "tier": "branch",
+   "parent": "mystic",
+   "roles": [
+    "controller",
+    "support"
+   ],
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 88,
+    "atk": 17,
+    "def": 7,
+    "spd": 10
+   },
+   "weapons": [
+    "staff"
+   ],
+   "skills": [
+    "frost_bolt",
+    "dispel_hex"
+   ],
+   "passive": "warding",
+   "jobs": [
+    "tide_archive",
+    "class_hall"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.12,
+    "atk": 1.1,
+    "def": 1.15,
+    "spd": 1.04
+   }
+  },
+  "purser": {
+   "id": "purser",
+   "tier": "branch",
+   "parent": "quartermaster",
+   "roles": [
+    "support",
+    "striker"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 125,
+    "atk": 12,
+    "def": 12,
+    "spd": 9
+   },
+   "weapons": [
+    "banner",
+    "blade"
+   ],
+   "skills": [
+    "rally_banner",
+    "tribute"
+   ],
+   "passive": "deep_pockets",
+   "jobs": [
+    "tavern_corner",
+    "mess_hall",
+    "cargo_hold"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.1,
+    "atk": 1.15,
+    "def": 1.08,
+    "spd": 1.06
+   }
+  },
+  "standard_bearer": {
+   "id": "standard_bearer",
+   "tier": "branch",
+   "parent": "quartermaster",
+   "roles": [
+    "support",
+    "vanguard"
+   ],
+   "lane": "center",
+   "range": "melee",
+   "base": {
+    "hp": 125,
+    "atk": 12,
+    "def": 12,
+    "spd": 9
+   },
+   "weapons": [
+    "banner",
+    "blade"
+   ],
+   "skills": [
+    "rally_banner",
+    "hold_colors"
+   ],
+   "passive": "inspiring_presence",
+   "jobs": [
+    "tavern_corner",
+    "mess_hall",
+    "cargo_hold"
+   ],
+   "branches": [],
+   "mult": {
+    "hp": 1.15,
+    "atk": 1.08,
+    "def": 1.15,
+    "spd": 1
+   }
+  }
+ },
+ "BASE_CLASS_IDS": [
+  "guard",
+  "duelist",
+  "spearfighter",
+  "gunner",
+  "brawler",
+  "medic",
+  "cook",
+  "navigator",
+  "tinkerer",
+  "beastkeeper",
+  "mystic",
+  "quartermaster"
+ ],
+ "FACILITIES": {
+  "captains_cabin": {
+   "category": "command",
+   "w": 2,
+   "h": 2,
+   "required": true,
+   "minTier": 1,
+   "jobs": 0,
+   "cost": {
+    "gold": 0,
+    "materials": 0
+   },
+   "zone": "interior"
+  },
+  "chart_table": {
+   "category": "command",
+   "w": 1,
+   "h": 1,
+   "minTier": 1,
+   "jobs": 1,
+   "cost": {
+    "gold": 80,
+    "materials": 10
+   },
+   "zone": "interior"
+  },
+  "muster_deck": {
+   "category": "command",
+   "w": 2,
+   "h": 2,
+   "minTier": 1,
+   "jobs": 0,
+   "cost": {
+    "gold": 60,
+    "materials": 10
+   },
+   "zone": "interior"
+  },
+  "crew_quarters": {
+   "category": "living",
+   "w": 2,
+   "h": 2,
+   "required": true,
+   "minTier": 1,
+   "jobs": 0,
+   "cost": {
+    "gold": 80,
+    "materials": 12
+   },
+   "zone": "interior"
+  },
+  "mess_hall": {
+   "category": "living",
+   "w": 2,
+   "h": 2,
+   "minTier": 2,
+   "jobs": 1,
+   "cost": {
+    "gold": 140,
+    "materials": 20
+   },
+   "zone": "interior"
+  },
+  "practice_deck": {
+   "category": "training",
+   "w": 3,
+   "h": 2,
+   "minTier": 2,
+   "jobs": 2,
+   "cost": {
+    "gold": 160,
+    "materials": 25
+   },
+   "zone": "interior"
+  },
+  "class_hall": {
+   "category": "training",
+   "w": 2,
+   "h": 2,
+   "minTier": 2,
+   "jobs": 1,
+   "cost": {
+    "gold": 220,
+    "materials": 30,
+    "specialty": [
+     "crown_silk",
+     2
+    ]
+   },
+   "zone": "interior"
+  },
+  "infirmary": {
+   "category": "medical",
+   "w": 2,
+   "h": 2,
+   "minTier": 1,
+   "jobs": 1,
+   "cost": {
+    "gold": 150,
+    "materials": 20
+   },
+   "zone": "interior"
+  },
+  "recovery_room": {
+   "category": "medical",
+   "w": 2,
+   "h": 1,
+   "minTier": 3,
+   "jobs": 1,
+   "cost": {
+    "gold": 200,
+    "materials": 25,
+    "specialty": [
+     "verdant_resin",
+     2
+    ]
+   },
+   "zone": "interior"
+  },
+  "galley": {
+   "category": "production",
+   "w": 2,
+   "h": 1,
+   "minTier": 1,
+   "jobs": 1,
+   "cost": {
+    "gold": 100,
+    "materials": 15
+   },
+   "zone": "interior"
+  },
+  "workshop": {
+   "category": "production",
+   "w": 2,
+   "h": 2,
+   "minTier": 2,
+   "jobs": 1,
+   "cost": {
+    "gold": 180,
+    "materials": 30,
+    "specialty": [
+     "ember_ore",
+     2
+    ]
+   },
+   "zone": "interior"
+  },
+  "material_bench": {
+   "category": "production",
+   "w": 2,
+   "h": 1,
+   "minTier": 2,
+   "jobs": 1,
+   "cost": {
+    "gold": 120,
+    "materials": 20
+   },
+   "zone": "interior"
+  },
+  "lookout": {
+   "category": "navigation",
+   "w": 1,
+   "h": 1,
+   "minTier": 1,
+   "jobs": 1,
+   "cost": {
+    "gold": 90,
+    "materials": 12
+   },
+   "zone": "deck"
+  },
+  "compass_room": {
+   "category": "navigation",
+   "w": 2,
+   "h": 1,
+   "minTier": 3,
+   "jobs": 1,
+   "cost": {
+    "gold": 220,
+    "materials": 30,
+    "specialty": [
+     "prism_quartz",
+     2
+    ]
+   },
+   "zone": "interior"
+  },
+  "tide_archive": {
+   "category": "navigation",
+   "w": 2,
+   "h": 2,
+   "minTier": 3,
+   "jobs": 1,
+   "cost": {
+    "gold": 260,
+    "materials": 35,
+    "specialty": [
+     "moon_ink",
+     2
+    ]
+   },
+   "zone": "interior"
+  },
+  "pantry": {
+   "category": "storage",
+   "w": 2,
+   "h": 1,
+   "required": true,
+   "minTier": 1,
+   "jobs": 0,
+   "cost": {
+    "gold": 50,
+    "materials": 8
+   },
+   "zone": "interior"
+  },
+  "cargo_hold": {
+   "category": "storage",
+   "w": 2,
+   "h": 2,
+   "minTier": 2,
+   "jobs": 0,
+   "cost": {
+    "gold": 120,
+    "materials": 20
+   },
+   "zone": "interior"
+  },
+  "secure_locker": {
+   "category": "storage",
+   "w": 1,
+   "h": 1,
+   "minTier": 2,
+   "jobs": 0,
+   "cost": {
+    "gold": 140,
+    "materials": 20
+   },
+   "zone": "interior"
+  },
+  "hatchery": {
+   "category": "pet",
+   "w": 2,
+   "h": 1,
+   "minTier": 1,
+   "jobs": 1,
+   "cost": {
+    "gold": 120,
+    "materials": 15
+   },
+   "zone": "interior"
+  },
+  "pet_lab": {
+   "category": "pet",
+   "w": 2,
+   "h": 2,
+   "minTier": 2,
+   "jobs": 1,
+   "cost": {
+    "gold": 200,
+    "materials": 30,
+    "specialty": [
+     "saltleaf_grain",
+     3
+    ]
+   },
+   "zone": "interior"
+  },
+  "creature_pens": {
+   "category": "pet",
+   "w": 2,
+   "h": 1,
+   "minTier": 3,
+   "jobs": 0,
+   "cost": {
+    "gold": 140,
+    "materials": 20
+   },
+   "zone": "interior"
+  },
+  "tavern_corner": {
+   "category": "social",
+   "w": 2,
+   "h": 1,
+   "minTier": 2,
+   "jobs": 1,
+   "cost": {
+    "gold": 130,
+    "materials": 15
+   },
+   "zone": "interior"
+  },
+  "story_deck": {
+   "category": "social",
+   "w": 2,
+   "h": 2,
+   "minTier": 3,
+   "jobs": 0,
+   "cost": {
+    "gold": 150,
+    "materials": 20
+   },
+   "zone": "interior"
+  },
+  "music_room": {
+   "category": "social",
+   "w": 2,
+   "h": 1,
+   "minTier": 3,
+   "jobs": 0,
+   "cost": {
+    "gold": 160,
+    "materials": 20,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   },
+   "zone": "interior"
+  },
+  "boarding_gate": {
+   "category": "defense",
+   "w": 1,
+   "h": 1,
+   "minTier": 1,
+   "jobs": 1,
+   "cost": {
+    "gold": 100,
+    "materials": 15
+   },
+   "zone": "deck"
+  },
+  "barricade_room": {
+   "category": "defense",
+   "w": 2,
+   "h": 1,
+   "minTier": 2,
+   "jobs": 0,
+   "cost": {
+    "gold": 150,
+    "materials": 25
+   },
+   "zone": "interior"
+  },
+  "guard_post": {
+   "category": "defense",
+   "w": 1,
+   "h": 1,
+   "minTier": 3,
+   "jobs": 1,
+   "cost": {
+    "gold": 120,
+    "materials": 20,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   },
+   "zone": "deck"
+  }
+ },
+ "STRUCTURES": {
+  "stair": {
+   "cost": {
+    "gold": 30,
+    "materials": 5
+   }
+  },
+  "door": {
+   "cost": {
+    "gold": 20,
+    "materials": 3
+   }
+  }
+ },
+ "HULLS": [
+  {
+   "id": "starter",
+   "tier": 1,
+   "beam": 6,
+   "cost": null,
+   "unlockRegion": 1,
+   "decks": [
+    {
+     "id": "main",
+     "kind": "open",
+     "w": 12,
+     "h": 6,
+     "x0": 0,
+     "elev": 0,
+     "fixed": [
+      [
+       6,
+       3,
+       "mast"
+      ],
+      [
+       0,
+       3,
+       "helm"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": [
+      6,
+      0
+     ]
+    },
+    {
+     "id": "lower",
+     "kind": "interior",
+     "w": 12,
+     "h": 6,
+     "x0": 0,
+     "elev": -1,
+     "fixed": [
+      [
+       6,
+       3,
+       "trunk"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "hold",
+     "kind": "interior",
+     "w": 10,
+     "h": 6,
+     "x0": 1,
+     "elev": -2,
+     "fixed": [
+      [
+       5,
+       3,
+       "trunk"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    }
+   ],
+   "ladders": [
+    [
+     "lower",
+     3,
+     2
+    ],
+    [
+     "hold",
+     8,
+     2
+    ]
+   ]
+  },
+  {
+   "id": "voyager",
+   "tier": 2,
+   "beam": 6,
+   "cost": {
+    "gold": 500,
+    "materials": 50,
+    "specialty": [
+     "ember_ore",
+     3
+    ]
+   },
+   "unlockRegion": 2,
+   "decks": [
+    {
+     "id": "main",
+     "kind": "open",
+     "w": 13,
+     "h": 6,
+     "x0": 5,
+     "elev": 0,
+     "fixed": [
+      [
+       6,
+       3,
+       "mast"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": [
+      6,
+      0
+     ]
+    },
+    {
+     "id": "quarter",
+     "kind": "open",
+     "w": 5,
+     "h": 6,
+     "x0": 0,
+     "elev": 1,
+     "fixed": [
+      [
+       1,
+       3,
+       "helm"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "lower",
+     "kind": "interior",
+     "w": 18,
+     "h": 6,
+     "x0": 0,
+     "elev": -1,
+     "fixed": [
+      [
+       11,
+       3,
+       "trunk"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "hold",
+     "kind": "interior",
+     "w": 16,
+     "h": 6,
+     "x0": 1,
+     "elev": -2,
+     "fixed": [
+      [
+       10,
+       3,
+       "trunk"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    }
+   ],
+   "ladders": [
+    [
+     "lower",
+     8,
+     2
+    ],
+    [
+     "hold",
+     14,
+     2
+    ]
+   ]
+  },
+  {
+   "id": "adventurer",
+   "tier": 3,
+   "beam": 7,
+   "cost": {
+    "gold": 1500,
+    "materials": 120,
+    "specialty": [
+     "prism_quartz",
+     4
+    ]
+   },
+   "unlockRegion": 4,
+   "decks": [
+    {
+     "id": "main",
+     "kind": "open",
+     "w": 13,
+     "h": 7,
+     "x0": 6,
+     "elev": 0,
+     "fixed": [
+      [
+       6,
+       3,
+       "mast"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": [
+      6,
+      0
+     ]
+    },
+    {
+     "id": "quarter",
+     "kind": "open",
+     "w": 6,
+     "h": 7,
+     "x0": 0,
+     "elev": 1,
+     "fixed": [
+      [
+       1,
+       3,
+       "helm"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "fore",
+     "kind": "open",
+     "w": 5,
+     "h": 7,
+     "x0": 19,
+     "elev": 1,
+     "fixed": [
+      [
+       2,
+       3,
+       "foremast"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "lower",
+     "kind": "interior",
+     "w": 24,
+     "h": 7,
+     "x0": 0,
+     "elev": -1,
+     "fixed": [
+      [
+       12,
+       3,
+       "trunk"
+      ],
+      [
+       21,
+       3,
+       "trunk"
+      ]
+     ],
+     "bulkhead": 7,
+     "entry": null
+    },
+    {
+     "id": "orlop",
+     "kind": "interior",
+     "w": 22,
+     "h": 7,
+     "x0": 1,
+     "elev": -2,
+     "fixed": [
+      [
+       11,
+       3,
+       "trunk"
+      ],
+      [
+       20,
+       3,
+       "trunk"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "hold",
+     "kind": "interior",
+     "w": 18,
+     "h": 7,
+     "x0": 3,
+     "elev": -3,
+     "fixed": [
+      [
+       9,
+       3,
+       "trunk"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    }
+   ],
+   "ladders": [
+    [
+     "lower",
+     9,
+     2
+    ],
+    [
+     "orlop",
+     15,
+     2
+    ],
+    [
+     "hold",
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "legend",
+   "tier": 4,
+   "beam": 8,
+   "cost": {
+    "gold": 3200,
+    "materials": 220,
+    "specialty": [
+     "leviathan_scale",
+     5
+    ]
+   },
+   "unlockRegion": 9,
+   "blueprint": "legend_keel",
+   "decks": [
+    {
+     "id": "main",
+     "kind": "open",
+     "w": 15,
+     "h": 8,
+     "x0": 12,
+     "elev": 0,
+     "fixed": [
+      [
+       7,
+       4,
+       "mast"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": [
+      7,
+      0
+     ]
+    },
+    {
+     "id": "quarter",
+     "kind": "open",
+     "w": 7,
+     "h": 8,
+     "x0": 5,
+     "elev": 1,
+     "fixed": [
+      [
+       1,
+       4,
+       "helm"
+      ],
+      [
+       4,
+       4,
+       "mizzen"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "fore",
+     "kind": "open",
+     "w": 6,
+     "h": 8,
+     "x0": 27,
+     "elev": 1,
+     "fixed": [
+      [
+       2,
+       4,
+       "foremast"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "poop",
+     "kind": "open",
+     "w": 5,
+     "h": 8,
+     "x0": 0,
+     "elev": 2,
+     "fixed": [],
+     "bulkhead": null,
+     "entry": null
+    },
+    {
+     "id": "lower",
+     "kind": "interior",
+     "w": 33,
+     "h": 8,
+     "x0": 0,
+     "elev": -1,
+     "fixed": [
+      [
+       19,
+       4,
+       "trunk"
+      ],
+      [
+       9,
+       4,
+       "trunk"
+      ],
+      [
+       29,
+       4,
+       "trunk"
+      ]
+     ],
+     "bulkhead": 14,
+     "entry": null
+    },
+    {
+     "id": "orlop",
+     "kind": "interior",
+     "w": 31,
+     "h": 8,
+     "x0": 1,
+     "elev": -2,
+     "fixed": [
+      [
+       18,
+       4,
+       "trunk"
+      ],
+      [
+       8,
+       4,
+       "trunk"
+      ],
+      [
+       28,
+       4,
+       "trunk"
+      ]
+     ],
+     "bulkhead": 22,
+     "entry": null
+    },
+    {
+     "id": "hold",
+     "kind": "interior",
+     "w": 27,
+     "h": 8,
+     "x0": 3,
+     "elev": -3,
+     "fixed": [
+      [
+       16,
+       4,
+       "trunk"
+      ],
+      [
+       6,
+       4,
+       "trunk"
+      ],
+      [
+       26,
+       4,
+       "trunk"
+      ]
+     ],
+     "bulkhead": null,
+     "entry": null
+    }
+   ],
+   "ladders": [
+    [
+     "lower",
+     15,
+     3
+    ],
+    [
+     "orlop",
+     20,
+     3
+    ],
+    [
+     "hold",
+     10,
+     5
+    ]
+   ]
+  }
+ ],
+ "WEAPON_TYPES": {
+  "blade": {
+   "atk": 1,
+   "spd": 1,
+   "props": []
+  },
+  "shield": {
+   "atk": 0.6,
+   "def": 0.6,
+   "props": [
+    "guard"
+   ]
+  },
+  "spear": {
+   "atk": 0.9,
+   "props": [
+    "reach"
+   ]
+  },
+  "gun": {
+   "atk": 1,
+   "props": [
+    "ranged"
+   ]
+  },
+  "fist": {
+   "atk": 0.75,
+   "props": [
+    "double"
+   ]
+  },
+  "kit": {
+   "atk": 0.55,
+   "props": [
+    "mend"
+   ]
+  },
+  "ladle": {
+   "atk": 0.7,
+   "props": [
+    "nourish"
+   ]
+  },
+  "staff": {
+   "atk": 0.95,
+   "props": [
+    "splash"
+   ]
+  },
+  "tool": {
+   "atk": 0.8,
+   "props": [
+    "sunder"
+   ]
+  },
+  "whip": {
+   "atk": 0.85,
+   "props": [
+    "reach",
+    "pet"
+   ]
+  },
+  "banner": {
+   "atk": 0.7,
+   "props": [
+    "aura"
+   ]
+  }
+ },
+ "REGION_ORDER": [
+  "dawnwater",
+  "emberreach",
+  "verdant_maw",
+  "glass_current",
+  "crown_shoals",
+  "stormbelt",
+  "moonwake",
+  "ashen_trench",
+  "leviathan_ring",
+  "grand_horizon"
+ ],
+ "REGION_SPECIALTY": {
+  "dawnwater": "saltleaf_grain",
+  "emberreach": "ember_ore",
+  "verdant_maw": "verdant_resin",
+  "glass_current": "prism_quartz",
+  "crown_shoals": "crown_silk",
+  "stormbelt": "stormwood",
+  "moonwake": "moon_ink",
+  "ashen_trench": "abyss_alloy",
+  "leviathan_ring": "leviathan_scale",
+  "grand_horizon": "horizon_glass"
+ },
+ "REGION_HAZARD": {
+  "dawnwater": null,
+  "emberreach": "heat",
+  "verdant_maw": "poison",
+  "glass_current": "glare",
+  "crown_shoals": null,
+  "stormbelt": "storm",
+  "moonwake": "dream",
+  "ashen_trench": "pressure",
+  "leviathan_ring": "tide",
+  "grand_horizon": null
+ },
+ "HAZARDS": {
+  "heat": {
+   "every": 4,
+   "dmgPct": 0.03
+  },
+  "poison": {
+   "every": 4,
+   "dmgPct": 0.025
+  },
+  "glare": {
+   "dealtMult": 0.88
+  },
+  "storm": {
+   "every": 5,
+   "dmgPct": 0.035,
+   "slow": 1
+  },
+  "dream": {
+   "every": 6,
+   "stunRandom": 1
+  },
+  "pressure": {
+   "takenMult": 1.12
+  },
+  "tide": {
+   "spdMult": 0.85
+  }
+ },
+ "SPECIALTIES": {
+  "saltleaf_grain": {
+   "color": "white",
+   "price": 20
+  },
+  "ember_ore": {
+   "color": "red",
+   "price": 34
+  },
+  "verdant_resin": {
+   "color": "green",
+   "price": 48
+  },
+  "prism_quartz": {
+   "color": "blue",
+   "price": 62
+  },
+  "crown_silk": {
+   "color": "yellow",
+   "price": 76
+  },
+  "stormwood": {
+   "color": "blue",
+   "price": 90
+  },
+  "moon_ink": {
+   "color": "purple",
+   "price": 104
+  },
+  "abyss_alloy": {
+   "color": "purple",
+   "price": 118
+  },
+  "leviathan_scale": {
+   "color": "green",
+   "price": 132
+  },
+  "horizon_glass": {
+   "color": "yellow",
+   "price": 150
+  }
+ },
+ "INGREDIENTS": {
+  "fire_pepper": {
+   "color": "red",
+   "price": 12
+  },
+  "sea_pearl": {
+   "color": "blue",
+   "price": 12
+  },
+  "kelp_sprig": {
+   "color": "green",
+   "price": 12
+  },
+  "sun_honey": {
+   "color": "yellow",
+   "price": 12
+  },
+  "dusk_ink": {
+   "color": "purple",
+   "price": 12
+  },
+  "salt_crystal": {
+   "color": "white",
+   "price": 12
+  }
+ },
+ "INGREDIENT_BY_COLOR": {
+  "red": "fire_pepper",
+  "blue": "sea_pearl",
+  "green": "kelp_sprig",
+  "yellow": "sun_honey",
+  "purple": "dusk_ink",
+  "white": "salt_crystal"
+ },
+ "REGIONAL_ACCESSORIES": [
+  {
+   "id": "lucky_shell",
+   "mods": {
+    "goldPct": 0.12
+   }
+  },
+  {
+   "id": "ember_charm",
+   "mods": {
+    "firstAid": 0.3
+   }
+  },
+  {
+   "id": "vine_band",
+   "mods": {
+    "quickStart": 50
+   }
+  },
+  {
+   "id": "prism_lens",
+   "mods": {
+    "focusDmg": 0.2
+   }
+  },
+  {
+   "id": "crown_seal",
+   "mods": {
+    "goldPct": 0.15,
+    "lootPct": 0.1
+   }
+  },
+  {
+   "id": "storm_anchor",
+   "mods": {
+    "stunImmune": 1,
+    "defPct": 0.05
+   }
+  },
+  {
+   "id": "moon_lantern",
+   "mods": {
+    "dodge": 0.1
+   }
+  },
+  {
+   "id": "abyss_ring",
+   "mods": {
+    "lifesteal": 0.1
+   }
+  },
+  {
+   "id": "scale_talisman",
+   "mods": {
+    "thorns": 0.15,
+    "hpPct": 0.06
+   }
+  },
+  {
+   "id": "horizon_compass",
+   "mods": {
+    "spd": 4,
+    "crit": 0.08
+   }
+  }
+ ],
+ "AFFIXES": {
+  "sturdy": {
+   "hpPct": 0.06
+  },
+  "keen": {
+   "crit": 0.05
+  },
+  "swift": {
+   "spd": 2
+  },
+  "warded": {
+   "defPct": 0.06
+  },
+  "mighty": {
+   "atkPct": 0.05
+  }
+ },
+ "ITEMS": {
+  "w_blade_1": {
+   "id": "w_blade_1",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 3,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_shield_1": {
+   "id": "w_shield_1",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 2,
+    "def": 1,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_spear_1": {
+   "id": "w_spear_1",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 3,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_gun_1": {
+   "id": "w_gun_1",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 3,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_fist_1": {
+   "id": "w_fist_1",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 2,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_kit_1": {
+   "id": "w_kit_1",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 2,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_ladle_1": {
+   "id": "w_ladle_1",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 2,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_staff_1": {
+   "id": "w_staff_1",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 3,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_tool_1": {
+   "id": "w_tool_1",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 2,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_whip_1": {
+   "id": "w_whip_1",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 3,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "w_banner_1": {
+   "id": "w_banner_1",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 2,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 45,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "o_coat_1": {
+   "id": "o_coat_1",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 2,
+    "hp": 8,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [],
+   "price": 40,
+   "recipe": {
+    "materials": 7,
+    "specialty": [
+     "saltleaf_grain",
+     1
+    ]
+   }
+  },
+  "o_armor_1": {
+   "id": "o_armor_1",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 3,
+    "hp": 14,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [],
+   "price": 55,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "saltleaf_grain",
+     2
+    ]
+   }
+  },
+  "a_lucky_shell": {
+   "id": "a_lucky_shell",
+   "slot": "accessory",
+   "tier": 1,
+   "regionId": "dawnwater",
+   "nameKey": "item.a_lucky_shell.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 5,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "goldPct": 0.12
+   },
+   "price": 60,
+   "recipe": {
+    "materials": 8,
+    "specialty": [
+     "saltleaf_grain",
+     2
+    ]
+   }
+  },
+  "w_blade_2": {
+   "id": "w_blade_2",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 7,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_shield_2": {
+   "id": "w_shield_2",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 4,
+    "def": 3,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_spear_2": {
+   "id": "w_spear_2",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 6,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_gun_2": {
+   "id": "w_gun_2",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 7,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_fist_2": {
+   "id": "w_fist_2",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 5,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_kit_2": {
+   "id": "w_kit_2",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 4,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_ladle_2": {
+   "id": "w_ladle_2",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 5,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_staff_2": {
+   "id": "w_staff_2",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 6,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_tool_2": {
+   "id": "w_tool_2",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 5,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_whip_2": {
+   "id": "w_whip_2",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 6,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "w_banner_2": {
+   "id": "w_banner_2",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 5,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 87,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "o_coat_2": {
+   "id": "o_coat_2",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 4,
+    "hp": 23,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [
+    "heat"
+   ],
+   "price": 78,
+   "recipe": {
+    "materials": 10,
+    "specialty": [
+     "ember_ore",
+     1
+    ]
+   }
+  },
+  "o_armor_2": {
+   "id": "o_armor_2",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 2,
+   "regionId": "emberreach",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 6,
+    "hp": 40,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "heat"
+   ],
+   "price": 105,
+   "recipe": {
+    "materials": 14,
+    "specialty": [
+     "ember_ore",
+     2
+    ]
+   }
+  },
+  "a_ember_charm": {
+   "id": "a_ember_charm",
+   "slot": "accessory",
+   "tier": 2,
+   "regionId": "emberreach",
+   "nameKey": "item.a_ember_charm.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 10,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "firstAid": 0.3
+   },
+   "price": 115,
+   "recipe": {
+    "materials": 11,
+    "specialty": [
+     "ember_ore",
+     2
+    ]
+   }
+  },
+  "w_blade_3": {
+   "id": "w_blade_3",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 10,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_shield_3": {
+   "id": "w_shield_3",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 6,
+    "def": 4,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_spear_3": {
+   "id": "w_spear_3",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 9,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_gun_3": {
+   "id": "w_gun_3",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 10,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_fist_3": {
+   "id": "w_fist_3",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 8,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_kit_3": {
+   "id": "w_kit_3",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 6,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_ladle_3": {
+   "id": "w_ladle_3",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 7,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_staff_3": {
+   "id": "w_staff_3",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 10,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_tool_3": {
+   "id": "w_tool_3",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 8,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_whip_3": {
+   "id": "w_whip_3",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 9,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "w_banner_3": {
+   "id": "w_banner_3",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 7,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 164,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "o_coat_3": {
+   "id": "o_coat_3",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 7,
+    "hp": 38,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [
+    "poison"
+   ],
+   "price": 147,
+   "recipe": {
+    "materials": 13,
+    "specialty": [
+     "verdant_resin",
+     1
+    ]
+   }
+  },
+  "o_armor_3": {
+   "id": "o_armor_3",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 10,
+    "hp": 66,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "poison"
+   ],
+   "price": 196,
+   "recipe": {
+    "materials": 18,
+    "specialty": [
+     "verdant_resin",
+     2
+    ]
+   }
+  },
+  "a_vine_band": {
+   "id": "a_vine_band",
+   "slot": "accessory",
+   "tier": 3,
+   "regionId": "verdant_maw",
+   "nameKey": "item.a_vine_band.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 15,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "quickStart": 50
+   },
+   "price": 216,
+   "recipe": {
+    "materials": 14,
+    "specialty": [
+     "verdant_resin",
+     2
+    ]
+   }
+  },
+  "w_blade_4": {
+   "id": "w_blade_4",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 14,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_shield_4": {
+   "id": "w_shield_4",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 8,
+    "def": 5,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_spear_4": {
+   "id": "w_spear_4",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 13,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_gun_4": {
+   "id": "w_gun_4",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 14,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_fist_4": {
+   "id": "w_fist_4",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 11,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_kit_4": {
+   "id": "w_kit_4",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 8,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_ladle_4": {
+   "id": "w_ladle_4",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 10,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_staff_4": {
+   "id": "w_staff_4",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 13,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_tool_4": {
+   "id": "w_tool_4",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 11,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_whip_4": {
+   "id": "w_whip_4",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 12,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "w_banner_4": {
+   "id": "w_banner_4",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 10,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 263,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "o_coat_4": {
+   "id": "o_coat_4",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 9,
+    "hp": 53,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [
+    "glare"
+   ],
+   "price": 237,
+   "recipe": {
+    "materials": 16,
+    "specialty": [
+     "prism_quartz",
+     1
+    ]
+   }
+  },
+  "o_armor_4": {
+   "id": "o_armor_4",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 4,
+   "regionId": "glass_current",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 13,
+    "hp": 92,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "glare"
+   ],
+   "price": 315,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "prism_quartz",
+     2
+    ]
+   }
+  },
+  "a_prism_lens": {
+   "id": "a_prism_lens",
+   "slot": "accessory",
+   "tier": 4,
+   "regionId": "glass_current",
+   "nameKey": "item.a_prism_lens.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 20,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "focusDmg": 0.2
+   },
+   "price": 346,
+   "recipe": {
+    "materials": 17,
+    "specialty": [
+     "prism_quartz",
+     2
+    ]
+   }
+  },
+  "w_blade_5": {
+   "id": "w_blade_5",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 18,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_shield_5": {
+   "id": "w_shield_5",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 11,
+    "def": 6,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_spear_5": {
+   "id": "w_spear_5",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 16,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_gun_5": {
+   "id": "w_gun_5",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 18,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_fist_5": {
+   "id": "w_fist_5",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 13,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_kit_5": {
+   "id": "w_kit_5",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 10,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_ladle_5": {
+   "id": "w_ladle_5",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 12,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_staff_5": {
+   "id": "w_staff_5",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 17,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_tool_5": {
+   "id": "w_tool_5",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 14,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_whip_5": {
+   "id": "w_whip_5",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 15,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "w_banner_5": {
+   "id": "w_banner_5",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 12,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 381,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "o_coat_5": {
+   "id": "o_coat_5",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 11,
+    "hp": 68,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [],
+   "price": 344,
+   "recipe": {
+    "materials": 19,
+    "specialty": [
+     "crown_silk",
+     1
+    ]
+   }
+  },
+  "o_armor_5": {
+   "id": "o_armor_5",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 16,
+    "hp": 118,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [],
+   "price": 455,
+   "recipe": {
+    "materials": 26,
+    "specialty": [
+     "crown_silk",
+     2
+    ]
+   }
+  },
+  "a_crown_seal": {
+   "id": "a_crown_seal",
+   "slot": "accessory",
+   "tier": 5,
+   "regionId": "crown_shoals",
+   "nameKey": "item.a_crown_seal.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 25,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "goldPct": 0.15,
+    "lootPct": 0.1
+   },
+   "price": 500,
+   "recipe": {
+    "materials": 20,
+    "specialty": [
+     "crown_silk",
+     2
+    ]
+   }
+  },
+  "w_blade_6": {
+   "id": "w_blade_6",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 22,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_shield_6": {
+   "id": "w_shield_6",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 13,
+    "def": 8,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_spear_6": {
+   "id": "w_spear_6",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 19,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_gun_6": {
+   "id": "w_gun_6",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 22,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_fist_6": {
+   "id": "w_fist_6",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 16,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_kit_6": {
+   "id": "w_kit_6",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 12,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_ladle_6": {
+   "id": "w_ladle_6",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 15,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_staff_6": {
+   "id": "w_staff_6",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 20,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_tool_6": {
+   "id": "w_tool_6",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 17,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_whip_6": {
+   "id": "w_whip_6",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 18,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "w_banner_6": {
+   "id": "w_banner_6",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 15,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 515,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "o_coat_6": {
+   "id": "o_coat_6",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 14,
+    "hp": 83,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [
+    "storm"
+   ],
+   "price": 465,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "stormwood",
+     1
+    ]
+   }
+  },
+  "o_armor_6": {
+   "id": "o_armor_6",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 20,
+    "hp": 144,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "storm"
+   ],
+   "price": 614,
+   "recipe": {
+    "materials": 30,
+    "specialty": [
+     "stormwood",
+     2
+    ]
+   }
+  },
+  "a_storm_anchor": {
+   "id": "a_storm_anchor",
+   "slot": "accessory",
+   "tier": 6,
+   "regionId": "stormbelt",
+   "nameKey": "item.a_storm_anchor.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 30,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "stunImmune": 1,
+    "defPct": 0.05
+   },
+   "price": 675,
+   "recipe": {
+    "materials": 23,
+    "specialty": [
+     "stormwood",
+     2
+    ]
+   }
+  },
+  "w_blade_7": {
+   "id": "w_blade_7",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 25,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_shield_7": {
+   "id": "w_shield_7",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 15,
+    "def": 9,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_spear_7": {
+   "id": "w_spear_7",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 23,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_gun_7": {
+   "id": "w_gun_7",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 25,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_fist_7": {
+   "id": "w_fist_7",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 19,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_kit_7": {
+   "id": "w_kit_7",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 14,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_ladle_7": {
+   "id": "w_ladle_7",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 18,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_staff_7": {
+   "id": "w_staff_7",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 24,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_tool_7": {
+   "id": "w_tool_7",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 20,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_whip_7": {
+   "id": "w_whip_7",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 21,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "w_banner_7": {
+   "id": "w_banner_7",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 18,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 662,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "o_coat_7": {
+   "id": "o_coat_7",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 16,
+    "hp": 98,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [
+    "dream"
+   ],
+   "price": 598,
+   "recipe": {
+    "materials": 25,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "o_armor_7": {
+   "id": "o_armor_7",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 7,
+   "regionId": "moonwake",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 23,
+    "hp": 170,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "dream"
+   ],
+   "price": 790,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "moon_ink",
+     2
+    ]
+   }
+  },
+  "a_moon_lantern": {
+   "id": "a_moon_lantern",
+   "slot": "accessory",
+   "tier": 7,
+   "regionId": "moonwake",
+   "nameKey": "item.a_moon_lantern.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 35,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "dodge": 0.1
+   },
+   "price": 868,
+   "recipe": {
+    "materials": 26,
+    "specialty": [
+     "moon_ink",
+     2
+    ]
+   }
+  },
+  "w_blade_8": {
+   "id": "w_blade_8",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 29,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_shield_8": {
+   "id": "w_shield_8",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 17,
+    "def": 10,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_spear_8": {
+   "id": "w_spear_8",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 26,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_gun_8": {
+   "id": "w_gun_8",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 29,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_fist_8": {
+   "id": "w_fist_8",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 22,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_kit_8": {
+   "id": "w_kit_8",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 16,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_ladle_8": {
+   "id": "w_ladle_8",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 20,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_staff_8": {
+   "id": "w_staff_8",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 27,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_tool_8": {
+   "id": "w_tool_8",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 23,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_whip_8": {
+   "id": "w_whip_8",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 25,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "w_banner_8": {
+   "id": "w_banner_8",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 20,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 823,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "o_coat_8": {
+   "id": "o_coat_8",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 18,
+    "hp": 113,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [
+    "pressure"
+   ],
+   "price": 744,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "o_armor_8": {
+   "id": "o_armor_8",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 26,
+    "hp": 196,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "pressure"
+   ],
+   "price": 981,
+   "recipe": {
+    "materials": 38,
+    "specialty": [
+     "abyss_alloy",
+     2
+    ]
+   }
+  },
+  "a_abyss_ring": {
+   "id": "a_abyss_ring",
+   "slot": "accessory",
+   "tier": 8,
+   "regionId": "ashen_trench",
+   "nameKey": "item.a_abyss_ring.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 40,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "lifesteal": 0.1
+   },
+   "price": 1079,
+   "recipe": {
+    "materials": 29,
+    "specialty": [
+     "abyss_alloy",
+     2
+    ]
+   }
+  },
+  "w_blade_9": {
+   "id": "w_blade_9",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 33,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_shield_9": {
+   "id": "w_shield_9",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 20,
+    "def": 12,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_spear_9": {
+   "id": "w_spear_9",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 29,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_gun_9": {
+   "id": "w_gun_9",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 33,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_fist_9": {
+   "id": "w_fist_9",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 24,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_kit_9": {
+   "id": "w_kit_9",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 18,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_ladle_9": {
+   "id": "w_ladle_9",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 23,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_staff_9": {
+   "id": "w_staff_9",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 31,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_tool_9": {
+   "id": "w_tool_9",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 26,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_whip_9": {
+   "id": "w_whip_9",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 28,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "w_banner_9": {
+   "id": "w_banner_9",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 23,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 995,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "o_coat_9": {
+   "id": "o_coat_9",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 20,
+    "hp": 128,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [
+    "tide"
+   ],
+   "price": 900,
+   "recipe": {
+    "materials": 31,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "o_armor_9": {
+   "id": "o_armor_9",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 29,
+    "hp": 222,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "tide"
+   ],
+   "price": 1186,
+   "recipe": {
+    "materials": 42,
+    "specialty": [
+     "leviathan_scale",
+     2
+    ]
+   }
+  },
+  "a_scale_talisman": {
+   "id": "a_scale_talisman",
+   "slot": "accessory",
+   "tier": 9,
+   "regionId": "leviathan_ring",
+   "nameKey": "item.a_scale_talisman.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 45,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "thorns": 0.15,
+    "hpPct": 0.06
+   },
+   "price": 1305,
+   "recipe": {
+    "materials": 32,
+    "specialty": [
+     "leviathan_scale",
+     2
+    ]
+   }
+  },
+  "w_blade_10": {
+   "id": "w_blade_10",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 36,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_shield_10": {
+   "id": "w_shield_10",
+   "slot": "weapon",
+   "wtype": "shield",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 22,
+    "def": 13,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "guard"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_spear_10": {
+   "id": "w_spear_10",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 33,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_gun_10": {
+   "id": "w_gun_10",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 36,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_fist_10": {
+   "id": "w_fist_10",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 27,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_kit_10": {
+   "id": "w_kit_10",
+   "slot": "weapon",
+   "wtype": "kit",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 20,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "mend"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_ladle_10": {
+   "id": "w_ladle_10",
+   "slot": "weapon",
+   "wtype": "ladle",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 25,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "nourish"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_staff_10": {
+   "id": "w_staff_10",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 34,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_tool_10": {
+   "id": "w_tool_10",
+   "slot": "weapon",
+   "wtype": "tool",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 29,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "sunder"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_whip_10": {
+   "id": "w_whip_10",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 31,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "w_banner_10": {
+   "id": "w_banner_10",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 25,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "price": 1179,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "o_coat_10": {
+   "id": "o_coat_10",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 23,
+    "hp": 143,
+    "spd": 1
+   },
+   "props": [],
+   "resist": [],
+   "price": 1066,
+   "recipe": {
+    "materials": 34,
+    "specialty": [
+     "horizon_glass",
+     1
+    ]
+   }
+  },
+  "o_armor_10": {
+   "id": "o_armor_10",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "set": true,
+   "stats": {
+    "atk": 0,
+    "def": 33,
+    "hp": 248,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [],
+   "price": 1405,
+   "recipe": {
+    "materials": 46,
+    "specialty": [
+     "horizon_glass",
+     2
+    ]
+   }
+  },
+  "a_horizon_compass": {
+   "id": "a_horizon_compass",
+   "slot": "accessory",
+   "tier": 10,
+   "regionId": "grand_horizon",
+   "nameKey": "item.a_horizon_compass.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 50,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "spd": 4,
+    "crit": 0.08
+   },
+   "price": 1545,
+   "recipe": {
+    "materials": 35,
+    "specialty": [
+     "horizon_glass",
+     2
+    ]
+   }
+  },
+  "a_escape_rope": {
+   "id": "a_escape_rope",
+   "slot": "accessory",
+   "tier": 1,
+   "regionId": null,
+   "nameKey": "item.a_escape_rope.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "escape": 1
+   },
+   "price": 40,
+   "general": true
+  },
+  "a_work_gloves": {
+   "id": "a_work_gloves",
+   "slot": "accessory",
+   "tier": 1,
+   "regionId": null,
+   "nameKey": "item.a_work_gloves.name",
+   "stats": {
+    "atk": 0,
+    "def": 1,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "jobPct": 0.5
+   },
+   "price": 50,
+   "general": true
+  },
+  "u_gullfeather_saber": {
+   "id": "u_gullfeather_saber",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 1,
+   "unique": true,
+   "nameKey": "item.u_gullfeather_saber.name",
+   "stats": {
+    "atk": 8,
+    "def": 0,
+    "hp": 0,
+    "spd": 2
+   },
+   "props": [
+    "double"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_mira_spyglass": {
+   "id": "u_mira_spyglass",
+   "slot": "accessory",
+   "tier": 1,
+   "unique": true,
+   "nameKey": "item.u_mira_spyglass.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 10,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "quickStart": 40,
+    "crit": 0.05
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_cinder_maul": {
+   "id": "u_cinder_maul",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 2,
+   "unique": true,
+   "nameKey": "item.u_cinder_maul.name",
+   "stats": {
+    "atk": 12,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double",
+    "sunder"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_flint_heartstone": {
+   "id": "u_flint_heartstone",
+   "slot": "accessory",
+   "tier": 2,
+   "unique": true,
+   "nameKey": "item.u_flint_heartstone.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 20,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "hazardResist": 1,
+    "hpPct": 0.08
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_fernwhip": {
+   "id": "u_fernwhip",
+   "slot": "weapon",
+   "wtype": "whip",
+   "tier": 3,
+   "unique": true,
+   "nameKey": "item.u_fernwhip.name",
+   "stats": {
+    "atk": 15,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "pet",
+    "chill"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_rook_mask": {
+   "id": "u_rook_mask",
+   "slot": "accessory",
+   "tier": 3,
+   "unique": true,
+   "nameKey": "item.u_rook_mask.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 25,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "stunImmune": 1,
+    "dodge": 0.05
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_prism_rifle": {
+   "id": "u_prism_rifle",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 4,
+   "unique": true,
+   "nameKey": "item.u_prism_rifle.name",
+   "stats": {
+    "atk": 22,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "ranged",
+    "pierce"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_selene_mirror": {
+   "id": "u_selene_mirror",
+   "slot": "accessory",
+   "tier": 4,
+   "unique": true,
+   "nameKey": "item.u_selene_mirror.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 30,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "focusDmg": 0.3
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_crest_rapier": {
+   "id": "u_crest_rapier",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 5,
+   "unique": true,
+   "nameKey": "item.u_crest_rapier.name",
+   "stats": {
+    "atk": 26,
+    "def": 0,
+    "hp": 0,
+    "spd": 2
+   },
+   "props": [
+    "double",
+    "crit"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_cassian_signet": {
+   "id": "u_cassian_signet",
+   "slot": "accessory",
+   "tier": 5,
+   "unique": true,
+   "nameKey": "item.u_cassian_signet.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 30,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "goldPct": 0.25,
+    "crit": 0.05
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_gale_harpoon": {
+   "id": "u_gale_harpoon",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 6,
+   "unique": true,
+   "nameKey": "item.u_gale_harpoon.name",
+   "stats": {
+    "atk": 30,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "chill"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_nessa_stormcloak": {
+   "id": "u_nessa_stormcloak",
+   "slot": "outfit",
+   "tier": 6,
+   "unique": true,
+   "nameKey": "item.u_nessa_stormcloak.name",
+   "stats": {
+    "atk": 0,
+    "def": 24,
+    "hp": 150,
+    "spd": 1
+   },
+   "props": [],
+   "mods": null,
+   "resist": [
+    "storm",
+    "tide",
+    "heat"
+   ],
+   "price": 0
+  },
+  "u_lantern_staff": {
+   "id": "u_lantern_staff",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 7,
+   "unique": true,
+   "nameKey": "item.u_lantern_staff.name",
+   "stats": {
+    "atk": 34,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "splash",
+    "mend"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_orin_charm": {
+   "id": "u_orin_charm",
+   "slot": "accessory",
+   "tier": 7,
+   "unique": true,
+   "nameKey": "item.u_orin_charm.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 40,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "dodge": 0.1,
+    "quickStart": 40
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_abyss_cleaver": {
+   "id": "u_abyss_cleaver",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 8,
+   "unique": true,
+   "nameKey": "item.u_abyss_cleaver.name",
+   "stats": {
+    "atk": 40,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "lifesteal",
+    "pierce"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_vale_ring": {
+   "id": "u_vale_ring",
+   "slot": "accessory",
+   "tier": 8,
+   "unique": true,
+   "nameKey": "item.u_vale_ring.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 45,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "lifesteal": 0.1,
+    "atkPct": 0.08
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_leviathan_tooth": {
+   "id": "u_leviathan_tooth",
+   "slot": "weapon",
+   "wtype": "spear",
+   "tier": 9,
+   "unique": true,
+   "nameKey": "item.u_leviathan_tooth.name",
+   "stats": {
+    "atk": 44,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "reach",
+    "sunder",
+    "pierce"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_brakka_shell": {
+   "id": "u_brakka_shell",
+   "slot": "outfit",
+   "tier": 9,
+   "unique": true,
+   "nameKey": "item.u_brakka_shell.name",
+   "stats": {
+    "atk": 0,
+    "def": 36,
+    "hp": 240,
+    "spd": -1
+   },
+   "props": [],
+   "mods": null,
+   "resist": [
+    "heat",
+    "poison",
+    "glare",
+    "storm",
+    "dream",
+    "pressure",
+    "tide"
+   ],
+   "price": 0
+  },
+  "u_dawnbreaker": {
+   "id": "u_dawnbreaker",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 10,
+   "unique": true,
+   "nameKey": "item.u_dawnbreaker.name",
+   "stats": {
+    "atk": 52,
+    "def": 0,
+    "hp": 0,
+    "spd": 2
+   },
+   "props": [
+    "double",
+    "pierce",
+    "lifesteal"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_aurelia_crown": {
+   "id": "u_aurelia_crown",
+   "slot": "accessory",
+   "tier": 10,
+   "unique": true,
+   "nameKey": "item.u_aurelia_crown.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 60,
+    "spd": 3
+   },
+   "props": [],
+   "mods": {
+    "auraAtk": 0.08
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_storm_crown": {
+   "id": "u_storm_crown",
+   "slot": "accessory",
+   "tier": 10,
+   "unique": true,
+   "nameKey": "item.u_storm_crown.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 80,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "hazardResist": 1,
+    "stunImmune": 1,
+    "spd": 2
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_moonveil": {
+   "id": "u_moonveil",
+   "slot": "outfit",
+   "tier": 10,
+   "unique": true,
+   "nameKey": "item.u_moonveil.name",
+   "stats": {
+    "atk": 0,
+    "def": 46,
+    "hp": 320,
+    "spd": 2
+   },
+   "props": [],
+   "mods": {
+    "dodge": 0.08
+   },
+   "resist": [
+    "dream",
+    "glare"
+   ],
+   "price": 0
+  },
+  "u_trench_seal": {
+   "id": "u_trench_seal",
+   "slot": "accessory",
+   "tier": 10,
+   "unique": true,
+   "nameKey": "item.u_trench_seal.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 70,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "lifesteal": 0.12,
+    "thorns": 0.12
+   },
+   "resist": [],
+   "price": 0
+  },
+  "u_ringbreaker": {
+   "id": "u_ringbreaker",
+   "slot": "weapon",
+   "wtype": "fist",
+   "tier": 10,
+   "unique": true,
+   "nameKey": "item.u_ringbreaker.name",
+   "stats": {
+    "atk": 50,
+    "def": 0,
+    "hp": 0,
+    "spd": 0
+   },
+   "props": [
+    "double",
+    "sunder",
+    "pierce"
+   ],
+   "mods": null,
+   "resist": [],
+   "price": 0
+  },
+  "u_horizon_star": {
+   "id": "u_horizon_star",
+   "slot": "accessory",
+   "tier": 10,
+   "unique": true,
+   "nameKey": "item.u_horizon_star.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 90,
+    "spd": 4
+   },
+   "props": [],
+   "mods": {
+    "crit": 0.12,
+    "auraAtk": 0.05
+   },
+   "resist": [],
+   "price": 0
+  }
+ },
+ "ROLE_BY_COLOR": {
+  "red": "companion",
+  "yellow": "companion",
+  "blue": "helper",
+  "green": "helper",
+  "purple": "explorer",
+  "white": "explorer"
+ },
+ "PET_FAMILIES": [
+  {
+   "id": "tidefin",
+   "regionId": "dawnwater",
+   "color": "blue",
+   "ability": "splash",
+   "sig": {
+    "companion": [
+     "red",
+     "blue",
+     "blue"
+    ],
+    "helper": [
+     "blue",
+     "white",
+     "green"
+    ],
+    "explorer": [
+     "white",
+     "blue",
+     "purple"
+    ]
+   }
+  },
+  {
+   "id": "cinderback",
+   "regionId": "emberreach",
+   "color": "red",
+   "ability": "burn",
+   "sig": {
+    "companion": [
+     "red",
+     "red",
+     "yellow"
+    ],
+    "helper": [
+     "green",
+     "red",
+     "white"
+    ],
+    "explorer": [
+     "purple",
+     "red",
+     "red"
+    ]
+   }
+  },
+  {
+   "id": "mossling",
+   "regionId": "verdant_maw",
+   "color": "green",
+   "ability": "mend",
+   "sig": {
+    "companion": [
+     "yellow",
+     "green",
+     "red"
+    ],
+    "helper": [
+     "green",
+     "green",
+     "blue"
+    ],
+    "explorer": [
+     "white",
+     "green",
+     "yellow"
+    ]
+   }
+  },
+  {
+   "id": "glasswing",
+   "regionId": "glass_current",
+   "color": "blue",
+   "ability": "mark",
+   "sig": {
+    "companion": [
+     "red",
+     "white",
+     "blue"
+    ],
+    "helper": [
+     "blue",
+     "blue",
+     "yellow"
+    ],
+    "explorer": [
+     "purple",
+     "white",
+     "blue"
+    ]
+   }
+  },
+  {
+   "id": "pearlcub",
+   "regionId": "crown_shoals",
+   "color": "white",
+   "ability": "shell",
+   "sig": {
+    "companion": [
+     "yellow",
+     "white",
+     "white"
+    ],
+    "helper": [
+     "blue",
+     "yellow",
+     "white"
+    ],
+    "explorer": [
+     "white",
+     "white",
+     "green"
+    ]
+   }
+  },
+  {
+   "id": "cloudray",
+   "regionId": "stormbelt",
+   "color": "yellow",
+   "ability": "gust",
+   "sig": {
+    "companion": [
+     "yellow",
+     "blue",
+     "yellow"
+    ],
+    "helper": [
+     "green",
+     "yellow",
+     "blue"
+    ],
+    "explorer": [
+     "purple",
+     "yellow",
+     "white"
+    ]
+   }
+  },
+  {
+   "id": "dreammoth",
+   "regionId": "moonwake",
+   "color": "purple",
+   "ability": "lull",
+   "sig": {
+    "companion": [
+     "red",
+     "purple",
+     "white"
+    ],
+    "helper": [
+     "blue",
+     "purple",
+     "purple"
+    ],
+    "explorer": [
+     "purple",
+     "purple",
+     "yellow"
+    ]
+   }
+  },
+  {
+   "id": "gloomjaw",
+   "regionId": "ashen_trench",
+   "color": "purple",
+   "ability": "maul",
+   "sig": {
+    "companion": [
+     "red",
+     "purple",
+     "red"
+    ],
+    "helper": [
+     "green",
+     "purple",
+     "red"
+    ],
+    "explorer": [
+     "purple",
+     "green",
+     "purple"
+    ]
+   }
+  },
+  {
+   "id": "shellwarden",
+   "regionId": "leviathan_ring",
+   "color": "green",
+   "ability": "ward",
+   "sig": {
+    "companion": [
+     "yellow",
+     "green",
+     "green"
+    ],
+    "helper": [
+     "green",
+     "blue",
+     "green"
+    ],
+    "explorer": [
+     "white",
+     "green",
+     "blue"
+    ]
+   }
+  },
+  {
+   "id": "starwake",
+   "regionId": "grand_horizon",
+   "color": "yellow",
+   "ability": "radiance",
+   "sig": {
+    "companion": [
+     "yellow",
+     "yellow",
+     "white"
+    ],
+    "helper": [
+     "blue",
+     "yellow",
+     "yellow"
+    ],
+    "explorer": [
+     "white",
+     "yellow",
+     "purple"
+    ]
+   }
+  }
+ ],
+ "PET_ROLES": [
+  "companion",
+  "helper",
+  "explorer"
+ ],
+ "PET_ABILITIES": {
+  "splash": {
+   "power": 1.1,
+   "fx": {
+    "slow": 2
+   }
+  },
+  "burn": {
+   "power": 0.6,
+   "fx": {
+    "dot": 0.25,
+    "dotDur": 4
+   }
+  },
+  "mend": {
+   "heal": 1.4,
+   "target": "owner"
+  },
+  "mark": {
+   "power": 0.4,
+   "fx": {
+    "mark": 4
+   }
+  },
+  "shell": {
+   "shield": 0.15,
+   "target": "owner"
+  },
+  "gust": {
+   "target": "allies",
+   "fx": {
+    "meter": 15
+   }
+  },
+  "lull": {
+   "power": 0.3,
+   "fx": {
+    "stun": 1.5
+   }
+  },
+  "maul": {
+   "power": 1.9
+  },
+  "ward": {
+   "target": "owner",
+   "shield": 0.2,
+   "fx": {
+    "taunt": 3
+   }
+  },
+  "radiance": {
+   "target": "allies",
+   "heal": 0.5
+  }
+ },
+ "PET_SPECIES": {
+  "tidefin_companion": {
+   "id": "tidefin_companion",
+   "familyId": "tidefin",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "tidefin_companion_evo"
+  },
+  "tidefin_companion_evo": {
+   "id": "tidefin_companion_evo",
+   "familyId": "tidefin",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "tidefin_helper": {
+   "id": "tidefin_helper",
+   "familyId": "tidefin",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "tidefin_helper_evo"
+  },
+  "tidefin_helper_evo": {
+   "id": "tidefin_helper_evo",
+   "familyId": "tidefin",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "tidefin_explorer": {
+   "id": "tidefin_explorer",
+   "familyId": "tidefin",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "tidefin_explorer_evo"
+  },
+  "tidefin_explorer_evo": {
+   "id": "tidefin_explorer_evo",
+   "familyId": "tidefin",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "cinderback_companion": {
+   "id": "cinderback_companion",
+   "familyId": "cinderback",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "cinderback_companion_evo"
+  },
+  "cinderback_companion_evo": {
+   "id": "cinderback_companion_evo",
+   "familyId": "cinderback",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "cinderback_helper": {
+   "id": "cinderback_helper",
+   "familyId": "cinderback",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "cinderback_helper_evo"
+  },
+  "cinderback_helper_evo": {
+   "id": "cinderback_helper_evo",
+   "familyId": "cinderback",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "cinderback_explorer": {
+   "id": "cinderback_explorer",
+   "familyId": "cinderback",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "cinderback_explorer_evo"
+  },
+  "cinderback_explorer_evo": {
+   "id": "cinderback_explorer_evo",
+   "familyId": "cinderback",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "mossling_companion": {
+   "id": "mossling_companion",
+   "familyId": "mossling",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "mossling_companion_evo"
+  },
+  "mossling_companion_evo": {
+   "id": "mossling_companion_evo",
+   "familyId": "mossling",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "mossling_helper": {
+   "id": "mossling_helper",
+   "familyId": "mossling",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "mossling_helper_evo"
+  },
+  "mossling_helper_evo": {
+   "id": "mossling_helper_evo",
+   "familyId": "mossling",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "mossling_explorer": {
+   "id": "mossling_explorer",
+   "familyId": "mossling",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "mossling_explorer_evo"
+  },
+  "mossling_explorer_evo": {
+   "id": "mossling_explorer_evo",
+   "familyId": "mossling",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "glasswing_companion": {
+   "id": "glasswing_companion",
+   "familyId": "glasswing",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "glasswing_companion_evo"
+  },
+  "glasswing_companion_evo": {
+   "id": "glasswing_companion_evo",
+   "familyId": "glasswing",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "glasswing_helper": {
+   "id": "glasswing_helper",
+   "familyId": "glasswing",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "glasswing_helper_evo"
+  },
+  "glasswing_helper_evo": {
+   "id": "glasswing_helper_evo",
+   "familyId": "glasswing",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "glasswing_explorer": {
+   "id": "glasswing_explorer",
+   "familyId": "glasswing",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "glasswing_explorer_evo"
+  },
+  "glasswing_explorer_evo": {
+   "id": "glasswing_explorer_evo",
+   "familyId": "glasswing",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "pearlcub_companion": {
+   "id": "pearlcub_companion",
+   "familyId": "pearlcub",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "pearlcub_companion_evo"
+  },
+  "pearlcub_companion_evo": {
+   "id": "pearlcub_companion_evo",
+   "familyId": "pearlcub",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "pearlcub_helper": {
+   "id": "pearlcub_helper",
+   "familyId": "pearlcub",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "pearlcub_helper_evo"
+  },
+  "pearlcub_helper_evo": {
+   "id": "pearlcub_helper_evo",
+   "familyId": "pearlcub",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "pearlcub_explorer": {
+   "id": "pearlcub_explorer",
+   "familyId": "pearlcub",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "pearlcub_explorer_evo"
+  },
+  "pearlcub_explorer_evo": {
+   "id": "pearlcub_explorer_evo",
+   "familyId": "pearlcub",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "cloudray_companion": {
+   "id": "cloudray_companion",
+   "familyId": "cloudray",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "cloudray_companion_evo"
+  },
+  "cloudray_companion_evo": {
+   "id": "cloudray_companion_evo",
+   "familyId": "cloudray",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "cloudray_helper": {
+   "id": "cloudray_helper",
+   "familyId": "cloudray",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "cloudray_helper_evo"
+  },
+  "cloudray_helper_evo": {
+   "id": "cloudray_helper_evo",
+   "familyId": "cloudray",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "cloudray_explorer": {
+   "id": "cloudray_explorer",
+   "familyId": "cloudray",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "cloudray_explorer_evo"
+  },
+  "cloudray_explorer_evo": {
+   "id": "cloudray_explorer_evo",
+   "familyId": "cloudray",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "dreammoth_companion": {
+   "id": "dreammoth_companion",
+   "familyId": "dreammoth",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "dreammoth_companion_evo"
+  },
+  "dreammoth_companion_evo": {
+   "id": "dreammoth_companion_evo",
+   "familyId": "dreammoth",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "dreammoth_helper": {
+   "id": "dreammoth_helper",
+   "familyId": "dreammoth",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "dreammoth_helper_evo"
+  },
+  "dreammoth_helper_evo": {
+   "id": "dreammoth_helper_evo",
+   "familyId": "dreammoth",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "dreammoth_explorer": {
+   "id": "dreammoth_explorer",
+   "familyId": "dreammoth",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "dreammoth_explorer_evo"
+  },
+  "dreammoth_explorer_evo": {
+   "id": "dreammoth_explorer_evo",
+   "familyId": "dreammoth",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "gloomjaw_companion": {
+   "id": "gloomjaw_companion",
+   "familyId": "gloomjaw",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "gloomjaw_companion_evo"
+  },
+  "gloomjaw_companion_evo": {
+   "id": "gloomjaw_companion_evo",
+   "familyId": "gloomjaw",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "gloomjaw_helper": {
+   "id": "gloomjaw_helper",
+   "familyId": "gloomjaw",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "gloomjaw_helper_evo"
+  },
+  "gloomjaw_helper_evo": {
+   "id": "gloomjaw_helper_evo",
+   "familyId": "gloomjaw",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "gloomjaw_explorer": {
+   "id": "gloomjaw_explorer",
+   "familyId": "gloomjaw",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "gloomjaw_explorer_evo"
+  },
+  "gloomjaw_explorer_evo": {
+   "id": "gloomjaw_explorer_evo",
+   "familyId": "gloomjaw",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "shellwarden_companion": {
+   "id": "shellwarden_companion",
+   "familyId": "shellwarden",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "shellwarden_companion_evo"
+  },
+  "shellwarden_companion_evo": {
+   "id": "shellwarden_companion_evo",
+   "familyId": "shellwarden",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "shellwarden_helper": {
+   "id": "shellwarden_helper",
+   "familyId": "shellwarden",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "shellwarden_helper_evo"
+  },
+  "shellwarden_helper_evo": {
+   "id": "shellwarden_helper_evo",
+   "familyId": "shellwarden",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "shellwarden_explorer": {
+   "id": "shellwarden_explorer",
+   "familyId": "shellwarden",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "shellwarden_explorer_evo"
+  },
+  "shellwarden_explorer_evo": {
+   "id": "shellwarden_explorer_evo",
+   "familyId": "shellwarden",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "starwake_companion": {
+   "id": "starwake_companion",
+   "familyId": "starwake",
+   "role": "companion",
+   "evolved": false,
+   "evolvesTo": "starwake_companion_evo"
+  },
+  "starwake_companion_evo": {
+   "id": "starwake_companion_evo",
+   "familyId": "starwake",
+   "role": "companion",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "starwake_helper": {
+   "id": "starwake_helper",
+   "familyId": "starwake",
+   "role": "helper",
+   "evolved": false,
+   "evolvesTo": "starwake_helper_evo"
+  },
+  "starwake_helper_evo": {
+   "id": "starwake_helper_evo",
+   "familyId": "starwake",
+   "role": "helper",
+   "evolved": true,
+   "evolvesTo": null
+  },
+  "starwake_explorer": {
+   "id": "starwake_explorer",
+   "familyId": "starwake",
+   "role": "explorer",
+   "evolved": false,
+   "evolvesTo": "starwake_explorer_evo"
+  },
+  "starwake_explorer_evo": {
+   "id": "starwake_explorer_evo",
+   "familyId": "starwake",
+   "role": "explorer",
+   "evolved": true,
+   "evolvesTo": null
+  }
+ },
+ "ENEMY_ARCHETYPES": {
+  "skirmisher": {
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 62,
+    "atk": 9,
+    "def": 4,
+    "spd": 13
+   },
+   "skills": [
+    "e_slash"
+   ],
+   "tags": [
+    "swift"
+   ]
+  },
+  "brute": {
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 115,
+    "atk": 10,
+    "def": 8,
+    "spd": 7
+   },
+   "skills": [
+    "e_crush"
+   ],
+   "tags": [
+    "armored"
+   ]
+  },
+  "shooter": {
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 52,
+    "atk": 10,
+    "def": 3,
+    "spd": 10
+   },
+   "skills": [
+    "e_volley"
+   ],
+   "tags": [
+    "ranged"
+   ]
+  },
+  "caster": {
+   "lane": "rear",
+   "range": "ranged",
+   "base": {
+    "hp": 52,
+    "atk": 11,
+    "def": 3,
+    "spd": 9
+   },
+   "skills": [
+    "e_hex"
+   ],
+   "tags": [
+    "caster"
+   ]
+  },
+  "healer": {
+   "lane": "center",
+   "range": "ranged",
+   "base": {
+    "hp": 62,
+    "atk": 7,
+    "def": 4,
+    "spd": 10
+   },
+   "skills": [
+    "e_mend"
+   ],
+   "tags": [
+    "healer"
+   ]
+  },
+  "boss": {
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 250,
+    "atk": 12,
+    "def": 9,
+    "spd": 9
+   },
+   "skills": [
+    "e_crush",
+    "e_roar"
+   ],
+   "tags": [
+    "boss"
+   ],
+   "boss": true
+  },
+  "captain": {
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 300,
+    "atk": 13,
+    "def": 9,
+    "spd": 11
+   },
+   "skills": [
+    "e_slash",
+    "e_roar"
+   ],
+   "tags": [
+    "boss",
+    "captain"
+   ],
+   "boss": true
+  },
+  "decoy": {
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 120,
+    "atk": 0,
+    "def": 30,
+    "spd": 0
+   },
+   "skills": [],
+   "tags": [
+    "decoy"
+   ],
+   "decoy": true
+  }
+ },
+ "PIRATES": {
+  "pennant_deckhand": "skirmisher",
+  "pennant_bosun": "brute",
+  "pennant_gunner": "shooter",
+  "pennant_hexer": "caster",
+  "pennant_surgeon": "healer"
+ },
+ "TUNING": {
+  "growth": {
+   "hp": 0.12,
+   "atk": 0.1,
+   "def": 0.09,
+   "spd": 0.25
+  },
+  "enemyGrowth": {
+   "hp": 0.13,
+   "atk": 0.11,
+   "def": 0.09,
+   "spd": 0.25
+  },
+  "enemyScale": {
+   "hp": 2.2,
+   "atk": 1.9,
+   "def": 1,
+   "perLevel": 0.008
+  },
+  "levelGap": 0.07,
+  "levelCap": 60,
+  "xpBase": 90,
+  "xpPerLevel": 36,
+  "masteryPerBattle": 5,
+  "qualifyMastery": 40,
+  "masteredAt": 100,
+  "legacySlots": 2,
+  "rationStamina": 15,
+  "rationFood": 1,
+  "supplyStamina": 30,
+  "startGold": 300,
+  "startFood": 12,
+  "startSupplies": 2,
+  "startMaterials": 20,
+  "startStamina": 60,
+  "maxStamina": 100,
+  "injuryPenalty": 0.1,
+  "maxInjuriesPerDefeat": 2,
+  "defeatLossRate": 0.25,
+  "recoverySaveCount": 3,
+  "manualSlotCount": 3,
+  "logLimit": 40,
+  "committedLimit": 300,
+  "baseFoodCap": 0,
+  "baseSupplyCap": 10,
+  "baseEquipCap": 40,
+  "basePetCap": 0,
+  "respecBase": 40,
+  "respecPerLevel": 12,
+  "battleTick": 0.1,
+  "battleTimeLimit": 240
+ }
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Project Seven Seas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="boot">
+  <div id="app" class="app"><noscript>Project Seven Seas requires JavaScript.</noscript></div>
+  <div id="battle" class="battle" hidden></div>
+  <div id="modals" class="modals"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <!-- Classic scripts in dependency order so the game runs from file:// with no server. -->
+  <script src="src/content.js"></script>
+  <script src="src/world.js"></script>
+  <script src="src/i18n.js"></script>
+  <script src="locales/en.js"></script>
+  <script src="locales/zh-CN.js"></script>
+  <script src="src/state.js"></script>
+  <script src="src/rules.js"></script>
+  <script src="src/combat.js"></script>
+  <script src="src/actions.js"></script>
+  <script src="src/art.js"></script>
+  <script src="src/ui.js"></script>
+  <script src="src/views.js"></script>
+  <script src="src/view-ship.js"></script>
+  <script src="src/view-map.js"></script>
+  <script src="src/view-crew.js"></script>
+  <script src="src/view-port.js"></script>
+  <script src="src/view-pets.js"></script>
+  <script src="src/view-codex.js"></script>
+  <script src="src/view-system.js"></script>
+  <script src="src/battle.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>

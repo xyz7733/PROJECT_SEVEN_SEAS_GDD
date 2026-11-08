@@ -1,0 +1,1988 @@
+keys,en,zh_CN
+affix.keen.name,Keen,锋利的
+affix.mighty.name,Mighty,强力的
+affix.sturdy.name,Sturdy,坚固的
+affix.swift.name,Swift,迅捷的
+affix.warded.name,Warded,护佑的
+aid.meal,Free meal,免费餐食
+aid.meal.desc,Enough food for the next leg when you cannot afford it.,负担不起时，提供下一段航程所需的食物。
+aid.repair,Free patch-up,免费抢修
+aid.repair.desc,Essential repairs so the ship can sail.,必要的维修，让船只能够起航。
+aid.treatment,Free treatment,免费治疗
+aid.treatment.desc,Basic care for injured crew.,为受伤船员提供基本护理。
+app.short,Seven Seas,七海
+app.tagline,"Build one ship, raise a crew, and become the strongest captain on the seven seas.",打造一艘船，培养一支船员队伍，成为七海最强的船长。
+app.title,Project Seven Seas,七海计划
+apt.beast_friend.name,Beast Friend,动物之友
+apt.brawny.name,Brawny,强壮
+apt.deckhand.name,Deckhand,甲板好手
+apt.devoted.name,Devoted,专心
+apt.nimble.name,Nimble,灵巧
+apt.quick_learner.name,Quick Learner,学得快
+apt.sharp.name,Sharp,敏锐
+apt.tough.name,Tough,坚韧
+arc.ashen_trench.0,Relic thieves pick over Sunken Spires. Clear them.,遗物窃贼在沉没尖塔翻找。清理他们。
+arc.ashen_trench.1,Relic Dock's divers have news. Visit the dock.,遗物码头的潜水员带来了消息。去码头看看。
+arc.ashen_trench.2,The Trench Sanctum hides what the seal keeps. Clear it.,海沟圣所里藏着封印守护之物。清理圣所。
+arc.ashen_trench.3,Ashport needs Abyss Alloy to reinforce the seal.,灰港需要深渊合金来加固封印。
+arc.ashen_trench.4,Vale Ash waits at the Ashen Seal. Break through.,维尔·灰船长在灰烬封印等你。突破过去。
+arc.ashen_trench.title,What the Seal Keeps,封印守护之物
+arc.crown_shoals.0,Cutpurses run Heron Isle. Clear them out.,扒手横行于苍鹭岛。把他们赶出去。
+arc.crown_shoals.1,The Silkmarket guilds want a word. Visit them.,丝绸市场的行会想和你谈谈。去拜访他们。
+arc.crown_shoals.2,An old family crypt hides the stolen charter. Clear it.,古老的家族墓穴里藏着被盗的特许状。清理墓穴。
+arc.crown_shoals.3,Crownport needs Crown Silk for the charter ceremony.,王冠港的特许状仪式需要王冠丝绸。
+arc.crown_shoals.4,Cassian Crest challenges you at the Crown Tourney.,卡西安·纹章船长在王冠比武场向你挑战。
+arc.crown_shoals.title,The Lost Charter,失落的特许状
+arc.dawnwater.0,Gull raiders have taken Gull Rock. Clear them out and the harbor will take you seriously.,海鸥劫掠者占领了鸥岩。把他们赶走，港口才会认真对待你。
+arc.dawnwater.1,Word of your win reaches Saltmarsh Landing. Sail there and meet the dockmasters.,你获胜的消息传到了盐沼码头。驶往那里，去见码头管理者。
+arc.dawnwater.2,Something stirs in the Brine Cellars beneath the old lookout. Clear the cellars.,旧瞭望台下的盐水地窖里有东西在蠢动。清理地窖。
+arc.dawnwater.3,Brightquay needs Saltleaf Grain to restock after the raids. Bring it home.,明港在劫掠之后需要盐叶谷来补充存粮。把它带回来。
+arc.dawnwater.4,Captain Mira Gull waits at the Trial Ring. Win her wager and the next sea opens.,米拉·鸥船长在试炼环等你。赢下她的赌约，下一片海域就会开放。
+arc.dawnwater.title,The Gull's Wager,海鸥的赌约
+arc.emberreach.0,Imps swarm Basalt Isle. Clear the island so the forges can breathe.,小恶魔成群占据了玄武岛。清理这座岛，让熔炉重新呼吸。
+arc.emberreach.1,Ashfall Harbor has gone quiet. Sail there and find out why.,落灰港陷入了沉寂。驶往那里查明原因。
+arc.emberreach.2,The Forge Depths are erupting with golems. Clear them.,熔炉深处涌出了大量魔像。清理那里。
+arc.emberreach.3,Cinderport needs Ember Ore to relight its great forge.,烬港需要余烬矿石来重新点燃它的大熔炉。
+arc.emberreach.4,Flint Cinder holds the Crucible. Beat him in the captain trial.,弗林特·烬船长坐镇熔炉竞技场。在船长试炼中击败他。
+arc.emberreach.title,Fire Beneath the Keel,龙骨下的火焰
+arc.glass_current.0,Shard fencers guard Lens Isle. Clear them.,碎晶剑客守卫着透镜岛。清理他们。
+arc.glass_current.1,Mirrorbay's lights have dimmed. Visit the harbor.,镜湾的灯光暗了下来。前往港口看看。
+arc.glass_current.2,The Refraction Maze bends light and sense. Clear it.,折射迷宫扭曲光线与感知。清理它。
+arc.glass_current.3,Prismhaven needs Prism Quartz for its lighthouse.,棱光港的灯塔需要棱光石英。
+arc.glass_current.4,Selene Prism awaits at the Prism Court. Shatter her illusions.,瑟琳·棱光船长在棱光宫廷等候。打破她的幻象。
+arc.glass_current.title,"Mirror, Mirror",魔镜，魔镜
+arc.grand_horizon.0,Gate duelists guard Zenith Cay. Defeat them.,关门决斗者守卫着天顶岛。击败他们。
+arc.grand_horizon.1,The Conclave Harbor invites you. Answer the summons.,议会港向你发出邀请。回应召唤。
+arc.grand_horizon.2,The Compass Vault holds the way to the final trial. Clear it.,罗盘宝库藏着通往最终试炼的道路。清理它。
+arc.grand_horizon.3,Horizon Gate needs Horizon Glass for the final beacon.,地平线之门需要地平线玻璃来点亮最后的信标。
+arc.grand_horizon.4,"Aurelia Dawn, the reigning champion, waits at the Horizon Arena.",卫冕冠军奥蕾莉亚·晨船长在地平线竞技场等你。
+arc.grand_horizon.title,The Strongest Captain,最强的船长
+arc.leviathan_ring.0,Ring raiders nest on Bone Reef. Clear them.,环礁掠夺者在骨礁筑巢。清理他们。
+arc.leviathan_ring.1,The Migration Post tracks the titan. Visit it.,迁徙驿站一直在追踪巨兽。前往那里。
+arc.leviathan_ring.2,The Coral Colossus has woken. Clear it.,珊瑚巨像苏醒了。清理它。
+arc.leviathan_ring.3,Ringhold needs Leviathan Scale for its sea wall.,环堡需要利维坦鳞片来修筑海堤。
+arc.leviathan_ring.4,Brakka Reef waits in the Ring Arena.,布拉卡·礁船长在环礁竞技场等你。
+arc.leviathan_ring.title,Inside the Behemoth,巨兽体内
+arc.moonwake.0,Night stalkers haunt Echo Atoll. Clear it.,夜行者在回声环礁出没。清理那里。
+arc.moonwake.1,Dusk Mooring's sailors have fallen asleep. Visit them.,暮色泊地的水手们都睡着了。去看看他们。
+arc.moonwake.2,The Dream Labyrinth shifts with every step. Clear it.,梦境迷宫每走一步都会变化。清理它。
+arc.moonwake.3,Lanternport needs Moon Ink to rewrite its charts.,灯港需要月墨来重绘海图。
+arc.moonwake.4,Orin Lantern holds the Moonwake Stage. Wake him from his dream.,奥林·灯笼船长占据着月痕舞台。把他从梦中唤醒。
+arc.moonwake.title,The Dreaming Stage,梦之舞台
+arc.stormbelt.0,Squall runners raid Squall Isle. Clear it.,疾风奔袭者在疾风岛劫掠。清理那里。
+arc.stormbelt.1,Beacon Rest has lost its light. Sail there.,信标驿失去了灯光。驶往那里。
+arc.stormbelt.2,The Tempest Caverns roar with wind. Clear them.,暴风洞窟中狂风怒吼。清理洞窟。
+arc.stormbelt.3,Gale Harbor needs Stormwood to rebuild its piers.,疾风港需要风暴木来重建码头。
+arc.stormbelt.4,Nessa Gale waits in the Eye of the Storm.,内莎·疾风船长在风暴之眼等你。
+arc.stormbelt.title,Eye of the Gale,风暴之眼
+arc.verdant_maw.0,Vine stalkers hold Tanglewood Isle. Clear a path.,藤蔓潜伏者占据了缠木岛。开出一条路。
+arc.verdant_maw.1,Fernwater Post sends a call for help. Answer it.,蕨水驿站发来求救。回应他们。
+arc.verdant_maw.2,Roots are choking the Thornroot Caves. Cut them back.,根须正在堵塞荆根洞窟。把它们砍掉。
+arc.verdant_maw.3,Rootharbor needs Verdant Resin to seal its hulls.,根港需要翠绿树脂来密封船体。
+arc.verdant_maw.4,Rook Fern waits in the Verdant Arena. Prove yourself.,鲁克·蕨船长在翠绿竞技场等你。证明你自己。
+arc.verdant_maw.title,The Rooted Shrine,扎根的神殿
+archetype.boss,Boss,首领
+archetype.brute,Brute,蛮兵
+archetype.captain,Captain,船长
+archetype.caster,Caster,施法者
+archetype.decoy,Decoy,诱饵
+archetype.healer,Healer,治疗者
+archetype.shooter,Shooter,射手
+archetype.skirmisher,Skirmisher,游击者
+battle.allies,Your crew,我方船员
+battle.basic_attack,Attack,攻击
+battle.boarding,Boarding battle,接舷战
+battle.continue,Continue,继续
+battle.defeat_facility,Damaged: {facility},损坏：{facility}
+battle.defeat_injured,Injured: {list},受伤：{list}
+battle.defeat_keep,"Levels, mastery, equipment, pets, and charts are never lost.",等级、精通度、装备、宠物和海图永远不会丢失。
+battle.defeat_result,Lost {gold} unbanked gold and {materials} materials. The crew was carried back to {location}.,损失了 {gold} 未入账金币和 {materials} 材料。船员被送回了 {location}。
+battle.enemies,Enemies,敌人
+battle.ev_absorbed,({n} absorbed),（吸收 {n}）
+battle.ev_command_focus,Order: focus {value}.,命令：集火 {value}。
+battle.ev_command_priority,Order: priority {value}.,命令：优先级改为{value}。
+battle.ev_command_retreat,Order: retreat!,命令：撤退！
+battle.ev_command_stance,Order: stance {value}.,命令：姿态改为{value}。
+battle.ev_crit,Critical! {src} hits {tgt} with {skill} for {n}.,暴击！{src} 用{skill}击中 {tgt}，造成 {n} 点伤害。
+battle.ev_dot,{tgt} burns for {n}.,{tgt} 受到 {n} 点灼烧伤害。
+battle.ev_encore,The legend rises again for an encore!,传说再度站起，返场再战！
+battle.ev_end_defeat,Defeat.,战败。
+battle.ev_end_retreat,The crew withdraws.,船员撤离了战斗。
+battle.ev_end_victory,Victory!,胜利！
+battle.ev_hazard,Hazard: {hazard} strikes.,环境危害：{hazard}来袭。
+battle.ev_heal,{src} heals {tgt} for {n}.,{src} 为 {tgt} 恢复 {n} 点生命。
+battle.ev_hit,{src} hits {tgt} with {skill} for {n}.,{src} 用{skill}击中 {tgt}，造成 {n} 点伤害。
+battle.ev_intercept,{src} takes the hit for {tgt}.,{src} 替 {tgt} 挡下了攻击。
+battle.ev_interrupt,{tgt}'s {skill} is interrupted.,{tgt} 的{skill}被打断了。
+battle.ev_ko,{tgt} is knocked out.,{tgt} 被击倒了。
+battle.ev_miss,{tgt} dodges {src}.,{tgt} 躲开了 {src} 的攻击。
+battle.ev_pet,{src} uses {ability}.,{src} 使用了{ability}。
+battle.ev_resist,{tgt} resists.,{tgt} 抵抗了效果。
+battle.ev_skill,{src} uses {skill}.,{src} 使用了{skill}。
+battle.ev_stun,{tgt} is stunned for {n}s.,{tgt} 被眩晕 {n} 秒。
+battle.ev_thorns,{tgt} takes {n} thorn damage from {src}.,{tgt} 受到 {src} 的 {n} 点反伤。
+battle.ev_trap,A trap springs on {tgt} for {n}.,陷阱对 {tgt} 造成 {n} 点伤害。
+battle.ev_wave,Wave {n} of {max}.,第 {n} 波，共 {max} 波。
+battle.ev_windup,{src} winds up {skill} at {tgt}!,{src} 正对 {tgt} 蓄力{skill}！
+battle.focus,Focus target,集火目标
+battle.focus_auto,Automatic,自动
+battle.focus_click,Click an enemy to focus fire.,点击敌人以集中攻击。
+battle.focus_hint,Click to focus this enemy.,点击以集火这名敌人。
+battle.interrupted,Interrupted!,被打断！
+battle.log,Battle log,战斗记录
+battle.miss,Miss,未命中
+battle.mod_trial,Captain trial,船长试炼
+battle.outcome_defeat,Defeat,战败
+battle.outcome_defeat_timeout,Defeat — time ran out,战败——时间耗尽
+battle.outcome_retreat,Retreated,已撤退
+battle.outcome_victory,Victory,胜利
+battle.pause,Pause,暂停
+battle.paused,"Paused — adjust tactics, then resume.",已暂停——调整战术后继续。
+battle.priority,Skill priority,技能优先级
+battle.r_arrived,Arrived at {location}.,已抵达 {location}。
+battle.r_clue,Clue: {clue},线索：{clue}
+battle.r_egg,Egg: {family} (grade {n}),宠物蛋：{family}（品级 {n}）
+battle.r_food,+{n} food,+{n} 食物
+battle.r_gold,+{n} gold,+{n} 金币
+battle.r_ingredients,Ingredients: {list},食材：{list}
+battle.r_item,Found: {item},获得：{item}
+battle.r_ledger,Gold and materials go to the unbanked ledger until you dock.,金币和材料会先记入未入账，停靠港口后入账。
+battle.r_materials,+{n} materials,+{n} 材料
+battle.r_specialty,+{n} {item},+{n} {item}
+battle.r_supplies,+{n} supplies,+{n} 补给
+battle.r_xp,+{n} XP,+{n} 经验
+battle.report,Battle report,战斗报告
+battle.result_error,The battle could not be resolved. Your game was not changed.,无法结算这场战斗。你的游戏没有被改动。
+battle.result_time,{n}s · crew HP {hp},{n} 秒 · 船员生命 {hp}
+battle.resume,Resume,继续
+battle.retreat,Retreat,撤退
+battle.retreat_hint,The crew needs {n}s to withdraw. Retreating is free but forfeits rewards.,船员需要 {n} 秒撤离。撤退不消耗任何东西，但会放弃奖励。
+battle.retreat_result,You withdrew safely. Nothing was lost and no stamina was spent.,你安全撤离了。没有任何损失，也没有消耗体力。
+battle.retreating,Retreating… {n}s,撤退中……{n} 秒
+battle.skip,Skip to end,跳到结束
+battle.skip_hint,Resolve the rest of the battle instantly with the current tactics.,以当前战术立即结算剩余战斗。
+battle.speed,Speed,速度
+battle.stance,Stance,姿态
+battle.status,{stance} · {priority} · focus: {focus},{stance} · {priority} · 集火：{focus}
+battle.time,{n}s / {max}s,{n} 秒 / {max} 秒
+battle.title_legend,Legend of {region},{region}的传说
+battle.title_room,{room} · {location},{room} · {location}
+battle.title_sea,{kind} near {location},{location}附近：{kind}
+battle.wave,Wave {n}/{max},第 {n}/{max} 波
+battle.winding,Winding up {skill} ({n}s),正在蓄力 {skill}（{n} 秒）
+blueprint.legend_keel,Legend Keel blueprint,传说龙骨蓝图
+cat.control,Control,控制
+cat.damage,Damage,伤害
+cat.support,Support,支援
+cat.survival,Survival,生存
+chart.hint,Drag to pan. Click a charted location to plan a route.,拖动以平移海图，点击已知地点规划航线。
+chore.barrels,Counting barrels,清点木桶
+chore.cable,Flaking the cable,整理锚缆
+chore.cask,Tapping the cask,开桶取用
+chore.coop,Feeding the hens,喂鸡
+chore.crates,Checking cargo,检查货物
+chore.gun,Tending the gun,照看火炮
+chore.lockers,Sorting stores,整理储物
+chore.lumber,Sorting spars,整理木料
+chore.mess_table,Taking a meal,用餐
+chore.powder,Filling cartridges,装填药包
+chore.pump,Working the bilge pump,操作舱底泵
+chore.rope_coil,Coiling down line,盘绕缆绳
+chore.sacks,Shifting sacks,搬运粮袋
+chore.sails,Mending sails,缝补船帆
+chore.shelves,Checking the shelves,清点货架
+chore.water_butt,Drawing water,打水
+chore.workbench,Planing a plank,刨木板
+class.beastkeeper.desc,Fights alongside companion pets.,与伙伴宠物并肩作战。
+class.beastkeeper.name,Beastkeeper,驯兽师
+class.beastwarden.desc,Beastkeeper branch: pets that guard the pack.,驯兽师分支：守护群体的宠物。
+class.beastwarden.name,Beastwarden,兽群守卫
+class.blade_dancer.desc,Duelist branch: whirling strikes across a lane.,决斗者分支：横扫一排的旋舞斩击。
+class.blade_dancer.name,Blade Dancer,剑舞者
+class.brawler.desc,Close-range bruiser who breaks armor.,近身打手，擅长击碎护甲。
+class.brawler.name,Brawler,拳斗士
+class.breaker.desc,Brawler branch: shatters armor and shields.,拳斗士分支：粉碎护甲和护盾。
+class.breaker.name,Breaker,破坏者
+class.bulwark.desc,Guard branch: heavy armor that slams back.,护卫分支：会反击的重甲。
+class.bulwark.name,Bulwark,壁垒
+class.challenger.desc,Duelist branch: calls out and topples bosses.,决斗者分支：点名挑战并击倒首领。
+class.challenger.name,Challenger,挑战者
+class.cook.desc,Feeds the crew in battle and saves food at sea.,在战斗中给船员加餐，在海上节省食物。
+class.cook.name,Cook,厨师
+class.dragoon.desc,Spearfighter branch: leaping strikes from above.,枪兵分支：从空中跃下突刺。
+class.dragoon.name,Dragoon,龙骑兵
+class.duelist.desc,Fast blade fighter who punishes single targets.,迅捷的剑士，专门惩罚单个目标。
+class.duelist.name,Duelist,决斗者
+class.engineer.desc,Tinkerer branch: turrets and plating.,工匠分支：炮塔与装甲板。
+class.engineer.name,Engineer,工程师
+class.feastmaster.desc,Cook branch: grand feasts that lift the crew.,厨师分支：振奋全队的盛宴。
+class.feastmaster.name,Feastmaster,宴会大师
+class.grappler.desc,Brawler branch: holds and throws.,拳斗士分支：擒抱与摔投。
+class.grappler.name,Grappler,摔角手
+class.guard.desc,Front-line protector with shields and taunts.,用盾牌和嘲讽守护前线。
+class.guard.name,Guard,护卫
+class.guardian.desc,Guard branch: unbreakable wall for the whole line.,护卫分支：守护整条战线的坚墙。
+class.guardian.name,Guardian,守护者
+class.gunner.desc,Ranged damage from the back line.,从后排进行远程输出。
+class.gunner.name,Gunner,枪手
+class.harpooner.desc,Spearfighter branch: drags foes into reach.,枪兵分支：把敌人拖进攻击范围。
+class.harpooner.name,Harpooner,鱼叉手
+class.hexbreaker.desc,Mystic branch: dispels and wards.,秘术师分支：驱散与守护。
+class.hexbreaker.name,Hexbreaker,破咒者
+class.lifekeeper.desc,Medic branch: steady regeneration for all.,医师分支：为全队持续再生。
+class.lifekeeper.name,Lifekeeper,守命者
+class.medic.desc,Keeps the crew alive with heals and cleansing.,用治疗和净化让船员保持战斗。
+class.medic.name,Medic,医师
+class.mystic.desc,Elemental caster with area attacks.,使用范围攻击的元素施法者。
+class.mystic.name,Mystic,秘术师
+class.navigator.desc,Reads the sea: marks targets and avoids trouble.,读懂大海：标记目标、避开麻烦。
+class.navigator.name,Navigator,领航员
+class.pathfinder.desc,Navigator branch: shortcuts and ambushes.,领航员分支：捷径与伏击。
+class.pathfinder.name,Pathfinder,探路者
+class.provisioner.desc,Cook branch: supplies and stamina at sea.,厨师分支：海上的补给与体力。
+class.provisioner.name,Provisioner,补给官
+class.purser.desc,Quartermaster branch: more gold from every fight.,军需官分支：每场战斗获得更多金币。
+class.purser.name,Purser,事务长
+class.quartermaster.desc,"Banners, buffs, and better loot.",旗帜、增益和更好的战利品。
+class.quartermaster.name,Quartermaster,军需官
+class.sharpshooter.desc,Gunner branch: precise shots at weak points.,枪手分支：精准射击弱点。
+class.sharpshooter.name,Sharpshooter,神射手
+class.skirmisher.desc,Gunner branch: volleys that cover every lane.,枪手分支：覆盖所有排的齐射。
+class.skirmisher.name,Skirmisher,游击手
+class.spearfighter.desc,Reach fighter who strikes past the front line.,长柄战士，可越过前排攻击。
+class.spearfighter.name,Spearfighter,枪兵
+class.standard_bearer.desc,Quartermaster branch: holds the colors high.,军需官分支：高举战旗。
+class.standard_bearer.name,Standard Bearer,旗手
+class.stormcaller.desc,Mystic branch: chain lightning.,秘术师分支：连锁闪电。
+class.stormcaller.name,Stormcaller,唤雷者
+class.surgeon.desc,Medic branch: powerful emergency healing.,医师分支：强力的急救治疗。
+class.surgeon.name,Surgeon,外科医生
+class.tide_reader.desc,Navigator branch: turns the tide of battle.,领航员分支：扭转战局。
+class.tide_reader.name,Tide Reader,观潮者
+class.tinkerer.desc,"Barriers, traps, and gadgets.",屏障、陷阱和小机关。
+class.tinkerer.name,Tinkerer,工匠
+class.trapper.desc,Tinkerer branch: nets and snares.,工匠分支：网与套索。
+class.trapper.name,Trapper,陷阱师
+class.wildspeaker.desc,Beastkeeper branch: unleashes the wild.,驯兽师分支：释放野性。
+class.wildspeaker.name,Wildspeaker,野性呼唤者
+clue.pet.cinderback,"Cinderback notes: red, red, yellow hatches a Prime companion. All signatures are now in the Pet Lab.",烬背笔记：按红、红、黄的顺序喂养，可完美孵化出伙伴。全部特征序列已记录在宠物研究室。
+clue.pet.cloudray,"Cloudray notes: yellow, blue, yellow hatches a Prime companion. All signatures are now in the Pet Lab.",云鳐笔记：按黄、蓝、黄的顺序喂养，可完美孵化出伙伴。全部特征序列已记录在宠物研究室。
+clue.pet.dreammoth,"Dreammoth notes: purple, purple, yellow hatches a Prime explorer. All signatures are now in the Pet Lab.",梦蛾笔记：按紫、紫、黄的顺序喂养，可完美孵化出探索者。全部特征序列已记录在宠物研究室。
+clue.pet.glasswing,"Glasswing notes: blue, blue, yellow hatches a Prime ship helper. All signatures are now in the Pet Lab.",琉璃翼笔记：按蓝、蓝、黄的顺序喂养，可完美孵化出船上帮手。全部特征序列已记录在宠物研究室。
+clue.pet.gloomjaw,"Gloomjaw notes: red, purple, red hatches a Prime companion. All signatures are now in the Pet Lab.",幽颚笔记：按红、紫、红的顺序喂养，可完美孵化出伙伴。全部特征序列已记录在宠物研究室。
+clue.pet.mossling,"Mossling notes: green, green, blue hatches a Prime ship helper. All signatures are now in the Pet Lab.",苔仔笔记：按绿、绿、蓝的顺序喂养，可完美孵化出船上帮手。全部特征序列已记录在宠物研究室。
+clue.pet.pearlcub,"Pearlcub notes: white, white, green hatches a Prime explorer. All signatures are now in the Pet Lab.",珍珠幼兽笔记：按白、白、绿的顺序喂养，可完美孵化出探索者。全部特征序列已记录在宠物研究室。
+clue.pet.shellwarden,"Shellwarden notes: green, blue, green hatches a Prime ship helper. All signatures are now in the Pet Lab.",甲壳守卫笔记：按绿、蓝、绿的顺序喂养，可完美孵化出船上帮手。全部特征序列已记录在宠物研究室。
+clue.pet.starwake,"Starwake notes: white, yellow, purple hatches a Prime explorer. All signatures are now in the Pet Lab.",星痕笔记：按白、黄、紫的顺序喂养，可完美孵化出探索者。全部特征序列已记录在宠物研究室。
+clue.pet.tidefin,"Tidefin notes: red, blue, blue hatches a Prime companion. All signatures are now in the Pet Lab.",潮鳍笔记：按红、蓝、蓝的顺序喂养，可完美孵化出伙伴。全部特征序列已记录在宠物研究室。
+codex.arc,Main arc,主线
+codex.blueprints,Blueprints,蓝图
+codex.boss,Boss,首领
+codex.captain,{title} · trials won {n},{title} · 赢得试炼 {n} 次
+codex.classes_hint,Classes appear once a crew member trains in them.,有船员修习某个职业后，它才会出现在这里。
+codex.defeated,Defeated {n},已击败 {n}
+codex.family,Family,族群
+codex.hatch_hint,Every hatch is recorded: the same family and input order give the same pet.,每次孵化都会被记录：同一族群、同样的投入顺序，会孵出同样的宠物。
+codex.hatch_log,Hatch log,孵化记录
+codex.hazard,Hazard,环境危害
+codex.items_seen,Items seen,见过的物品
+codex.mechanic,Battle rule,战斗规则
+codex.no_clues,No clues found yet.,还没有找到线索。
+codex.no_hatches,No hatches recorded yet.,还没有孵化记录。
+codex.none,Nothing yet.,暂无。
+codex.none_value,—,—
+codex.order,Input order,投入顺序
+codex.pet_family,Pet family,宠物族群
+codex.recipe_cost,{n} materials · {k} {item},{n} 材料 · {k} 个{item}
+codex.recipe_known,Known,已知
+codex.recipes,Recipes,配方
+codex.region_locked,Locked sea,未解锁的海域
+codex.result,Result,结果
+codex.rival,Rival captain,对手船长
+codex.tab_classes,Classes,职业
+codex.tab_clues,Clues,线索
+codex.tab_enemies,Enemies,敌人
+codex.tab_items,Items,物品
+codex.tab_locations,Seas,海域
+codex.tab_pets,Pets,宠物
+codex.title,Codex,图鉴
+codex.trial,Captain trial,船长试炼
+codex.trial_pending,Not yet won,尚未获胜
+codex.trial_won,Won,已获胜
+codex.uniques,Unique gear,独特装备
+codex.unknown_class,Unknown class,未知职业
+codex.unknown_enemy,Unknown enemy,未知敌人
+codex.unknown_location,Uncharted,未标记
+codex.unknown_pet,Unknown,未知
+color.blue,Blue,蓝
+color.green,Green,绿
+color.purple,Purple,紫
+color.red,Red,红
+color.white,White,白
+color.yellow,Yellow,黄
+confirm.return_body,"Sail straight back to {location}. It costs no food, gold, or stamina and takes 12 hours. Your unbanked {gold} gold and {materials} materials are banked on arrival.",直接返回 {location}。不消耗食物、金币或体力，耗时 12 小时。抵达后，未入账的 {gold} 金币和 {materials} 材料将会入账。
+confirm.return_title,Emergency Return?,紧急返航？
+confirm.unreachable_title,Some facilities are unreachable,部分设施无法到达
+contract.haul,Haul {need} {item} to {port}.,把 {need} 个{item}运到 {port}。
+contract.haul.title,Cargo haul,货物运输
+contract.hunt,"Defeat {need} foes in {region} ({have}/{need}), then report to {port}.",在{region}击败 {need} 名敌人（{have}/{need}），然后向 {port} 回报。
+contract.hunt.title,Bounty hunt,悬赏讨伐
+contract.supply,Deliver {need} supplies to {port}.,向 {port} 运送 {need} 份补给。
+contract.supply.title,Supply run,补给运送
+crew.affinity,Pet affinity,宠物亲和
+crew.aptitudes,Aptitudes,天赋
+crew.branch_of,branch of {base},{base} 的分支
+crew.change_class,Change class,转职
+crew.choose_item,Choose an item…,选择物品……
+crew.class_passive,Class passive,职业被动
+crew.classes,Classes,职业
+crew.companion,Companion: {pet},伙伴宠物：{pet}
+crew.current_class,Current,当前
+crew.details,Details,详情
+crew.dismiss,Dismiss,解雇
+crew.dismiss_body,They leave the crew for good. Their equipment returns to the hold.,对方将永久离开船队，装备会退回货舱。
+crew.dismiss_confirm,Dismiss {name}?,解雇 {name}？
+crew.empty_slot,— empty —,— 空位 —
+crew.equipment,Equipment,装备
+crew.event,Personal story,个人故事
+crew.event_deliver,Deliver keepsake,交付纪念品
+crew.event_done,Completed,已完成
+crew.formation,Formation,编队
+crew.formation_hint,"Six battle slots: two front, two center, two rear. Lanes decide who gets hit first.",六个战斗位置：前排两个、中排两个、后排两个。站位决定谁先受到攻击。
+crew.incompatible,class cannot use,职业无法使用
+crew.injured,Injured,受伤
+crew.injury_note,Injured: stats −{pct} until treated.,受伤：治疗前属性 −{pct}。
+crew.job,Ship job,船上工作
+crew.job_current,{facility} · efficiency {pct},{facility} · 效率 {pct}
+crew.job_none,No job assigned.,未分配工作。
+crew.jobs_preferred,Preferred jobs: {list},擅长的工作：{list}
+crew.legacy,Legacy passives,传承被动
+crew.legacy_hint,Choose up to two passives from classes this sailor mastered (mastery {n}).,从这名船员已精通的职业中选择最多两个被动（精通度 {n}）。
+crew.legacy_locked,Master a class to unlock,精通一个职业后解锁
+crew.legacy_n,Legacy {n},传承 {n}
+crew.legacy_none,— none —,— 无 —
+crew.mastered,Mastered,已精通
+crew.mastery,Mastery {n} / {max},精通度 {n} / {max}
+crew.need_mastery,Needs {cls} mastery {n},需要 {cls} 精通度 {n}
+crew.no_companion,No companion pet.,没有伙伴宠物。
+crew.no_item,Nothing equipped,未装备
+crew.no_items_owned,No items for this slot,没有适合此栏位的物品
+crew.none,Select a crew member.,请选择一名船员。
+crew.origin,Origin,出身
+crew.passives,Passives,被动技能
+crew.power,Power {n},战力 {n}
+crew.rename,Rename,改名
+crew.reserve,Reserve,候补
+crew.respec_body,Equipment the new class cannot use is moved to the hold.,新职业无法使用的装备会被移入货舱。
+crew.respec_confirm,Change {name} to {cls}?,让 {name} 转职为 {cls}？
+crew.respec_rule,"Changing class keeps level, mastery, and qualifications. Only the current class grants active skills.",转职会保留等级、精通度和资格。只有当前职业提供主动技能。
+crew.roster,Roster,名册
+crew.select_hint,Choose a sailor from the roster.,请从名册中选择一名船员。
+crew.skills,Active skills,主动技能
+crew.slot_n,Slot {n},位置 {n}
+crew.stats,Stats,属性
+crew.tactics,Default tactics,默认战术
+crew.tactics_hint,Used when an encounter starts. You can change them any time in the battle pause menu.,遭遇战开始时使用。战斗中可随时在暂停菜单里调整。
+crew.title,Crew,船员
+crew.traits,Traits,性格
+crew.treat,Treat,治疗
+crew.unequip,Unequip,卸下
+crew.weapons_allowed,Usable weapons: {list},可用武器：{list}
+crew.xp,XP {n} / {max},经验 {n} / {max}
+deck.all,Weather deck,露天甲板
+deck.fore.name,forecastle,艏楼甲板
+deck.fore.title,Forecastle,艏楼甲板
+deck.hold.name,hold,货舱
+deck.hold.title,Hold,货舱
+deck.lower.name,gun deck,炮甲板
+deck.lower.title,Gun deck,炮甲板
+deck.main.name,main deck,主甲板
+deck.main.title,Main deck,主甲板
+deck.orlop.name,orlop,下层甲板
+deck.orlop.title,Orlop,下层甲板
+deck.poop.name,poop deck,艉楼甲板
+deck.poop.title,Poop deck,艉楼甲板
+deck.quarter.name,quarterdeck,后甲板
+deck.quarter.title,Quarterdeck,后甲板
+deck.weather.title,Weather deck,露天甲板
+dress.ballast,Ballast,压舱物
+dress.barrels,Barrels,木桶
+dress.cable,Cable tier,锚缆舱
+dress.cask,Great cask,大木桶
+dress.chests,Sea chests,水手箱
+dress.coop,Hen coop,鸡笼
+dress.crates,Crates,货箱
+dress.crates_tall,Stacked crates,堆叠货箱
+dress.gun,Gun,舰炮
+dress.hammock,Hammock,吊床
+dress.lantern,Lantern post,灯柱
+dress.lockers,Lockers,储物柜
+dress.lumber,Spare spars,备用木料
+dress.mess_table,Mess table,餐桌
+dress.net_cargo,Netted cargo,网兜货物
+dress.partition,Partition,隔舱板
+dress.partition_end,Storeroom door,舱室门
+dress.pillar,Stanchion,支柱
+dress.powder,Powder kegs and shot,火药桶与炮弹
+dress.pump,Bilge pump,舱底泵
+dress.rope_coil,Coiled line,缆绳卷
+dress.sacks,Sacks of grain,粮袋
+dress.sails,Spare sails,备用帆
+dress.shelves,Shelving,货架
+dress.shot_rack,Shot rack,炮弹架
+dress.water_butt,Scuttlebutt,淡水桶
+dress.workbench,Carpenter's bench,木工台
+enemy.abyss_brute.name,Abyss Brute,深渊蛮兵
+enemy.archive_keeper.name,Archive Keeper,档案看守
+enemy.ash_hexer.name,Ash Hexer,灰烬咒术师
+enemy.ash_slinger.name,Ash Slinger,灰烬投石手
+enemy.aurelia_dawn.name,Captain Aurelia Dawn,奥蕾莉亚·晨船长
+enemy.bark_brute.name,Bark Brute,树皮蛮兵
+enemy.beacon_keeper.name,Beacon Keeper,信标看守
+enemy.bloom_nurse.name,Bloom Nurse,花朵护士
+enemy.bone_spitter.name,Bone Spitter,吐骨者
+enemy.brakka_reef.name,Captain Brakka Reef,布拉卡·礁船长
+enemy.brine_witch.name,Brine Witch,盐水女巫
+enemy.cassian_crest.name,Captain Cassian Crest,卡西安·纹章船长
+enemy.cellar_king.name,Cellar King,地窖之王
+enemy.cinder_imp.name,Cinder Imp,余烬小恶魔
+enemy.colossus_core.name,Colossus Core,巨像核心
+enemy.compass_guardian.name,Compass Guardian,罗盘守护者
+enemy.conclave_medic.name,Conclave Medic,议会医师
+enemy.court_hexer.name,Court Hexer,宫廷咒术师
+enemy.crown_enforcer.name,Crown Enforcer,王冠执法者
+enemy.crystal_decoy.name,Crystal Decoy,水晶诱饵
+enemy.cutpurse.name,Cutpurse,扒手
+enemy.dawn_mage.name,Dawn Mage,黎明法师
+enemy.deep_priest.name,Deep Priest,深海祭司
+enemy.dream_ogre.name,Dream Ogre,梦魇食人魔
+enemy.drowned_keeper.name,Drowned Keeper,溺亡看守
+enemy.ember_monk.name,Ember Monk,余烬僧侣
+enemy.family_patriarch.name,Family Patriarch,家族族长
+enemy.flame_seer.name,Flame Seer,火焰先知
+enemy.flint_cinder.name,Captain Flint Cinder,弗林特·烬船长
+enemy.forge_colossus.name,Forge Colossus,熔炉巨像
+enemy.gale_harpooner.name,Gale Harpooner,疾风鱼叉手
+enemy.gate_duelist.name,Gate Duelist,关门决斗者
+enemy.gate_warden.name,Gate Warden,大门守卫
+enemy.gilded_medic.name,Gilded Medic,镀金医师
+enemy.gull_raider.name,Gull Raider,海鸥劫掠者
+enemy.gut_leviathan.name,Gut Leviathan,腹中利维坦
+enemy.horizon_knight.name,Horizon Knight,地平线骑士
+enemy.kelp_tender.name,Kelp Tender,海带看护
+enemy.labyrinth_dreamer.name,Labyrinth Dreamer,迷宫梦者
+enemy.lens_cleric.name,Lens Cleric,透镜牧师
+enemy.lookout_warden.name,Lookout Warden,瞭望台看守
+enemy.lull_spirit.name,Lull Spirit,安眠之灵
+enemy.magma_golem.name,Magma Golem,岩浆魔像
+enemy.mira_gull.name,Captain Mira Gull,米拉·鸥船长
+enemy.mirror_mage.name,Mirror Mage,镜像法师
+enemy.moon_oracle.name,Moon Oracle,月之神谕
+enemy.musket_noble.name,Musket Noble,火枪贵族
+enemy.nessa_gale.name,Captain Nessa Gale,内莎·疾风船长
+enemy.night_stalker.name,Night Stalker,夜行者
+enemy.observatory_ghost.name,Observatory Ghost,天文台幽灵
+enemy.orin_lantern.name,Captain Orin Lantern,奥林·灯笼船长
+enemy.pennant_bosun.name,Pennant Bosun,红旗水手长
+enemy.pennant_deckhand.name,Pennant Deckhand,红旗水手
+enemy.pennant_gunner.name,Pennant Gunner,红旗枪手
+enemy.pennant_hexer.name,Pennant Hexer,红旗咒术师
+enemy.pennant_surgeon.name,Pennant Surgeon,红旗军医
+enemy.prism_sniper.name,Prism Sniper,棱光狙击手
+enemy.quartz_knight.name,Quartz Knight,石英骑士
+enemy.reef_crab.name,Reef Crab,礁石蟹
+enemy.reef_mender.name,Reef Mender,礁石修补者
+enemy.refraction_queen.name,Refraction Queen,折射女王
+enemy.relic_thief.name,Relic Thief,遗物窃贼
+enemy.ring_raider.name,Ring Raider,环礁掠夺者
+enemy.rook_fern.name,Captain Rook Fern,鲁克·蕨船长
+enemy.root_mother.name,Root Mother,根之母
+enemy.seal_guardian.name,Seal Guardian,封印守卫
+enemy.selene_prism.name,Captain Selene Prism,瑟琳·棱光船长
+enemy.shard_fencer.name,Shard Fencer,碎晶剑客
+enemy.shell_titan.name,Shell Titan,甲壳巨人
+enemy.shrine_tyrant.name,Shrine Tyrant,神殿暴君
+enemy.sky_gunner.name,Sky Gunner,天空枪手
+enemy.spore_shaman.name,Spore Shaman,孢子萨满
+enemy.spray_gunner.name,Spray Gunner,浪花枪手
+enemy.squall_runner.name,Squall Runner,疾风奔袭者
+enemy.star_archer.name,Star Archer,星辰弓手
+enemy.storm_witch.name,Storm Witch,风暴女巫
+enemy.tempest_wyrm.name,Tempest Wyrm,暴风巨龙
+enemy.thorn_archer.name,Thorn Archer,荆棘弓手
+enemy.thunder_brute.name,Thunder Brute,雷鸣蛮兵
+enemy.tide_shaman.name,Tide Shaman,潮汐萨满
+enemy.trench_gunner.name,Trench Gunner,海沟枪手
+enemy.trench_horror.name,Trench Horror,海沟恐魔
+enemy.vale_ash.name,Captain Vale Ash,维尔·灰船长
+enemy.vault_sentinel.name,Vault Sentinel,宝库哨兵
+enemy.vent_tyrant.name,Vent Tyrant,喷口暴君
+enemy.vine_stalker.name,Vine Stalker,藤蔓潜伏者
+err.aid_not_needed,You can afford this yourself.,你自己负担得起。
+err.already_accepted,Already accepted.,已经接受了。
+err.already_docked,You are already docked.,你已经停靠在港口了。
+err.already_evolved,Already evolved.,已经进化过了。
+err.already_hired,Already hired.,已经招募过了。
+err.bad_cell,Not a valid cell.,无效的格子。
+err.board_level,Needs quest board level {level}.,需要任务板 {level} 级。
+err.build_limit,Build limit reached.,已达到建造上限。
+err.cannot_demolish_cabin,The Captain's Cabin cannot be dismantled.,船长室无法拆除。
+err.cell_blocked,That cell is blocked.,这个格子被挡住了。
+err.cell_door,Keep doorways clear.,门口必须保持通畅。
+err.cell_entry,Keep the deck entry clear.,甲板入口必须保持通畅。
+err.cell_occupied,That cell is occupied.,这个格子已被占用。
+err.cell_stair,A stair is there.,那里有楼梯。
+err.contract_incomplete,Not finished yet ({have}/{need}).,尚未完成（{have}/{need}）。
+err.contract_limit,Three contracts are already active.,已有三个进行中的委托。
+err.empty_formation,Put at least one crew member in the formation.,编队中至少要有一名船员。
+err.equip_full,Equipment storage is full.,装备储存已满。
+err.equipped,Unequip it first.,请先卸下它。
+err.event_pending,Resolve the sea event first.,请先处理海上事件。
+err.fast_not_charted,This route is not charted yet.,这条航线尚未标记。
+err.fast_not_visited,Fast travel needs both ports visited.,快速航行需要两个港口都已到访。
+err.fast_ports_only,Fast travel only connects ports.,快速航行只能连接港口。
+err.food_full,Food storage is full.,食物储存已满。
+err.hatch_inputs,Feed the egg between one and three inputs.,请给宠物蛋喂入一到三份投入物。
+err.hull_blueprint,Needs the Legend Keel blueprint.,需要传说龙骨蓝图。
+err.hull_owned,You already have this hull or a better one.,你已经拥有这个或更好的船体。
+err.hull_previous,Upgrade to the previous hull first.,请先升级到上一级船体。
+err.hull_region,Unlocks when you reach {region}.,抵达{region}后解锁。
+err.hull_required,Needs a hull upgrade.,需要升级船体。
+err.hull_tier,Needs hull tier {tier}.,需要 {tier} 阶船体。
+err.in_encounter,Finish the current battle first.,请先结束当前战斗。
+err.internal,Something went wrong. Your game was not changed.,出了点问题。你的游戏没有被改动。
+err.job_full,No free job slot.,没有空闲的工作位置。
+err.last_crew,You cannot dismiss your last crew member.,不能解雇最后一名船员。
+err.layout_blocked,The ship layout blocks departure.,船只布局不允许出航。
+err.legacy_duplicate,That passive is already chosen.,已经选择了这个被动。
+err.market_level,Needs market level {level}.,需要市场 {level} 级。
+err.max_level,Already at max level.,已达到最高等级。
+err.need_bench,Needs a Material Bench.,需要材料工作台。
+err.need_class_hall,Needs a Class Hall.,需要职业大厅。
+err.need_explorer,Needs an exploring pet.,需要一只探索宠物。
+err.need_facility,Needs {facility}.,需要{facility}。
+err.need_infirmary,Needs an Infirmary aboard or a port.,需要船上的医务室或在港口进行。
+err.need_muster,Needs a Muster Deck.,需要集结甲板。
+err.need_port,Only possible while docked at a port.,只能在停靠港口时进行。
+err.need_workshop,Needs a Workshop aboard or a port workshop.,需要船上的工坊或港口工坊。
+err.need_workshop2,Needs a level 2 workshop.,需要 2 级工坊。
+err.no_encounter,There is no battle in progress.,当前没有进行中的战斗。
+err.no_event,There is no sea event to resolve.,没有需要处理的海上事件。
+err.no_food,Needs {need} food.,需要 {need} 食物。
+err.no_food_route,Not enough food for this route.,食物不足以完成这段航线。
+err.no_gold,Needs {need} gold.,需要 {need} 金币。
+err.no_input,You have no {item}.,你没有{item}。
+err.no_job_slots,This facility has no jobs.,这个设施没有工作岗位。
+err.no_legend,No legend here.,这里没有传说。
+err.no_lower_deck,Stairs go on a deck edge right beside a higher deck.,楼梯只能放在紧邻较高甲板的甲板边缘。
+err.no_materials,Needs {need} materials.,需要 {need} 材料。
+err.no_preset,That preset is empty.,这个预设是空的。
+err.no_recipe,Recipe unknown.,未知配方。
+err.no_specialty,Needs {need} {item}.,需要 {need} 个{item}。
+err.no_stair_slot,Stairs go on a deck edge right beside a higher deck.,楼梯只能放在紧邻较高甲板的甲板边缘。
+err.no_stamina,Needs {need} stamina (you have {have}).,需要 {need} 体力（现有 {have}）。
+err.no_supplies,Needs {need} supplies.,需要 {need} 补给。
+err.not_at_site,You are not at that location.,你不在那个地点。
+err.not_injured,Not injured.,没有受伤。
+err.not_mastered,Master the class first.,请先精通这个职业。
+err.not_qualified,Not qualified for {cls}.,不具备{cls}的资格。
+err.not_revealed,That location is not charted yet.,这个地点尚未标记在海图上。
+err.not_sold,Not sold here.,这里不出售。
+err.nothing_to_deliver,Nothing to deliver.,没有可交付的东西。
+err.nothing_to_repair,Nothing needs repair.,没有需要维修的地方。
+err.out_of_bounds,Outside the deck.,超出甲板范围。
+err.over_capacity,More crew than berths.,船员超出床位。
+err.pet_full,No room for more pets.,没有空间容纳更多宠物。
+err.pet_level,Needs pet level {level}.,需要宠物达到 {level} 级。
+err.pet_owner,That crew member is not in the formation.,这名船员不在编队中。
+err.pet_role,This pet cannot be a {role}.,这只宠物不能担任{role}。
+err.postgame_only,Available after you hold the title.,获得称号后开放。
+err.region_locked,This sea is still locked.,这片海域仍未解锁。
+err.room_depleted,This room has nothing left.,这个房间已经空了。
+err.room_locked,Clear an adjacent room first.,请先清理一个相邻的房间。
+err.same_class,Already this class.,已经是这个职业了。
+err.same_location,You are already here.,你已经在这里了。
+err.save_corrupt,This save is damaged and cannot be loaded.,这个存档已损坏，无法读取。
+err.save_missing,No save found.,找不到存档。
+err.save_newer,This save comes from a newer version.,这个存档来自更新的版本。
+err.save_old,This save is from an unsupported version.,这个存档的版本已不受支持。
+err.save_write_failed,The game could not be saved. Free some storage or export your save.,无法保存游戏。请释放一些存储空间或导出存档。
+err.stamina_full,Stamina is already full.,体力已满。
+err.supplies_full,Supply storage is full.,补给储存已满。
+err.trial_locked,The captain trial opens after the main arc.,船长试炼将在主线完成后开放。
+err.unknown,That cannot be done right now.,现在无法这样做。
+err.unknown_location,Unknown location.,未知地点。
+err.weapon_incompatible,{cls} cannot use this weapon.,{cls}无法使用这件武器。
+err.wrong_port,Not available at this port.,本港口不提供此项。
+err.wrong_slot,Wrong equipment slot.,装备栏位不对。
+err.zone_deck,This fitting must stand on an exposed deck.,此船具必须放在露天甲板上。
+err.zone_interior,Ordinary rooms belong inside the hull. Switch to an interior level.,普通房间应建在船舱内部。请切换到船舱楼层。
+event.collector.desc,Deliver one specialty from their home waters ({origin}) at any port.,在任意港口交付一件其家乡海域（{origin}）的特产。
+event.collector.title,Keepsake,纪念品
+event.feast.desc,Serve rations to the crew ({n}/5).,为船员分发口粮（{n}/5）。
+event.feast.title,A Proper Feast,像样的一餐
+event.homesick.desc,Dock at a port in their home waters ({origin}) after time away.,离开一段时间后，停靠其家乡海域（{origin}）的港口。
+event.homesick.title,Homesick,思乡
+event.proving.desc,Win battles with them in the formation ({n}/5).,让其留在编队中赢得战斗（{n}/5）。
+event.proving.title,Proving Ground,证明自己
+fac.barricade_room.desc,Less damage in boarding battles; protects against squalls.,登船战中受到的伤害更少；抵御暴风雨。
+fac.barricade_room.name,Barricade Room,防御工事舱
+fac.boarding_gate.desc,Crew start boarding battles with a large skill meter.,登船战开始时船员获得大量技能能量。
+fac.boarding_gate.name,Boarding Gate,登船门
+fac.captains_cabin.desc,Required. Command center; upgrades raise max stamina.,必需。指挥中心；升级可提高体力上限。
+fac.captains_cabin.name,Captain's Cabin,船长室
+fac.cargo_hold.desc,More room for supplies and equipment.,更多补给和装备储存空间。
+fac.cargo_hold.name,Cargo Hold,货舱
+fac.chart_table.desc,"Exact sea forecasts, known hazards, and fewer pirates.",精确的海况预报、已知环境危害，海盗更少。
+fac.chart_table.name,Chart Table,海图桌
+fac.class_hall.desc,Faster class mastery.,更快精通职业。
+fac.class_hall.name,Class Hall,职业大厅
+fac.compass_room.desc,Cheaper voyages between seas and known hazards.,跨海域航行更省，并知晓环境危害。
+fac.compass_room.name,Compass Room,罗盘室
+fac.creature_pens.desc,Room for many more pets.,可饲养更多宠物。
+fac.creature_pens.name,Creature Pens,生物围栏
+fac.crew_quarters.desc,Required. Berths for the crew.,必需。船员的床位。
+fac.crew_quarters.name,Crew Quarters,船员舱
+fac.galley.desc,"Cook food from gold, even at sea.",用金币烹饪食物，在海上也可以。
+fac.galley.name,Galley,厨房
+fac.guard_post.desc,Front-line crew start boarding battles shielded.,登船战开始时前排船员获得护盾。
+fac.guard_post.name,Guard Post,警卫哨
+fac.hatchery.desc,Hatch pet eggs and store more of them.,孵化宠物蛋，并能存放更多宠物蛋。
+fac.hatchery.name,Hatchery,孵化室
+fac.infirmary.desc,Treat injuries at sea and limit injuries from defeats.,在海上治疗伤势，并减少战败造成的受伤。
+fac.infirmary.name,Infirmary,医务室
+fac.lookout.desc,Reveals neighboring locations on arrival.,抵达时发现相邻地点。
+fac.lookout.name,Lookout,瞭望台
+fac.material_bench.desc,More materials from battles and salvage.,从战斗和分解中获得更多材料。
+fac.material_bench.name,Material Bench,材料工作台
+fac.mess_hall.desc,Rations restore more stamina and voyages use less food.,口粮恢复更多体力，航行消耗更少食物。
+fac.mess_hall.name,Mess Hall,餐厅
+fac.music_room.desc,More XP for the whole crew.,全体船员获得更多经验。
+fac.music_room.name,Music Room,音乐室
+fac.muster_deck.desc,Crew start every battle with extra skill meter.,船员每场战斗开始时获得额外技能能量。
+fac.muster_deck.name,Muster Room,集合室
+fac.pantry.desc,Required. Food storage.,必需。储存食物。
+fac.pantry.name,Pantry,食物储藏室
+fac.pet_lab.desc,Evolve pets and keep more of them.,让宠物进化，并能饲养更多宠物。
+fac.pet_lab.name,Pet Lab,宠物研究室
+fac.practice_deck.desc,Crew outside the formation still gain XP.,不在编队中的船员也能获得经验。
+fac.practice_deck.name,Practice Hall,训练场
+fac.recovery_room.desc,Free treatments at port each day.,在港口每天可免费治疗。
+fac.recovery_room.name,Recovery Room,康复室
+fac.secure_locker.desc,Extra equipment storage.,额外的装备储存空间。
+fac.secure_locker.name,Secure Locker,保险柜
+fac.story_deck.desc,Personal stories reward more XP.,个人故事奖励更多经验。
+fac.story_deck.name,Story Lounge,故事厅
+fac.tavern_corner.desc,One more recruit in every tavern and cheaper hiring.,每家酒馆多一名新水手，招募更便宜。
+fac.tavern_corner.name,Tavern Corner,酒馆角
+fac.tide_archive.desc,More XP for the whole crew.,全体船员获得更多经验。
+fac.tide_archive.name,Tide Archive,潮汐档案馆
+fac.workshop.desc,Craft gear and make supplies from materials.,制作装备，并用材料制作补给。
+fac.workshop.name,Workshop,工坊
+faccat.command,Command,指挥
+faccat.defense,Defense,防御
+faccat.living,Living,生活
+faccat.medical,Medical,医疗
+faccat.navigation,Navigation,航海
+faccat.pet,Pets,宠物
+faccat.production,Production,生产
+faccat.social,Social,社交
+faccat.storage,Storage,储存
+faccat.training,Training,训练
+faction.conclave.name,Horizon Conclave,地平线议会
+faction.league.name,Harbor League,港湾联盟
+faction.pennants.name,Red Pennants,红旗帮
+faction.tidebound.name,Tidebound Society,潮缚学会
+fx.boss,+{pct} vs bosses,对首领 +{pct}
+fx.buffAtk,ATK +{pct} for {dur}s,{dur} 秒内攻击 +{pct}
+fx.buffDef,DEF +{pct} for {dur}s,{dur} 秒内防御 +{pct}
+fx.cleanse,removes debuffs,移除减益
+fx.cleanseAllies,cleanses all allies,净化全体队友
+fx.dispel,strips enemy shields and buffs,驱散敌人的护盾和增益
+fx.dot,burn {pct} ATK/s for {dur}s,{dur} 秒内每秒灼烧 {pct} 攻击
+fx.evade,evade {secs}s,闪避 {secs} 秒
+fx.execute,bonus damage to wounded foes,对重伤敌人额外伤害
+fx.mark,mark {secs}s,标记 {secs} 秒
+fx.meter,skill meter +{n},技能能量 +{n}
+fx.pet,companion pet strikes (×{n}),伙伴宠物出击（×{n}）
+fx.pierce,ignores {pct} DEF,无视 {pct} 防御
+fx.plunder,plunders extra gold,掠夺额外金币
+fx.reachAll,reaches any lane,可攻击任意一排
+fx.regen,regenerate {pct} max HP/s for {dur}s,{dur} 秒内每秒恢复 {pct} 最大生命
+fx.shield,shield {pct} max HP,护盾 {pct} 最大生命
+fx.slow,slow {secs}s,减速 {secs} 秒
+fx.snipe,snipes the weakest foe,狙击最虚弱的敌人
+fx.stun,stun {secs}s,眩晕 {secs} 秒
+fx.sunder,sunders armor,破坏护甲
+fx.taunt,taunt {secs}s,嘲讽 {secs} 秒
+fx.trap,"sets a trap ({pct} ATK, stun {stun}s)",布置陷阱（{pct} 攻击，眩晕 {stun} 秒）
+fx.windup,"{secs}s wind-up, can be interrupted",蓄力 {secs} 秒，可被打断
+guide.chart,Your first goal is {location}. Press Set sail to open the sea chart and plan the voyage.,你的第一个目标是{location}。点击“起航”打开海图，规划航程。
+guide.chart_any,Press Set sail to open the sea chart and plan your first voyage.,点击“起航”打开海图，规划你的第一次航行。
+guide.hide,Hide guide,关闭指引
+guide.hide_tip,Turns these tips off. System > Settings can show them again.,关闭这些提示。可在“系统 > 设置”中重新显示。
+guide.levels,"Your ship has several levels. Pick one here, or press PgDn / PgUp, to look below deck at the cabins, galley and hold.",你的船有好几层。在这里选择楼层，或按 PgDn / PgUp，查看甲板下的舱室、厨房和货舱。
+guide.ok,Got it,知道了
+guide.route,Pick {location} in this list or on the chart. The panel then shows the hours and food the trip takes.,在此列表或海图上选择{location}。面板会显示航程所需的时间和食物。
+guide.route_any,Pick a destination in this list or on the chart. The panel then shows the hours and food the trip takes.,在此列表或海图上选择一个目的地。面板会显示航程所需的时间和食物。
+guide.sail,"Press Sail to set off. The crew eats on the way, so check the food cost first.",点击“起航”出发。船员在途中会消耗食物，出发前请先确认食物花费。
+guide.sail_blocked,"Sail is not available for this trip. Hover the button to see why, or pick another destination.",暂时无法前往该目的地。将鼠标悬停在按钮上查看原因，或选择其他目的地。
+guide.site,You have landed. Click a glowing room marker and the party walks there. Fights and searches cost stamina (top bar).,已登陆。点击发光的房间标记，队伍就会走过去。战斗和搜索会消耗体力（见顶部栏）。
+guide.title,Getting started · {n}/{total},新手指引 · {n}/{total}
+hazard.dream.name,Dream haze,梦雾
+hazard.glare.name,Glare,强光
+hazard.heat.name,Heat,酷热
+hazard.poison.name,Spores,孢子
+hazard.pressure.name,Pressure,水压
+hazard.storm.name,Lightning,雷暴
+hazard.tide.name,Riptide,激流
+home.aid_available,Free emergency aid is available at this port.,本港口可提供免费紧急援助。
+home.crew_cap,Crew berths,船员床位
+home.crew_cap_value,{n} / {max},{n} / {max}
+home.damage,Hull damage,船体损伤
+home.emergency_hint,Always available: return to your last safe port for free.,随时可用：免费返回最近的安全港口。
+home.emergency_return,Emergency Return,紧急返航
+home.explore_site,Continue exploring,继续探索
+home.facility_damaged,{facility} is damaged.,{facility} 已损坏。
+home.formation,Battle formation,战斗编队
+home.hull,Hull,船体
+home.last_safe,Last safe port: {location},最近的安全港口：{location}
+home.ledger,{gold} gold · {materials} materials,{gold} 金币 · {materials} 材料
+home.ledger_short,Unbanked cargo,未入账货物
+home.log,Captain's log,航海日志
+home.missing_required,Required facility missing or unreachable: {facility}.,缺少必需设施或无法到达：{facility}。
+home.no_quests,No side quests accepted.,尚未接受支线任务。
+home.objective,Current objective,当前目标
+home.open_chart,Open sea chart,打开海图
+home.open_crew,Open crew,打开船员
+home.open_port,Open port,打开港口
+home.open_ship,Open ship,打开船只
+home.over_capacity,More crew than berths. Build or upgrade Crew Quarters before departing.,船员超出床位。出航前请建造或升级船员舱。
+home.quests,Quests,任务
+home.resume_battle,Resume battle,继续战斗
+home.serve_ration,Serve a ration (+{n}),分发口粮（+{n}）
+home.ship,Ship,船只
+home.ship_ready,Ship is ready to sail.,船只已准备好出航。
+home.stamina,Ship stamina,船只体力
+home.stamina_rule,"Optional challenges cost stamina. Sailing, forced fights, retreating, cleared rooms, and returning to port are free. Only food rations and supplies restore stamina.",可选挑战会消耗体力。航行、被迫战斗、撤退、已清理的房间和返回港口都不消耗体力。只有口粮和补给能恢复体力。
+home.stamina_value,{n} / {max},{n} / {max}
+home.use_supply,Use supplies (+{n}),使用补给（+{n}）
+hud.build,Build,建造
+hud.daytime,Day {day} · {hour}:00,第{day}天 · {hour}:00
+hud.menu,Menu,菜单
+hud.overview,Log & quests,日志与任务
+hud.sail,Set sail,起航
+hud.sailing_to,Sailing to {location}… click to skip,正在驶向 {location}……点击跳过
+hud.shortcuts,Controls,操作说明
+hull.adventurer.desc,"A frigate with forecastle and quarterdeck, and three interior levels: gun deck, orlop and hold.",一艘护卫舰，带艏楼和后甲板，船舱内有炮甲板、下层甲板和货舱三层。
+hull.adventurer.name,Adventurer Frigate,冒险护卫舰
+hull.legend.desc,A towering galleon with a poop deck over the quarterdeck and three broad interior levels.,一艘高耸的大帆船，后甲板之上还有艉楼，船舱内有三层宽敞的楼层。
+hull.legend.name,Legend Galleon,传说大帆船
+hull.starter.desc,A stout sloop: an open weather deck for boarding fights above a gun deck and a hold for rooms.,一艘结实的单桅船：上方是供接舷战使用的露天甲板，下方的炮甲板和货舱用来布置房间。
+hull.starter.name,Driftling Sloop,漂木单桅船
+hull.voyager.desc,"A brig with a raised quarterdeck, a long gun deck and a deeper hold.",一艘双桅船，有抬高的后甲板、更长的炮甲板和更深的货舱。
+hull.voyager.name,Voyager Brig,远航双桅船
+ing.dusk_ink.name,Dusk Ink,暮色墨
+ing.fire_pepper.name,Fire Pepper,火椒
+ing.kelp_sprig.name,Kelp Sprig,海带芽
+ing.salt_crystal.name,Salt Crystal,盐晶
+ing.sea_pearl.name,Sea Pearl,海珍珠
+ing.sun_honey.name,Sun Honey,太阳蜜
+item.a_abyss_ring.name,Abyss Ring,深渊戒指
+item.a_crown_seal.name,Crown Seal,王冠印章
+item.a_ember_charm.name,Ember Charm,余烬护符
+item.a_escape_rope.name,Escape Rope,逃生绳
+item.a_horizon_compass.name,Horizon Compass,地平线罗盘
+item.a_lucky_shell.name,Lucky Shell,幸运贝壳
+item.a_moon_lantern.name,Moon Lantern,月光灯笼
+item.a_prism_lens.name,Prism Lens,棱镜
+item.a_scale_talisman.name,Scale Talisman,鳞片护身符
+item.a_storm_anchor.name,Storm Anchor,风暴之锚
+item.a_vine_band.name,Vine Band,藤蔓手环
+item.a_work_gloves.name,Work Gloves,工作手套
+item.affix_format,{affix} {name},{affix}{name}
+item.resist,Resists {hazard},抵抗{hazard}
+item.set_format,{tier} {type},{tier}{type}
+item.u_abyss_cleaver.name,Abyss Cleaver,深渊砍刀
+item.u_aurelia_crown.name,Aurelia's Crown,奥蕾莉亚的王冠
+item.u_brakka_shell.name,Brakka's Shell,布拉卡的甲壳
+item.u_cassian_signet.name,Cassian's Signet,卡西安的印戒
+item.u_cinder_maul.name,Cinder Maul,余烬战锤
+item.u_crest_rapier.name,Crest Rapier,纹章细剑
+item.u_dawnbreaker.name,Dawnbreaker,破晓
+item.u_fernwhip.name,Fernwhip,蕨鞭
+item.u_flint_heartstone.name,Flint's Heartstone,弗林特的心石
+item.u_gale_harpoon.name,Gale Harpoon,疾风鱼叉
+item.u_gullfeather_saber.name,Gullfeather Saber,鸥羽军刀
+item.u_horizon_star.name,Horizon Star,地平线之星
+item.u_lantern_staff.name,Lantern Staff,灯笼法杖
+item.u_leviathan_tooth.name,Leviathan Tooth,利维坦之牙
+item.u_mira_spyglass.name,Mira's Spyglass,米拉的望远镜
+item.u_moonveil.name,Moonveil,月纱
+item.u_nessa_stormcloak.name,Nessa's Stormcloak,内莎的风暴斗篷
+item.u_orin_charm.name,Orin's Charm,奥林的护符
+item.u_prism_rifle.name,Prism Rifle,棱光步枪
+item.u_ringbreaker.name,Ringbreaker,破环者
+item.u_rook_mask.name,Rook's Mask,鲁克的面具
+item.u_selene_mirror.name,Selene's Mirror,瑟琳的镜子
+item.u_storm_crown.name,Storm Crown,风暴王冠
+item.u_trench_seal.name,Trench Seal,海沟封印
+item.u_vale_ring.name,Vale's Ring,维尔的戒指
+itemtier.1,Driftwood,漂木
+itemtier.10,Horizon,地平线
+itemtier.2,Harbor,港湾
+itemtier.3,Emberforged,余烬
+itemtier.4,Verdant,翠绿
+itemtier.5,Prismatic,棱光
+itemtier.6,Crowned,王冠
+itemtier.7,Stormbound,风暴
+itemtier.8,Moonlit,月光
+itemtier.9,Abyssal,深渊
+know.cleared,Cleared,已清理
+know.hidden,Hidden,未发现
+know.revealed,Revealed,已发现
+know.visited,Visited,已到访
+lane.center,Center,中排
+lane.center.desc,Covered by the front line.,受前排掩护。
+lane.front,Front,前排
+lane.front.desc,Takes most hits.,承受大部分攻击。
+lane.rear,Rear,后排
+lane.rear.desc,Safest; best for ranged and support.,最安全；适合远程和支援。
+lang.choose,Choose your language,请选择语言
+lang.note,You can change the language later from the System menu. The game restarts to apply it; saves are shared between languages.,之后可以在「系统」菜单中更改语言。切换语言会重新启动游戏；两种语言共用同一份存档。
+lang.self,English,简体中文
+legend.challenge,Challenge the legend,挑战传说
+legend.restriction.double_hazard,Double hazard,双重危害
+legend.restriction.encore,Encore,返场
+legend.restriction.endless_waves,Endless waves,无尽波次
+legend.restriction.four_crew,Four crew only,仅限四人
+legend.restriction.no_healing,No healing,禁止治疗
+legend.title,Legend of {region},{region}的传说
+legend.won,Legend defeated,已击败传说
+loc.abyss_ledge.name,Abyss Ledge,深渊岩台
+loc.ancient_gatehouse.name,Ancient Gatehouse,古代门楼
+loc.ashen_seal_arena.name,Ashen Seal Arena,灰烬封印竞技场
+loc.ashfall_harbor.name,Ashfall Harbor,落灰港
+loc.ashport.name,Ashport,灰港
+loc.basalt_isle.name,Basalt Isle,玄武岛
+loc.beacon_rest.name,Beacon Rest,信标驿
+loc.behemoth_wreck.name,Behemoth Wreck,巨兽沉船
+loc.bone_reef.name,Bone Reef,骨礁
+loc.brightquay.name,Brightquay,明港
+loc.brine_cellars.name,Brine Cellars,盐水地窖
+loc.charter_archive.name,Charter Archive,特许状档案馆
+loc.cinder_shelf.name,Cinder Shelf,余烬岩架
+loc.cinderback_nest.name,Cinderback Nest,烬背巢穴
+loc.cinderport.name,Cinderport,烬港
+loc.cloudray_aerie.name,Cloudray Aerie,云鳐高巢
+loc.compass_vault.name,Compass Vault,罗盘宝库
+loc.conclave_harbor.name,Conclave Harbor,议会港
+loc.coral_colossus.name,Coral Colossus,珊瑚巨像
+loc.coral_steps.name,Coral Steps,珊瑚阶
+loc.crown_tourney.name,Crown Tourney,王冠比武场
+loc.crownport.name,Crownport,王冠港
+loc.crystal_vault.name,Crystal Vault,水晶宝库
+loc.dawn_trial_ring.name,Dawn Trial Ring,晨光试炼环
+loc.dawnstar_reef.name,Dawnstar Reef,晨星礁
+loc.dream_labyrinth.name,Dream Labyrinth,梦境迷宫
+loc.dreammoth_glade.name,Dreammoth Glade,梦蛾林间
+loc.driftplank_wreck.name,Driftplank Wreck,漂板沉船
+loc.drowned_beacon.name,Drowned Beacon,沉没信标
+loc.dusk_mooring.name,Dusk Mooring,暮色泊地
+loc.echo_atoll.name,Echo Atoll,回声环礁
+loc.ember_crucible.name,Ember Crucible,熔炉竞技场
+loc.eye_of_storm.name,Eye of the Storm,风暴之眼
+loc.fernwater_post.name,Fernwater Post,蕨水驿站
+loc.forge_depths.name,Forge Depths,熔炉深处
+loc.forgotten_observatory.name,Forgotten Observatory,遗忘天文台
+loc.gale_harbor.name,Gale Harbor,疾风港
+loc.gilded_cay.name,Gilded Cay,镀金礁
+loc.glassbound_hulk.name,Glassbound Hulk,琉璃困船
+loc.glasswing_lagoon.name,Glasswing Lagoon,琉璃翼潟湖
+loc.gloomjaw_den.name,Gloomjaw Den,幽颚巢穴
+loc.gull_rock.name,Gull Rock,鸥岩
+loc.heron_isle.name,Heron Isle,苍鹭岛
+loc.horizon_arena.name,Horizon Arena,地平线竞技场
+loc.horizon_gate.name,Horizon Gate,地平线之门
+loc.lantern_isle.name,Lantern Isle,灯笼岛
+loc.lanternport.name,Lanternport,灯港
+loc.lens_isle.name,Lens Isle,透镜岛
+loc.leviathan_gut.name,Leviathan's Gut,利维坦之腹
+loc.lightning_reach.name,Lightning Reach,闪电海角
+loc.magma_vents.name,Magma Vents,岩浆喷口
+loc.maw_shore.name,Maw Shore,巨口海岸
+loc.migration_post.name,Migration Post,迁徙驿站
+loc.mirrorbay.name,Mirrorbay,镜湾
+loc.moonlit_wreck.name,Moonlit Wreck,月光沉船
+loc.moonwake_stage.name,Moonwake Stage,月痕舞台
+loc.moss_hollow.name,Moss Hollow,苔藓秘洞
+loc.nightbloom_isle.name,Nightbloom Isle,夜花岛
+loc.obsidian_atoll.name,Obsidian Atoll,黑曜环礁
+loc.old_family_crypt.name,Old Family Crypt,古老家族墓穴
+loc.old_lookout.name,Old Lookout,旧瞭望台
+loc.orchid_cay.name,Orchid Cay,兰花礁
+loc.overgrown_shrine.name,Overgrown Shrine,荒草神殿
+loc.pearl_grotto.name,Pearl Grotto,珍珠洞穴
+loc.prism_court.name,Prism Court,棱光宫廷
+loc.prismhaven.name,Prismhaven,棱光港
+loc.quartz_spire.name,Quartz Spire,石英尖塔
+loc.refraction_maze.name,Refraction Maze,折射迷宫
+loc.regent_bank.name,Regent Bank,摄政沙洲
+loc.relic_dock.name,Relic Dock,遗物码头
+loc.relic_hunter_wreck.name,Relic Hunter's Wreck,寻宝者沉船
+loc.ring_arena.name,Ring Arena,环礁竞技场
+loc.ringhold.name,Ringhold,环堡
+loc.rival_flagship_wreck.name,Rival Flagship Wreck,对手旗舰残骸
+loc.rootharbor.name,Rootharbor,根港
+loc.saltmarsh_landing.name,Saltmarsh Landing,盐沼码头
+loc.scorched_galleon.name,Scorched Galleon,焦黑大帆船
+loc.sealed_ruins.name,Sealed Ruins,封印遗迹
+loc.shard_reef.name,Shard Reef,碎晶礁
+loc.shell_isle.name,Shell Isle,贝壳岛
+loc.shellwarden_shoal.name,Shellwarden Shoal,甲壳守卫浅滩
+loc.silkmarket.name,Silkmarket,丝绸市场
+loc.smolder_key.name,Smolder Key,闷烧礁
+loc.squall_isle.name,Squall Isle,疾风岛
+loc.starfall_key.name,Starfall Key,星落礁
+loc.starwake_haven.name,Starwake Haven,星痕港湾
+loc.stormwrack_hulk.name,Stormwrack Hulk,风暴残骸
+loc.sunken_spires.name,Sunken Spires,沉没尖塔
+loc.sunrise_isle.name,Sunrise Isle,日出岛
+loc.tanglewood_isle.name,Tanglewood Isle,缠木岛
+loc.tempest_caverns.name,Tempest Caverns,暴风洞窟
+loc.thornroot_caves.name,Thornroot Caves,荆根洞窟
+loc.thunder_rock.name,Thunder Rock,雷鸣岩
+loc.tidefin_grotto.name,Tidefin Grotto,潮鳍洞穴
+loc.titan_atoll.name,Titan Atoll,巨人环礁
+loc.treasury_wreck.name,Treasury Wreck,宝库沉船
+loc.trench_sanctum.name,Trench Sanctum,海沟圣所
+loc.verdant_arena.name,Verdant Arena,翠绿竞技场
+loc.vine_wreck.name,Vine-choked Wreck,藤缠沉船
+loc.zenith_cay.name,Zenith Cay,天顶岛
+loctype.arena,Arena,竞技场
+loctype.arena.desc,Home of the captain trial.,船长试炼的举办地。
+loctype.dungeon,Dungeon,地下城
+loctype.dungeon.desc,A deeper site guarded by a boss.,由首领把守的深处地点。
+loctype.island,Island,岛屿
+loctype.island.desc,"Rooms with resources, battles, and a hidden hollow.",有资源、战斗和隐藏秘洞的房间。
+loctype.port,Port,港口
+loctype.port.desc,"Safe harbor: trade, recruit, invest, and bank cargo.",安全的港湾：交易、招募、投资，以及货物入账。
+loctype.secret,Secret,秘境
+loctype.secret.desc,A hidden place tied to the sea's pet family.,与本海域宠物族群相关的隐藏地点。
+loctype.wreck,Wreck,沉船
+loctype.wreck.desc,A short salvage dive.,短暂的打捞潜水。
+log.aid,Received emergency aid: {kind}.,获得紧急援助：{kind}。
+log.arrived,Arrived at {location}.,抵达 {location}。
+log.banked,Banked {gold} gold and {materials} materials.,入账 {gold} 金币和 {materials} 材料。
+log.battle_recruit,{crew} joined the crew after the battle (formerly {enemy}).,{crew} 在战后加入了船队（原为{enemy}）。
+log.blueprint,Blueprint found: {item}.,获得蓝图：{item}。
+log.boarded,Encounter: {kind}.,遭遇：{kind}。
+log.built,Built {facility}.,建造了{facility}。
+log.cleared,Cleared {location}.,清理了 {location}。
+log.clue,New clue: {clue},新线索：{clue}
+log.contract_done,Contract complete (+{gold} gold).,委托完成（+{gold} 金币）。
+log.crafted,Crafted {item}.,制作了{item}。
+log.crew_event_done,"{crew} completed ""{event}"".",{crew} 完成了「{event}」。
+log.defeat,Defeated. Lost {gold} gold and {materials} materials.,战败。损失了 {gold} 金币和 {materials} 材料。
+log.demolished,"Dismantled {facility} (+{gold} gold, +{materials} materials).",拆除了{facility}（+{gold} 金币，+{materials} 材料）。
+log.dock_work,Dock work paid {gold} gold.,码头打工赚了 {gold} 金币。
+log.egg_found,Found a {family} egg.,找到一枚{family}蛋。
+log.emergency_return,Emergency Return to {location}.,紧急返航至 {location}。
+log.empty,Nothing logged yet.,还没有记录。
+log.equip_overflow,No room for {item}; sold it for {n} gold.,{item}没有地方放，以 {n} 金币卖掉了。
+log.evolved,Evolved into {species}.,进化为{species}。
+log.food_overflow,{n} food did not fit in the pantry.,有 {n} 份食物放不进食物储藏室。
+log.hatched,Hatched {species}.,孵化出了{species}。
+log.hatched_prime,Prime hatch: {species}!,完美孵化：{species}！
+log.hull_upgraded,Hull upgraded to {hull}.,船体升级为{hull}。
+log.invested,Invested in {track} at {port} (level {level}).,在 {port} 投资了{track}（{level} 级）。
+log.legend_won,Defeated the legend of {region}.,击败了{region}的传说。
+log.level_up,{crew} reached level {level}.,{crew} 升到了 {level} 级。
+log.main_done,Main quest step complete: {quest}.,主线步骤完成：{quest}。
+log.new_game,You take command of a small ship at Brightquay.,你在明港接管了一艘小船。
+log.pet_found_secret,Your explorer pet found a secret place.,你的探索宠物发现了一处秘境。
+log.postgame,You are now the Strongest Captain of the Seven Seas.,你现在是七海最强船长了。
+log.quest_accepted,Accepted: {quest}.,已接受：{quest}。
+log.recruited,{crew} joined the crew.,{crew} 加入了船队。
+log.region_unlocked,New sea opened: {region}.,新的海域开放了：{region}。
+log.repaired,Ship repaired.,船只已修复。
+log.respec,{crew} changed class from {from} to {to}.,{crew} 从{from}转职为{to}。
+log.retreated,The crew retreated.,船员撤退了。
+log.revealed,Charted {location}.,在海图上标记了 {location}。
+log.ship_refit,The shipwrights moved {n} rooms off the exposed deck into the hull below.,船匠把 {n} 个房间从露天甲板搬进了下方船舱。
+log.side_done,Completed: {quest}.,已完成：{quest}。
+log.supply_overflow,{n} supplies did not fit in the hold.,有 {n} 份补给放不进货舱。
+log.treated,{crew} was treated.,{crew} 接受了治疗。
+log.trial_won,Captain trial won in {region} against {rival}.,在{region}的船长试炼中战胜了 {rival}。
+log.unequipped,{item} returned to the hold from {crew}.,{item}已从 {crew} 身上退回货舱。
+log.upgraded,{facility} upgraded to level {level}.,{facility}升级到 {level} 级。
+log.waited,Rested for 6 hours.,休息了 6 小时。
+log.weather_damage,A squall damaged the hull.,暴风雨损坏了船体。
+map.clear_pick,Back to overview,返回总览
+map.cost_food,{n} food · {after} left,粮食{n} · 剩余{after}
+map.cost_return,Back to port: {n} food ({port}),返港：粮食{n}（{port}）
+map.cost_stamina,Stamina {need} / {have},体力 {need} / {have}
+map.cost_time,{n} h at sea,航行{n}小时
+map.destinations,Destinations in {region},{region}的目的地
+map.drag_hint,Drag to pan · wheel to zoom · click a marker to plan a voyage,拖动平移 · 滚轮缩放 · 点击标记规划航行
+map.emergency_hint,"Emergency Return takes you to your last safe port for free, even with no food or gold.",紧急返航可免费带你回到最近的安全港口，即使没有食物或金币。
+map.explore_site,Explore,探索
+map.hazard,Hazard: {hazard},环境危害：{hazard}
+map.here,You are here,你在这里
+map.hidden_count,{n} uncharted locations remain,还有 {n} 个未标记的地点
+map.home_port,Home port: {port},母港：{port}
+map.leg_short,{h} h · {f} food,{h}小时 · 粮食{f}
+map.legend_charted,"Charted, not visited",已标注，未到访
+map.legend_cleared,Cleared,已肃清
+map.legend_fog,Unexplored water,未探索水域
+map.legend_home,Home port (Emergency Return),母港（紧急返航）
+map.legend_locked,Locked sea,未开放海域
+map.legend_plan,Planned voyage,计划航线
+map.legend_route,Charted route,已开辟航线
+map.legend_ship,Your ship,你的船
+map.legend_target,Main objective,主线目标
+map.legend_title,Legend,图例
+map.legend_visited,Visited,已到访
+map.level,Lv {n},Lv {n}
+map.locations,Locations,地点
+map.no_selection,Select a destination on the chart,在海图上选择目的地
+map.none_known,No other charted places in this sea yet.,这片海域暂无其他已标注地点。
+map.objective,objective,目标
+map.origin,Departed from,出发地
+map.other_seas,Ports in other seas,其他海域的港口
+map.pet_family,Pets: {family},宠物：{family}
+map.port_services,Services: {list},服务：{list}
+map.position,Your position,当前位置
+map.region_locked_hint,Win the previous sea's captain trial to open this sea.,赢得上一片海域的船长试炼即可开放此海域。
+map.region_locked_n,Sea {n} — locked,第 {n} 片海域——未解锁
+map.rooms_cleared,Rooms cleared: {n} / {total},已清理房间：{n} / {total}
+map.route,Route,航线
+map.route_to,Route to {location},前往 {location} 的航线
+map.sail_hint,Set sail for {location}.,启航前往{location}。
+map.secret,secret,秘境
+map.select_hint,Select a revealed location on the chart to plan a voyage.,在海图上选择一个已发现的地点来规划航行。
+map.specialty,Specialty: {item},特产：{item}
+map.specialty_label,Specialty,特产
+map.title,Sea Chart,海图
+map.tool_fit_sea,Fit this sea,显示整片海域
+map.tool_legend,Legend,图例
+map.tool_ship,Centre on your ship,定位到你的船
+map.tool_world,Show all seas,显示全部海域
+map.tool_zoom_in,Zoom in (mouse wheel),放大（鼠标滚轮）
+map.tool_zoom_out,Zoom out (mouse wheel),缩小（鼠标滚轮）
+map.uncharted,{n} uncharted,{n} 个未标记
+map.uncharted_sea,Uncharted waters,未知海域
+map.unlock_trial,Opens after the {region} captain trial,赢得{region}的船长试炼后开放
+map.voyage,Current voyage,当前航行
+map.you_are_here,You are here.,你就在这里。
+mechanic.burning.name,Burning decks,燃烧甲板
+mechanic.decoys.name,Decoys,诱饵
+mechanic.disruptor.name,Disruptors,干扰者
+mechanic.elite.name,Elite foes,精英敌人
+mechanic.intent.name,Telegraphed blows,攻击预告
+mechanic.mixed.name,Mixed retinues,混编随从
+mechanic.sealed.name,Sealed skills,技能封印
+mechanic.waves.name,Wave assault,波次进攻
+mod.atkPct,ATK +{pct},攻击 +{pct}
+mod.auraAtk,Team ATK +{pct},全队攻击 +{pct}
+mod.auraDodge,Team dodge +{pct},全队闪避 +{pct}
+mod.auraRegen,Team regenerates HP each second,全队每秒恢复生命
+mod.avoid,Sea events −{pct},海上事件 −{pct}
+mod.bossDmg,+{pct} damage to bosses,对首领伤害 +{pct}
+mod.cdr,Skill cooldowns −{pct},技能冷却 −{pct}
+mod.controlPct,Control effects +{pct},控制效果 +{pct}
+mod.crit,Crit chance +{pct},暴击率 +{pct}
+mod.defIgnore,Ignores {pct} of DEF,无视 {pct} 防御
+mod.defPct,DEF +{pct},防御 +{pct}
+mod.dodge,Dodge +{pct},闪避 +{pct}
+mod.escape,Retreats take half as long,撤退时间减半
+mod.firstAid,"Once per battle, heals {pct} max HP when low",每场战斗一次，生命低时恢复 {pct} 最大生命
+mod.focusDmg,+{pct} damage to the focus target,对集火目标伤害 +{pct}
+mod.foodSave,Saves {n} food per departure,每次出航节省 {n} 食物
+mod.goldPct,Battle gold +{pct},战斗金币 +{pct}
+mod.hazardResist,Immune to regional hazards,免疫地区环境危害
+mod.healPct,Healing +{pct},治疗量 +{pct}
+mod.hpPct,Max HP +{pct},最大生命 +{pct}
+mod.intercept,{pct} chance to take hits for allies,{pct} 几率替队友承受攻击
+mod.jobPct,Ship job efficiency +{pct},船上工作效率 +{pct}
+mod.lifesteal,Lifesteal {pct},吸血 {pct}
+mod.lootPct,Battle loot +{pct},战斗战利品 +{pct}
+mod.markedDmg,+{pct} damage to marked foes,对被标记的敌人伤害 +{pct}
+mod.masteryPct,Class mastery +{pct},职业精通 +{pct}
+mod.petPct,Pet power +{pct},宠物力量 +{pct}
+mod.quickStart,Starts battles with {n} skill meter,开战时拥有 {n} 技能能量
+mod.spd,SPD +{n},速度 +{n}
+mod.stunImmune,Immune to stuns,免疫眩晕
+mod.supplyPct,Supplies restore +{pct} stamina,补给恢复的体力 +{pct}
+mod.teamShield,Team starts battles with a {pct} max-HP shield,全队开战时获得 {pct} 最大生命的护盾
+mod.thorns,Reflects {pct} of melee damage,反弹 {pct} 的近战伤害
+mod.xpPct,XP +{pct},经验 +{pct}
+nav.codex,Codex,图鉴
+nav.crew,Crew,船员
+nav.home,Overview,总览
+nav.label,Main navigation,主导航
+nav.map,Sea Chart,海图
+nav.pets,Pet Lab,宠物研究室
+nav.port,Port,港口
+nav.ship,Ship,船只
+nav.system,System,系统
+obj.have,{have} / {need} in the hold,船上已有 {have} / {need}
+obj.legends,Legends defeated: {n} / {total},已击败的传说：{n} / {total}
+obj.postgame,You hold the title. Legendary challenges are open in the late seas.,你已获得称号。后期海域的传说挑战已开放。
+obj.show_on_chart,Show on chart,在海图上显示
+obj.step,Step {n} of {total},第 {n} 步，共 {total} 步
+obj.target,Target: {location},目标：{location}
+obj.target_hidden,Target: an uncharted location — explore to reveal it,目标：尚未标记的地点——继续探索以发现它
+obj.trial_locked,Captain trial at {location} opens after the main arc. Rival: {rival}.,{location} 的船长试炼将在主线完成后开放。对手：{rival}。
+obj.trial_open,Captain trial open at {location}. Rival: {rival}.,{location} 的船长试炼已开放。对手：{rival}。
+obj.trial_won,Captain trial won against {rival}.,已在船长试炼中战胜 {rival}。
+odds.high,likely,很可能
+odds.low,rare,罕见
+odds.mid,possible,有可能
+origin.crown_courts,Crown court families,王冠宫廷世家
+origin.dawnwater_fishers,Dawnwater fisher folk,晨水渔民
+origin.ember_forges,Ember forge clans,余烬锻造氏族
+origin.glass_reefs,Glass reef divers,琉璃礁潜水者
+origin.horizon_wanderers,Horizon wanderers,地平线浪人
+origin.moon_isles,Moon isle dreamers,月岛梦者
+origin.ring_nomads,Ring nomads,环礁游民
+origin.storm_harbors,Storm harbor crews,风暴港水手
+origin.trench_divers,Trench salvagers,海沟打捞者
+origin.verdant_villages,Verdant villages,翠绿村落
+otype.armor,Armor,护甲
+otype.coat,Coat,外套
+passive.alpha_bond.name,Alpha Bond,头领羁绊
+passive.armor_breaker.name,Armor Breaker,破甲者
+passive.attunement.name,Attunement,共鸣
+passive.beast_bond.name,Beast Bond,兽之羁绊
+passive.bedside_manner.name,Bedside Manner,体贴照护
+passive.comfort_food.name,Comfort Food,暖心料理
+passive.deep_pockets.name,Deep Pockets,大口袋
+passive.eagle_eye.name,Eagle Eye,鹰眼
+passive.flowing_step.name,Flowing Step,流水步
+passive.foresight.name,Foresight,先见
+passive.giant_slayer.name,Giant Slayer,巨人杀手
+passive.handy.name,Handy,巧手
+passive.hidden_blades.name,Hidden Blades,暗刃
+passive.inspiring_presence.name,Inspiring Presence,鼓舞人心
+passive.iron_grip.name,Iron Grip,铁腕
+passive.iron_hide.name,Iron Hide,铁皮
+passive.keen_edge.name,Keen Edge,锋刃
+passive.ledger_keeper.name,Ledger Keeper,账簿管家
+passive.life_ward.name,Life Ward,生命守护
+passive.momentum.name,Momentum,势头
+passive.precise_hands.name,Precise Hands,妙手
+passive.quick_reload.name,Quick Reload,快速装填
+passive.ration_master.name,Ration Master,口粮大师
+passive.reinforced_plating.name,Reinforced Plating,强化装甲
+passive.sentinel.name,Sentinel,哨兵
+passive.shatter.name,Shatter,粉碎
+passive.static_field.name,Static Field,静电场
+passive.steadfast.name,Steadfast,坚定
+passive.steady_aim.name,Steady Aim,稳定瞄准
+passive.thick_skin.name,Thick Skin,厚皮
+passive.thrifty_kitchen.name,Thrifty Kitchen,节俭厨房
+passive.tidebreaker.name,Tidebreaker,破潮
+passive.trailblazer.name,Trailblazer,开拓者
+passive.warding.name,Warding,守护结界
+passive.weather_eye.name,Weather Eye,观天眼
+passive.wild_heart.name,Wild Heart,野性之心
+pet.species_format,{family} {form},{family}·{form}
+petability.burn,Ember Breath,余烬吐息
+petability.gust,Gust,疾风
+petability.lull,Lullaby,摇篮曲
+petability.mark,Spotlight,聚光
+petability.maul,Maul,撕咬
+petability.mend,Mend,修复
+petability.radiance,Radiance,光辉
+petability.shell,Shell Guard,甲壳守护
+petability.splash,Splash,水花
+petability.ward,Ward,守护
+petfam.cinderback.name,Cinderback,烬背
+petfam.cloudray.name,Cloudray,云鳐
+petfam.dreammoth.name,Dreammoth,梦蛾
+petfam.glasswing.name,Glasswing,琉璃翼
+petfam.gloomjaw.name,Gloomjaw,幽颚
+petfam.mossling.name,Mossling,苔仔
+petfam.pearlcub.name,Pearlcub,珍珠幼兽
+petfam.shellwarden.name,Shellwarden,甲壳守卫
+petfam.starwake.name,Starwake,星痕
+petfam.tidefin.name,Tidefin,潮鳍
+petform.companion,Scrapper,斗士
+petform.companion_evo,Champion,冠军
+petform.explorer,Scout,斥候
+petform.explorer_evo,Wayfinder,寻路者
+petform.helper,Tender,护理者
+petform.helper_evo,Keeper,守护者
+petrole.companion,Companion,伙伴
+petrole.companion.desc,Fights beside one crew member in battle.,在战斗中陪伴一名船员作战。
+petrole.explorer,Explorer,探索者
+petrole.explorer.desc,Scouts new places and finds secrets.,侦察新地点，寻找秘境。
+petrole.helper,Ship helper,船上帮手
+petrole.helper.desc,"Works a ship facility, boosting it.",在船上设施工作，提升设施效果。
+pets.ab_heal,heals {pct} ATK,治疗 {pct} 攻击
+pets.ab_power,{pct} ATK,{pct} 攻击
+pets.ab_shield,shield {pct} max HP,护盾 {pct} 最大生命
+pets.ability,Ability,能力
+pets.affinity,Affinity: {color},亲和：{color}
+pets.assignment,Assignment,分派
+pets.at,at {facility},在 {facility}
+pets.clear,Clear,清空
+pets.count,Pets {n} / {max},宠物 {n} / {max}
+pets.detail,Pet details,宠物详情
+pets.egg_sources,Egg sources,宠物蛋来源
+pets.eggs,Eggs,宠物蛋
+pets.eggs_count,Eggs {n} / {max},宠物蛋 {n} / {max}
+pets.empty_slot,empty,空
+pets.evolution,Evolution,进化
+pets.evolve,Evolve,进化
+pets.evolve_hint,Needs a Pet Lab and pet level {level}.,需要宠物研究室，且宠物达到 {level} 级。
+pets.evolved,Evolved,已进化
+pets.evolved_note,Evolution is permanent and keeps every assignment.,进化是永久的，并会保留所有分派。
+pets.feed_n,Input {n},第 {n} 份
+pets.feed_rule,Feed up to three ingredients or specialties in order. The same egg with the same order always hatches the same pet.,按顺序喂入最多三种食材或特产。同一枚蛋、同样的顺序，孵出的宠物总是相同。
+pets.feed_title,Feed the {family} egg,喂养{family}蛋
+pets.feed_title_none,Select an egg,请选择一枚宠物蛋
+pets.grade,Grade {n},品级 {n}
+pets.hatch,Hatch,孵化
+pets.hatch_level,Requires a Hatchery,需要孵化室
+pets.hatchery_level,Hatchery Lv {n},孵化室 Lv {n}
+pets.helper_half,Not a helper by nature: works at half effect.,天生不是帮手：效果减半。
+pets.inputs,Inputs,投入物
+pets.known_outcome,Recorded result,已记录的结果
+pets.lab_level,Pet Lab Lv {n},宠物研究室 Lv {n}
+pets.max_inputs,Three inputs at most.,最多三份。
+pets.no_eggs,No eggs.,没有宠物蛋。
+pets.no_eggs_hint,"Eggs come from secret rooms, island hollows, side quests, and port markets (level 3).",宠物蛋来自秘密房间、岛屿秘洞、支线任务和港口市场（3 级）。
+pets.no_hatchery,No Hatchery aboard,船上没有孵化室
+pets.no_inputs,No ingredients or specialties owned.,没有食材或特产。
+pets.no_lab,No Pet Lab aboard,船上没有宠物研究室
+pets.no_pets,No pets yet.,还没有宠物。
+pets.none_left,All inputs used.,投入物已用完。
+pets.nothing_queued,Nothing queued yet.,还没有放入任何东西。
+pets.power,Power,力量
+pets.predicted_role,Leaning,倾向
+pets.prime,Prime hatch!,完美孵化！
+pets.recall,Recall,召回
+pets.roles,Roles,定位
+pets.roster,Pets,宠物
+pets.send_explore,Send exploring,派去探索
+pets.signature_hint,Find this family's clue to learn its recipe signatures.,找到这个族群的线索，就能得知它的配方特征序列。
+pets.signatures,Family signatures,族群特征序列
+pets.target_allies,Helps all allies,协助全体队友
+pets.target_enemy,Hits an enemy,攻击一名敌人
+pets.target_owner,Helps its owner,协助主人
+pets.title,Pet Lab,宠物研究室
+pets.unassign,Unassign,取消分派
+pets.unassigned,Unassigned,未分派
+pets.unrecorded,Not yet recorded,尚未记录
+pets.with,with {name},跟随 {name}
+port.accept,Accept,接受
+port.affix,Affix,词缀
+port.aid_hint,Free help when you cannot afford the basics. You can always recover.,负担不起基本开销时的免费帮助。你永远都能重新站起来。
+port.aid_title,Emergency aid,紧急援助
+port.aptitudes_hidden,Aptitudes hidden (tavern level 2),天赋未显示（需要酒馆 2 级）
+port.buy,Buy,购买
+port.buy_egg,Buy egg,购买宠物蛋
+port.complete,Complete,完成
+port.contract_hint,Contracts rotate every three days. Up to three can be active.,委托每三天轮换一次。最多可同时进行三个。
+port.contract_reward,Reward: {gold} gold · {materials} materials,奖励：{gold} 金币 · {materials} 材料
+port.contracts,Contracts,委托
+port.contracts_elsewhere,Active contracts elsewhere,其他港口进行中的委托
+port.craft,Craft,制作
+port.deliver,Deliver {n} {item},交付 {n} 个{item}
+port.dock_work,Dock work (+{n} gold),码头打工（+{n} 金币）
+port.dock_work_hint,"Crew take a shift on the docks. Takes 4 hours, costs nothing.",船员去码头干一班活。耗时 4 小时，不花任何费用。
+port.dock_work_locked,Dock work is only offered when you are short on gold.,只有在金币不足时才能去码头打工。
+port.egg_offer,{family} egg,{family}蛋
+port.eggs,Eggs,宠物蛋
+port.equip_stock,Storage {n} / {max},储量 {n} / {max}
+port.equipment_shop,Equipment,装备
+port.equipped_by,Equipped by {name},{name} 装备中
+port.food_rule,Food is charged once when you depart and is never refunded.,食物只在出航时扣除一次，且不会退还。
+port.goods,Provisions,物资
+port.hired,Hired,已招募
+port.house,Harbor homes,港口民居
+port.ingredients,Pet ingredients,宠物食材
+port.inventory,Inventory {n} / {max},库存 {n} / {max}
+port.invest_hint,Each level permanently unlocks the listed service at this port.,每提升一级，都会在本港口永久解锁所列服务。
+port.invest_title,Port investment,港口投资
+port.invest_to,Invest to level {n},投资至 {n} 级
+port.local_specialty,Local specialty,本地特产
+port.main_quest,Main quest,主线任务
+port.no_affix,No affix,无词缀
+port.no_equipment,No equipment on sale at this market level.,当前市场等级没有出售装备。
+port.no_injured,No injured crew.,没有受伤的船员。
+port.no_recipes,No recipes known. Recipes come from side quests and bosses.,还不知道任何配方。配方来自支线任务和首领。
+port.no_side,No side quests at this port.,本港口没有支线任务。
+port.not_docked,Not docked,未停靠
+port.not_docked_hint,"Sail to a port to trade, recruit, and invest. Your last safe port is {location}.",驶向港口即可交易、招募和投资。你最近的安全港口是 {location}。
+port.owned,owned {n},持有 {n}
+port.qualified,Qualified: {cls},具备资格：{cls}
+port.quest_active,Accepted,已接受
+port.quest_done,Done,已完成
+port.recovery_room,Recovery Room: {n} free treatments left today,康复室：今天还剩 {n} 次免费治疗
+port.recruit,Recruit,招募
+port.reinforce,Reinforce,强化
+port.repair,Ship repair,修船
+port.reputation,Standing: {list},声望：{list}
+port.reward,Reward: {gold} gold · {xp} XP · {extra},奖励：{gold} 金币 · {xp} 经验 · {extra}
+port.salvage,Salvage (+{n} materials),分解（+{n} 材料）
+port.sell_one,Sell 1,出售 1 个
+port.sell_price,sells for {n},售价 {n}
+port.side_quests,Side quests,支线任务
+port.specialties,Regional specialties,地区特产
+port.specialty_rule,"Specialties are used for quests, contracts, crafting, and egg recipes. Selling far from home pays more.",特产可用于任务、委托、制作和孵蛋配方。在远离产地的地方出售更赚钱。
+port.stock,{n} / {max},{n} / {max}
+port.tab_board,Quest board,任务板
+port.tab_invest,Invest,投资
+port.tab_market,Market,市场
+port.tab_services,Services,服务
+port.tab_tavern,Tavern,酒馆
+port.tab_workshop,Workshop,工坊
+port.tavern_hint,New sailors arrive on day {day}. Tavern level {level}.,第 {day} 天会有新水手到来。酒馆等级 {level}。
+port.tavern_title,Tavern,酒馆
+port.title,Port,港口
+port.track_level,Level {n} / 3,等级 {n} / 3
+port.track_max,Fully developed,已完全发展
+port.treatment,Treatment,治疗
+port.usable_by,Usable by: {list},可用职业：{list}
+port.visit,Visit: {place},前往：{place}
+port.wait,Wait 6 hours,等待 6 小时
+port.wait_hint,Pass time to rotate taverns and contracts.,消磨时间，让酒馆和委托轮换。
+port.wait_title,Rest,休息
+port.workshop_ok,Crafting available here.,这里可以制作装备。
+port.workshop_title,Workshop,工坊
+priority.auto.desc,Each crew member picks the best skill for the moment.,每名船员根据当下情况选择最佳技能。
+priority.auto.name,Automatic,自动
+priority.control.desc,Prefer stuns and slows; interrupt wind-ups.,优先使用眩晕和减速；打断蓄力。
+priority.control.name,Control,控制
+priority.damage.desc,Prefer damage skills.,优先使用伤害技能。
+priority.damage.name,Damage,伤害
+priority.support.desc,Prefer buffs and healing.,优先使用增益和治疗。
+priority.support.name,Support,支援
+priority.survival.desc,"Prefer shields, taunts, and heals.",优先使用护盾、嘲讽和治疗。
+priority.survival.name,Survival,生存
+prop.aura,Aura: raises team ATK,光环：提升全队攻击
+prop.chill,Chill: attacks slow the target,寒霜：攻击会减速目标
+prop.crit,Keen: +10% crit chance,锋锐：暴击率 +10%
+prop.double,Double strike: two hits at 60%,连击：两次 60% 的攻击
+prop.guard,Guard: may intercept hits for allies,守护：可能替队友挡下攻击
+prop.lifesteal,Lifesteal: heals 15% of damage dealt,吸血：恢复造成伤害的 15%
+prop.mend,Mend: basic attacks heal wounded allies,疗愈：普通攻击会治疗受伤队友
+prop.nourish,Nourish: attacks also heal the weakest ally,滋养：攻击同时治疗最虚弱的队友
+prop.pet,Pet bond: companion acts faster and hits harder,宠物羁绊：伙伴行动更快、打得更狠
+prop.pierce,Pierce: ignores 25% DEF,穿透：无视 25% 防御
+prop.ranged,Ranged: attacks any lane,远程：可攻击任意一排
+prop.reach,Reach: strikes past the front line,长柄：可越过前排攻击
+prop.splash,Splash: hits others in the same lane,溅射：波及同一排的其他敌人
+prop.sunder,Sunder: attacks wear down armor,破甲：攻击会削弱护甲
+qtype.clear,Clear {location},清理 {location}
+qtype.deliver,Deliver {count} {item} at {location},在 {location} 交付 {count} 个{item}
+qtype.discover,Discover {location},发现 {location}
+qtype.trial,Win the captain trial at {location},赢得 {location} 的船长试炼
+qtype.visit,Visit {location},前往 {location}
+range.melee,Melee,近战
+range.ranged,Ranged,远程
+rank.0,Stranger,陌生人
+rank.1,Known,熟识
+rank.2,Trusted,信赖
+rank.3,Honored,尊崇
+region.ashen_trench.desc,Crushing depths over sealed ruins that silence skills.,压得人喘不过气的深渊，海底的封印遗迹会封住技能。
+region.ashen_trench.name,Ashen Trench,灰烬海沟
+region.crown_shoals.desc,Rich shoals ruled by old families and their mixed retinues.,由古老世家及其混编随从统治的富饶浅滩。
+region.crown_shoals.name,Crown Shoals,王冠浅滩
+region.dawnwater.desc,"Warm, calm waters where new captains learn the ropes.",温暖平静的海域，新船长在这里学习航海。
+region.dawnwater.name,Dawnwater Shallows,晨水浅滩
+region.emberreach.desc,"Volcanic isles of forges and smoke, where decks catch fire.",布满熔炉与烟雾的火山群岛，甲板会着火。
+region.emberreach.name,Emberreach,余烬海
+region.glass_current.desc,Crystal reefs that dazzle the eye and hide decoys.,会让人目眩、暗藏诱饵的水晶礁。
+region.glass_current.name,Glass Current,琉璃洋流
+region.grand_horizon.desc,"The last sea, where only elite crews survive.",最后的海域，只有精英船队才能生存。
+region.grand_horizon.name,Grand Horizon,大地平线
+region.leviathan_ring.desc,A ring of reefs around a sleeping titan; enemies come in waves.,环绕着沉睡巨兽的礁环；敌人会一波波袭来。
+region.leviathan_ring.name,Leviathan Ring,利维坦之环
+region.moonwake.desc,Silver waters where dreams drift and foes telegraph their blows.,梦境漂浮的银色海域，敌人会预告他们的攻击。
+region.moonwake.name,Moonwake,月痕海
+region.stormbelt.desc,A band of endless storms where lightning finds every mast.,风暴永不停歇的海带，闪电会找上每一根桅杆。
+region.stormbelt.name,Stormbelt,风暴带
+region.verdant_maw.desc,A jungle sea of spores and roots that drains the unwary.,充满孢子与根须的丛林之海，会让粗心的人精疲力竭。
+region.verdant_maw.name,Verdant Maw,翠绿之口
+reward.family.egg,egg,宠物蛋
+reward.family.equipment,equipment,装备
+reward.family.gold,gold,金币
+reward.family.ingredients,ingredients,食材
+reward.family.materials,materials,材料
+reward.family.specialty,specialty,特产
+reward.family.supplies,supplies,补给
+reward.kind.clue,a pet clue,一条宠物线索
+reward.kind.egg,a pet egg,一枚宠物蛋
+reward.kind.ingredients,ingredients,食材
+reward.kind.recipe,a recipe,一份配方
+reward.kind.supplies,supplies,补给
+role.controller,Controller,控制
+role.scout,Scout,侦察
+role.striker,Striker,输出
+role.support,Support,支援
+role.vanguard,Vanguard,先锋
+room.cabin.name,Captain's Quarters,船长舱
+room.depths.name,Depths,深处
+room.east.name,East Hall,东厅
+room.gate.name,Gate,大门
+room.grove.name,Grove,树林
+room.guardian.name,Guardian's Chamber,守护者之间
+room.heart.name,Island Heart,岛屿中心
+room.hold.name,Cargo Hold,货舱
+room.hollow.name,Hidden Hollow,隐藏秘洞
+room.landing.name,Landing,登陆点
+room.ridge.name,Ridge,山脊
+room.sanctum.name,Sanctum,圣所
+room.trial.name,Trial Ring,试炼环
+room.vault.name,Secret Vault,秘密宝库
+room.west.name,West Hall,西厅
+roomkind.battle,Battle,战斗
+roomkind.boss,Boss,首领
+roomkind.elite,Elite battle,精英战
+roomkind.event,Event,事件
+roomkind.resource,Resources,资源
+roomkind.trial,Captain trial,船长试炼
+route.capability,Recommended roles,推荐定位
+route.distance,Sailing time,航行时间
+route.events_exact,Sea event forecast,海上事件预报
+route.events_rough,Sea event forecast (rough),海上事件预报（粗略）
+route.fast,Fast travel,快速航行
+route.fast_hint,Fast travel works between visited ports on a charted route and skips sea events.,快速航行只能在已到访且航线已标记的港口之间进行，并会跳过海上事件。
+route.first_discovery,First visit: reveals nearby locations.,首次到访：会发现附近的地点。
+route.food,Food,食物
+route.food_value,{n} (left after: {after}),{n}（之后剩余：{after}）
+route.hazards,Hazards,环境危害
+route.hours,{n} h,{n} 小时
+route.level,Enemy level,敌人等级
+route.no_return,No known port to return to,没有可返回的已知港口
+route.none,None,无
+route.return,Nearest return,最近的返程
+route.return_value,{n} food to {port},前往 {port} 需 {n} 食物
+route.return_warning,After this leg you may not have enough food to sail back. Emergency Return is always free.,这段航程之后，食物可能不够返航。紧急返航始终免费。
+route.sail,Sail,起航
+route.stamina,Planned stamina,预计体力
+route.stamina_value,{need} needed / {have} available,需要 {need} / 现有 {have}
+route.unknown,Unknown,未知
+sail.skip,Click to skip,点击跳过
+sail.underway,Under way to {location},正驶向{location}
+save.reason_auto,Autosave,自动存档
+save.reason_battle,After battle,战斗之后
+save.reason_hull,Hull upgrade,船体升级
+save.reason_loaded,Loaded,已读取
+save.reason_manual,Manual save,手动存档
+save.reason_new_game,New game,新游戏
+save.reason_port,Docked at port,停靠港口
+save.reason_trial,Captain trial,船长试炼
+scope.allies,all allies,全体队友
+scope.ally,one ally,单个队友
+scope.enemies,all enemies,全体敌人
+scope.enemy,one enemy,单个敌人
+scope.enemy_lane,an enemy lane,一排敌人
+scope.front_allies,front allies,前排队友
+scope.self,self,自身
+sea.cache.desc,A sealed crate bobs in the swell of {region}.,一只密封的木箱在{region}的浪涛中浮沉。
+sea.cache.effect,You gain supplies and materials.,你获得了补给和材料。
+sea.cache.title,Floating cache,漂流箱
+sea.clue.desc,A bottle drifts by with a note about the creatures of {region}.,一只漂流瓶漂过，里面的字条写着{region}生物的事情。
+sea.clue.effect,You may learn a pet family clue.,你可能会得到一条宠物族群线索。
+sea.clue.title,Message in a bottle,漂流瓶
+sea.continue,Continue,继续
+sea.event,Sea event,海上事件
+sea.inspection.desc,A patrol flying red pennants hails you in {region}.,一支挂着红旗的巡逻队在{region}拦下了你。
+sea.inspection.effect,"Pay {n} gold, or refuse and lose 6 hours.",缴纳 {n} 金币，或拒绝并耽误 6 小时。
+sea.inspection.pay,Pay the toll,缴纳通行费
+sea.inspection.refuse,Refuse,拒绝
+sea.inspection.title,Pennant inspection,红旗盘查
+sea.monster.desc,Something huge rises from the waters of {region}.,有个庞然大物从{region}的海水中升起。
+sea.monster.effect,A battle begins.,战斗开始。
+sea.monster.title,Sea monster,海怪
+sea.pirate.desc,Black sails close in across {region}. They mean to board.,黑帆从{region}的海面逼近，他们要强行登船。
+sea.pirate.effect,A boarding battle begins.,登船战开始。
+sea.pirate.title,Pirate raid,海盗袭击
+sea.shortcut.desc,Your navigator spots a fast current through {region}.,你的领航员在{region}发现了一股快速洋流。
+sea.shortcut.effect,Routes in this sea cost 1 less food; an uncharted place may be revealed.,此海域内的航线少消耗 1 份食物；也许还会发现一个未标记的地点。
+sea.shortcut.title,Hidden current,隐秘洋流
+sea.vessel.desc,A small crew from {region} signals for help.,一艘来自{region}的小船发出求救信号。
+sea.vessel.effect,Helping costs 2 food and earns gold and goodwill.,提供帮助需要 2 份食物，可获得金币和好感。
+sea.vessel.help,Share 2 food,分出 2 份食物
+sea.vessel.ignore,Sail on,继续航行
+sea.vessel.title,Stranded vessel,遇难船只
+sea.weather.desc,A sudden squall sweeps over {region}.,一场突如其来的暴风雨席卷了{region}。
+sea.weather.effect,"Without a Navigator or Barricade Room, the hull takes damage and you lose 2 hours.",如果没有领航员或防御工事舱，船体会受损并耽误 2 小时。
+sea.weather.title,Squall,狂风骤雨
+settle.berths,Berths: {n} / {max},床位：{n} / {max}
+settle.clue,Chart clue,海图线索
+settle.collect,Collect,收下战利品
+settle.decide,Sign on or let go first.,请先决定招募或放其离开。
+settle.food,Food,食物
+settle.items,Spoils,战利品
+settle.items_count,{n} in all,共 {n}
+settle.left_behind,{n} kinds of spoils were left on the field.,{n} 类战利品遗留在战场上。
+settle.let_go,Let go,放其离开
+settle.let_gone,{name} went their own way.,{name} 自行离开了。
+settle.losses,Losses,损失
+settle.lost,{n} left behind: storage is full.,{n} 份因仓储已满而留下。
+settle.no_items,No goods or gear this time.,这次没有货物或装备。
+settle.plunder,(incl. {n} plundered),（含掠夺 {n}）
+settle.rarity_common,Common,普通
+settle.rarity_epic,Epic,史诗
+settle.rarity_legendary,Legendary,传说
+settle.rarity_rare,Rare,稀有
+settle.rarity_uncommon,Uncommon,优良
+settle.recruit,Recruit,招募
+settle.recruit_chance,Chance {p},几率 {p}
+settle.recruit_full,Every berth is taken ({n} / {max}). Free a berth or enlarge the quarters to sign on new crew; this one goes ashore.,床位已满（{n} / {max}）。腾出床位或扩建船员舱才能招收新船员；此人将上岸离开。
+settle.recruit_full_short,No free berth.,没有空床位。
+settle.recruit_none,No defeated foe asked to join this time.,这次没有战败者请求加入。
+settle.recruit_offer,A defeated {enemy} lays down arms and asks to sign on.,战败的{enemy}放下武器，请求加入船队。
+settle.rewards,Rewards,奖励
+settle.salvaged,Sea chest full: salvaged for {n} materials.,装备箱已满：拆解为 {n} 材料。
+settle.saved,Result saved.,结果已保存。
+settle.sign_on,Sign on,收入船队
+settle.signed,{name} signed on and took a free berth.,{name} 加入船队，住进了空床位。
+settle.spoils_tip,Spoils picked up from fallen foes. They are counted and stored in the report after the battle.,从倒下的敌人身上拾得的战利品，战斗结束后在报告中清点入库。
+settle.stowed,Stowed and saved.,已入库并保存。
+settle.supplies,Supplies,补给
+settle.xp,+{n} XP for the crew who fought,参战船员 +{n} 经验
+ship.access_ladder,Ladder and hatch,梯子与舱口
+ship.access_stair,Deck stair,甲板楼梯
+ship.add_door,Add door,加装门
+ship.assign_worker,Assign a worker…,指派工作人员……
+ship.build,Build,建造
+ship.build_hint,Click a free cell to place {facility}. Press R to rotate.,点击空格子放置 {facility}。按 R 旋转。
+ship.build_palette,Build facilities,建造设施
+ship.build_zone_note,Rooms are built on interior levels below the weather deck. The weather deck stays clear for crew movement and boarding fights; only naval fittings go there.,房间建在露天甲板下方的船舱楼层。露天甲板留给船员通行和接舷战，只能放置船具。
+ship.bulkhead,Bulkhead,舱壁
+ship.bulkhead_info,"Bulkhead wall on the {deck}, row {y}. Add a door to walk through it.",{deck}第 {y} 行的舱壁。加装一扇门才能通过。
+ship.cancel_hint,Right-click or Esc to cancel.,右键或 Esc 取消。
+ship.cannot_afford,Not enough resources.,资源不足。
+ship.capacity,Crew berths,船员床位
+ship.category,Category,类别
+ship.cell,"Cell {x},{y}","格子 {x},{y}"
+ship.click_select,Click a facility or a sailor aboard to inspect it.,点击船上的设施或船员即可查看。
+ship.current_hull,Current,当前
+ship.damage_penalty,Heavy damage: departures cost extra food until repaired.,严重损伤：修复前出航会额外消耗食物。
+ship.damaged_effect,Damaged: works at half effect until repaired.,已损坏：修复前效果减半。
+ship.damaged_facilities,Damaged facilities,损坏的设施
+ship.deck_n,Deck {n},第 {n} 层甲板
+ship.decks,{n} decks,{n} 层甲板
+ship.demolish,Dismantle,拆除
+ship.demolish_confirm,Dismantle {facility}?,拆除 {facility}？
+ship.depart_blocked,Blocked,无法出航
+ship.depart_ok,Ready,可以出航
+ship.departure,Departure,出航
+ship.disabled_effect,It has no effect until it is connected again.,重新连通之前，它不会产生任何效果。
+ship.door_hint,Click a bulkhead cell to add or remove a door.,点击隔舱壁格子以添加或移除舱门。
+ship.door_info,"Door in the bulkhead on the {deck}, row {y}.",{deck}第 {y} 行舱壁上的门。
+ship.edit_ok,Docked: layout editing open,已停靠：可以编辑布局
+ship.edit_port_only,Layout can only be edited at a port,只能在港口编辑布局
+ship.efficiency,efficiency {pct},效率 {pct}
+ship.equip_cap,Equipment storage,装备储量
+ship.fixed_bulkhead,Bulkhead,舱壁
+ship.fixed_hull,Hull frame,船体框架
+ship.fixed_mast,Mast,桅杆
+ship.food_cap,Food storage,食物储量
+ship.hatch_down,Hatch down to: {deck},舱口：下至{deck}
+ship.hull_confirm,Upgrade to the {hull}?,升级为{hull}？
+ship.hull_confirm_body,"Facilities are moved to the hold and can be placed again on the larger decks. Crew, cargo, and progress carry over.",设施会被移入货舱，可在更大的甲板上重新放置。船员、货物和进度都会保留。
+ship.hull_levels,Exposed: {open} · Interior: {inner},露天：{open} · 船舱：{inner}
+ship.hull_owned,Outgrown,已淘汰
+ship.hulls,Hulls,船体
+ship.jobs,Workers {n} / {max},工作人员 {n} / {max}
+ship.ladder_up,Ladder up to: {deck},梯子：上至{deck}
+ship.layout,Layout check,布局检查
+ship.legend_disabled,Unreachable,无法到达
+ship.legend_door,Door,门
+ship.legend_entry,Entry,入口
+ship.legend_stair,Stair,楼梯
+ship.legend_walk,Walkway,通道
+ship.level,Level,等级
+ship.level_interior_hint,"Interior level: cabins, galley, workshops, storage and other rooms. Upper decks are cut away while this level is shown.",船舱楼层：卧舱、厨房、工坊、仓储等房间。显示此层时，上层甲板会被剖开隐藏。
+ship.level_keys,PgUp/PgDn or Tab: change level · Home: fit view,PgUp/PgDn 或 Tab：切换楼层 · Home：适配画面
+ship.level_open_hint,"Exposed decks: circulation, rigging and the boarding fight. Only fittings such as the lookout, boarding gate and guard post may stand here.",露天甲板用于通行、操帆和接舷战。这里只能放置瞭望台、接舷门、警戒哨等船具。
+ship.max_level,Max level,已满级
+ship.mode_door,Doors,舱门
+ship.mode_select,Select,选择
+ship.mode_stair,Place stair,放置楼梯
+ship.move,Move,移动
+ship.move_hint,Click a free cell to move {facility}.,点击空格子移动 {facility}。
+ship.on_level,Level: {deck},所在楼层：{deck}
+ship.owned,built {n} / {max},已建 {n} / {max}
+ship.pet_helpers,Pet helpers: {names},宠物帮手：{names}
+ship.place,Place,放置
+ship.placing,Placing: {facility},放置中：{facility}
+ship.preset_apply,Apply,应用
+ship.preset_empty,Empty,空
+ship.preset_info,{n} facilities,{n} 个设施
+ship.preset_n,Preset {n},预设 {n}
+ship.preset_save,Save here,保存到此处
+ship.presets,Layout presets,布局预设
+ship.presets_hint,Save the current layout and restore it later. Applying a preset only moves facilities you own.,保存当前布局，之后可以恢复。应用预设只会移动你已拥有的设施。
+ship.produce_food,Cook food (+{n}),烹饪食物（+{n}）
+ship.produce_supplies,Make supplies,制作补给
+ship.production_hint,"Galley turns gold into food and the Workshop turns materials into supplies, even at sea.",厨房可以把金币变成食物，工坊可以把材料变成补给，即使在海上也能进行。
+ship.refund,You get back {gold} gold and {materials} materials.,你将取回 {gold} 金币和 {materials} 材料。
+ship.remove_door,Remove door,拆除门
+ship.remove_stair,Remove stair,拆除楼梯
+ship.repair,Repair,维修
+ship.required,Required,必需
+ship.rotate,Rotate,旋转
+ship.select_hint,"Select a facility, door, or stair on the deck plan.",在甲板图上选择一个设施、门或楼梯。
+ship.selection,Selection,选中项
+ship.services,Repairs & production,维修与生产
+ship.show_rigging,Show masts and rigging,显示桅杆与索具
+ship.size,Size,尺寸
+ship.staff_bonus,Staff bonus: +{pct},人员加成：+{pct}
+ship.stair,Stair,楼梯
+ship.stair_down,Stair down,下行楼梯
+ship.stair_hint,"Click a cell to add a ladder and hatch up to the level above, or click an open-deck edge beside a raised deck for a stair.",点击格子，添加通往上一层的梯子和舱口；或点击紧邻高层甲板的露天甲板边缘放置楼梯。
+ship.stair_info,Ladder or stair from the {a} up to the {b}.,从{a}通往{b}的梯子或楼梯。
+ship.stair_up,Stair up,上行楼梯
+ship.stairs_up,Stairs up to: {deck},楼梯：上至{deck}
+ship.stamina_max,Max stamina,体力上限
+ship.status,Status,状态
+ship.status_active,Working,运作中
+ship.status_damaged,Damaged (half effect),已损坏（效果减半）
+ship.status_disabled,Unreachable (no effect),无法到达（无效果）
+ship.status_stowed,Stowed,已收起
+ship.stow,Stow,收起
+ship.stow_hint,Store it in the hold. Stowed facilities keep their level but have no effect.,收进货舱。收起的设施保留等级，但不产生效果。
+ship.stowed,Stowed facilities,已收起的设施
+ship.supply_cap,Supply storage,补给储量
+ship.tier,Tier {n},{n} 阶
+ship.unassign,Unassign,取消指派
+ship.upgrade,Upgrade,升级
+ship.upgrade_hull,Upgrade hull,升级船体
+ship.zone_deck,Open deck only (fittings),仅限露天甲板（船具）
+ship.zone_interior,Interior levels only,仅限船舱内部
+side.depths.desc,The Tidebound Society wants samples from deep inside {location}.,潮缚学会想要 {location} 深处的样本。
+side.depths.title,Into {location},深入 {location}
+side.legend.desc,Old songs speak of a hidden place: find {location}.,古老的歌谣提到一处隐秘之地：找到 {location}。
+side.legend.title,Legend of {location},{location}的传说
+side.outpost.desc,Clear {location} so the League can build an outpost.,清理 {location}，好让联盟建立前哨。
+side.outpost.title,Secure {location},确保 {location}
+side.salvage.desc,Recover what the wreck at {location} still holds.,取回 {location} 沉船里剩下的东西。
+side.salvage.title,Salvage {location},打捞 {location}
+side.survey.desc,The Harbor League wants {location} charted room by room.,港湾联盟希望把 {location} 的每个房间都标记清楚。
+side.survey.title,Survey {location},勘察 {location}
+site.cleared,Cleared,已清理
+site.cost,{n} stamina,{n} 体力
+site.enter,Enter {room},进入{room}
+site.fight,Fight,战斗
+site.found,Search results,搜索收获
+site.hint,Click a marker to walk there. Rooms you can enter glow.,点击标记即可走过去。可进入的区域会发光。
+site.legend,Legend challenge,传说挑战
+site.locked,Locked — clear an adjacent room first.,未解锁——请先清理相邻区域。
+site.move,Pass through,穿过
+site.move_free,Cleared rooms are free to cross.,穿过已清理的房间不消耗体力。
+site.nothing,Nothing new here.,这里没有新的收获。
+site.party_click,Click for crew details,点击查看船员详情
+site.party_lead,Leads the landing party,带领登陆小队
+site.party_member,Landing party,登陆小队成员
+site.repeat,Fight again,再战一次
+site.repeat_hint,Optional repeat battle for extra rewards.,可选的重复战斗，可获得额外奖励。
+site.search,Search,搜索
+site.stamina_rule,"Entering a new room costs stamina. Cleared rooms, retreating, and leaving are free.",进入新房间会消耗体力。已清理的房间、撤退和离开都不消耗。
+site.title,Explore {location},探索 {location}
+skill.aimed_shot.name,Aimed Shot,瞄准射击
+skill.arc_burst.name,Arc Burst,电弧爆发
+skill.armor_crush.name,Armor Crush,碎甲
+skill.brace.name,Brace,稳住
+skill.brawl.name,Brawl,乱斗
+skill.call_of_wild.name,Call of the Wild,野性呼唤
+skill.call_out.name,Call Out,点名挑战
+skill.cd,{n}s cooldown,冷却 {n} 秒
+skill.chain_lightning.name,Chain Lightning,连锁闪电
+skill.cleanse.name,Cleanse,净化
+skill.cond_critical,only when an ally is below 35% HP,仅在有队友生命低于 35% 时
+skill.deploy_barrier.name,Deploy Barrier,展开屏障
+skill.dispel_hex.name,Dispel Hex,驱散诅咒
+skill.e_charge.name,Charge,冲锋
+skill.e_crush.name,Crush,碾压
+skill.e_hex.name,Hex,诅咒
+skill.e_mend.name,Mend,修补
+skill.e_roar.name,Roar,咆哮
+skill.e_shell.name,Shell Up,缩壳
+skill.e_slash.name,Slash,斩击
+skill.e_stun_all.name,Shockwave,冲击波
+skill.e_volley.name,Volley,齐射
+skill.ebb_tide.name,Ebb Tide,退潮
+skill.emergency_surgery.name,Emergency Surgery,紧急手术
+skill.first_aid.name,First Aid,急救
+skill.frost_bolt.name,Frost Bolt,寒霜箭
+skill.grand_feast.name,Grand Feast,盛宴
+skill.guardian_wall.name,Guardian Wall,守护之墙
+skill.harpoon_pull.name,Harpoon Pull,鱼叉拖拽
+skill.haymaker.name,Haymaker,重拳
+skill.headshot.name,Headshot,爆头
+skill.heal,heals {pct} ATK,治疗 {pct} 攻击
+skill.hearty_snack.name,Hearty Snack,丰盛点心
+skill.hold_colors.name,Hold the Colors,高举战旗
+skill.hold_the_line.name,Hold the Line,坚守阵线
+skill.lunge.name,Lunge,突刺
+skill.mark_target.name,Mark Target,标记目标
+skill.pack_guard.name,Pack Guard,群体守护
+skill.piercing_thrust.name,Piercing Thrust,穿刺
+skill.power,{pct} ATK,{pct} 攻击
+skill.quake_slam.name,Quake Slam,震地猛击
+skill.quick_read.name,Quick Read,快速判读
+skill.rally_banner.name,Rally Banner,集结旗
+skill.renewal.name,Renewal,复苏
+skill.riposte.name,Riposte,还击
+skill.scatter_volley.name,Scatter Volley,散射齐射
+skill.shield_bash.name,Shield Bash,盾击
+skill.shortcut_strike.name,Shortcut Strike,捷径突袭
+skill.sic_em.name,Sic 'Em,上啊！
+skill.sky_dive.name,Sky Dive,凌空俯冲
+skill.smoke_shell.name,Smoke Shell,烟雾弹
+skill.snare_net.name,Snare Net,捕网
+skill.soothing_call.name,Soothing Call,安抚呼唤
+skill.spice_bomb.name,Spice Bomb,香料弹
+skill.spring_trap.name,Spring Trap,弹簧陷阱
+skill.suplex.name,Suplex,抱摔
+skill.supply_drop.name,Supply Drop,空投补给
+skill.sweep_spear.name,Spear Sweep,横扫长枪
+skill.tribute.name,Tribute,贡金
+skill.turret.name,Turret,炮塔
+skill.whirling_blades.name,Whirling Blades,旋舞之刃
+slot.accessory,Accessory,饰品
+slot.outfit,Outfit,服装
+slot.weapon,Weapon,武器
+spec.abyss_alloy.name,Abyss Alloy,深渊合金
+spec.crown_silk.name,Crown Silk,王冠丝绸
+spec.ember_ore.name,Ember Ore,余烬矿石
+spec.horizon_glass.name,Horizon Glass,地平线玻璃
+spec.leviathan_scale.name,Leviathan Scale,利维坦鳞片
+spec.moon_ink.name,Moon Ink,月墨
+spec.prism_quartz.name,Prism Quartz,棱光石英
+spec.saltleaf_grain.name,Saltleaf Grain,盐叶谷
+spec.stormwood.name,Stormwood,风暴木
+spec.verdant_resin.name,Verdant Resin,翠绿树脂
+stance.aggressive.desc,"More damage, less defense; skills fire as soon as possible.",伤害更高、防御更低；技能一就绪就会释放。
+stance.aggressive.name,Aggressive,猛攻
+stance.balanced.desc,No modifiers.,没有修正。
+stance.balanced.name,Balanced,均衡
+stance.defensive.desc,"Less damage taken, slower offense; heals earlier.",受到伤害更少，进攻更慢；更早治疗。
+stance.defensive.name,Defensive,防守
+stance.escape.desc,Crew dodge more and focus on staying alive.,船员闪避更高，专注于保命。
+stance.escape.name,Escape,脱离
+stat.atk,ATK,攻击
+stat.atk_short,ATK,攻
+stat.crit,Crit,暴击
+stat.def,DEF,防御
+stat.def_short,DEF,防
+stat.dodge,Dodge,闪避
+stat.hp,HP,生命
+stat.hp_short,HP,命
+stat.spd,SPD,速度
+stat.spd_short,SPD,速
+status.buffAtk,ATK up,攻击提升
+status.buffDef,DEF up,防御提升
+status.clock,{hour}:00,{hour}:00
+status.dot,Burning,灼烧
+status.evade,Evading,闪避中
+status.food,Food,食物
+status.gold,Gold,金币
+status.ledger,Unbanked,未入账
+status.ledger_hint,Gold and materials earned on this voyage. They are banked when you dock at a port; a defeat loses 25% of them.,本次航行获得的金币和材料。停靠港口时入账；战败会损失其中的 25%。
+status.location,Location,位置
+status.mark,Marked,标记
+status.materials,Materials,材料
+status.regen,Regenerating,再生
+status.save_failed,Save failed,保存失败
+status.saved,Saved,已保存
+status.shield,Shielded,护盾
+status.slow,Slowed,减速
+status.stamina,Stamina,体力
+status.stun,Stunned,眩晕
+status.sunder,Sundered,破甲
+status.supplies,Supplies,补给
+status.taunt,Taunting,嘲讽
+status.time,Time,时间
+system.audio,Audio,音频
+system.audio_note,"Music and sound: Thimras, beardalaxy, Eldritch Grim (OpenGameArt), Kenney, and BigSoundBank recordists. All CC0. Sources and licences are listed in licenses/AUDIO_LICENSES.md next to the game.",音乐与音效：Thimras、beardalaxy、Eldritch Grim（OpenGameArt）、Kenney 及 BigSoundBank 录音者，均为 CC0。来源与许可证见游戏目录下的 licenses/AUDIO_LICENSES.md。
+system.battle_speed,Battle speed,战斗速度
+system.battles,Battles,战斗
+system.battles_value,{w} won · {l} lost · {r} retreats,胜 {w} · 负 {l} · 撤退 {r}
+system.captain,Captain,船长
+system.crew_n,{n} crew,{n} 名船员
+system.delete,Delete,删除
+system.delete_body,Slot {n} will be erased.,栏位 {n} 将被清除。
+system.delete_title,Delete save?,删除存档？
+system.export,Open save folder,打开存档文件夹
+system.exported,Save folder opened.,已打开存档文件夹。
+system.fullscreen,Fullscreen,全屏
+system.guide,Getting-started tips,新手提示
+system.guide_restart,Show again,重新显示
+system.guide_restart_tip,Shows the getting-started tips again while your first objective is open.,在第一个目标完成前，再次显示新手提示。
+system.guide_restarted,Getting-started tips are on again.,新手提示已重新开启。
+system.import,Import save,导入存档
+system.import_body,Your current game is replaced. Recovery saves keep the previous state.,当前游戏将被替换。恢复存档会保留之前的状态。
+system.import_title,Import this save?,导入这个存档？
+system.language,Language,语言
+system.language_current,This is the current language.,这是当前语言。
+system.language_hint,Changing the language restarts the game. Saves are not affected.,更改语言会重新启动游戏，不影响存档。
+system.last_save_failed,Last save failed,上次保存失败
+system.last_saved,Saved {time},已于 {time} 保存
+system.load,Load,读取
+system.load_body,Unsaved progress since your last autosave will be lost.,上次自动存档之后未保存的进度将会丢失。
+system.load_recovery_body,Load this recovery save? Newer progress stays in the other recovery slots.,读取这个恢复存档？更新的进度仍保留在其他恢复栏位中。
+system.load_title,Load this save?,读取这个存档？
+system.loaded,Save loaded.,存档已读取。
+system.manual,Manual saves,手动存档
+system.manual_hint,Manual slots are only written when you choose to.,只有在你主动选择时才会写入手动存档栏位。
+system.new_body,"Your current game stays in its manual slots, but recovery saves are cleared.",当前游戏的手动存档会保留，但恢复存档将被清空。
+system.new_game,New game,新游戏
+system.new_started,A new voyage begins.,新的航程开始了。
+system.new_title,Start a new game?,开始新游戏？
+system.no_recovery,No recovery saves yet.,还没有恢复存档。
+system.open_folder,Open save folder,打开存档文件夹
+system.overwrite_body,Slot {n} will be replaced with your current game.,栏位 {n} 将被当前游戏替换。
+system.overwrite_title,Overwrite save?,覆盖存档？
+system.pause_start,Pause when a battle starts,战斗开始时暂停
+system.postgame,Postgame,终局后
+system.profile,Profile,档案
+system.quit,Quit game,退出游戏
+system.recovery,Recovery saves,恢复存档
+system.recovery_hint,"The game keeps the {n} most recent automatic saves: at ports, after battles, trials, and hull upgrades.",游戏会保留最近 {n} 次自动存档：停靠港口、战斗后、试炼和船体升级时。
+system.recovery_latest,Latest,最新
+system.recovery_older,{n} older,更早 {n} 次
+system.reduce_motion,Reduce motion,减少动态效果
+system.restart_body,"Your game is saved, then the game restarts in {lang}.",游戏会先保存，然后以{lang}重新启动。
+system.restart_language,Restart in this language,以此语言重新启动
+system.restart_title,Restart the game?,重新启动游戏？
+system.save_here,Save,保存
+system.saved_slot,Saved to slot {n}.,已保存到栏位 {n}。
+system.seed,World seed,世界种子
+system.settings,Settings,设置
+system.shortcuts,Keyboard shortcuts,键盘快捷键
+system.shortcuts_list,"WASD / arrows pan · mouse wheel or +/− zoom · right-drag pan · Tab or PgUp/PgDn change ship level · H hide sails · R rotate · Esc cancel or menu · In battle: Space pause, 1/2/4 speed",WASD / 方向键 平移 · 鼠标滚轮或 +/− 缩放 · 右键拖动平移 · Tab 或 PgUp/PgDn 切换船只楼层 · H 隐藏船帆 · R 旋转 · Esc 取消或菜单 · 战斗中：空格 暂停，1/2/4 调整速度
+system.slot_corrupt,Damaged save (cannot load),存档已损坏（无法读取）
+system.slot_empty,Empty,空
+system.slot_n,Slot {n},栏位 {n}
+system.storage_local,Local save folder,本地存档文件夹
+system.storage_memory,Save folder unavailable,存档文件夹不可用
+system.storage_memory_hint,"The save folder cannot be written, so progress lasts only until you quit.",无法写入存档文件夹，进度只会保留到退出游戏为止。
+system.text_scale,Text size,文字大小
+system.title,System,系统
+system.title_screen,Title screen,标题画面
+system.transactions,Transactions,事务数
+system.transfer,Save files,存档文件
+system.transfer_hint,Saves live in your user data folder and work in either language.,存档保存在用户数据文件夹中，两种语言通用。
+system.trials_n,{n} trials,{n} 次试炼
+system.ui_size,Text and UI size,文字与界面大小
+system.ui_size_large,Large,大
+system.ui_size_normal,Standard,标准
+system.ui_size_xlarge,Extra large,特大
+system.vol_ambience,Ambience,环境音
+system.vol_master,Master volume,主音量
+system.vol_music,Music,音乐
+system.vol_off,Off,关
+system.vol_sfx,Effects,音效
+system.voyages,Voyages,航行次数
+title.continue,Continue,继续游戏
+title.footer,Offline native game · progress is saved on this computer · original pixel art,离线原生游戏 · 进度保存在本机 · 原创像素美术
+title.language,Language: {lang},语言：{lang}
+title.load,Load a save,读取存档
+title.new_game,New game,新游戏
+title.no_slots,No manual saves yet.,还没有手动存档。
+title.quit,Quit,退出游戏
+title.recovery,Recovery saves,自动恢复存档
+title.settings,Settings,设置
+title.strongest,Strongest Captain of the Seven Seas,七海最强船长
+title.unknown_captain,Unknown Captain,无名船长
+track.market.desc,Goods for sale and better prices.,出售商品，价格更优惠。
+track.market.l1,"Supplies, pet ingredients, and basic gear",补给、宠物食材和基础装备
+track.market.l2,Local specialty and the regional equipment shop,本地特产和地区装备店
+track.market.l3,"Pet eggs, a regional accessory, 10% off, better sale prices",宠物蛋、地区饰品、九折优惠、更高的售价
+track.market.name,Market,市场
+track.navigation.desc,"Forecasts, charted routes, and maps.",预报、航线标记和地图。
+track.navigation.l1,Exact sea forecasts and hazards for this sea,本海域的精确海况预报和环境危害
+track.navigation.l2,Charts the route between this sea's ports,标记本海域两个港口之间的航线
+track.navigation.l3,Reveals every non-secret location in this sea,揭示本海域所有非秘境地点
+track.navigation.name,Navigation office,航海局
+track.quest_board.desc,Side quests and contracts.,支线任务和委托。
+track.quest_board.l1,Side quests,支线任务
+track.quest_board.l2,Rotating contracts,轮换委托
+track.quest_board.l3,Reveals this sea's secret place,揭示本海域的秘境
+track.quest_board.name,Quest board,任务板
+track.tavern.desc,More and stronger recruits.,更多、更强的新水手。
+track.tavern.l1,Three recruits from eight classes,从八个职业中提供三名新水手
+track.tavern.l2,"Four recruits, every class and origin, aptitudes shown",四名新水手，涵盖所有职业和出身，显示天赋
+track.tavern.l3,Five recruits of higher level,五名等级更高的新水手
+track.tavern.name,Tavern,酒馆
+track.workshop.desc,"Crafting, reinforcement, and hull work.",制作、强化和船体工程。
+track.workshop.l1,Craft known recipes,制作已知配方
+track.workshop.l2,"Reinforce gear, add affixes, upgrade hulls",强化装备、附加词缀、升级船体
+track.workshop.l3,Master smiths: crafting and reinforcing cost 25% less,工匠大师：制作和强化费用降低 25%
+track.workshop.name,Workshop,工坊
+trait.brave,Brave,勇敢
+trait.calm,Calm,冷静
+trait.cautious,Cautious,谨慎
+trait.cheerful,Cheerful,开朗
+trait.curious,Curious,好奇
+trait.kind,Kind,善良
+trait.loyal,Loyal,忠诚
+trait.proud,Proud,骄傲
+trait.reckless,Reckless,鲁莽
+trait.sleepy,Sleepy,贪睡
+trait.stubborn,Stubborn,固执
+trait.thrifty,Thrifty,节俭
+ui.back,Back,返回
+ui.cancel,Cancel,取消
+ui.close,Close,关闭
+ui.confirm,Confirm,确认
+ui.day,Day {n},第 {n} 天
+ui.delete,Delete,删除
+ui.former_crew,Former crew member,前船员
+ui.free,Free,免费
+ui.loading,Loading…,载入中……
+ui.lv,Lv {n},Lv {n}
+ui.no,No,否
+ui.none,—,—
+ui.ok,OK,确定
+ui.tier,Tier {n},{n} 阶
+ui.unknown,Unknown,未知
+ui.yes,Yes,是
+view.chore,Lending a hand: {task},帮忙：{task}
+view.deck,Deck: {deck},甲板：{deck}
+view.deck_next,Next level (Tab),下一层 (Tab)
+view.fit,Fit view to screen (Home),画面适配屏幕（Home）
+view.injured,Injured — resting,受伤休养中
+view.level_bottom,Already on the lowest level,已在最下层
+view.level_down,Down to {deck} (PgDn / Tab),下到{deck}（PgDn / Tab）
+view.level_entry,{deck} · {n},{deck} · {n}
+view.level_top,Already on the top level,已在最上层
+view.level_up,Up to {deck} (PgUp / Shift+Tab),上到{deck}（PgUp / Shift+Tab）
+view.levels,Levels,楼层
+view.off_duty,Off duty,休息中
+view.sails_hide,Hide sails (H),隐藏船帆 (H)
+view.sails_show,Show sails (H),显示船帆 (H)
+view.sleeping,Asleep,睡觉中
+view.working,Working: {facility},工作中：{facility}
+view.zoom_in,Zoom in,放大
+view.zoom_out,Zoom out,缩小
+warn.confirm_unreachable,{n} optional facilities cannot be reached and will not work on this voyage. Depart anyway?,有 {n} 个可选设施无法到达，本次航行中不会生效。仍要出航吗？
+warn.deck_no_stair,No stair reaches the {deck}.,没有楼梯通往{deck}。
+warn.facility_stowed,Stowed in the hold.,已收进货舱。
+warn.facility_unreachable,Not connected to the walkway on the {deck}.,未与{deck}的通道相连。
+where.at_sea,"At sea, bound for {location}",航行中，前往 {location}
+where.battle,In battle near {location},在 {location} 附近战斗
+where.location,Anchored at {location},停泊于 {location}
+where.port,Docked at {location},停靠于 {location}
+where.site,Exploring {location},正在探索 {location}
+wtype.banner,Banner,战旗
+wtype.blade,Blade,刀剑
+wtype.fist,Knuckles,指虎
+wtype.gun,Gun,火枪
+wtype.kit,Med Kit,医疗包
+wtype.ladle,Ladle,汤勺
+wtype.shield,Shield,盾牌
+wtype.spear,Spear,长枪
+wtype.staff,Staff,法杖
+wtype.tool,Tool,工具
+wtype.whip,Whip,鞭子

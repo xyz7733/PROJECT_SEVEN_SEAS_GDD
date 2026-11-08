@@ -1,0 +1,170 @@
+# Audio sources and licences
+
+Every sound in Project Seven Seas falls into one of two groups:
+
+- **Third-party, CC0 1.0 (public domain dedication).** It is listed below with its source page, creator, original filename and the licence wording shown on the page.
+- **Original to this project.** It was synthesised by `tools/audiogen/gen_stingers.py` and is released under CC0 1.0 with the project.
+
+Selection rules:
+
+- Kenney packs were preferred.
+- OpenGameArt and BigSoundBank items were used only after their pages were checked one by one.
+- CC0 items were kept.
+- Anything non-commercial (NC), no-derivatives (ND), ambiguous or of unclear provenance was rejected. The rejected items are listed at the end.
+
+None of these licences requires attribution. The in-game credits line and this file credit the creators anyway.
+
+The full CC0 1.0 legal code ships as `licenses/CC0-1.0-legalcode.txt`. The Kenney pack licence notes ship as `licenses/kenney_*.txt`. In the source tree, both are in `game/assets/audio/licenses/`.
+
+## Music (`game/assets/audio/music/`)
+
+| Game file | Title / creator | Source | Original file | Licence |
+|---|---|---|---|---|
+| `sailors_chant.ogg` | "A sailor's chant" by Thimras | https://opengameart.org/content/a-sailors-chant | `oga_jam_menu_music_loopable_0.ogg` | CC0 1.0 |
+| `pirate_ship_theme.ogg` | "Pirate Ship Theme Loop" by beardalaxy | https://opengameart.org/content/pirate-ship-theme-loop | `pirate_ship_in_game.ogg` | CC0 1.0 |
+| `pirates_incoming.wav` | "Pirates Incoming" by Eldritch Grim | https://opengameart.org/content/pirates-incoming | `pirates_incoming_loop.wav` | CC0 1.0 ("No need to attribute.") |
+
+How the music is used:
+
+| Track | Used for |
+|---|---|
+| `sailors_chant.ogg` | Title screen and sailing |
+| `pirate_ship_theme.ogg` | Port and ship at anchor |
+| `pirates_incoming.wav` | Battles |
+
+All three are authored loops and play with the stream's own loop flag.
+
+## Ambience (`game/assets/audio/ambience/`)
+
+All of these are from BigSoundBank. Each page states the licence as "CC0 (public domain)". The files were downloaded from `https://bigsoundbank.com/UPLOAD/ogg/<number>.ogg`.
+
+| Game file | Title / recordist | Source page | Licence |
+|---|---|---|---|
+| `masts_whistling.ogg` | #2443 "Masts whistling #1", Dorian | https://bigsoundbank.com/masts-whistling-1-s2443.html | CC0 1.0 |
+| `harbor_gulls.ogg` | #2573 "Gulls on the Harbor", Joseph | https://bigsoundbank.com/gulls-on-the-harbor-s2573.html | CC0 1.0 |
+| `coast_waves_terns.ogg` | #0267 "Sea Waves with Tern Calls", DenisChardonnet | https://bigsoundbank.com/sea-waves-and-seagulls-s0267.html | CC0 1.0 |
+| `cave.ogg` | #2135 "Cave #1", Joseph | https://bigsoundbank.com/cave-1-s2135.html | CC0 1.0 |
+| `rowing_slowly.ogg` | #1514 "Rowing slowly", Joseph | https://bigsoundbank.com/rowing-slowly-s1514.html | CC0 1.0 |
+
+How the ambience is used:
+
+| Bed | Used for |
+|---|---|
+| `masts_whistling.ogg` | Open sea and boarding fights |
+| `harbor_gulls.ogg` | Port |
+| `coast_waves_terns.ogg` | Island exploration |
+| `cave.ogg` | Dungeons and secret sites |
+
+`rowing_slowly.ogg` plays only during the rowboat landing, faded out after about four seconds.
+
+These are field recordings, not authored loops. The game loops them by crossfading two players over about 3 s near the end of each pass, so the seam is not heard.
+
+## Sound effects (`game/assets/audio/sfx/`)
+
+### Thimras, "Battle at sea" (CC0 1.0)
+
+Source: https://opengameart.org/content/battle-at-sea
+
+| Game file | Original file |
+|---|---|
+| `cannon_fire.ogg` | `cannon_fire_1.ogg` |
+| `cannon_hit.ogg` | `cannon_hit_1.ogg` |
+| `cannon_miss.ogg` | `cannon_miss_1.ogg` |
+| `ship_ram.ogg` | `ship_ram_ship_shortened.ogg` |
+
+### Kenney (Kenney Vleugels, www.kenney.nl), CC0 1.0
+
+The pack licence notes say: "You may use these assets in personal and commercial projects. Credit (Kenney or www.kenney.nl) would be nice but is not mandatory."
+
+| Pack (source page) | Files used (game filename = original filename unless noted) |
+|---|---|
+| Interface Sounds 1.0 (https://kenney.nl/assets/interface-sounds) | `click_001`, `confirmation_001`, `back_001`, `close_001`, `open_001`, `error_001`, `switch_002`, `toggle_001`, `minimize_001`, `maximize_001`; stored with a `ui_` prefix, e.g. `ui_click_001.ogg` |
+| Impact Sounds 1.0 (https://kenney.nl/assets/impact-sounds) | `impactWood_medium_000`–`002`, `impactPlank_medium_000`–`001`, `impactWood_light_000`–`002`, `impactBell_heavy_000`, `impactPunch_medium_000`–`002`, `impactPunch_heavy_000`–`001`, `impactPlate_light_000`, `impactSoft_heavy_000`–`001`, `footstep_wood_000`–`002` |
+| RPG Audio (https://kenney.nl/assets/rpg-audio) | `creak1`–`3`, `doorOpen_1`, `doorClose_1`, `handleCoins`, `handleCoins2`, `bookFlip1`, `cloth1`–`2`, `drawKnife1`–`2`, `knifeSlice`, `metalClick` |
+| Music Jingles (https://kenney.nl/assets/music-jingles) | `jingles_HIT00`, `jingles_HIT01`, `jingles_HIT02` (from the "Hit jingles" set) |
+
+### Original (Project Seven Seas, CC0 1.0)
+
+| Game file | What it is |
+|---|---|
+| `stinger_victory.wav` | Rising D-major plucked arpeggio with a bell on top. Generated by `tools/audiogen/gen_stingers.py` (Karplus-Strong strings and sine partials, fixed random seed). |
+| `stinger_defeat.wav` | Falling D-minor line ending on a low open fifth. Same generator. |
+
+## Where each effect is used
+
+The effect table is defined in `game/scripts/core/audio.gd` under `SFX` and `TX`.
+
+UI:
+
+- Buttons click.
+- Primary buttons confirm.
+- Cancel and close buttons go "back" or "close".
+- Toggles and tabs switch.
+- Errors play the error cue.
+- Windows open and close with their own cues.
+
+Ship:
+
+| Action | Sound |
+|---|---|
+| Place, move or add stairs | Wood thud |
+| Demolish | Plank knock |
+| Repair or upgrade | Light wood taps |
+| Door | Door open |
+| Hull refit | Creak |
+| Level switch | Creak |
+
+Trade, recruiting and quests:
+
+| Action | Sound |
+|---|---|
+| Buy, sell, invest or recruit | Coins |
+| Quests and records | Page flip |
+
+Voyage:
+
+| Moment | Sound |
+|---|---|
+| Departure | Bell and sail cloth |
+| Arrival | Bell |
+| Rowboat landing | Rowing |
+
+Battle:
+
+| Event | Sound |
+|---|---|
+| Melee | Swing or slash, then punch hits |
+| Critical or boss hits | Heavy hit |
+| Knockout | Soft heavy impact |
+| Skill | Hit jingle |
+| Heal | Softer jingle |
+| Gunner shots | `cannon_fire` at low volume and pitch jitter |
+| Wave | Bell |
+| Boarding start | `ship_ram` |
+| Hazards | Cannon hit or splash |
+| Victory or defeat | Stinger, with the music ducked |
+| Retreat | Minimize cue and cloth |
+
+How repeats are kept restrained:
+
+- Each effect has a cooldown and a cap on how many copies play at once.
+- Variants rotate, so the same take does not play twice in a row.
+- Pitch jitter is at most ±8 %.
+- Twelve effect voices are shared, and the oldest is stolen when all are busy.
+
+## Volume
+
+The System window has four sliders: Master, Music, Ambience and Effects.
+
+- They drive the `Master`, `Music`, `Ambience` and `SFX` buses, which the game creates at start.
+- Values are stored in `user://settings.cfg`.
+- 0 % mutes a bus.
+
+## Rejected candidates
+
+| Candidate | Why it was rejected |
+|---|---|
+| "I think I'd stay" (OpenGameArt) | The licence field said CC0 but the description carried a CC-BY 3.0 notice. Ambiguous. |
+| "Solo Seagull Sound Effects" (OpenGameArt) | Described as taken from a YouTube video. Provenance unclear. |
+| BigSoundBank ferry/harbour recordings | Modern engine noise. Unsuitable, not a licence problem. |
+| "pirates looping" (Eric Matyas) | CC-BY 4.0. Allowed, but not needed once CC0 options were found. |

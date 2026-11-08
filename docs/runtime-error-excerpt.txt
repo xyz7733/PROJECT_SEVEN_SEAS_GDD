@@ -1,0 +1,146 @@
+Native Windows review runtime diagnostic
+Missing facility metadata messages: 7860
+Original stderr bytes: 955854
+
+First diagnostic lines:
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/
+
+Last diagnostic lines:
+ct/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)
+ERROR: The object does not have any 'meta' values with the key 'fac'.
+   at: get_meta (core/object/object.cpp:1053)

@@ -1,0 +1,36 @@
+{
+  "revision": "guide-01",
+  "status": "ready",
+  "directory": "build/windows-checkpoints/guide-01",
+  "exe_sha256": "1edeef2171ef1dc274f2175bf90de4da4658731983edb3a855415a4d9dabfb4b",
+  "pck_sha256": "e1d14cac495eba803d7c3ef7b6cc3307baadfb29b42fc322eac035ac88bf1e20",
+  "engine": "Godot 4.7.2 (headless Linux export, Windows Desktop preset)",
+  "verified_here": [
+    "native import",
+    "load-probe of all 43 scripts (0 failures, probe file deleted before export)",
+    "i18n build: 1987 keys, 0 problems (19 new keys in English and Chinese for the guide card, the System 'Show again' row and the landing-party tooltip)",
+    "pack diff against battle-01 using the per-file MD5 stored in each pck: only guide.gd (new), site_view.gd, actor.gd (animation phase helper), main.gd (guide creation), win_system.gd (Show again row), settings.gd (guide settings), the two translations, project.binary (revision) and Godot's class/uid caches differ; battle, report, ship, interior, chart, HUD, title, coast and rowboat code are byte-identical to battle-01",
+    "headless site probe (temporary, nothing rendered): all 80 non-port sites built; every party and pet spot and every sampled point of every walk leg (slot to slot, slot to line, line to line, line to slot, every trail, both directions) on raised prop-free land, boat lane still water, land shape identical to the previous version, at most one prop moved per site, no two standing spots closer than 12 px, slowest build 142.7 ms: 0 problems",
+    "headless party probe (temporary, nothing rendered): real site view on 7 islands without a pet and 4 with an explorer pet; everyone on their slot after landing, a there-and-back walk started while followers were settling ends on the slots with one arrival, closest pair during long walks at least 13.8-15.6 px (median about 18.5-19.2 px), one-room shifts 11.5-15.6 px, idle members face different directions, head pick finds each member (4/4), others dim to 50 % and restore, tooltip text correct: 0 problems",
+    "headless guide probe (temporary, main scene built without rendering or a window): 6 new games (English and Chinese at UI 1.0, 1.25 and 1.5); steps come in order (levels, Set sail, destination, Sail), the first case also sails, lands, shows the island step, enters a room (card hidden over the room dialog, step ends) and checks Hide guide; every card fully on screen, never over its target, below the top bar and the objective chip: 0 problems",
+    "user data folder touched by the probes restored afterwards",
+    "Windows release export"
+  ],
+  "not_verified_here": "Any Windows runtime behaviour; the game was not launched. The look of the formation and single-file walks at pixel scale and each zoom, the readability of the 50 % dimming, the guide card, frame and arrow with the real mouse, window sizes and fullscreen, and long Chinese text in the card on a real font raster are unverified until checked on Windows.",
+  "changes": [
+    "Landing-party formation on islands (scripts/view/site_view.gd): four crew in two staggered rows left of the room marker (about 20 px apart in a row, 12 px between rows, leader at the right of the back row) with the pet in front of the leader, replacing the old 14 px diamond where the pet stood 2 px from the second member; walker animation phases desynced and idle members glance aside, back or at a neighbour on per-member timers",
+    "Walking order: a walk to the next room shifts the group with a 0.07 s stagger; a walk across two or more rooms becomes a single file on the leader's line, followers joining nearest first about 0.3 s (about 19 px) apart with up to 2 px side-steps, then spreading to their spots; a new walk first settles stragglers and each walk reports one arrival; the island builder also forces the single-file legs onto raised prop-free land",
+    "Crew hover and click on islands: selection marker under the member, the other members and the pet at 50 % opacity, tooltip with name, class, level and role (leader, landing party, injured), front-most figure wins, a click opens the crew window on that member, the room marker itself (within about 12 px) still picks the room",
+    "First-session guide (scripts/ui/guide.gd): one card at a time while the first main objective is open, with a pulsing gold frame and an arrow to its control and placement beside the target that never covers it, the top bar or the objective chip; five steps (ship levels, Set sail, pick the objective's destination, Sail with the food cost or a blocked note, click a room after landing) that end on the action; Got it skips a step, Hide guide turns it off, System > Settings > Getting-started tips > Show again turns it back on; progress stored in Settings, not the save; hidden during modals, battles and departures",
+    "Title footer shows 'v2.0.0 · guide-01'"
+  ],
+  "windows_checks": [
+    "The guide in a new game at UI 1.0 in English, then at UI 1.5 in Chinese (Show again is enough for the second run): one card at a time from 1/5 to 5/5 beside its control with frame and arrow, each ending when you act, none during dialogs, the voyage or battles; report a card off screen or over its target, the top bar or the objective chip, a wrong arrow, clipped text, or a step that does not end",
+    "Hide and show again: Got it moves to the next step, Hide guide removes all cards, System > Settings > Show again prints 'Getting-started tips are on again.' and the cards return",
+    "The landing party at zoom 2 on the first island: two staggered rows with every head visible and the pet in front, occasional glances, a short walk moves the group together, a walk across two or more rooms becomes a single file that spreads out on arrival; report overlap at rest, walkers passing through each other, crossing water or props, jumping, or a room opening twice",
+    "Hover and click on the crew: marker under the member, others half see-through, tooltip with name, class, level and role, a click opens the crew window on that member, pointing right at a room marker picks the room; report a wrong pick, dimming that does not clear, or a room that cannot be clicked",
+    "Actor clipping: island members crossing each other and props during single-file walks, and ship crew on each level at zoom 2 (deck clipping P1 is still open and unchanged); report the place, zoom and crew member of any clip",
+    "Retention (code byte-identical to battle-01): title footer 'v2.0.0 · guide-01', F11 fill, sidebar, build window, floor selector and Fit as in hud-02, M opens the chart as in chart-01, Brightquay coast as in coast-01, furnished interiors as in int-01, the battle result report as in battle-01, no 'Invalid polygon data' or 'fac' lines on stderr"
+  ],
+  "handoff_doc": "build/windows-checkpoints/guide-01/HANDOFF.md"
+}

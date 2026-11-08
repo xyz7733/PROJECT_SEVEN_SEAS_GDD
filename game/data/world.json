@@ -1,0 +1,5503 @@
+{
+ "SLOT_TYPES": [
+  "port",
+  "port",
+  "island",
+  "island",
+  "island",
+  "dungeon",
+  "dungeon",
+  "wreck",
+  "arena",
+  "secret"
+ ],
+ "REGIONS": [
+  {
+   "id": "dawnwater",
+   "rivalId": "mira_gull",
+   "level": 1,
+   "mechanic": null,
+   "palette": {
+    "sea": "#3a8fd0",
+    "deep": "#2a6fae",
+    "land": "#e9d58f",
+    "grass": "#79c46a",
+    "accent": "#f7d154"
+   },
+   "locs": [
+    "brightquay",
+    "saltmarsh_landing",
+    "gull_rock",
+    "lantern_isle",
+    "coral_steps",
+    "old_lookout",
+    "brine_cellars",
+    "driftplank_wreck",
+    "dawn_trial_ring",
+    "tidefin_grotto"
+   ],
+   "enemies": {
+    "skirmisher": "gull_raider",
+    "brute": "reef_crab",
+    "shooter": "spray_gunner",
+    "caster": "brine_witch",
+    "healer": "kelp_tender"
+   },
+   "bosses": [
+    "lookout_warden",
+    "cellar_king"
+   ],
+   "sea": {
+    "pirate": 3,
+    "monster": 2,
+    "cache": 3,
+    "vessel": 2,
+    "shortcut": 1,
+    "weather": 1,
+    "inspection": 1,
+    "clue": 2
+   },
+   "capability": [
+    "vanguard",
+    "striker",
+    "support"
+   ],
+   "ports": [
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 0,
+     "quest_board": 1,
+     "navigation": 0
+    },
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 0,
+     "navigation": 1
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "skirmisher"
+      ],
+      [
+       "shooter"
+      ],
+      [
+       "healer"
+      ]
+     ]
+    ]
+   },
+   "order": 1,
+   "tier": 1,
+   "specialtyId": "saltleaf_grain",
+   "hazard": null,
+   "petFamilyId": "tidefin",
+   "nextRegionId": "emberreach",
+   "mainQuestId": "main.dawnwater",
+   "captainTrialId": "trial.dawnwater",
+   "locationIds": [
+    "brightquay",
+    "saltmarsh_landing",
+    "gull_rock",
+    "lantern_isle",
+    "coral_steps",
+    "old_lookout",
+    "brine_cellars",
+    "driftplank_wreck",
+    "dawn_trial_ring",
+    "tidefin_grotto"
+   ]
+  },
+  {
+   "id": "emberreach",
+   "rivalId": "flint_cinder",
+   "level": 6,
+   "mechanic": "burning",
+   "palette": {
+    "sea": "#b35a3c",
+    "deep": "#7a3626",
+    "land": "#4a3a36",
+    "grass": "#e0703a",
+    "accent": "#ffb347"
+   },
+   "locs": [
+    "cinderport",
+    "ashfall_harbor",
+    "basalt_isle",
+    "smolder_key",
+    "obsidian_atoll",
+    "magma_vents",
+    "forge_depths",
+    "scorched_galleon",
+    "ember_crucible",
+    "cinderback_nest"
+   ],
+   "enemies": {
+    "skirmisher": "cinder_imp",
+    "brute": "magma_golem",
+    "shooter": "ash_slinger",
+    "caster": "flame_seer",
+    "healer": "ember_monk"
+   },
+   "bosses": [
+    "vent_tyrant",
+    "forge_colossus"
+   ],
+   "sea": {
+    "pirate": 2,
+    "monster": 3,
+    "cache": 2,
+    "vessel": 3,
+    "shortcut": 1,
+    "weather": 2,
+    "inspection": 1,
+    "clue": 1
+   },
+   "capability": [
+    "support",
+    "vanguard"
+   ],
+   "ports": [
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 2,
+     "quest_board": 1,
+     "navigation": 0
+    },
+    {
+     "market": 1,
+     "tavern": 0,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 1
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "brute"
+      ],
+      [
+       "shooter"
+      ],
+      [
+       "shooter"
+      ]
+     ]
+    ]
+   },
+   "order": 2,
+   "tier": 2,
+   "specialtyId": "ember_ore",
+   "hazard": "heat",
+   "petFamilyId": "cinderback",
+   "nextRegionId": "verdant_maw",
+   "mainQuestId": "main.emberreach",
+   "captainTrialId": "trial.emberreach",
+   "locationIds": [
+    "cinderport",
+    "ashfall_harbor",
+    "basalt_isle",
+    "smolder_key",
+    "obsidian_atoll",
+    "magma_vents",
+    "forge_depths",
+    "scorched_galleon",
+    "ember_crucible",
+    "cinderback_nest"
+   ]
+  },
+  {
+   "id": "verdant_maw",
+   "rivalId": "rook_fern",
+   "level": 11,
+   "mechanic": "disruptor",
+   "palette": {
+    "sea": "#2f8f6a",
+    "deep": "#1f6a4e",
+    "land": "#5b7f3a",
+    "grass": "#3fae4a",
+    "accent": "#c6e86b"
+   },
+   "locs": [
+    "rootharbor",
+    "fernwater_post",
+    "tanglewood_isle",
+    "orchid_cay",
+    "maw_shore",
+    "overgrown_shrine",
+    "thornroot_caves",
+    "vine_wreck",
+    "verdant_arena",
+    "moss_hollow"
+   ],
+   "enemies": {
+    "skirmisher": "vine_stalker",
+    "brute": "bark_brute",
+    "shooter": "thorn_archer",
+    "caster": "spore_shaman",
+    "healer": "bloom_nurse"
+   },
+   "bosses": [
+    "shrine_tyrant",
+    "root_mother"
+   ],
+   "sea": {
+    "pirate": 2,
+    "monster": 3,
+    "cache": 2,
+    "vessel": 1,
+    "shortcut": 3,
+    "weather": 1,
+    "inspection": 1,
+    "clue": 2
+   },
+   "capability": [
+    "controller",
+    "scout"
+   ],
+   "ports": [
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 1
+    },
+    {
+     "market": 0,
+     "tavern": 1,
+     "workshop": 0,
+     "quest_board": 1,
+     "navigation": 1
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "skirmisher"
+      ],
+      [
+       "skirmisher"
+      ],
+      [
+       "caster"
+      ],
+      [
+       "caster"
+      ]
+     ]
+    ]
+   },
+   "order": 3,
+   "tier": 3,
+   "specialtyId": "verdant_resin",
+   "hazard": "poison",
+   "petFamilyId": "mossling",
+   "nextRegionId": "glass_current",
+   "mainQuestId": "main.verdant_maw",
+   "captainTrialId": "trial.verdant_maw",
+   "locationIds": [
+    "rootharbor",
+    "fernwater_post",
+    "tanglewood_isle",
+    "orchid_cay",
+    "maw_shore",
+    "overgrown_shrine",
+    "thornroot_caves",
+    "vine_wreck",
+    "verdant_arena",
+    "moss_hollow"
+   ]
+  },
+  {
+   "id": "glass_current",
+   "rivalId": "selene_prism",
+   "level": 16,
+   "mechanic": "decoys",
+   "palette": {
+    "sea": "#4fb3c8",
+    "deep": "#2c7f9c",
+    "land": "#cfe6ef",
+    "grass": "#9fd3e6",
+    "accent": "#e7f7ff"
+   },
+   "locs": [
+    "prismhaven",
+    "mirrorbay",
+    "shard_reef",
+    "lens_isle",
+    "quartz_spire",
+    "crystal_vault",
+    "refraction_maze",
+    "glassbound_hulk",
+    "prism_court",
+    "glasswing_lagoon"
+   ],
+   "enemies": {
+    "skirmisher": "shard_fencer",
+    "brute": "quartz_knight",
+    "shooter": "prism_sniper",
+    "caster": "mirror_mage",
+    "healer": "lens_cleric"
+   },
+   "bosses": [
+    "vault_sentinel",
+    "refraction_queen"
+   ],
+   "sea": {
+    "pirate": 3,
+    "monster": 2,
+    "cache": 2,
+    "vessel": 2,
+    "shortcut": 1,
+    "weather": 1,
+    "inspection": 2,
+    "clue": 2
+   },
+   "capability": [
+    "striker",
+    "controller"
+   ],
+   "ports": [
+    {
+     "market": 2,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 1
+    },
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 0,
+     "navigation": 0
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "decoy"
+      ],
+      [
+       "decoy"
+      ],
+      [
+       "shooter"
+      ],
+      [
+       "healer"
+      ]
+     ]
+    ]
+   },
+   "order": 4,
+   "tier": 4,
+   "specialtyId": "prism_quartz",
+   "hazard": "glare",
+   "petFamilyId": "glasswing",
+   "nextRegionId": "crown_shoals",
+   "mainQuestId": "main.glass_current",
+   "captainTrialId": "trial.glass_current",
+   "locationIds": [
+    "prismhaven",
+    "mirrorbay",
+    "shard_reef",
+    "lens_isle",
+    "quartz_spire",
+    "crystal_vault",
+    "refraction_maze",
+    "glassbound_hulk",
+    "prism_court",
+    "glasswing_lagoon"
+   ]
+  },
+  {
+   "id": "crown_shoals",
+   "rivalId": "cassian_crest",
+   "level": 21,
+   "mechanic": "mixed",
+   "palette": {
+    "sea": "#3f6fb8",
+    "deep": "#2b4f8c",
+    "land": "#f2dfa7",
+    "grass": "#d9b44a",
+    "accent": "#ffd76a"
+   },
+   "locs": [
+    "crownport",
+    "silkmarket",
+    "gilded_cay",
+    "heron_isle",
+    "regent_bank",
+    "charter_archive",
+    "old_family_crypt",
+    "treasury_wreck",
+    "crown_tourney",
+    "pearl_grotto"
+   ],
+   "enemies": {
+    "skirmisher": "cutpurse",
+    "brute": "crown_enforcer",
+    "shooter": "musket_noble",
+    "caster": "court_hexer",
+    "healer": "gilded_medic"
+   },
+   "bosses": [
+    "archive_keeper",
+    "family_patriarch"
+   ],
+   "sea": {
+    "pirate": 3,
+    "monster": 1,
+    "cache": 2,
+    "vessel": 2,
+    "shortcut": 1,
+    "weather": 1,
+    "inspection": 3,
+    "clue": 2
+   },
+   "capability": [
+    "vanguard",
+    "striker",
+    "controller",
+    "support"
+   ],
+   "ports": [
+    {
+     "market": 2,
+     "tavern": 2,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 1
+    },
+    {
+     "market": 2,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 0
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "brute"
+      ],
+      [
+       "shooter"
+      ],
+      [
+       "caster"
+      ],
+      [
+       "healer"
+      ]
+     ]
+    ]
+   },
+   "order": 5,
+   "tier": 5,
+   "specialtyId": "crown_silk",
+   "hazard": null,
+   "petFamilyId": "pearlcub",
+   "nextRegionId": "stormbelt",
+   "mainQuestId": "main.crown_shoals",
+   "captainTrialId": "trial.crown_shoals",
+   "locationIds": [
+    "crownport",
+    "silkmarket",
+    "gilded_cay",
+    "heron_isle",
+    "regent_bank",
+    "charter_archive",
+    "old_family_crypt",
+    "treasury_wreck",
+    "crown_tourney",
+    "pearl_grotto"
+   ]
+  },
+  {
+   "id": "stormbelt",
+   "rivalId": "nessa_gale",
+   "level": 26,
+   "mechanic": null,
+   "palette": {
+    "sea": "#4a5f7a",
+    "deep": "#2f3e55",
+    "land": "#7c8796",
+    "grass": "#8fa6bf",
+    "accent": "#ffe066"
+   },
+   "locs": [
+    "gale_harbor",
+    "beacon_rest",
+    "thunder_rock",
+    "squall_isle",
+    "lightning_reach",
+    "drowned_beacon",
+    "tempest_caverns",
+    "stormwrack_hulk",
+    "eye_of_storm",
+    "cloudray_aerie"
+   ],
+   "enemies": {
+    "skirmisher": "squall_runner",
+    "brute": "thunder_brute",
+    "shooter": "gale_harpooner",
+    "caster": "storm_witch",
+    "healer": "beacon_keeper"
+   },
+   "bosses": [
+    "drowned_keeper",
+    "tempest_wyrm"
+   ],
+   "sea": {
+    "pirate": 2,
+    "monster": 2,
+    "cache": 2,
+    "vessel": 2,
+    "shortcut": 1,
+    "weather": 4,
+    "inspection": 1,
+    "clue": 1
+   },
+   "capability": [
+    "support",
+    "vanguard"
+   ],
+   "ports": [
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 2,
+     "quest_board": 1,
+     "navigation": 1
+    },
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 1
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "brute"
+      ],
+      [
+       "shooter"
+      ],
+      [
+       "caster"
+      ]
+     ]
+    ]
+   },
+   "order": 6,
+   "tier": 6,
+   "specialtyId": "stormwood",
+   "hazard": "storm",
+   "petFamilyId": "cloudray",
+   "nextRegionId": "moonwake",
+   "mainQuestId": "main.stormbelt",
+   "captainTrialId": "trial.stormbelt",
+   "locationIds": [
+    "gale_harbor",
+    "beacon_rest",
+    "thunder_rock",
+    "squall_isle",
+    "lightning_reach",
+    "drowned_beacon",
+    "tempest_caverns",
+    "stormwrack_hulk",
+    "eye_of_storm",
+    "cloudray_aerie"
+   ]
+  },
+  {
+   "id": "moonwake",
+   "rivalId": "orin_lantern",
+   "level": 31,
+   "mechanic": "intent",
+   "palette": {
+    "sea": "#2b2f6b",
+    "deep": "#1a1d47",
+    "land": "#5c5a8a",
+    "grass": "#8a7fd0",
+    "accent": "#d9c8ff"
+   },
+   "locs": [
+    "lanternport",
+    "dusk_mooring",
+    "nightbloom_isle",
+    "echo_atoll",
+    "starfall_key",
+    "forgotten_observatory",
+    "dream_labyrinth",
+    "moonlit_wreck",
+    "moonwake_stage",
+    "dreammoth_glade"
+   ],
+   "enemies": {
+    "skirmisher": "night_stalker",
+    "brute": "dream_ogre",
+    "shooter": "star_archer",
+    "caster": "moon_oracle",
+    "healer": "lull_spirit"
+   },
+   "bosses": [
+    "observatory_ghost",
+    "labyrinth_dreamer"
+   ],
+   "sea": {
+    "pirate": 2,
+    "monster": 3,
+    "cache": 2,
+    "vessel": 1,
+    "shortcut": 2,
+    "weather": 1,
+    "inspection": 1,
+    "clue": 3
+   },
+   "capability": [
+    "scout",
+    "controller"
+   ],
+   "ports": [
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 2
+    },
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 1
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "brute"
+      ],
+      [
+       "brute"
+      ],
+      [
+       "caster"
+      ]
+     ]
+    ]
+   },
+   "order": 7,
+   "tier": 7,
+   "specialtyId": "moon_ink",
+   "hazard": "dream",
+   "petFamilyId": "dreammoth",
+   "nextRegionId": "ashen_trench",
+   "mainQuestId": "main.moonwake",
+   "captainTrialId": "trial.moonwake",
+   "locationIds": [
+    "lanternport",
+    "dusk_mooring",
+    "nightbloom_isle",
+    "echo_atoll",
+    "starfall_key",
+    "forgotten_observatory",
+    "dream_labyrinth",
+    "moonlit_wreck",
+    "moonwake_stage",
+    "dreammoth_glade"
+   ]
+  },
+  {
+   "id": "ashen_trench",
+   "rivalId": "vale_ash",
+   "level": 36,
+   "mechanic": "sealed",
+   "palette": {
+    "sea": "#3a3340",
+    "deep": "#221d28",
+    "land": "#5a4f4a",
+    "grass": "#9a5a4a",
+    "accent": "#ff7a5a"
+   },
+   "locs": [
+    "ashport",
+    "relic_dock",
+    "cinder_shelf",
+    "sunken_spires",
+    "abyss_ledge",
+    "sealed_ruins",
+    "trench_sanctum",
+    "relic_hunter_wreck",
+    "ashen_seal_arena",
+    "gloomjaw_den"
+   ],
+   "enemies": {
+    "skirmisher": "relic_thief",
+    "brute": "abyss_brute",
+    "shooter": "trench_gunner",
+    "caster": "ash_hexer",
+    "healer": "deep_priest"
+   },
+   "bosses": [
+    "seal_guardian",
+    "trench_horror"
+   ],
+   "sea": {
+    "pirate": 3,
+    "monster": 3,
+    "cache": 1,
+    "vessel": 1,
+    "shortcut": 1,
+    "weather": 1,
+    "inspection": 1,
+    "clue": 2
+   },
+   "capability": [
+    "controller",
+    "striker"
+   ],
+   "ports": [
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 2,
+     "quest_board": 1,
+     "navigation": 1
+    },
+    {
+     "market": 2,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 0
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "captain"
+      ],
+      [
+       "caster"
+      ],
+      [
+       "caster"
+      ],
+      [
+       "brute"
+      ]
+     ]
+    ]
+   },
+   "order": 8,
+   "tier": 8,
+   "specialtyId": "abyss_alloy",
+   "hazard": "pressure",
+   "petFamilyId": "gloomjaw",
+   "nextRegionId": "leviathan_ring",
+   "mainQuestId": "main.ashen_trench",
+   "captainTrialId": "trial.ashen_trench",
+   "locationIds": [
+    "ashport",
+    "relic_dock",
+    "cinder_shelf",
+    "sunken_spires",
+    "abyss_ledge",
+    "sealed_ruins",
+    "trench_sanctum",
+    "relic_hunter_wreck",
+    "ashen_seal_arena",
+    "gloomjaw_den"
+   ]
+  },
+  {
+   "id": "leviathan_ring",
+   "rivalId": "brakka_reef",
+   "level": 41,
+   "mechanic": "waves",
+   "palette": {
+    "sea": "#1f7a8c",
+    "deep": "#145566",
+    "land": "#c9b28a",
+    "grass": "#5fb39a",
+    "accent": "#9ef0d0"
+   },
+   "locs": [
+    "ringhold",
+    "migration_post",
+    "shell_isle",
+    "bone_reef",
+    "titan_atoll",
+    "leviathan_gut",
+    "coral_colossus",
+    "behemoth_wreck",
+    "ring_arena",
+    "shellwarden_shoal"
+   ],
+   "enemies": {
+    "skirmisher": "ring_raider",
+    "brute": "shell_titan",
+    "shooter": "bone_spitter",
+    "caster": "tide_shaman",
+    "healer": "reef_mender"
+   },
+   "bosses": [
+    "gut_leviathan",
+    "colossus_core"
+   ],
+   "sea": {
+    "pirate": 1,
+    "monster": 5,
+    "cache": 2,
+    "vessel": 1,
+    "shortcut": 1,
+    "weather": 1,
+    "inspection": 1,
+    "clue": 1
+   },
+   "capability": [
+    "vanguard",
+    "support"
+   ],
+   "ports": [
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 2,
+     "quest_board": 1,
+     "navigation": 1
+    },
+    {
+     "market": 1,
+     "tavern": 1,
+     "workshop": 1,
+     "quest_board": 1,
+     "navigation": 1
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "skirmisher"
+      ],
+      [
+       "skirmisher"
+      ],
+      [
+       "shooter"
+      ],
+      [
+       "skirmisher"
+      ]
+     ],
+     [
+      [
+       "brute"
+      ],
+      [
+       "brute"
+      ],
+      [
+       "caster"
+      ]
+     ],
+     [
+      [
+       "captain"
+      ],
+      [
+       "healer"
+      ],
+      [
+       "skirmisher"
+      ]
+     ]
+    ]
+   },
+   "order": 9,
+   "tier": 9,
+   "specialtyId": "leviathan_scale",
+   "hazard": "tide",
+   "petFamilyId": "shellwarden",
+   "nextRegionId": "grand_horizon",
+   "mainQuestId": "main.leviathan_ring",
+   "captainTrialId": "trial.leviathan_ring",
+   "locationIds": [
+    "ringhold",
+    "migration_post",
+    "shell_isle",
+    "bone_reef",
+    "titan_atoll",
+    "leviathan_gut",
+    "coral_colossus",
+    "behemoth_wreck",
+    "ring_arena",
+    "shellwarden_shoal"
+   ]
+  },
+  {
+   "id": "grand_horizon",
+   "rivalId": "aurelia_dawn",
+   "level": 46,
+   "mechanic": "elite",
+   "requiresHullTier": 4,
+   "palette": {
+    "sea": "#e08a4a",
+    "deep": "#a85a3a",
+    "land": "#f7e3b0",
+    "grass": "#f2b84a",
+    "accent": "#fff3c4"
+   },
+   "locs": [
+    "horizon_gate",
+    "conclave_harbor",
+    "sunrise_isle",
+    "zenith_cay",
+    "dawnstar_reef",
+    "ancient_gatehouse",
+    "compass_vault",
+    "rival_flagship_wreck",
+    "horizon_arena",
+    "starwake_haven"
+   ],
+   "enemies": {
+    "skirmisher": "gate_duelist",
+    "brute": "horizon_knight",
+    "shooter": "sky_gunner",
+    "caster": "dawn_mage",
+    "healer": "conclave_medic"
+   },
+   "bosses": [
+    "gate_warden",
+    "compass_guardian"
+   ],
+   "sea": {
+    "pirate": 4,
+    "monster": 1,
+    "cache": 2,
+    "vessel": 1,
+    "shortcut": 1,
+    "weather": 1,
+    "inspection": 2,
+    "clue": 1
+   },
+   "capability": [
+    "vanguard",
+    "striker",
+    "controller",
+    "support",
+    "scout"
+   ],
+   "ports": [
+    {
+     "market": 2,
+     "tavern": 2,
+     "workshop": 2,
+     "quest_board": 1,
+     "navigation": 1
+    },
+    {
+     "market": 2,
+     "tavern": 2,
+     "workshop": 2,
+     "quest_board": 1,
+     "navigation": 1
+    }
+   ],
+   "trial": {
+    "waves": [
+     [
+      [
+       "rival",
+       "flint_cinder"
+      ],
+      [
+       "rival",
+       "selene_prism"
+      ],
+      [
+       "healer"
+      ]
+     ],
+     [
+      [
+       "brute"
+      ],
+      [
+       "brute"
+      ],
+      [
+       "caster"
+      ],
+      [
+       "healer"
+      ]
+     ],
+     [
+      [
+       "captain"
+      ],
+      [
+       "skirmisher"
+      ],
+      [
+       "shooter"
+      ]
+     ]
+    ],
+    "levelBonus": 1
+   },
+   "order": 10,
+   "tier": 10,
+   "specialtyId": "horizon_glass",
+   "hazard": null,
+   "petFamilyId": "starwake",
+   "nextRegionId": null,
+   "mainQuestId": "main.grand_horizon",
+   "captainTrialId": "trial.grand_horizon",
+   "locationIds": [
+    "horizon_gate",
+    "conclave_harbor",
+    "sunrise_isle",
+    "zenith_cay",
+    "dawnstar_reef",
+    "ancient_gatehouse",
+    "compass_vault",
+    "rival_flagship_wreck",
+    "horizon_arena",
+    "starwake_haven"
+   ]
+  }
+ ],
+ "RIVALS": {
+  "mira_gull": {
+   "regionId": "dawnwater",
+   "skills": [
+    "e_slash",
+    "e_roar"
+   ],
+   "mult": 1
+  },
+  "flint_cinder": {
+   "regionId": "emberreach",
+   "skills": [
+    "e_crush",
+    "e_volley"
+   ],
+   "mult": 1.05,
+   "burn": true
+  },
+  "rook_fern": {
+   "regionId": "verdant_maw",
+   "skills": [
+    "e_hex",
+    "e_slash"
+   ],
+   "mult": 1.05
+  },
+  "selene_prism": {
+   "regionId": "glass_current",
+   "skills": [
+    "e_shell",
+    "e_volley"
+   ],
+   "mult": 1.05
+  },
+  "cassian_crest": {
+   "regionId": "crown_shoals",
+   "skills": [
+    "e_slash",
+    "e_mend",
+    "e_roar"
+   ],
+   "mult": 1.08
+  },
+  "nessa_gale": {
+   "regionId": "stormbelt",
+   "skills": [
+    "e_volley",
+    "e_stun_all"
+   ],
+   "mult": 1.08
+  },
+  "orin_lantern": {
+   "regionId": "moonwake",
+   "skills": [
+    "e_charge",
+    "e_hex"
+   ],
+   "mult": 1.1
+  },
+  "vale_ash": {
+   "regionId": "ashen_trench",
+   "skills": [
+    "e_shell",
+    "e_crush"
+   ],
+   "mult": 1.1,
+   "regen": 0.012
+  },
+  "brakka_reef": {
+   "regionId": "leviathan_ring",
+   "skills": [
+    "e_crush",
+    "e_shell"
+   ],
+   "mult": 1.12
+  },
+  "aurelia_dawn": {
+   "regionId": "grand_horizon",
+   "skills": [
+    "e_slash",
+    "e_stun_all",
+    "e_roar"
+   ],
+   "mult": 1.18,
+   "regen": 0.006
+  }
+ },
+ "FACTION_LEADERS": {
+  "conclave": "archon_vessa",
+  "league": "harbormaster_tobin",
+  "tidebound": "dr_ilse_marrow",
+  "pennants": "red_jory"
+ },
+ "LEGENDS": {
+  "stormbelt": {
+   "restriction": "double_hazard",
+   "reward": "u_storm_crown",
+   "levelBonus": 14
+  },
+  "moonwake": {
+   "restriction": "no_healing",
+   "reward": "u_moonveil",
+   "levelBonus": 12
+  },
+  "ashen_trench": {
+   "restriction": "four_crew",
+   "reward": "u_trench_seal",
+   "levelBonus": 10
+  },
+  "leviathan_ring": {
+   "restriction": "endless_waves",
+   "reward": "u_ringbreaker",
+   "levelBonus": 8
+  },
+  "grand_horizon": {
+   "restriction": "encore",
+   "reward": "u_horizon_star",
+   "levelBonus": 8
+  }
+ },
+ "ROOM_TEMPLATES": {
+  "island": [
+   {
+    "id": "landing",
+    "kind": "battle",
+    "cost": 8,
+    "next": [
+     "grove",
+     "ridge"
+    ],
+    "family": "materials"
+   },
+   {
+    "id": "grove",
+    "kind": "resource",
+    "cost": 4,
+    "next": [
+     "heart",
+     "hollow"
+    ],
+    "family": "specialty"
+   },
+   {
+    "id": "ridge",
+    "kind": "battle",
+    "cost": 8,
+    "next": [
+     "heart"
+    ],
+    "family": "gold"
+   },
+   {
+    "id": "heart",
+    "kind": "elite",
+    "cost": 12,
+    "next": [],
+    "objective": true,
+    "family": "ingredients"
+   },
+   {
+    "id": "hollow",
+    "kind": "resource",
+    "cost": 3,
+    "next": [],
+    "secret": true,
+    "family": "egg"
+   }
+  ],
+  "dungeon": [
+   {
+    "id": "gate",
+    "kind": "battle",
+    "cost": 10,
+    "next": [
+     "west",
+     "east"
+    ],
+    "family": "materials"
+   },
+   {
+    "id": "west",
+    "kind": "battle",
+    "cost": 10,
+    "next": [
+     "depths"
+    ],
+    "family": "gold"
+   },
+   {
+    "id": "east",
+    "kind": "resource",
+    "cost": 6,
+    "next": [
+     "depths"
+    ],
+    "family": "specialty"
+   },
+   {
+    "id": "depths",
+    "kind": "elite",
+    "cost": 12,
+    "next": [
+     "guardian",
+     "vault"
+    ],
+    "family": "supplies"
+   },
+   {
+    "id": "guardian",
+    "kind": "boss",
+    "cost": 15,
+    "next": [],
+    "objective": true,
+    "family": "equipment"
+   },
+   {
+    "id": "vault",
+    "kind": "resource",
+    "cost": 4,
+    "next": [],
+    "secret": true,
+    "family": "egg"
+   }
+  ],
+  "wreck": [
+   {
+    "id": "hold",
+    "kind": "resource",
+    "cost": 6,
+    "next": [
+     "cabin"
+    ],
+    "family": "materials"
+   },
+   {
+    "id": "cabin",
+    "kind": "elite",
+    "cost": 10,
+    "next": [],
+    "objective": true,
+    "family": "equipment"
+   }
+  ],
+  "secret": [
+   {
+    "id": "sanctum",
+    "kind": "event",
+    "cost": 6,
+    "next": [],
+    "objective": true,
+    "family": "egg"
+   }
+  ],
+  "arena": [
+   {
+    "id": "trial",
+    "kind": "trial",
+    "cost": 15,
+    "next": [],
+    "objective": true,
+    "family": "equipment"
+   }
+  ],
+  "port": []
+ },
+ "MAIN_TEMPLATE": [
+  {
+   "type": "clear",
+   "slot": 2,
+   "reveal": [
+    1,
+    3,
+    7
+   ]
+  },
+  {
+   "type": "visit",
+   "slot": 1,
+   "reveal": [
+    5,
+    4
+   ]
+  },
+  {
+   "type": "clear",
+   "slot": 5,
+   "reveal": [
+    6
+   ]
+  },
+  {
+   "type": "deliver",
+   "slot": 0,
+   "count": 3,
+   "reveal": [
+    8
+   ]
+  },
+  {
+   "type": "trial",
+   "slot": 8,
+   "reveal": []
+  }
+ ],
+ "SIDE_TEMPLATE": [
+  {
+   "id": "survey",
+   "type": "clear",
+   "slot": 3,
+   "giver": 0,
+   "faction": "league",
+   "reward": "recipe"
+  },
+  {
+   "id": "salvage",
+   "type": "clear",
+   "slot": 7,
+   "giver": 0,
+   "faction": "league",
+   "reward": "supplies"
+  },
+  {
+   "id": "outpost",
+   "type": "clear",
+   "slot": 4,
+   "giver": 1,
+   "faction": "league",
+   "reward": "ingredients"
+  },
+  {
+   "id": "legend",
+   "type": "discover",
+   "slot": 9,
+   "giver": 1,
+   "faction": "tidebound",
+   "reward": "clue"
+  },
+  {
+   "id": "depths",
+   "type": "clear",
+   "slot": 6,
+   "giver": 1,
+   "faction": "tidebound",
+   "reward": "egg"
+  }
+ ],
+ "CONTRACT_TYPES": [
+  "hunt",
+  "supply",
+  "haul"
+ ],
+ "SEA_EVENT_KINDS": [
+  "pirate",
+  "monster",
+  "cache",
+  "vessel",
+  "shortcut",
+  "weather",
+  "inspection",
+  "clue"
+ ],
+ "SEA_EVENT_CHANCE": 0.55,
+ "LOCATIONS": {
+  "brightquay": {
+   "id": "brightquay",
+   "regionId": "dawnwater",
+   "slot": 0,
+   "type": "port",
+   "x": 0.122,
+   "y": 0.657,
+   "level": 1,
+   "initial": "visited",
+   "portIndex": 0,
+   "nameKey": "loc.brightquay.name"
+  },
+  "saltmarsh_landing": {
+   "id": "saltmarsh_landing",
+   "regionId": "dawnwater",
+   "slot": 1,
+   "type": "port",
+   "x": 0.58,
+   "y": 0.807,
+   "level": 1,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.saltmarsh_landing.name"
+  },
+  "gull_rock": {
+   "id": "gull_rock",
+   "regionId": "dawnwater",
+   "slot": 2,
+   "type": "island",
+   "x": 0.336,
+   "y": 0.429,
+   "level": 1,
+   "initial": "revealed",
+   "portIndex": null,
+   "nameKey": "loc.gull_rock.name"
+  },
+  "lantern_isle": {
+   "id": "lantern_isle",
+   "regionId": "dawnwater",
+   "slot": 3,
+   "type": "island",
+   "x": 0.499,
+   "y": 0.636,
+   "level": 2,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.lantern_isle.name"
+  },
+  "coral_steps": {
+   "id": "coral_steps",
+   "regionId": "dawnwater",
+   "slot": 4,
+   "type": "island",
+   "x": 0.751,
+   "y": 0.542,
+   "level": 3,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.coral_steps.name"
+  },
+  "old_lookout": {
+   "id": "old_lookout",
+   "regionId": "dawnwater",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.139,
+   "y": 0.238,
+   "level": 3,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.old_lookout.name"
+  },
+  "brine_cellars": {
+   "id": "brine_cellars",
+   "regionId": "dawnwater",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.855,
+   "y": 0.81,
+   "level": 4,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.brine_cellars.name"
+  },
+  "driftplank_wreck": {
+   "id": "driftplank_wreck",
+   "regionId": "dawnwater",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.594,
+   "y": 0.269,
+   "level": 3,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.driftplank_wreck.name"
+  },
+  "dawn_trial_ring": {
+   "id": "dawn_trial_ring",
+   "regionId": "dawnwater",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.887,
+   "y": 0.199,
+   "level": 5,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.dawn_trial_ring.name"
+  },
+  "tidefin_grotto": {
+   "id": "tidefin_grotto",
+   "regionId": "dawnwater",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.26,
+   "y": 0.872,
+   "level": 4,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.tidefin_grotto.name"
+  },
+  "cinderport": {
+   "id": "cinderport",
+   "regionId": "emberreach",
+   "slot": 0,
+   "type": "port",
+   "x": 0.821,
+   "y": 0.64,
+   "level": 6,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.cinderport.name"
+  },
+  "ashfall_harbor": {
+   "id": "ashfall_harbor",
+   "regionId": "emberreach",
+   "slot": 1,
+   "type": "port",
+   "x": 0.401,
+   "y": 0.812,
+   "level": 6,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.ashfall_harbor.name"
+  },
+  "basalt_isle": {
+   "id": "basalt_isle",
+   "regionId": "emberreach",
+   "slot": 2,
+   "type": "island",
+   "x": 0.622,
+   "y": 0.368,
+   "level": 6,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.basalt_isle.name"
+  },
+  "smolder_key": {
+   "id": "smolder_key",
+   "regionId": "emberreach",
+   "slot": 3,
+   "type": "island",
+   "x": 0.513,
+   "y": 0.669,
+   "level": 7,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.smolder_key.name"
+  },
+  "obsidian_atoll": {
+   "id": "obsidian_atoll",
+   "regionId": "emberreach",
+   "slot": 4,
+   "type": "island",
+   "x": 0.259,
+   "y": 0.501,
+   "level": 8,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.obsidian_atoll.name"
+  },
+  "magma_vents": {
+   "id": "magma_vents",
+   "regionId": "emberreach",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.874,
+   "y": 0.247,
+   "level": 8,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.magma_vents.name"
+  },
+  "forge_depths": {
+   "id": "forge_depths",
+   "regionId": "emberreach",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.141,
+   "y": 0.837,
+   "level": 9,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.forge_depths.name"
+  },
+  "scorched_galleon": {
+   "id": "scorched_galleon",
+   "regionId": "emberreach",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.398,
+   "y": 0.266,
+   "level": 8,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.scorched_galleon.name"
+  },
+  "ember_crucible": {
+   "id": "ember_crucible",
+   "regionId": "emberreach",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.118,
+   "y": 0.195,
+   "level": 10,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.ember_crucible.name"
+  },
+  "cinderback_nest": {
+   "id": "cinderback_nest",
+   "regionId": "emberreach",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.727,
+   "y": 0.891,
+   "level": 9,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.cinderback_nest.name"
+  },
+  "rootharbor": {
+   "id": "rootharbor",
+   "regionId": "verdant_maw",
+   "slot": 0,
+   "type": "port",
+   "x": 0.134,
+   "y": 0.361,
+   "level": 11,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.rootharbor.name"
+  },
+  "fernwater_post": {
+   "id": "fernwater_post",
+   "regionId": "verdant_maw",
+   "slot": 1,
+   "type": "port",
+   "x": 0.64,
+   "y": 0.155,
+   "level": 11,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.fernwater_post.name"
+  },
+  "tanglewood_isle": {
+   "id": "tanglewood_isle",
+   "regionId": "verdant_maw",
+   "slot": 2,
+   "type": "island",
+   "x": 0.362,
+   "y": 0.587,
+   "level": 11,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.tanglewood_isle.name"
+  },
+  "orchid_cay": {
+   "id": "orchid_cay",
+   "regionId": "verdant_maw",
+   "slot": 3,
+   "type": "island",
+   "x": 0.511,
+   "y": 0.341,
+   "level": 12,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.orchid_cay.name"
+  },
+  "maw_shore": {
+   "id": "maw_shore",
+   "regionId": "verdant_maw",
+   "slot": 4,
+   "type": "island",
+   "x": 0.732,
+   "y": 0.474,
+   "level": 13,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.maw_shore.name"
+  },
+  "overgrown_shrine": {
+   "id": "overgrown_shrine",
+   "regionId": "verdant_maw",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.136,
+   "y": 0.743,
+   "level": 13,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.overgrown_shrine.name"
+  },
+  "thornroot_caves": {
+   "id": "thornroot_caves",
+   "regionId": "verdant_maw",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.85,
+   "y": 0.188,
+   "level": 14,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.thornroot_caves.name"
+  },
+  "vine_wreck": {
+   "id": "vine_wreck",
+   "regionId": "verdant_maw",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.548,
+   "y": 0.723,
+   "level": 13,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.vine_wreck.name"
+  },
+  "verdant_arena": {
+   "id": "verdant_arena",
+   "regionId": "verdant_maw",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.899,
+   "y": 0.849,
+   "level": 15,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.verdant_arena.name"
+  },
+  "moss_hollow": {
+   "id": "moss_hollow",
+   "regionId": "verdant_maw",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.277,
+   "y": 0.118,
+   "level": 14,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.moss_hollow.name"
+  },
+  "prismhaven": {
+   "id": "prismhaven",
+   "regionId": "glass_current",
+   "slot": 0,
+   "type": "port",
+   "x": 0.872,
+   "y": 0.353,
+   "level": 16,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.prismhaven.name"
+  },
+  "mirrorbay": {
+   "id": "mirrorbay",
+   "regionId": "glass_current",
+   "slot": 1,
+   "type": "port",
+   "x": 0.41,
+   "y": 0.137,
+   "level": 16,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.mirrorbay.name"
+  },
+  "shard_reef": {
+   "id": "shard_reef",
+   "regionId": "glass_current",
+   "slot": 2,
+   "type": "island",
+   "x": 0.673,
+   "y": 0.59,
+   "level": 16,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.shard_reef.name"
+  },
+  "lens_isle": {
+   "id": "lens_isle",
+   "regionId": "glass_current",
+   "slot": 3,
+   "type": "island",
+   "x": 0.532,
+   "y": 0.311,
+   "level": 17,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.lens_isle.name"
+  },
+  "quartz_spire": {
+   "id": "quartz_spire",
+   "regionId": "glass_current",
+   "slot": 4,
+   "type": "island",
+   "x": 0.263,
+   "y": 0.453,
+   "level": 18,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.quartz_spire.name"
+  },
+  "crystal_vault": {
+   "id": "crystal_vault",
+   "regionId": "glass_current",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.844,
+   "y": 0.759,
+   "level": 18,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.crystal_vault.name"
+  },
+  "refraction_maze": {
+   "id": "refraction_maze",
+   "regionId": "glass_current",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.148,
+   "y": 0.18,
+   "level": 19,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.refraction_maze.name"
+  },
+  "glassbound_hulk": {
+   "id": "glassbound_hulk",
+   "regionId": "glass_current",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.409,
+   "y": 0.756,
+   "level": 18,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.glassbound_hulk.name"
+  },
+  "prism_court": {
+   "id": "prism_court",
+   "regionId": "glass_current",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.151,
+   "y": 0.846,
+   "level": 20,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.prism_court.name"
+  },
+  "glasswing_lagoon": {
+   "id": "glasswing_lagoon",
+   "regionId": "glass_current",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.668,
+   "y": 0.107,
+   "level": 19,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.glasswing_lagoon.name"
+  },
+  "crownport": {
+   "id": "crownport",
+   "regionId": "crown_shoals",
+   "slot": 0,
+   "type": "port",
+   "x": 0.123,
+   "y": 0.64,
+   "level": 21,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.crownport.name"
+  },
+  "silkmarket": {
+   "id": "silkmarket",
+   "regionId": "crown_shoals",
+   "slot": 1,
+   "type": "port",
+   "x": 0.647,
+   "y": 0.855,
+   "level": 21,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.silkmarket.name"
+  },
+  "gilded_cay": {
+   "id": "gilded_cay",
+   "regionId": "crown_shoals",
+   "slot": 2,
+   "type": "island",
+   "x": 0.359,
+   "y": 0.411,
+   "level": 21,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.gilded_cay.name"
+  },
+  "heron_isle": {
+   "id": "heron_isle",
+   "regionId": "crown_shoals",
+   "slot": 3,
+   "type": "island",
+   "x": 0.504,
+   "y": 0.67,
+   "level": 22,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.heron_isle.name"
+  },
+  "regent_bank": {
+   "id": "regent_bank",
+   "regionId": "crown_shoals",
+   "slot": 4,
+   "type": "island",
+   "x": 0.719,
+   "y": 0.531,
+   "level": 23,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.regent_bank.name"
+  },
+  "charter_archive": {
+   "id": "charter_archive",
+   "regionId": "crown_shoals",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.127,
+   "y": 0.255,
+   "level": 23,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.charter_archive.name"
+  },
+  "old_family_crypt": {
+   "id": "old_family_crypt",
+   "regionId": "crown_shoals",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.875,
+   "y": 0.8,
+   "level": 24,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.old_family_crypt.name"
+  },
+  "treasury_wreck": {
+   "id": "treasury_wreck",
+   "regionId": "crown_shoals",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.591,
+   "y": 0.205,
+   "level": 23,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.treasury_wreck.name"
+  },
+  "crown_tourney": {
+   "id": "crown_tourney",
+   "regionId": "crown_shoals",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.877,
+   "y": 0.208,
+   "level": 25,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.crown_tourney.name"
+  },
+  "pearl_grotto": {
+   "id": "pearl_grotto",
+   "regionId": "crown_shoals",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.265,
+   "y": 0.874,
+   "level": 24,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.pearl_grotto.name"
+  },
+  "gale_harbor": {
+   "id": "gale_harbor",
+   "regionId": "stormbelt",
+   "slot": 0,
+   "type": "port",
+   "x": 0.837,
+   "y": 0.626,
+   "level": 26,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.gale_harbor.name"
+  },
+  "beacon_rest": {
+   "id": "beacon_rest",
+   "regionId": "stormbelt",
+   "slot": 1,
+   "type": "port",
+   "x": 0.415,
+   "y": 0.862,
+   "level": 26,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.beacon_rest.name"
+  },
+  "thunder_rock": {
+   "id": "thunder_rock",
+   "regionId": "stormbelt",
+   "slot": 2,
+   "type": "island",
+   "x": 0.679,
+   "y": 0.404,
+   "level": 26,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.thunder_rock.name"
+  },
+  "squall_isle": {
+   "id": "squall_isle",
+   "regionId": "stormbelt",
+   "slot": 3,
+   "type": "island",
+   "x": 0.539,
+   "y": 0.627,
+   "level": 27,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.squall_isle.name"
+  },
+  "lightning_reach": {
+   "id": "lightning_reach",
+   "regionId": "stormbelt",
+   "slot": 4,
+   "type": "island",
+   "x": 0.257,
+   "y": 0.549,
+   "level": 28,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.lightning_reach.name"
+  },
+  "drowned_beacon": {
+   "id": "drowned_beacon",
+   "regionId": "stormbelt",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.872,
+   "y": 0.245,
+   "level": 28,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.drowned_beacon.name"
+  },
+  "tempest_caverns": {
+   "id": "tempest_caverns",
+   "regionId": "stormbelt",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.175,
+   "y": 0.784,
+   "level": 29,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.tempest_caverns.name"
+  },
+  "stormwrack_hulk": {
+   "id": "stormwrack_hulk",
+   "regionId": "stormbelt",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.401,
+   "y": 0.224,
+   "level": 28,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.stormwrack_hulk.name"
+  },
+  "eye_of_storm": {
+   "id": "eye_of_storm",
+   "regionId": "stormbelt",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.148,
+   "y": 0.202,
+   "level": 30,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.eye_of_storm.name"
+  },
+  "cloudray_aerie": {
+   "id": "cloudray_aerie",
+   "regionId": "stormbelt",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.701,
+   "y": 0.833,
+   "level": 29,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.cloudray_aerie.name"
+  },
+  "lanternport": {
+   "id": "lanternport",
+   "regionId": "moonwake",
+   "slot": 0,
+   "type": "port",
+   "x": 0.188,
+   "y": 0.413,
+   "level": 31,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.lanternport.name"
+  },
+  "dusk_mooring": {
+   "id": "dusk_mooring",
+   "regionId": "moonwake",
+   "slot": 1,
+   "type": "port",
+   "x": 0.606,
+   "y": 0.141,
+   "level": 31,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.dusk_mooring.name"
+  },
+  "nightbloom_isle": {
+   "id": "nightbloom_isle",
+   "regionId": "moonwake",
+   "slot": 2,
+   "type": "island",
+   "x": 0.306,
+   "y": 0.596,
+   "level": 31,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.nightbloom_isle.name"
+  },
+  "echo_atoll": {
+   "id": "echo_atoll",
+   "regionId": "moonwake",
+   "slot": 3,
+   "type": "island",
+   "x": 0.503,
+   "y": 0.359,
+   "level": 32,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.echo_atoll.name"
+  },
+  "starfall_key": {
+   "id": "starfall_key",
+   "regionId": "moonwake",
+   "slot": 4,
+   "type": "island",
+   "x": 0.718,
+   "y": 0.488,
+   "level": 33,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.starfall_key.name"
+  },
+  "forgotten_observatory": {
+   "id": "forgotten_observatory",
+   "regionId": "moonwake",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.16,
+   "y": 0.72,
+   "level": 33,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.forgotten_observatory.name"
+  },
+  "dream_labyrinth": {
+   "id": "dream_labyrinth",
+   "regionId": "moonwake",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.879,
+   "y": 0.193,
+   "level": 34,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.dream_labyrinth.name"
+  },
+  "moonlit_wreck": {
+   "id": "moonlit_wreck",
+   "regionId": "moonwake",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.614,
+   "y": 0.792,
+   "level": 33,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.moonlit_wreck.name"
+  },
+  "moonwake_stage": {
+   "id": "moonwake_stage",
+   "regionId": "moonwake",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.867,
+   "y": 0.805,
+   "level": 35,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.moonwake_stage.name"
+  },
+  "dreammoth_glade": {
+   "id": "dreammoth_glade",
+   "regionId": "moonwake",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.308,
+   "y": 0.111,
+   "level": 34,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.dreammoth_glade.name"
+  },
+  "ashport": {
+   "id": "ashport",
+   "regionId": "ashen_trench",
+   "slot": 0,
+   "type": "port",
+   "x": 0.863,
+   "y": 0.41,
+   "level": 36,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.ashport.name"
+  },
+  "relic_dock": {
+   "id": "relic_dock",
+   "regionId": "ashen_trench",
+   "slot": 1,
+   "type": "port",
+   "x": 0.375,
+   "y": 0.165,
+   "level": 36,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.relic_dock.name"
+  },
+  "cinder_shelf": {
+   "id": "cinder_shelf",
+   "regionId": "ashen_trench",
+   "slot": 2,
+   "type": "island",
+   "x": 0.661,
+   "y": 0.605,
+   "level": 36,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.cinder_shelf.name"
+  },
+  "sunken_spires": {
+   "id": "sunken_spires",
+   "regionId": "ashen_trench",
+   "slot": 3,
+   "type": "island",
+   "x": 0.548,
+   "y": 0.335,
+   "level": 37,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.sunken_spires.name"
+  },
+  "abyss_ledge": {
+   "id": "abyss_ledge",
+   "regionId": "ashen_trench",
+   "slot": 4,
+   "type": "island",
+   "x": 0.266,
+   "y": 0.443,
+   "level": 38,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.abyss_ledge.name"
+  },
+  "sealed_ruins": {
+   "id": "sealed_ruins",
+   "regionId": "ashen_trench",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.849,
+   "y": 0.771,
+   "level": 38,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.sealed_ruins.name"
+  },
+  "trench_sanctum": {
+   "id": "trench_sanctum",
+   "regionId": "ashen_trench",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.16,
+   "y": 0.168,
+   "level": 39,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.trench_sanctum.name"
+  },
+  "relic_hunter_wreck": {
+   "id": "relic_hunter_wreck",
+   "regionId": "ashen_trench",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.455,
+   "y": 0.756,
+   "level": 38,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.relic_hunter_wreck.name"
+  },
+  "ashen_seal_arena": {
+   "id": "ashen_seal_arena",
+   "regionId": "ashen_trench",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.153,
+   "y": 0.863,
+   "level": 40,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.ashen_seal_arena.name"
+  },
+  "gloomjaw_den": {
+   "id": "gloomjaw_den",
+   "regionId": "ashen_trench",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.661,
+   "y": 0.115,
+   "level": 39,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.gloomjaw_den.name"
+  },
+  "ringhold": {
+   "id": "ringhold",
+   "regionId": "leviathan_ring",
+   "slot": 0,
+   "type": "port",
+   "x": 0.163,
+   "y": 0.593,
+   "level": 41,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.ringhold.name"
+  },
+  "migration_post": {
+   "id": "migration_post",
+   "regionId": "leviathan_ring",
+   "slot": 1,
+   "type": "port",
+   "x": 0.627,
+   "y": 0.865,
+   "level": 41,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.migration_post.name"
+  },
+  "shell_isle": {
+   "id": "shell_isle",
+   "regionId": "leviathan_ring",
+   "slot": 2,
+   "type": "island",
+   "x": 0.378,
+   "y": 0.371,
+   "level": 41,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.shell_isle.name"
+  },
+  "bone_reef": {
+   "id": "bone_reef",
+   "regionId": "leviathan_ring",
+   "slot": 3,
+   "type": "island",
+   "x": 0.477,
+   "y": 0.621,
+   "level": 42,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.bone_reef.name"
+  },
+  "titan_atoll": {
+   "id": "titan_atoll",
+   "regionId": "leviathan_ring",
+   "slot": 4,
+   "type": "island",
+   "x": 0.715,
+   "y": 0.555,
+   "level": 43,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.titan_atoll.name"
+  },
+  "leviathan_gut": {
+   "id": "leviathan_gut",
+   "regionId": "leviathan_ring",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.16,
+   "y": 0.247,
+   "level": 43,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.leviathan_gut.name"
+  },
+  "coral_colossus": {
+   "id": "coral_colossus",
+   "regionId": "leviathan_ring",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.832,
+   "y": 0.827,
+   "level": 44,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.coral_colossus.name"
+  },
+  "behemoth_wreck": {
+   "id": "behemoth_wreck",
+   "regionId": "leviathan_ring",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.569,
+   "y": 0.247,
+   "level": 43,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.behemoth_wreck.name"
+  },
+  "ring_arena": {
+   "id": "ring_arena",
+   "regionId": "leviathan_ring",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.821,
+   "y": 0.165,
+   "level": 45,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.ring_arena.name"
+  },
+  "shellwarden_shoal": {
+   "id": "shellwarden_shoal",
+   "regionId": "leviathan_ring",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.307,
+   "y": 0.897,
+   "level": 44,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.shellwarden_shoal.name"
+  },
+  "horizon_gate": {
+   "id": "horizon_gate",
+   "regionId": "grand_horizon",
+   "slot": 0,
+   "type": "port",
+   "x": 0.816,
+   "y": 0.591,
+   "level": 46,
+   "initial": "hidden",
+   "portIndex": 0,
+   "nameKey": "loc.horizon_gate.name"
+  },
+  "conclave_harbor": {
+   "id": "conclave_harbor",
+   "regionId": "grand_horizon",
+   "slot": 1,
+   "type": "port",
+   "x": 0.359,
+   "y": 0.858,
+   "level": 46,
+   "initial": "hidden",
+   "portIndex": 1,
+   "nameKey": "loc.conclave_harbor.name"
+  },
+  "sunrise_isle": {
+   "id": "sunrise_isle",
+   "regionId": "grand_horizon",
+   "slot": 2,
+   "type": "island",
+   "x": 0.642,
+   "y": 0.412,
+   "level": 46,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.sunrise_isle.name"
+  },
+  "zenith_cay": {
+   "id": "zenith_cay",
+   "regionId": "grand_horizon",
+   "slot": 3,
+   "type": "island",
+   "x": 0.485,
+   "y": 0.644,
+   "level": 47,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.zenith_cay.name"
+  },
+  "dawnstar_reef": {
+   "id": "dawnstar_reef",
+   "regionId": "grand_horizon",
+   "slot": 4,
+   "type": "island",
+   "x": 0.253,
+   "y": 0.552,
+   "level": 48,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.dawnstar_reef.name"
+  },
+  "ancient_gatehouse": {
+   "id": "ancient_gatehouse",
+   "regionId": "grand_horizon",
+   "slot": 5,
+   "type": "dungeon",
+   "x": 0.845,
+   "y": 0.201,
+   "level": 48,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.ancient_gatehouse.name"
+  },
+  "compass_vault": {
+   "id": "compass_vault",
+   "regionId": "grand_horizon",
+   "slot": 6,
+   "type": "dungeon",
+   "x": 0.136,
+   "y": 0.801,
+   "level": 49,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.compass_vault.name"
+  },
+  "rival_flagship_wreck": {
+   "id": "rival_flagship_wreck",
+   "regionId": "grand_horizon",
+   "slot": 7,
+   "type": "wreck",
+   "x": 0.457,
+   "y": 0.223,
+   "level": 48,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.rival_flagship_wreck.name"
+  },
+  "horizon_arena": {
+   "id": "horizon_arena",
+   "regionId": "grand_horizon",
+   "slot": 8,
+   "type": "arena",
+   "x": 0.173,
+   "y": 0.16,
+   "level": 51,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.horizon_arena.name"
+  },
+  "starwake_haven": {
+   "id": "starwake_haven",
+   "regionId": "grand_horizon",
+   "slot": 9,
+   "type": "secret",
+   "x": 0.717,
+   "y": 0.864,
+   "level": 49,
+   "initial": "hidden",
+   "portIndex": null,
+   "nameKey": "loc.starwake_haven.name"
+  }
+ },
+ "ROUTES": [
+  [
+   "brightquay",
+   "gull_rock"
+  ],
+  [
+   "brightquay",
+   "old_lookout"
+  ],
+  [
+   "brightquay",
+   "lantern_isle"
+  ],
+  [
+   "gull_rock",
+   "driftplank_wreck"
+  ],
+  [
+   "gull_rock",
+   "lantern_isle"
+  ],
+  [
+   "lantern_isle",
+   "saltmarsh_landing"
+  ],
+  [
+   "lantern_isle",
+   "tidefin_grotto"
+  ],
+  [
+   "saltmarsh_landing",
+   "coral_steps"
+  ],
+  [
+   "saltmarsh_landing",
+   "brine_cellars"
+  ],
+  [
+   "coral_steps",
+   "dawn_trial_ring"
+  ],
+  [
+   "driftplank_wreck",
+   "dawn_trial_ring"
+  ],
+  [
+   "coral_steps",
+   "brine_cellars"
+  ],
+  [
+   "old_lookout",
+   "driftplank_wreck"
+  ],
+  [
+   "gull_rock",
+   "old_lookout"
+  ],
+  [
+   "cinderport",
+   "basalt_isle"
+  ],
+  [
+   "cinderport",
+   "magma_vents"
+  ],
+  [
+   "cinderport",
+   "smolder_key"
+  ],
+  [
+   "basalt_isle",
+   "scorched_galleon"
+  ],
+  [
+   "basalt_isle",
+   "smolder_key"
+  ],
+  [
+   "smolder_key",
+   "ashfall_harbor"
+  ],
+  [
+   "smolder_key",
+   "cinderback_nest"
+  ],
+  [
+   "ashfall_harbor",
+   "obsidian_atoll"
+  ],
+  [
+   "ashfall_harbor",
+   "forge_depths"
+  ],
+  [
+   "obsidian_atoll",
+   "ember_crucible"
+  ],
+  [
+   "scorched_galleon",
+   "ember_crucible"
+  ],
+  [
+   "obsidian_atoll",
+   "forge_depths"
+  ],
+  [
+   "magma_vents",
+   "scorched_galleon"
+  ],
+  [
+   "basalt_isle",
+   "magma_vents"
+  ],
+  [
+   "rootharbor",
+   "tanglewood_isle"
+  ],
+  [
+   "rootharbor",
+   "overgrown_shrine"
+  ],
+  [
+   "rootharbor",
+   "orchid_cay"
+  ],
+  [
+   "tanglewood_isle",
+   "vine_wreck"
+  ],
+  [
+   "tanglewood_isle",
+   "orchid_cay"
+  ],
+  [
+   "orchid_cay",
+   "fernwater_post"
+  ],
+  [
+   "orchid_cay",
+   "moss_hollow"
+  ],
+  [
+   "fernwater_post",
+   "maw_shore"
+  ],
+  [
+   "fernwater_post",
+   "thornroot_caves"
+  ],
+  [
+   "maw_shore",
+   "verdant_arena"
+  ],
+  [
+   "vine_wreck",
+   "verdant_arena"
+  ],
+  [
+   "maw_shore",
+   "thornroot_caves"
+  ],
+  [
+   "overgrown_shrine",
+   "vine_wreck"
+  ],
+  [
+   "tanglewood_isle",
+   "overgrown_shrine"
+  ],
+  [
+   "prismhaven",
+   "shard_reef"
+  ],
+  [
+   "prismhaven",
+   "crystal_vault"
+  ],
+  [
+   "prismhaven",
+   "lens_isle"
+  ],
+  [
+   "shard_reef",
+   "glassbound_hulk"
+  ],
+  [
+   "shard_reef",
+   "lens_isle"
+  ],
+  [
+   "lens_isle",
+   "mirrorbay"
+  ],
+  [
+   "lens_isle",
+   "glasswing_lagoon"
+  ],
+  [
+   "mirrorbay",
+   "quartz_spire"
+  ],
+  [
+   "mirrorbay",
+   "refraction_maze"
+  ],
+  [
+   "quartz_spire",
+   "prism_court"
+  ],
+  [
+   "glassbound_hulk",
+   "prism_court"
+  ],
+  [
+   "quartz_spire",
+   "refraction_maze"
+  ],
+  [
+   "crystal_vault",
+   "glassbound_hulk"
+  ],
+  [
+   "shard_reef",
+   "crystal_vault"
+  ],
+  [
+   "crownport",
+   "gilded_cay"
+  ],
+  [
+   "crownport",
+   "charter_archive"
+  ],
+  [
+   "crownport",
+   "heron_isle"
+  ],
+  [
+   "gilded_cay",
+   "treasury_wreck"
+  ],
+  [
+   "gilded_cay",
+   "heron_isle"
+  ],
+  [
+   "heron_isle",
+   "silkmarket"
+  ],
+  [
+   "heron_isle",
+   "pearl_grotto"
+  ],
+  [
+   "silkmarket",
+   "regent_bank"
+  ],
+  [
+   "silkmarket",
+   "old_family_crypt"
+  ],
+  [
+   "regent_bank",
+   "crown_tourney"
+  ],
+  [
+   "treasury_wreck",
+   "crown_tourney"
+  ],
+  [
+   "regent_bank",
+   "old_family_crypt"
+  ],
+  [
+   "charter_archive",
+   "treasury_wreck"
+  ],
+  [
+   "gilded_cay",
+   "charter_archive"
+  ],
+  [
+   "gale_harbor",
+   "thunder_rock"
+  ],
+  [
+   "gale_harbor",
+   "drowned_beacon"
+  ],
+  [
+   "gale_harbor",
+   "squall_isle"
+  ],
+  [
+   "thunder_rock",
+   "stormwrack_hulk"
+  ],
+  [
+   "thunder_rock",
+   "squall_isle"
+  ],
+  [
+   "squall_isle",
+   "beacon_rest"
+  ],
+  [
+   "squall_isle",
+   "cloudray_aerie"
+  ],
+  [
+   "beacon_rest",
+   "lightning_reach"
+  ],
+  [
+   "beacon_rest",
+   "tempest_caverns"
+  ],
+  [
+   "lightning_reach",
+   "eye_of_storm"
+  ],
+  [
+   "stormwrack_hulk",
+   "eye_of_storm"
+  ],
+  [
+   "lightning_reach",
+   "tempest_caverns"
+  ],
+  [
+   "drowned_beacon",
+   "stormwrack_hulk"
+  ],
+  [
+   "thunder_rock",
+   "drowned_beacon"
+  ],
+  [
+   "lanternport",
+   "nightbloom_isle"
+  ],
+  [
+   "lanternport",
+   "forgotten_observatory"
+  ],
+  [
+   "lanternport",
+   "echo_atoll"
+  ],
+  [
+   "nightbloom_isle",
+   "moonlit_wreck"
+  ],
+  [
+   "nightbloom_isle",
+   "echo_atoll"
+  ],
+  [
+   "echo_atoll",
+   "dusk_mooring"
+  ],
+  [
+   "echo_atoll",
+   "dreammoth_glade"
+  ],
+  [
+   "dusk_mooring",
+   "starfall_key"
+  ],
+  [
+   "dusk_mooring",
+   "dream_labyrinth"
+  ],
+  [
+   "starfall_key",
+   "moonwake_stage"
+  ],
+  [
+   "moonlit_wreck",
+   "moonwake_stage"
+  ],
+  [
+   "starfall_key",
+   "dream_labyrinth"
+  ],
+  [
+   "forgotten_observatory",
+   "moonlit_wreck"
+  ],
+  [
+   "nightbloom_isle",
+   "forgotten_observatory"
+  ],
+  [
+   "ashport",
+   "cinder_shelf"
+  ],
+  [
+   "ashport",
+   "sealed_ruins"
+  ],
+  [
+   "ashport",
+   "sunken_spires"
+  ],
+  [
+   "cinder_shelf",
+   "relic_hunter_wreck"
+  ],
+  [
+   "cinder_shelf",
+   "sunken_spires"
+  ],
+  [
+   "sunken_spires",
+   "relic_dock"
+  ],
+  [
+   "sunken_spires",
+   "gloomjaw_den"
+  ],
+  [
+   "relic_dock",
+   "abyss_ledge"
+  ],
+  [
+   "relic_dock",
+   "trench_sanctum"
+  ],
+  [
+   "abyss_ledge",
+   "ashen_seal_arena"
+  ],
+  [
+   "relic_hunter_wreck",
+   "ashen_seal_arena"
+  ],
+  [
+   "abyss_ledge",
+   "trench_sanctum"
+  ],
+  [
+   "sealed_ruins",
+   "relic_hunter_wreck"
+  ],
+  [
+   "cinder_shelf",
+   "sealed_ruins"
+  ],
+  [
+   "ringhold",
+   "shell_isle"
+  ],
+  [
+   "ringhold",
+   "leviathan_gut"
+  ],
+  [
+   "ringhold",
+   "bone_reef"
+  ],
+  [
+   "shell_isle",
+   "behemoth_wreck"
+  ],
+  [
+   "shell_isle",
+   "bone_reef"
+  ],
+  [
+   "bone_reef",
+   "migration_post"
+  ],
+  [
+   "bone_reef",
+   "shellwarden_shoal"
+  ],
+  [
+   "migration_post",
+   "titan_atoll"
+  ],
+  [
+   "migration_post",
+   "coral_colossus"
+  ],
+  [
+   "titan_atoll",
+   "ring_arena"
+  ],
+  [
+   "behemoth_wreck",
+   "ring_arena"
+  ],
+  [
+   "titan_atoll",
+   "coral_colossus"
+  ],
+  [
+   "leviathan_gut",
+   "behemoth_wreck"
+  ],
+  [
+   "shell_isle",
+   "leviathan_gut"
+  ],
+  [
+   "horizon_gate",
+   "sunrise_isle"
+  ],
+  [
+   "horizon_gate",
+   "ancient_gatehouse"
+  ],
+  [
+   "horizon_gate",
+   "zenith_cay"
+  ],
+  [
+   "sunrise_isle",
+   "rival_flagship_wreck"
+  ],
+  [
+   "sunrise_isle",
+   "zenith_cay"
+  ],
+  [
+   "zenith_cay",
+   "conclave_harbor"
+  ],
+  [
+   "zenith_cay",
+   "starwake_haven"
+  ],
+  [
+   "conclave_harbor",
+   "dawnstar_reef"
+  ],
+  [
+   "conclave_harbor",
+   "compass_vault"
+  ],
+  [
+   "dawnstar_reef",
+   "horizon_arena"
+  ],
+  [
+   "rival_flagship_wreck",
+   "horizon_arena"
+  ],
+  [
+   "dawnstar_reef",
+   "compass_vault"
+  ],
+  [
+   "ancient_gatehouse",
+   "rival_flagship_wreck"
+  ],
+  [
+   "sunrise_isle",
+   "ancient_gatehouse"
+  ],
+  [
+   "saltmarsh_landing",
+   "cinderport"
+  ],
+  [
+   "ashfall_harbor",
+   "rootharbor"
+  ],
+  [
+   "fernwater_post",
+   "prismhaven"
+  ],
+  [
+   "mirrorbay",
+   "crownport"
+  ],
+  [
+   "silkmarket",
+   "gale_harbor"
+  ],
+  [
+   "beacon_rest",
+   "lanternport"
+  ],
+  [
+   "dusk_mooring",
+   "ashport"
+  ],
+  [
+   "relic_dock",
+   "ringhold"
+  ],
+  [
+   "migration_post",
+   "horizon_gate"
+  ]
+ ],
+ "PORTS": {
+  "brightquay": {
+   "id": "brightquay",
+   "regionId": "dawnwater",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 0,
+    "quest_board": 1,
+    "navigation": 0
+   },
+   "faction": "league",
+   "safeReturnId": "brightquay"
+  },
+  "saltmarsh_landing": {
+   "id": "saltmarsh_landing",
+   "regionId": "dawnwater",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 0,
+    "navigation": 1
+   },
+   "faction": "tidebound",
+   "safeReturnId": "saltmarsh_landing"
+  },
+  "cinderport": {
+   "id": "cinderport",
+   "regionId": "emberreach",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 2,
+    "quest_board": 1,
+    "navigation": 0
+   },
+   "faction": "league",
+   "safeReturnId": "cinderport"
+  },
+  "ashfall_harbor": {
+   "id": "ashfall_harbor",
+   "regionId": "emberreach",
+   "base": {
+    "market": 1,
+    "tavern": 0,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "ashfall_harbor"
+  },
+  "rootharbor": {
+   "id": "rootharbor",
+   "regionId": "verdant_maw",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "rootharbor"
+  },
+  "fernwater_post": {
+   "id": "fernwater_post",
+   "regionId": "verdant_maw",
+   "base": {
+    "market": 0,
+    "tavern": 1,
+    "workshop": 0,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "tidebound",
+   "safeReturnId": "fernwater_post"
+  },
+  "prismhaven": {
+   "id": "prismhaven",
+   "regionId": "glass_current",
+   "base": {
+    "market": 2,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "prismhaven"
+  },
+  "mirrorbay": {
+   "id": "mirrorbay",
+   "regionId": "glass_current",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 0,
+    "navigation": 0
+   },
+   "faction": "league",
+   "safeReturnId": "mirrorbay"
+  },
+  "crownport": {
+   "id": "crownport",
+   "regionId": "crown_shoals",
+   "base": {
+    "market": 2,
+    "tavern": 2,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "crownport"
+  },
+  "silkmarket": {
+   "id": "silkmarket",
+   "regionId": "crown_shoals",
+   "base": {
+    "market": 2,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 0
+   },
+   "faction": "tidebound",
+   "safeReturnId": "silkmarket"
+  },
+  "gale_harbor": {
+   "id": "gale_harbor",
+   "regionId": "stormbelt",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 2,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "gale_harbor"
+  },
+  "beacon_rest": {
+   "id": "beacon_rest",
+   "regionId": "stormbelt",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "beacon_rest"
+  },
+  "lanternport": {
+   "id": "lanternport",
+   "regionId": "moonwake",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 2
+   },
+   "faction": "league",
+   "safeReturnId": "lanternport"
+  },
+  "dusk_mooring": {
+   "id": "dusk_mooring",
+   "regionId": "moonwake",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "tidebound",
+   "safeReturnId": "dusk_mooring"
+  },
+  "ashport": {
+   "id": "ashport",
+   "regionId": "ashen_trench",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 2,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "ashport"
+  },
+  "relic_dock": {
+   "id": "relic_dock",
+   "regionId": "ashen_trench",
+   "base": {
+    "market": 2,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 0
+   },
+   "faction": "league",
+   "safeReturnId": "relic_dock"
+  },
+  "ringhold": {
+   "id": "ringhold",
+   "regionId": "leviathan_ring",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 2,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "ringhold"
+  },
+  "migration_post": {
+   "id": "migration_post",
+   "regionId": "leviathan_ring",
+   "base": {
+    "market": 1,
+    "tavern": 1,
+    "workshop": 1,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "tidebound",
+   "safeReturnId": "migration_post"
+  },
+  "horizon_gate": {
+   "id": "horizon_gate",
+   "regionId": "grand_horizon",
+   "base": {
+    "market": 2,
+    "tavern": 2,
+    "workshop": 2,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "horizon_gate"
+  },
+  "conclave_harbor": {
+   "id": "conclave_harbor",
+   "regionId": "grand_horizon",
+   "base": {
+    "market": 2,
+    "tavern": 2,
+    "workshop": 2,
+    "quest_board": 1,
+    "navigation": 1
+   },
+   "faction": "league",
+   "safeReturnId": "conclave_harbor"
+  }
+ },
+ "QUESTS": {
+  "main.dawnwater.0": {
+   "id": "main.dawnwater.0",
+   "kind": "main",
+   "regionId": "dawnwater",
+   "step": 0,
+   "type": "clear",
+   "locationId": "gull_rock",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "saltmarsh_landing",
+    "lantern_isle",
+    "driftplank_wreck"
+   ],
+   "titleKey": "quest.dawnwater.0",
+   "reward": {
+    "gold": 55,
+    "xp": 32,
+    "rep": 6
+   }
+  },
+  "main.dawnwater.1": {
+   "id": "main.dawnwater.1",
+   "kind": "main",
+   "regionId": "dawnwater",
+   "step": 1,
+   "type": "visit",
+   "locationId": "saltmarsh_landing",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "old_lookout",
+    "coral_steps"
+   ],
+   "titleKey": "quest.dawnwater.1",
+   "reward": {
+    "gold": 80,
+    "xp": 32,
+    "rep": 8
+   }
+  },
+  "main.dawnwater.2": {
+   "id": "main.dawnwater.2",
+   "kind": "main",
+   "regionId": "dawnwater",
+   "step": 2,
+   "type": "clear",
+   "locationId": "old_lookout",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "brine_cellars"
+   ],
+   "titleKey": "quest.dawnwater.2",
+   "reward": {
+    "gold": 105,
+    "xp": 32,
+    "rep": 10
+   }
+  },
+  "main.dawnwater.3": {
+   "id": "main.dawnwater.3",
+   "kind": "main",
+   "regionId": "dawnwater",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "brightquay",
+   "count": 3,
+   "itemId": "saltleaf_grain",
+   "reveal": [
+    "dawn_trial_ring"
+   ],
+   "titleKey": "quest.dawnwater.3",
+   "reward": {
+    "gold": 130,
+    "xp": 32,
+    "rep": 12
+   }
+  },
+  "main.dawnwater.4": {
+   "id": "main.dawnwater.4",
+   "kind": "main",
+   "regionId": "dawnwater",
+   "step": 4,
+   "type": "trial",
+   "locationId": "dawn_trial_ring",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.dawnwater.4",
+   "reward": {
+    "gold": 155,
+    "xp": 32,
+    "rep": 14
+   }
+  },
+  "side.dawnwater.survey": {
+   "id": "side.dawnwater.survey",
+   "kind": "side",
+   "regionId": "dawnwater",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "lantern_isle",
+   "giverId": "brightquay",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 70,
+    "materials": 10,
+    "xp": 25,
+    "rep": 8
+   }
+  },
+  "side.dawnwater.salvage": {
+   "id": "side.dawnwater.salvage",
+   "kind": "side",
+   "regionId": "dawnwater",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "driftplank_wreck",
+   "giverId": "brightquay",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 70,
+    "materials": 10,
+    "xp": 25,
+    "rep": 8
+   }
+  },
+  "side.dawnwater.outpost": {
+   "id": "side.dawnwater.outpost",
+   "kind": "side",
+   "regionId": "dawnwater",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "coral_steps",
+   "giverId": "saltmarsh_landing",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 70,
+    "materials": 10,
+    "xp": 25,
+    "rep": 8
+   }
+  },
+  "side.dawnwater.legend": {
+   "id": "side.dawnwater.legend",
+   "kind": "side",
+   "regionId": "dawnwater",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "tidefin_grotto",
+   "giverId": "saltmarsh_landing",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 70,
+    "materials": 10,
+    "xp": 25,
+    "rep": 8
+   }
+  },
+  "side.dawnwater.depths": {
+   "id": "side.dawnwater.depths",
+   "kind": "side",
+   "regionId": "dawnwater",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "brine_cellars",
+   "giverId": "saltmarsh_landing",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 70,
+    "materials": 10,
+    "xp": 25,
+    "rep": 8
+   }
+  },
+  "main.emberreach.0": {
+   "id": "main.emberreach.0",
+   "kind": "main",
+   "regionId": "emberreach",
+   "step": 0,
+   "type": "clear",
+   "locationId": "basalt_isle",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "ashfall_harbor",
+    "smolder_key",
+    "scorched_galleon"
+   ],
+   "titleKey": "quest.emberreach.0",
+   "reward": {
+    "gold": 80,
+    "xp": 44,
+    "rep": 6
+   }
+  },
+  "main.emberreach.1": {
+   "id": "main.emberreach.1",
+   "kind": "main",
+   "regionId": "emberreach",
+   "step": 1,
+   "type": "visit",
+   "locationId": "ashfall_harbor",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "magma_vents",
+    "obsidian_atoll"
+   ],
+   "titleKey": "quest.emberreach.1",
+   "reward": {
+    "gold": 130,
+    "xp": 44,
+    "rep": 8
+   }
+  },
+  "main.emberreach.2": {
+   "id": "main.emberreach.2",
+   "kind": "main",
+   "regionId": "emberreach",
+   "step": 2,
+   "type": "clear",
+   "locationId": "magma_vents",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "forge_depths"
+   ],
+   "titleKey": "quest.emberreach.2",
+   "reward": {
+    "gold": 180,
+    "xp": 44,
+    "rep": 10
+   }
+  },
+  "main.emberreach.3": {
+   "id": "main.emberreach.3",
+   "kind": "main",
+   "regionId": "emberreach",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "cinderport",
+   "count": 3,
+   "itemId": "ember_ore",
+   "reveal": [
+    "ember_crucible"
+   ],
+   "titleKey": "quest.emberreach.3",
+   "reward": {
+    "gold": 230,
+    "xp": 44,
+    "rep": 12
+   }
+  },
+  "main.emberreach.4": {
+   "id": "main.emberreach.4",
+   "kind": "main",
+   "regionId": "emberreach",
+   "step": 4,
+   "type": "trial",
+   "locationId": "ember_crucible",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.emberreach.4",
+   "reward": {
+    "gold": 280,
+    "xp": 44,
+    "rep": 14
+   }
+  },
+  "side.emberreach.survey": {
+   "id": "side.emberreach.survey",
+   "kind": "side",
+   "regionId": "emberreach",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "smolder_key",
+   "giverId": "cinderport",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 100,
+    "materials": 14,
+    "xp": 35,
+    "rep": 8
+   }
+  },
+  "side.emberreach.salvage": {
+   "id": "side.emberreach.salvage",
+   "kind": "side",
+   "regionId": "emberreach",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "scorched_galleon",
+   "giverId": "cinderport",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 100,
+    "materials": 14,
+    "xp": 35,
+    "rep": 8
+   }
+  },
+  "side.emberreach.outpost": {
+   "id": "side.emberreach.outpost",
+   "kind": "side",
+   "regionId": "emberreach",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "obsidian_atoll",
+   "giverId": "ashfall_harbor",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 100,
+    "materials": 14,
+    "xp": 35,
+    "rep": 8
+   }
+  },
+  "side.emberreach.legend": {
+   "id": "side.emberreach.legend",
+   "kind": "side",
+   "regionId": "emberreach",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "cinderback_nest",
+   "giverId": "ashfall_harbor",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 100,
+    "materials": 14,
+    "xp": 35,
+    "rep": 8
+   }
+  },
+  "side.emberreach.depths": {
+   "id": "side.emberreach.depths",
+   "kind": "side",
+   "regionId": "emberreach",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "forge_depths",
+   "giverId": "ashfall_harbor",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 100,
+    "materials": 14,
+    "xp": 35,
+    "rep": 8
+   }
+  },
+  "main.verdant_maw.0": {
+   "id": "main.verdant_maw.0",
+   "kind": "main",
+   "regionId": "verdant_maw",
+   "step": 0,
+   "type": "clear",
+   "locationId": "tanglewood_isle",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "fernwater_post",
+    "orchid_cay",
+    "vine_wreck"
+   ],
+   "titleKey": "quest.verdant_maw.0",
+   "reward": {
+    "gold": 105,
+    "xp": 56,
+    "rep": 6
+   }
+  },
+  "main.verdant_maw.1": {
+   "id": "main.verdant_maw.1",
+   "kind": "main",
+   "regionId": "verdant_maw",
+   "step": 1,
+   "type": "visit",
+   "locationId": "fernwater_post",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "overgrown_shrine",
+    "maw_shore"
+   ],
+   "titleKey": "quest.verdant_maw.1",
+   "reward": {
+    "gold": 180,
+    "xp": 56,
+    "rep": 8
+   }
+  },
+  "main.verdant_maw.2": {
+   "id": "main.verdant_maw.2",
+   "kind": "main",
+   "regionId": "verdant_maw",
+   "step": 2,
+   "type": "clear",
+   "locationId": "overgrown_shrine",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "thornroot_caves"
+   ],
+   "titleKey": "quest.verdant_maw.2",
+   "reward": {
+    "gold": 255,
+    "xp": 56,
+    "rep": 10
+   }
+  },
+  "main.verdant_maw.3": {
+   "id": "main.verdant_maw.3",
+   "kind": "main",
+   "regionId": "verdant_maw",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "rootharbor",
+   "count": 3,
+   "itemId": "verdant_resin",
+   "reveal": [
+    "verdant_arena"
+   ],
+   "titleKey": "quest.verdant_maw.3",
+   "reward": {
+    "gold": 330,
+    "xp": 56,
+    "rep": 12
+   }
+  },
+  "main.verdant_maw.4": {
+   "id": "main.verdant_maw.4",
+   "kind": "main",
+   "regionId": "verdant_maw",
+   "step": 4,
+   "type": "trial",
+   "locationId": "verdant_arena",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.verdant_maw.4",
+   "reward": {
+    "gold": 405,
+    "xp": 56,
+    "rep": 14
+   }
+  },
+  "side.verdant_maw.survey": {
+   "id": "side.verdant_maw.survey",
+   "kind": "side",
+   "regionId": "verdant_maw",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "orchid_cay",
+   "giverId": "rootharbor",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 130,
+    "materials": 18,
+    "xp": 45,
+    "rep": 8
+   }
+  },
+  "side.verdant_maw.salvage": {
+   "id": "side.verdant_maw.salvage",
+   "kind": "side",
+   "regionId": "verdant_maw",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "vine_wreck",
+   "giverId": "rootharbor",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 130,
+    "materials": 18,
+    "xp": 45,
+    "rep": 8
+   }
+  },
+  "side.verdant_maw.outpost": {
+   "id": "side.verdant_maw.outpost",
+   "kind": "side",
+   "regionId": "verdant_maw",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "maw_shore",
+   "giverId": "fernwater_post",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 130,
+    "materials": 18,
+    "xp": 45,
+    "rep": 8
+   }
+  },
+  "side.verdant_maw.legend": {
+   "id": "side.verdant_maw.legend",
+   "kind": "side",
+   "regionId": "verdant_maw",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "moss_hollow",
+   "giverId": "fernwater_post",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 130,
+    "materials": 18,
+    "xp": 45,
+    "rep": 8
+   }
+  },
+  "side.verdant_maw.depths": {
+   "id": "side.verdant_maw.depths",
+   "kind": "side",
+   "regionId": "verdant_maw",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "thornroot_caves",
+   "giverId": "fernwater_post",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 130,
+    "materials": 18,
+    "xp": 45,
+    "rep": 8
+   }
+  },
+  "main.glass_current.0": {
+   "id": "main.glass_current.0",
+   "kind": "main",
+   "regionId": "glass_current",
+   "step": 0,
+   "type": "clear",
+   "locationId": "shard_reef",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "mirrorbay",
+    "lens_isle",
+    "glassbound_hulk"
+   ],
+   "titleKey": "quest.glass_current.0",
+   "reward": {
+    "gold": 130,
+    "xp": 68,
+    "rep": 6
+   }
+  },
+  "main.glass_current.1": {
+   "id": "main.glass_current.1",
+   "kind": "main",
+   "regionId": "glass_current",
+   "step": 1,
+   "type": "visit",
+   "locationId": "mirrorbay",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "crystal_vault",
+    "quartz_spire"
+   ],
+   "titleKey": "quest.glass_current.1",
+   "reward": {
+    "gold": 230,
+    "xp": 68,
+    "rep": 8
+   }
+  },
+  "main.glass_current.2": {
+   "id": "main.glass_current.2",
+   "kind": "main",
+   "regionId": "glass_current",
+   "step": 2,
+   "type": "clear",
+   "locationId": "crystal_vault",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "refraction_maze"
+   ],
+   "titleKey": "quest.glass_current.2",
+   "reward": {
+    "gold": 330,
+    "xp": 68,
+    "rep": 10
+   }
+  },
+  "main.glass_current.3": {
+   "id": "main.glass_current.3",
+   "kind": "main",
+   "regionId": "glass_current",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "prismhaven",
+   "count": 3,
+   "itemId": "prism_quartz",
+   "reveal": [
+    "prism_court"
+   ],
+   "titleKey": "quest.glass_current.3",
+   "reward": {
+    "gold": 430,
+    "xp": 68,
+    "rep": 12
+   }
+  },
+  "main.glass_current.4": {
+   "id": "main.glass_current.4",
+   "kind": "main",
+   "regionId": "glass_current",
+   "step": 4,
+   "type": "trial",
+   "locationId": "prism_court",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.glass_current.4",
+   "reward": {
+    "gold": 530,
+    "xp": 68,
+    "rep": 14
+   }
+  },
+  "side.glass_current.survey": {
+   "id": "side.glass_current.survey",
+   "kind": "side",
+   "regionId": "glass_current",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "lens_isle",
+   "giverId": "prismhaven",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 160,
+    "materials": 22,
+    "xp": 55,
+    "rep": 8
+   }
+  },
+  "side.glass_current.salvage": {
+   "id": "side.glass_current.salvage",
+   "kind": "side",
+   "regionId": "glass_current",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "glassbound_hulk",
+   "giverId": "prismhaven",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 160,
+    "materials": 22,
+    "xp": 55,
+    "rep": 8
+   }
+  },
+  "side.glass_current.outpost": {
+   "id": "side.glass_current.outpost",
+   "kind": "side",
+   "regionId": "glass_current",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "quartz_spire",
+   "giverId": "mirrorbay",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 160,
+    "materials": 22,
+    "xp": 55,
+    "rep": 8
+   }
+  },
+  "side.glass_current.legend": {
+   "id": "side.glass_current.legend",
+   "kind": "side",
+   "regionId": "glass_current",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "glasswing_lagoon",
+   "giverId": "mirrorbay",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 160,
+    "materials": 22,
+    "xp": 55,
+    "rep": 8
+   }
+  },
+  "side.glass_current.depths": {
+   "id": "side.glass_current.depths",
+   "kind": "side",
+   "regionId": "glass_current",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "refraction_maze",
+   "giverId": "mirrorbay",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 160,
+    "materials": 22,
+    "xp": 55,
+    "rep": 8
+   }
+  },
+  "main.crown_shoals.0": {
+   "id": "main.crown_shoals.0",
+   "kind": "main",
+   "regionId": "crown_shoals",
+   "step": 0,
+   "type": "clear",
+   "locationId": "gilded_cay",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "silkmarket",
+    "heron_isle",
+    "treasury_wreck"
+   ],
+   "titleKey": "quest.crown_shoals.0",
+   "reward": {
+    "gold": 155,
+    "xp": 80,
+    "rep": 6
+   }
+  },
+  "main.crown_shoals.1": {
+   "id": "main.crown_shoals.1",
+   "kind": "main",
+   "regionId": "crown_shoals",
+   "step": 1,
+   "type": "visit",
+   "locationId": "silkmarket",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "charter_archive",
+    "regent_bank"
+   ],
+   "titleKey": "quest.crown_shoals.1",
+   "reward": {
+    "gold": 280,
+    "xp": 80,
+    "rep": 8
+   }
+  },
+  "main.crown_shoals.2": {
+   "id": "main.crown_shoals.2",
+   "kind": "main",
+   "regionId": "crown_shoals",
+   "step": 2,
+   "type": "clear",
+   "locationId": "charter_archive",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "old_family_crypt"
+   ],
+   "titleKey": "quest.crown_shoals.2",
+   "reward": {
+    "gold": 405,
+    "xp": 80,
+    "rep": 10
+   }
+  },
+  "main.crown_shoals.3": {
+   "id": "main.crown_shoals.3",
+   "kind": "main",
+   "regionId": "crown_shoals",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "crownport",
+   "count": 3,
+   "itemId": "crown_silk",
+   "reveal": [
+    "crown_tourney"
+   ],
+   "titleKey": "quest.crown_shoals.3",
+   "reward": {
+    "gold": 530,
+    "xp": 80,
+    "rep": 12
+   }
+  },
+  "main.crown_shoals.4": {
+   "id": "main.crown_shoals.4",
+   "kind": "main",
+   "regionId": "crown_shoals",
+   "step": 4,
+   "type": "trial",
+   "locationId": "crown_tourney",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.crown_shoals.4",
+   "reward": {
+    "gold": 655,
+    "xp": 80,
+    "rep": 14
+   }
+  },
+  "side.crown_shoals.survey": {
+   "id": "side.crown_shoals.survey",
+   "kind": "side",
+   "regionId": "crown_shoals",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "heron_isle",
+   "giverId": "crownport",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 190,
+    "materials": 26,
+    "xp": 65,
+    "rep": 8
+   }
+  },
+  "side.crown_shoals.salvage": {
+   "id": "side.crown_shoals.salvage",
+   "kind": "side",
+   "regionId": "crown_shoals",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "treasury_wreck",
+   "giverId": "crownport",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 190,
+    "materials": 26,
+    "xp": 65,
+    "rep": 8
+   }
+  },
+  "side.crown_shoals.outpost": {
+   "id": "side.crown_shoals.outpost",
+   "kind": "side",
+   "regionId": "crown_shoals",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "regent_bank",
+   "giverId": "silkmarket",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 190,
+    "materials": 26,
+    "xp": 65,
+    "rep": 8
+   }
+  },
+  "side.crown_shoals.legend": {
+   "id": "side.crown_shoals.legend",
+   "kind": "side",
+   "regionId": "crown_shoals",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "pearl_grotto",
+   "giverId": "silkmarket",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 190,
+    "materials": 26,
+    "xp": 65,
+    "rep": 8
+   }
+  },
+  "side.crown_shoals.depths": {
+   "id": "side.crown_shoals.depths",
+   "kind": "side",
+   "regionId": "crown_shoals",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "old_family_crypt",
+   "giverId": "silkmarket",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 190,
+    "materials": 26,
+    "xp": 65,
+    "rep": 8
+   }
+  },
+  "main.stormbelt.0": {
+   "id": "main.stormbelt.0",
+   "kind": "main",
+   "regionId": "stormbelt",
+   "step": 0,
+   "type": "clear",
+   "locationId": "thunder_rock",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "beacon_rest",
+    "squall_isle",
+    "stormwrack_hulk"
+   ],
+   "titleKey": "quest.stormbelt.0",
+   "reward": {
+    "gold": 180,
+    "xp": 92,
+    "rep": 6
+   }
+  },
+  "main.stormbelt.1": {
+   "id": "main.stormbelt.1",
+   "kind": "main",
+   "regionId": "stormbelt",
+   "step": 1,
+   "type": "visit",
+   "locationId": "beacon_rest",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "drowned_beacon",
+    "lightning_reach"
+   ],
+   "titleKey": "quest.stormbelt.1",
+   "reward": {
+    "gold": 330,
+    "xp": 92,
+    "rep": 8
+   }
+  },
+  "main.stormbelt.2": {
+   "id": "main.stormbelt.2",
+   "kind": "main",
+   "regionId": "stormbelt",
+   "step": 2,
+   "type": "clear",
+   "locationId": "drowned_beacon",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "tempest_caverns"
+   ],
+   "titleKey": "quest.stormbelt.2",
+   "reward": {
+    "gold": 480,
+    "xp": 92,
+    "rep": 10
+   }
+  },
+  "main.stormbelt.3": {
+   "id": "main.stormbelt.3",
+   "kind": "main",
+   "regionId": "stormbelt",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "gale_harbor",
+   "count": 3,
+   "itemId": "stormwood",
+   "reveal": [
+    "eye_of_storm"
+   ],
+   "titleKey": "quest.stormbelt.3",
+   "reward": {
+    "gold": 630,
+    "xp": 92,
+    "rep": 12
+   }
+  },
+  "main.stormbelt.4": {
+   "id": "main.stormbelt.4",
+   "kind": "main",
+   "regionId": "stormbelt",
+   "step": 4,
+   "type": "trial",
+   "locationId": "eye_of_storm",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.stormbelt.4",
+   "reward": {
+    "gold": 780,
+    "xp": 92,
+    "rep": 14
+   }
+  },
+  "side.stormbelt.survey": {
+   "id": "side.stormbelt.survey",
+   "kind": "side",
+   "regionId": "stormbelt",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "squall_isle",
+   "giverId": "gale_harbor",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 220,
+    "materials": 30,
+    "xp": 75,
+    "rep": 8
+   }
+  },
+  "side.stormbelt.salvage": {
+   "id": "side.stormbelt.salvage",
+   "kind": "side",
+   "regionId": "stormbelt",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "stormwrack_hulk",
+   "giverId": "gale_harbor",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 220,
+    "materials": 30,
+    "xp": 75,
+    "rep": 8
+   }
+  },
+  "side.stormbelt.outpost": {
+   "id": "side.stormbelt.outpost",
+   "kind": "side",
+   "regionId": "stormbelt",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "lightning_reach",
+   "giverId": "beacon_rest",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 220,
+    "materials": 30,
+    "xp": 75,
+    "rep": 8
+   }
+  },
+  "side.stormbelt.legend": {
+   "id": "side.stormbelt.legend",
+   "kind": "side",
+   "regionId": "stormbelt",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "cloudray_aerie",
+   "giverId": "beacon_rest",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 220,
+    "materials": 30,
+    "xp": 75,
+    "rep": 8
+   }
+  },
+  "side.stormbelt.depths": {
+   "id": "side.stormbelt.depths",
+   "kind": "side",
+   "regionId": "stormbelt",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "tempest_caverns",
+   "giverId": "beacon_rest",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 220,
+    "materials": 30,
+    "xp": 75,
+    "rep": 8
+   }
+  },
+  "main.moonwake.0": {
+   "id": "main.moonwake.0",
+   "kind": "main",
+   "regionId": "moonwake",
+   "step": 0,
+   "type": "clear",
+   "locationId": "nightbloom_isle",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "dusk_mooring",
+    "echo_atoll",
+    "moonlit_wreck"
+   ],
+   "titleKey": "quest.moonwake.0",
+   "reward": {
+    "gold": 205,
+    "xp": 104,
+    "rep": 6
+   }
+  },
+  "main.moonwake.1": {
+   "id": "main.moonwake.1",
+   "kind": "main",
+   "regionId": "moonwake",
+   "step": 1,
+   "type": "visit",
+   "locationId": "dusk_mooring",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "forgotten_observatory",
+    "starfall_key"
+   ],
+   "titleKey": "quest.moonwake.1",
+   "reward": {
+    "gold": 380,
+    "xp": 104,
+    "rep": 8
+   }
+  },
+  "main.moonwake.2": {
+   "id": "main.moonwake.2",
+   "kind": "main",
+   "regionId": "moonwake",
+   "step": 2,
+   "type": "clear",
+   "locationId": "forgotten_observatory",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "dream_labyrinth"
+   ],
+   "titleKey": "quest.moonwake.2",
+   "reward": {
+    "gold": 555,
+    "xp": 104,
+    "rep": 10
+   }
+  },
+  "main.moonwake.3": {
+   "id": "main.moonwake.3",
+   "kind": "main",
+   "regionId": "moonwake",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "lanternport",
+   "count": 3,
+   "itemId": "moon_ink",
+   "reveal": [
+    "moonwake_stage"
+   ],
+   "titleKey": "quest.moonwake.3",
+   "reward": {
+    "gold": 730,
+    "xp": 104,
+    "rep": 12
+   }
+  },
+  "main.moonwake.4": {
+   "id": "main.moonwake.4",
+   "kind": "main",
+   "regionId": "moonwake",
+   "step": 4,
+   "type": "trial",
+   "locationId": "moonwake_stage",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.moonwake.4",
+   "reward": {
+    "gold": 905,
+    "xp": 104,
+    "rep": 14
+   }
+  },
+  "side.moonwake.survey": {
+   "id": "side.moonwake.survey",
+   "kind": "side",
+   "regionId": "moonwake",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "echo_atoll",
+   "giverId": "lanternport",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 250,
+    "materials": 34,
+    "xp": 85,
+    "rep": 8
+   }
+  },
+  "side.moonwake.salvage": {
+   "id": "side.moonwake.salvage",
+   "kind": "side",
+   "regionId": "moonwake",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "moonlit_wreck",
+   "giverId": "lanternport",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 250,
+    "materials": 34,
+    "xp": 85,
+    "rep": 8
+   }
+  },
+  "side.moonwake.outpost": {
+   "id": "side.moonwake.outpost",
+   "kind": "side",
+   "regionId": "moonwake",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "starfall_key",
+   "giverId": "dusk_mooring",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 250,
+    "materials": 34,
+    "xp": 85,
+    "rep": 8
+   }
+  },
+  "side.moonwake.legend": {
+   "id": "side.moonwake.legend",
+   "kind": "side",
+   "regionId": "moonwake",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "dreammoth_glade",
+   "giverId": "dusk_mooring",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 250,
+    "materials": 34,
+    "xp": 85,
+    "rep": 8
+   }
+  },
+  "side.moonwake.depths": {
+   "id": "side.moonwake.depths",
+   "kind": "side",
+   "regionId": "moonwake",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "dream_labyrinth",
+   "giverId": "dusk_mooring",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 250,
+    "materials": 34,
+    "xp": 85,
+    "rep": 8
+   }
+  },
+  "main.ashen_trench.0": {
+   "id": "main.ashen_trench.0",
+   "kind": "main",
+   "regionId": "ashen_trench",
+   "step": 0,
+   "type": "clear",
+   "locationId": "cinder_shelf",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "relic_dock",
+    "sunken_spires",
+    "relic_hunter_wreck"
+   ],
+   "titleKey": "quest.ashen_trench.0",
+   "reward": {
+    "gold": 230,
+    "xp": 116,
+    "rep": 6
+   }
+  },
+  "main.ashen_trench.1": {
+   "id": "main.ashen_trench.1",
+   "kind": "main",
+   "regionId": "ashen_trench",
+   "step": 1,
+   "type": "visit",
+   "locationId": "relic_dock",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "sealed_ruins",
+    "abyss_ledge"
+   ],
+   "titleKey": "quest.ashen_trench.1",
+   "reward": {
+    "gold": 430,
+    "xp": 116,
+    "rep": 8
+   }
+  },
+  "main.ashen_trench.2": {
+   "id": "main.ashen_trench.2",
+   "kind": "main",
+   "regionId": "ashen_trench",
+   "step": 2,
+   "type": "clear",
+   "locationId": "sealed_ruins",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "trench_sanctum"
+   ],
+   "titleKey": "quest.ashen_trench.2",
+   "reward": {
+    "gold": 630,
+    "xp": 116,
+    "rep": 10
+   }
+  },
+  "main.ashen_trench.3": {
+   "id": "main.ashen_trench.3",
+   "kind": "main",
+   "regionId": "ashen_trench",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "ashport",
+   "count": 3,
+   "itemId": "abyss_alloy",
+   "reveal": [
+    "ashen_seal_arena"
+   ],
+   "titleKey": "quest.ashen_trench.3",
+   "reward": {
+    "gold": 830,
+    "xp": 116,
+    "rep": 12
+   }
+  },
+  "main.ashen_trench.4": {
+   "id": "main.ashen_trench.4",
+   "kind": "main",
+   "regionId": "ashen_trench",
+   "step": 4,
+   "type": "trial",
+   "locationId": "ashen_seal_arena",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.ashen_trench.4",
+   "reward": {
+    "gold": 1030,
+    "xp": 116,
+    "rep": 14
+   }
+  },
+  "side.ashen_trench.survey": {
+   "id": "side.ashen_trench.survey",
+   "kind": "side",
+   "regionId": "ashen_trench",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "sunken_spires",
+   "giverId": "ashport",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 280,
+    "materials": 38,
+    "xp": 95,
+    "rep": 8
+   }
+  },
+  "side.ashen_trench.salvage": {
+   "id": "side.ashen_trench.salvage",
+   "kind": "side",
+   "regionId": "ashen_trench",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "relic_hunter_wreck",
+   "giverId": "ashport",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 280,
+    "materials": 38,
+    "xp": 95,
+    "rep": 8
+   }
+  },
+  "side.ashen_trench.outpost": {
+   "id": "side.ashen_trench.outpost",
+   "kind": "side",
+   "regionId": "ashen_trench",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "abyss_ledge",
+   "giverId": "relic_dock",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 280,
+    "materials": 38,
+    "xp": 95,
+    "rep": 8
+   }
+  },
+  "side.ashen_trench.legend": {
+   "id": "side.ashen_trench.legend",
+   "kind": "side",
+   "regionId": "ashen_trench",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "gloomjaw_den",
+   "giverId": "relic_dock",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 280,
+    "materials": 38,
+    "xp": 95,
+    "rep": 8
+   }
+  },
+  "side.ashen_trench.depths": {
+   "id": "side.ashen_trench.depths",
+   "kind": "side",
+   "regionId": "ashen_trench",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "trench_sanctum",
+   "giverId": "relic_dock",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 280,
+    "materials": 38,
+    "xp": 95,
+    "rep": 8
+   }
+  },
+  "main.leviathan_ring.0": {
+   "id": "main.leviathan_ring.0",
+   "kind": "main",
+   "regionId": "leviathan_ring",
+   "step": 0,
+   "type": "clear",
+   "locationId": "shell_isle",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "migration_post",
+    "bone_reef",
+    "behemoth_wreck"
+   ],
+   "titleKey": "quest.leviathan_ring.0",
+   "reward": {
+    "gold": 255,
+    "xp": 128,
+    "rep": 6
+   }
+  },
+  "main.leviathan_ring.1": {
+   "id": "main.leviathan_ring.1",
+   "kind": "main",
+   "regionId": "leviathan_ring",
+   "step": 1,
+   "type": "visit",
+   "locationId": "migration_post",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "leviathan_gut",
+    "titan_atoll"
+   ],
+   "titleKey": "quest.leviathan_ring.1",
+   "reward": {
+    "gold": 480,
+    "xp": 128,
+    "rep": 8
+   }
+  },
+  "main.leviathan_ring.2": {
+   "id": "main.leviathan_ring.2",
+   "kind": "main",
+   "regionId": "leviathan_ring",
+   "step": 2,
+   "type": "clear",
+   "locationId": "leviathan_gut",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "coral_colossus"
+   ],
+   "titleKey": "quest.leviathan_ring.2",
+   "reward": {
+    "gold": 705,
+    "xp": 128,
+    "rep": 10
+   }
+  },
+  "main.leviathan_ring.3": {
+   "id": "main.leviathan_ring.3",
+   "kind": "main",
+   "regionId": "leviathan_ring",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "ringhold",
+   "count": 3,
+   "itemId": "leviathan_scale",
+   "reveal": [
+    "ring_arena"
+   ],
+   "titleKey": "quest.leviathan_ring.3",
+   "reward": {
+    "gold": 930,
+    "xp": 128,
+    "rep": 12
+   }
+  },
+  "main.leviathan_ring.4": {
+   "id": "main.leviathan_ring.4",
+   "kind": "main",
+   "regionId": "leviathan_ring",
+   "step": 4,
+   "type": "trial",
+   "locationId": "ring_arena",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.leviathan_ring.4",
+   "reward": {
+    "gold": 1155,
+    "xp": 128,
+    "rep": 14
+   }
+  },
+  "side.leviathan_ring.survey": {
+   "id": "side.leviathan_ring.survey",
+   "kind": "side",
+   "regionId": "leviathan_ring",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "bone_reef",
+   "giverId": "ringhold",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 310,
+    "materials": 42,
+    "xp": 105,
+    "rep": 8
+   }
+  },
+  "side.leviathan_ring.salvage": {
+   "id": "side.leviathan_ring.salvage",
+   "kind": "side",
+   "regionId": "leviathan_ring",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "behemoth_wreck",
+   "giverId": "ringhold",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 310,
+    "materials": 42,
+    "xp": 105,
+    "rep": 8
+   }
+  },
+  "side.leviathan_ring.outpost": {
+   "id": "side.leviathan_ring.outpost",
+   "kind": "side",
+   "regionId": "leviathan_ring",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "titan_atoll",
+   "giverId": "migration_post",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 310,
+    "materials": 42,
+    "xp": 105,
+    "rep": 8
+   }
+  },
+  "side.leviathan_ring.legend": {
+   "id": "side.leviathan_ring.legend",
+   "kind": "side",
+   "regionId": "leviathan_ring",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "shellwarden_shoal",
+   "giverId": "migration_post",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 310,
+    "materials": 42,
+    "xp": 105,
+    "rep": 8
+   }
+  },
+  "side.leviathan_ring.depths": {
+   "id": "side.leviathan_ring.depths",
+   "kind": "side",
+   "regionId": "leviathan_ring",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "coral_colossus",
+   "giverId": "migration_post",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 310,
+    "materials": 42,
+    "xp": 105,
+    "rep": 8
+   }
+  },
+  "main.grand_horizon.0": {
+   "id": "main.grand_horizon.0",
+   "kind": "main",
+   "regionId": "grand_horizon",
+   "step": 0,
+   "type": "clear",
+   "locationId": "sunrise_isle",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "conclave_harbor",
+    "zenith_cay",
+    "rival_flagship_wreck"
+   ],
+   "titleKey": "quest.grand_horizon.0",
+   "reward": {
+    "gold": 280,
+    "xp": 140,
+    "rep": 6
+   }
+  },
+  "main.grand_horizon.1": {
+   "id": "main.grand_horizon.1",
+   "kind": "main",
+   "regionId": "grand_horizon",
+   "step": 1,
+   "type": "visit",
+   "locationId": "conclave_harbor",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "ancient_gatehouse",
+    "dawnstar_reef"
+   ],
+   "titleKey": "quest.grand_horizon.1",
+   "reward": {
+    "gold": 530,
+    "xp": 140,
+    "rep": 8
+   }
+  },
+  "main.grand_horizon.2": {
+   "id": "main.grand_horizon.2",
+   "kind": "main",
+   "regionId": "grand_horizon",
+   "step": 2,
+   "type": "clear",
+   "locationId": "ancient_gatehouse",
+   "count": 0,
+   "itemId": null,
+   "reveal": [
+    "compass_vault"
+   ],
+   "titleKey": "quest.grand_horizon.2",
+   "reward": {
+    "gold": 780,
+    "xp": 140,
+    "rep": 10
+   }
+  },
+  "main.grand_horizon.3": {
+   "id": "main.grand_horizon.3",
+   "kind": "main",
+   "regionId": "grand_horizon",
+   "step": 3,
+   "type": "deliver",
+   "locationId": "horizon_gate",
+   "count": 3,
+   "itemId": "horizon_glass",
+   "reveal": [
+    "horizon_arena"
+   ],
+   "titleKey": "quest.grand_horizon.3",
+   "reward": {
+    "gold": 1030,
+    "xp": 140,
+    "rep": 12
+   }
+  },
+  "main.grand_horizon.4": {
+   "id": "main.grand_horizon.4",
+   "kind": "main",
+   "regionId": "grand_horizon",
+   "step": 4,
+   "type": "trial",
+   "locationId": "horizon_arena",
+   "count": 0,
+   "itemId": null,
+   "reveal": [],
+   "titleKey": "quest.grand_horizon.4",
+   "reward": {
+    "gold": 1280,
+    "xp": 140,
+    "rep": 14
+   }
+  },
+  "side.grand_horizon.survey": {
+   "id": "side.grand_horizon.survey",
+   "kind": "side",
+   "regionId": "grand_horizon",
+   "template": "survey",
+   "type": "clear",
+   "locationId": "zenith_cay",
+   "giverId": "horizon_gate",
+   "faction": "league",
+   "rewardKind": "recipe",
+   "titleKey": "side.survey.title",
+   "reward": {
+    "gold": 340,
+    "materials": 46,
+    "xp": 115,
+    "rep": 8
+   }
+  },
+  "side.grand_horizon.salvage": {
+   "id": "side.grand_horizon.salvage",
+   "kind": "side",
+   "regionId": "grand_horizon",
+   "template": "salvage",
+   "type": "clear",
+   "locationId": "rival_flagship_wreck",
+   "giverId": "horizon_gate",
+   "faction": "league",
+   "rewardKind": "supplies",
+   "titleKey": "side.salvage.title",
+   "reward": {
+    "gold": 340,
+    "materials": 46,
+    "xp": 115,
+    "rep": 8
+   }
+  },
+  "side.grand_horizon.outpost": {
+   "id": "side.grand_horizon.outpost",
+   "kind": "side",
+   "regionId": "grand_horizon",
+   "template": "outpost",
+   "type": "clear",
+   "locationId": "dawnstar_reef",
+   "giverId": "conclave_harbor",
+   "faction": "league",
+   "rewardKind": "ingredients",
+   "titleKey": "side.outpost.title",
+   "reward": {
+    "gold": 340,
+    "materials": 46,
+    "xp": 115,
+    "rep": 8
+   }
+  },
+  "side.grand_horizon.legend": {
+   "id": "side.grand_horizon.legend",
+   "kind": "side",
+   "regionId": "grand_horizon",
+   "template": "legend",
+   "type": "discover",
+   "locationId": "starwake_haven",
+   "giverId": "conclave_harbor",
+   "faction": "tidebound",
+   "rewardKind": "clue",
+   "titleKey": "side.legend.title",
+   "reward": {
+    "gold": 340,
+    "materials": 46,
+    "xp": 115,
+    "rep": 8
+   }
+  },
+  "side.grand_horizon.depths": {
+   "id": "side.grand_horizon.depths",
+   "kind": "side",
+   "regionId": "grand_horizon",
+   "template": "depths",
+   "type": "clear",
+   "locationId": "compass_vault",
+   "giverId": "conclave_harbor",
+   "faction": "tidebound",
+   "rewardKind": "egg",
+   "titleKey": "side.depths.title",
+   "reward": {
+    "gold": 340,
+    "materials": 46,
+    "xp": 115,
+    "rep": 8
+   }
+  }
+ },
+ "UNIQUE_BY_REGION": {
+  "dawnwater": [
+   "u_gullfeather_saber",
+   "u_mira_spyglass"
+  ],
+  "emberreach": [
+   "u_cinder_maul",
+   "u_flint_heartstone"
+  ],
+  "verdant_maw": [
+   "u_fernwhip",
+   "u_rook_mask"
+  ],
+  "glass_current": [
+   "u_prism_rifle",
+   "u_selene_mirror"
+  ],
+  "crown_shoals": [
+   "u_crest_rapier",
+   "u_cassian_signet"
+  ],
+  "stormbelt": [
+   "u_gale_harpoon",
+   "u_nessa_stormcloak"
+  ],
+  "moonwake": [
+   "u_lantern_staff",
+   "u_orin_charm"
+  ],
+  "ashen_trench": [
+   "u_abyss_cleaver",
+   "u_vale_ring"
+  ],
+  "leviathan_ring": [
+   "u_leviathan_tooth",
+   "u_brakka_shell"
+  ],
+  "grand_horizon": [
+   "u_dawnbreaker",
+   "u_aurelia_crown"
+  ]
+ },
+ "GROUPS": {
+  "battle": [
+   [
+    "skirmisher",
+    "skirmisher",
+    "shooter"
+   ],
+   [
+    "brute",
+    "skirmisher",
+    "caster"
+   ],
+   [
+    "skirmisher",
+    "shooter",
+    "healer"
+   ],
+   [
+    "brute",
+    "shooter",
+    "shooter"
+   ]
+  ],
+  "elite": [
+   [
+    "brute",
+    "skirmisher",
+    "shooter",
+    "healer"
+   ],
+   [
+    "brute",
+    "brute",
+    "caster",
+    "shooter"
+   ],
+   [
+    "skirmisher",
+    "skirmisher",
+    "caster",
+    "healer"
+   ]
+  ],
+  "boss": [
+   [
+    "boss",
+    "skirmisher",
+    "healer"
+   ],
+   [
+    "boss",
+    "brute",
+    "shooter"
+   ]
+  ]
+ }
+}
