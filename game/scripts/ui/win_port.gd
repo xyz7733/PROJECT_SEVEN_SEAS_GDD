@@ -191,6 +191,44 @@ func _market(b: VBoxContainer, port_id: String, reg: Dictionary) -> void:
 		var full := I18n.t("err.equip_full") if inv.equipment.size() >= cap else ""
 		sg.add_child(_item_card(id, null, [_cost_btn(I18n.t("port.buy"), func(): act(Actions.buy_item(Game.state, id)), {"gold": Rules.item_price(id)}, full)]))
 	b.add_child(sg)
+	# curio dealer: a deterministic daily stock plus a shard exchange
+	b.add_child(UIK.header(I18n.t("port.curio_title"), "ui_relic"))
+	b.add_child(UIK.label(I18n.t("port.curio_shards", {"n": int(inv.get("curioShards", 0))}), "DimLabel"))
+	b.add_child(UIK.label(I18n.t("port.curio_offer"), "GoldLabel"))
+	var offers := Rules.curio_offers(s, port_id)
+	if offers.is_empty():
+		b.add_child(UIK.label(I18n.t("port.curio_none"), "DimLabel"))
+	var og := UIK.grid(2, 4)
+	for offer0 in offers:
+		var offer: Dictionary = offer0
+		var cid := String(offer.id)
+		var row := _good_row(I18n.t(String(offer.nameKey)), String(offer.icon), "",
+			I18n.t("region.%s.name" % String(offer.regionId)),
+			[_cost_btn(I18n.t("port.curio_buy"), func(): act(Actions.buy_curio(Game.state, cid)),
+				{"gold": int(offer.price)}, "", "gold")])
+		row.tooltip_text = I18n.t(String(offer.descKey))
+		row.custom_minimum_size.x = 224
+		og.add_child(row)
+	b.add_child(og)
+	b.add_child(UIK.label(I18n.t("port.curio_exchange"), "GoldLabel"))
+	var exchange := Rules.curio_exchange(s, port_id)
+	if exchange.is_empty():
+		b.add_child(UIK.label(I18n.t("port.curio_none"), "DimLabel"))
+	var eg := UIK.grid(2, 4)
+	for offer0 in exchange:
+		var offer: Dictionary = offer0
+		var cid := String(offer.id)
+		var cost := int(offer.shards)
+		var can := int(inv.get("curioShards", 0)) >= cost
+		var btn := UIK.button("%s  %d" % [I18n.t("port.curio_exchange_btn"), cost],
+			func(): act(Actions.exchange_curio(Game.state, cid)), "ui_shard", "FlatButton",
+			can, "" if can else I18n.t("err.no_shards"))
+		var row := _good_row(I18n.t(String(offer.nameKey)), String(offer.icon), "",
+			I18n.t("region.%s.name" % String(reg.id)), [btn])
+		row.tooltip_text = I18n.t(Collections.desc_key(cid))
+		row.custom_minimum_size.x = 224
+		eg.add_child(row)
+	b.add_child(eg)
 
 
 func _locked(level: int, need: int) -> String:

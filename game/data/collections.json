@@ -1,0 +1,1838 @@
+{
+ "COLLECTIBLES": {
+  "relic_tide_compass": {
+   "id": "relic_tide_compass",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.relic_tide_compass.name",
+   "descKey": "collectible.relic_tide_compass.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "hpPct": 0.03,
+    "foodSave": 1
+   }
+  },
+  "relic_saltglass_prism": {
+   "id": "relic_saltglass_prism",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.relic_saltglass_prism.name",
+   "descKey": "collectible.relic_saltglass_prism.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "lootPct": 0.05
+   }
+  },
+  "relic_harbor_bell": {
+   "id": "relic_harbor_bell",
+   "kind": "relic",
+   "rarity": "epic",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.relic_harbor_bell.name",
+   "descKey": "collectible.relic_harbor_bell.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "goldPct": 0.05
+   }
+  },
+  "lore_dawnwater_1": {
+   "id": "lore_dawnwater_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.lore_dawnwater_1.name",
+   "descKey": "collectible.lore_dawnwater_1.desc",
+   "icon": "ui_lore"
+  },
+  "lore_dawnwater_2": {
+   "id": "lore_dawnwater_2",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.lore_dawnwater_2.name",
+   "descKey": "collectible.lore_dawnwater_2.desc",
+   "icon": "ui_lore"
+  },
+  "curio_dawnwater_1": {
+   "id": "curio_dawnwater_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.curio_dawnwater_1.name",
+   "descKey": "collectible.curio_dawnwater_1.desc",
+   "icon": "ui_curio",
+   "sell": 45
+  },
+  "trophy_harbor_leviathan": {
+   "id": "trophy_harbor_leviathan",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.trophy_harbor_leviathan.name",
+   "descKey": "collectible.trophy_harbor_leviathan.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.017
+   }
+  },
+  "trophy_golden_crab": {
+   "id": "trophy_golden_crab",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.trophy_golden_crab.name",
+   "descKey": "collectible.trophy_golden_crab.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_dawnwater": {
+   "id": "chart_dawnwater",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "dawnwater",
+   "nameKey": "collectible.chart_dawnwater.name",
+   "descKey": "collectible.chart_dawnwater.desc",
+   "icon": "ui_chart",
+   "locationId": "driftplank_wreck",
+   "revealLocationId": "driftplank_wreck",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 150
+    },
+    {
+     "kind": "materials",
+     "qty": 11
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_saltglass_prism"
+    }
+   ]
+  },
+  "relic_ember_lodestone": {
+   "id": "relic_ember_lodestone",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "emberreach",
+   "nameKey": "collectible.relic_ember_lodestone.name",
+   "descKey": "collectible.relic_ember_lodestone.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "atkPct": 0.03,
+    "bossDmg": 0.02
+   }
+  },
+  "relic_cinder_lens": {
+   "id": "relic_cinder_lens",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "emberreach",
+   "nameKey": "collectible.relic_cinder_lens.name",
+   "descKey": "collectible.relic_cinder_lens.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "crit": 0.03
+   }
+  },
+  "relic_forge_ember": {
+   "id": "relic_forge_ember",
+   "kind": "relic",
+   "rarity": "epic",
+   "regionId": "emberreach",
+   "nameKey": "collectible.relic_forge_ember.name",
+   "descKey": "collectible.relic_forge_ember.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "atkPct": 0.02,
+    "goldPct": 0.03
+   }
+  },
+  "lore_emberreach_1": {
+   "id": "lore_emberreach_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "emberreach",
+   "nameKey": "collectible.lore_emberreach_1.name",
+   "descKey": "collectible.lore_emberreach_1.desc",
+   "icon": "ui_lore"
+  },
+  "lore_emberreach_2": {
+   "id": "lore_emberreach_2",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "emberreach",
+   "nameKey": "collectible.lore_emberreach_2.name",
+   "descKey": "collectible.lore_emberreach_2.desc",
+   "icon": "ui_lore"
+  },
+  "curio_emberreach_1": {
+   "id": "curio_emberreach_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "emberreach",
+   "nameKey": "collectible.curio_emberreach_1.name",
+   "descKey": "collectible.curio_emberreach_1.desc",
+   "icon": "ui_curio",
+   "sell": 60
+  },
+  "trophy_magma_hydra": {
+   "id": "trophy_magma_hydra",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "emberreach",
+   "nameKey": "collectible.trophy_magma_hydra.name",
+   "descKey": "collectible.trophy_magma_hydra.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.019
+   }
+  },
+  "trophy_cinder_moth": {
+   "id": "trophy_cinder_moth",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "emberreach",
+   "nameKey": "collectible.trophy_cinder_moth.name",
+   "descKey": "collectible.trophy_cinder_moth.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_emberreach": {
+   "id": "chart_emberreach",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "emberreach",
+   "nameKey": "collectible.chart_emberreach.name",
+   "descKey": "collectible.chart_emberreach.desc",
+   "icon": "ui_chart",
+   "locationId": "scorched_galleon",
+   "revealLocationId": "scorched_galleon",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 180
+    },
+    {
+     "kind": "materials",
+     "qty": 14
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_cinder_lens"
+    }
+   ]
+  },
+  "relic_thornwood_idol": {
+   "id": "relic_thornwood_idol",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.relic_thornwood_idol.name",
+   "descKey": "collectible.relic_thornwood_idol.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "hpPct": 0.04
+   }
+  },
+  "relic_sporeglass_vial": {
+   "id": "relic_sporeglass_vial",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.relic_sporeglass_vial.name",
+   "descKey": "collectible.relic_sporeglass_vial.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "lootPct": 0.05
+   }
+  },
+  "relic_rootheart_seed": {
+   "id": "relic_rootheart_seed",
+   "kind": "relic",
+   "rarity": "epic",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.relic_rootheart_seed.name",
+   "descKey": "collectible.relic_rootheart_seed.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "hpPct": 0.02,
+    "defPct": 0.02
+   }
+  },
+  "lore_verdant_maw_1": {
+   "id": "lore_verdant_maw_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.lore_verdant_maw_1.name",
+   "descKey": "collectible.lore_verdant_maw_1.desc",
+   "icon": "ui_lore"
+  },
+  "lore_verdant_maw_2": {
+   "id": "lore_verdant_maw_2",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.lore_verdant_maw_2.name",
+   "descKey": "collectible.lore_verdant_maw_2.desc",
+   "icon": "ui_lore"
+  },
+  "curio_verdant_maw_1": {
+   "id": "curio_verdant_maw_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.curio_verdant_maw_1.name",
+   "descKey": "collectible.curio_verdant_maw_1.desc",
+   "icon": "ui_curio",
+   "sell": 75
+  },
+  "trophy_spore_matriarch": {
+   "id": "trophy_spore_matriarch",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.trophy_spore_matriarch.name",
+   "descKey": "collectible.trophy_spore_matriarch.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.020999999999999998
+   }
+  },
+  "trophy_elder_mossback": {
+   "id": "trophy_elder_mossback",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.trophy_elder_mossback.name",
+   "descKey": "collectible.trophy_elder_mossback.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_verdant_maw": {
+   "id": "chart_verdant_maw",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "verdant_maw",
+   "nameKey": "collectible.chart_verdant_maw.name",
+   "descKey": "collectible.chart_verdant_maw.desc",
+   "icon": "ui_chart",
+   "locationId": "vine_wreck",
+   "revealLocationId": "vine_wreck",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 210
+    },
+    {
+     "kind": "materials",
+     "qty": 17
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_sporeglass_vial"
+    }
+   ]
+  },
+  "relic_prism_sextant": {
+   "id": "relic_prism_sextant",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "glass_current",
+   "nameKey": "collectible.relic_prism_sextant.name",
+   "descKey": "collectible.relic_prism_sextant.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "crit": 0.02,
+    "spd": 2
+   }
+  },
+  "relic_refraction_shard": {
+   "id": "relic_refraction_shard",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "glass_current",
+   "nameKey": "collectible.relic_refraction_shard.name",
+   "descKey": "collectible.relic_refraction_shard.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "dodge": 0.03
+   }
+  },
+  "relic_mirror_sail": {
+   "id": "relic_mirror_sail",
+   "kind": "relic",
+   "rarity": "epic",
+   "regionId": "glass_current",
+   "nameKey": "collectible.relic_mirror_sail.name",
+   "descKey": "collectible.relic_mirror_sail.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "avoid": 0.02,
+    "lootPct": 0.03
+   }
+  },
+  "lore_glass_current_1": {
+   "id": "lore_glass_current_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "glass_current",
+   "nameKey": "collectible.lore_glass_current_1.name",
+   "descKey": "collectible.lore_glass_current_1.desc",
+   "icon": "ui_lore"
+  },
+  "lore_glass_current_2": {
+   "id": "lore_glass_current_2",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "glass_current",
+   "nameKey": "collectible.lore_glass_current_2.name",
+   "descKey": "collectible.lore_glass_current_2.desc",
+   "icon": "ui_lore"
+  },
+  "curio_glass_current_1": {
+   "id": "curio_glass_current_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "glass_current",
+   "nameKey": "collectible.curio_glass_current_1.name",
+   "descKey": "collectible.curio_glass_current_1.desc",
+   "icon": "ui_curio",
+   "sell": 90
+  },
+  "trophy_prism_serpent": {
+   "id": "trophy_prism_serpent",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "glass_current",
+   "nameKey": "collectible.trophy_prism_serpent.name",
+   "descKey": "collectible.trophy_prism_serpent.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.023
+   }
+  },
+  "trophy_mirror_ray": {
+   "id": "trophy_mirror_ray",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "glass_current",
+   "nameKey": "collectible.trophy_mirror_ray.name",
+   "descKey": "collectible.trophy_mirror_ray.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_glass_current": {
+   "id": "chart_glass_current",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "glass_current",
+   "nameKey": "collectible.chart_glass_current.name",
+   "descKey": "collectible.chart_glass_current.desc",
+   "icon": "ui_chart",
+   "locationId": "glassbound_hulk",
+   "revealLocationId": "glassbound_hulk",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 240
+    },
+    {
+     "kind": "materials",
+     "qty": 20
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_refraction_shard"
+    }
+   ]
+  },
+  "relic_gilded_seal": {
+   "id": "relic_gilded_seal",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.relic_gilded_seal.name",
+   "descKey": "collectible.relic_gilded_seal.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "goldPct": 0.08
+   }
+  },
+  "relic_silk_ledger": {
+   "id": "relic_silk_ledger",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.relic_silk_ledger.name",
+   "descKey": "collectible.relic_silk_ledger.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "goldPct": 0.04,
+    "lootPct": 0.03
+   }
+  },
+  "relic_crown_coin": {
+   "id": "relic_crown_coin",
+   "kind": "relic",
+   "rarity": "epic",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.relic_crown_coin.name",
+   "descKey": "collectible.relic_crown_coin.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "goldPct": 0.05
+   }
+  },
+  "lore_crown_shoals_1": {
+   "id": "lore_crown_shoals_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.lore_crown_shoals_1.name",
+   "descKey": "collectible.lore_crown_shoals_1.desc",
+   "icon": "ui_lore"
+  },
+  "lore_crown_shoals_2": {
+   "id": "lore_crown_shoals_2",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.lore_crown_shoals_2.name",
+   "descKey": "collectible.lore_crown_shoals_2.desc",
+   "icon": "ui_lore"
+  },
+  "curio_crown_shoals_1": {
+   "id": "curio_crown_shoals_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.curio_crown_shoals_1.name",
+   "descKey": "collectible.curio_crown_shoals_1.desc",
+   "icon": "ui_curio",
+   "sell": 110
+  },
+  "trophy_gilded_kraken": {
+   "id": "trophy_gilded_kraken",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.trophy_gilded_kraken.name",
+   "descKey": "collectible.trophy_gilded_kraken.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.025
+   }
+  },
+  "trophy_coin_drake": {
+   "id": "trophy_coin_drake",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.trophy_coin_drake.name",
+   "descKey": "collectible.trophy_coin_drake.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_crown_shoals": {
+   "id": "chart_crown_shoals",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "crown_shoals",
+   "nameKey": "collectible.chart_crown_shoals.name",
+   "descKey": "collectible.chart_crown_shoals.desc",
+   "icon": "ui_chart",
+   "locationId": "treasury_wreck",
+   "revealLocationId": "treasury_wreck",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 270
+    },
+    {
+     "kind": "materials",
+     "qty": 23
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_silk_ledger"
+    }
+   ]
+  },
+  "relic_storm_anchor": {
+   "id": "relic_storm_anchor",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.relic_storm_anchor.name",
+   "descKey": "collectible.relic_storm_anchor.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "defPct": 0.04,
+    "hpPct": 0.02
+   }
+  },
+  "relic_thunder_feather": {
+   "id": "relic_thunder_feather",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.relic_thunder_feather.name",
+   "descKey": "collectible.relic_thunder_feather.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "spd": 3
+   }
+  },
+  "relic_squall_glass": {
+   "id": "relic_squall_glass",
+   "kind": "relic",
+   "rarity": "epic",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.relic_squall_glass.name",
+   "descKey": "collectible.relic_squall_glass.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "crit": 0.03
+   }
+  },
+  "lore_stormbelt_1": {
+   "id": "lore_stormbelt_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.lore_stormbelt_1.name",
+   "descKey": "collectible.lore_stormbelt_1.desc",
+   "icon": "ui_lore"
+  },
+  "lore_stormbelt_2": {
+   "id": "lore_stormbelt_2",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.lore_stormbelt_2.name",
+   "descKey": "collectible.lore_stormbelt_2.desc",
+   "icon": "ui_lore"
+  },
+  "curio_stormbelt_1": {
+   "id": "curio_stormbelt_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.curio_stormbelt_1.name",
+   "descKey": "collectible.curio_stormbelt_1.desc",
+   "icon": "ui_curio",
+   "sell": 130
+  },
+  "trophy_thunder_roc": {
+   "id": "trophy_thunder_roc",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.trophy_thunder_roc.name",
+   "descKey": "collectible.trophy_thunder_roc.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.027
+   }
+  },
+  "trophy_storm_roc": {
+   "id": "trophy_storm_roc",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.trophy_storm_roc.name",
+   "descKey": "collectible.trophy_storm_roc.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_stormbelt": {
+   "id": "chart_stormbelt",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "stormbelt",
+   "nameKey": "collectible.chart_stormbelt.name",
+   "descKey": "collectible.chart_stormbelt.desc",
+   "icon": "ui_chart",
+   "locationId": "stormwrack_hulk",
+   "revealLocationId": "stormwrack_hulk",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 300
+    },
+    {
+     "kind": "materials",
+     "qty": 26
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_thunder_feather"
+    }
+   ]
+  },
+  "relic_moon_lantern": {
+   "id": "relic_moon_lantern",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "moonwake",
+   "nameKey": "collectible.relic_moon_lantern.name",
+   "descKey": "collectible.relic_moon_lantern.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "dodge": 0.04,
+    "hpPct": 0.02
+   }
+  },
+  "relic_dream_marble": {
+   "id": "relic_dream_marble",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "moonwake",
+   "nameKey": "collectible.relic_dream_marble.name",
+   "descKey": "collectible.relic_dream_marble.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "lootPct": 0.04,
+    "avoid": 0.01
+   }
+  },
+  "lore_moonwake_1": {
+   "id": "lore_moonwake_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "moonwake",
+   "nameKey": "collectible.lore_moonwake_1.name",
+   "descKey": "collectible.lore_moonwake_1.desc",
+   "icon": "ui_lore"
+  },
+  "curio_moonwake_1": {
+   "id": "curio_moonwake_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "moonwake",
+   "nameKey": "collectible.curio_moonwake_1.name",
+   "descKey": "collectible.curio_moonwake_1.desc",
+   "icon": "ui_curio",
+   "sell": 150
+  },
+  "trophy_dream_eater": {
+   "id": "trophy_dream_eater",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "moonwake",
+   "nameKey": "collectible.trophy_dream_eater.name",
+   "descKey": "collectible.trophy_dream_eater.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.028999999999999998
+   }
+  },
+  "trophy_lunar_moth": {
+   "id": "trophy_lunar_moth",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "moonwake",
+   "nameKey": "collectible.trophy_lunar_moth.name",
+   "descKey": "collectible.trophy_lunar_moth.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_moonwake": {
+   "id": "chart_moonwake",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "moonwake",
+   "nameKey": "collectible.chart_moonwake.name",
+   "descKey": "collectible.chart_moonwake.desc",
+   "icon": "ui_chart",
+   "locationId": "moonlit_wreck",
+   "revealLocationId": "moonlit_wreck",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 330
+    },
+    {
+     "kind": "materials",
+     "qty": 29
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_dream_marble"
+    }
+   ]
+  },
+  "relic_abyss_ring": {
+   "id": "relic_abyss_ring",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "ashen_trench",
+   "nameKey": "collectible.relic_abyss_ring.name",
+   "descKey": "collectible.relic_abyss_ring.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "lifesteal": 0.03,
+    "hpPct": 0.03
+   }
+  },
+  "relic_pale_compass": {
+   "id": "relic_pale_compass",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "ashen_trench",
+   "nameKey": "collectible.relic_pale_compass.name",
+   "descKey": "collectible.relic_pale_compass.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "defPct": 0.04,
+    "avoid": 0.02
+   }
+  },
+  "lore_ashen_trench_1": {
+   "id": "lore_ashen_trench_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "ashen_trench",
+   "nameKey": "collectible.lore_ashen_trench_1.name",
+   "descKey": "collectible.lore_ashen_trench_1.desc",
+   "icon": "ui_lore"
+  },
+  "curio_ashen_trench_1": {
+   "id": "curio_ashen_trench_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "ashen_trench",
+   "nameKey": "collectible.curio_ashen_trench_1.name",
+   "descKey": "collectible.curio_ashen_trench_1.desc",
+   "icon": "ui_curio",
+   "sell": 175
+  },
+  "trophy_void_angler": {
+   "id": "trophy_void_angler",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "ashen_trench",
+   "nameKey": "collectible.trophy_void_angler.name",
+   "descKey": "collectible.trophy_void_angler.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.031
+   }
+  },
+  "trophy_pale_angler": {
+   "id": "trophy_pale_angler",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "ashen_trench",
+   "nameKey": "collectible.trophy_pale_angler.name",
+   "descKey": "collectible.trophy_pale_angler.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_ashen_trench": {
+   "id": "chart_ashen_trench",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "ashen_trench",
+   "nameKey": "collectible.chart_ashen_trench.name",
+   "descKey": "collectible.chart_ashen_trench.desc",
+   "icon": "ui_chart",
+   "locationId": "relic_hunter_wreck",
+   "revealLocationId": "relic_hunter_wreck",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 360
+    },
+    {
+     "kind": "materials",
+     "qty": 32
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_pale_compass"
+    }
+   ]
+  },
+  "relic_scale_talisman": {
+   "id": "relic_scale_talisman",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "leviathan_ring",
+   "nameKey": "collectible.relic_scale_talisman.name",
+   "descKey": "collectible.relic_scale_talisman.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "hpPct": 0.05,
+    "thorns": 0.05
+   }
+  },
+  "relic_leviathan_pearl": {
+   "id": "relic_leviathan_pearl",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "leviathan_ring",
+   "nameKey": "collectible.relic_leviathan_pearl.name",
+   "descKey": "collectible.relic_leviathan_pearl.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "atkPct": 0.03,
+    "lootPct": 0.03
+   }
+  },
+  "lore_leviathan_ring_1": {
+   "id": "lore_leviathan_ring_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "leviathan_ring",
+   "nameKey": "collectible.lore_leviathan_ring_1.name",
+   "descKey": "collectible.lore_leviathan_ring_1.desc",
+   "icon": "ui_lore"
+  },
+  "curio_leviathan_ring_1": {
+   "id": "curio_leviathan_ring_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "leviathan_ring",
+   "nameKey": "collectible.curio_leviathan_ring_1.name",
+   "descKey": "collectible.curio_leviathan_ring_1.desc",
+   "icon": "ui_curio",
+   "sell": 200
+  },
+  "trophy_world_serpent": {
+   "id": "trophy_world_serpent",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "leviathan_ring",
+   "nameKey": "collectible.trophy_world_serpent.name",
+   "descKey": "collectible.trophy_world_serpent.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.033
+   }
+  },
+  "trophy_island_whale": {
+   "id": "trophy_island_whale",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "leviathan_ring",
+   "nameKey": "collectible.trophy_island_whale.name",
+   "descKey": "collectible.trophy_island_whale.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_leviathan_ring": {
+   "id": "chart_leviathan_ring",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "leviathan_ring",
+   "nameKey": "collectible.chart_leviathan_ring.name",
+   "descKey": "collectible.chart_leviathan_ring.desc",
+   "icon": "ui_chart",
+   "locationId": "behemoth_wreck",
+   "revealLocationId": "behemoth_wreck",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 390
+    },
+    {
+     "kind": "materials",
+     "qty": 35
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_leviathan_pearl"
+    }
+   ]
+  },
+  "relic_horizon_compass": {
+   "id": "relic_horizon_compass",
+   "kind": "relic",
+   "rarity": "rare",
+   "regionId": "grand_horizon",
+   "nameKey": "collectible.relic_horizon_compass.name",
+   "descKey": "collectible.relic_horizon_compass.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "spd": 3,
+    "crit": 0.03
+   }
+  },
+  "relic_dawnglass": {
+   "id": "relic_dawnglass",
+   "kind": "relic",
+   "rarity": "uncommon",
+   "regionId": "grand_horizon",
+   "nameKey": "collectible.relic_dawnglass.name",
+   "descKey": "collectible.relic_dawnglass.desc",
+   "icon": "ui_relic",
+   "mods": {
+    "hpPct": 0.03,
+    "atkPct": 0.03
+   }
+  },
+  "lore_grand_horizon_1": {
+   "id": "lore_grand_horizon_1",
+   "kind": "lore",
+   "rarity": "uncommon",
+   "regionId": "grand_horizon",
+   "nameKey": "collectible.lore_grand_horizon_1.name",
+   "descKey": "collectible.lore_grand_horizon_1.desc",
+   "icon": "ui_lore"
+  },
+  "curio_grand_horizon_1": {
+   "id": "curio_grand_horizon_1",
+   "kind": "curio",
+   "rarity": "common",
+   "regionId": "grand_horizon",
+   "nameKey": "collectible.curio_grand_horizon_1.name",
+   "descKey": "collectible.curio_grand_horizon_1.desc",
+   "icon": "ui_curio",
+   "sell": 250
+  },
+  "trophy_dawn_titan": {
+   "id": "trophy_dawn_titan",
+   "kind": "trophy",
+   "rarity": "epic",
+   "regionId": "grand_horizon",
+   "nameKey": "collectible.trophy_dawn_titan.name",
+   "descKey": "collectible.trophy_dawn_titan.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "atkPct": 0.035
+   }
+  },
+  "trophy_aurora_wyrm": {
+   "id": "trophy_aurora_wyrm",
+   "kind": "trophy",
+   "rarity": "legendary",
+   "regionId": "grand_horizon",
+   "nameKey": "collectible.trophy_aurora_wyrm.name",
+   "descKey": "collectible.trophy_aurora_wyrm.desc",
+   "icon": "ui_trophy",
+   "mods": {
+    "lootPct": 0.02,
+    "goldPct": 0.02
+   }
+  },
+  "chart_grand_horizon": {
+   "id": "chart_grand_horizon",
+   "kind": "chart",
+   "rarity": "rare",
+   "regionId": "grand_horizon",
+   "nameKey": "collectible.chart_grand_horizon.name",
+   "descKey": "collectible.chart_grand_horizon.desc",
+   "icon": "ui_chart",
+   "locationId": "rival_flagship_wreck",
+   "revealLocationId": "rival_flagship_wreck",
+   "stash": [
+    {
+     "kind": "gold",
+     "qty": 420
+    },
+    {
+     "kind": "materials",
+     "qty": 38
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_dawnglass"
+    }
+   ]
+  }
+ },
+ "SETS": {
+  "set_dawnwater": {
+   "nameKey": "set.set_dawnwater.name",
+   "descKey": "set.set_dawnwater.desc",
+   "regionId": "dawnwater",
+   "members": [
+    "relic_tide_compass",
+    "trophy_harbor_leviathan",
+    "lore_dawnwater_1",
+    "curio_dawnwater_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.022,
+     "lootPct": 0.03
+    },
+    "gold": 190,
+    "materials": 13,
+    "shards": 2
+   }
+  },
+  "set_emberreach": {
+   "nameKey": "set.set_emberreach.name",
+   "descKey": "set.set_emberreach.desc",
+   "regionId": "emberreach",
+   "members": [
+    "relic_ember_lodestone",
+    "trophy_magma_hydra",
+    "lore_emberreach_1",
+    "curio_emberreach_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.024,
+     "lootPct": 0.03
+    },
+    "gold": 230,
+    "materials": 16,
+    "shards": 2
+   }
+  },
+  "set_verdant_maw": {
+   "nameKey": "set.set_verdant_maw.name",
+   "descKey": "set.set_verdant_maw.desc",
+   "regionId": "verdant_maw",
+   "members": [
+    "relic_thornwood_idol",
+    "trophy_spore_matriarch",
+    "lore_verdant_maw_1",
+    "curio_verdant_maw_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.026000000000000002,
+     "lootPct": 0.03
+    },
+    "gold": 270,
+    "materials": 19,
+    "shards": 3
+   }
+  },
+  "set_glass_current": {
+   "nameKey": "set.set_glass_current.name",
+   "descKey": "set.set_glass_current.desc",
+   "regionId": "glass_current",
+   "members": [
+    "relic_prism_sextant",
+    "trophy_prism_serpent",
+    "lore_glass_current_1",
+    "curio_glass_current_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.028,
+     "lootPct": 0.03
+    },
+    "gold": 310,
+    "materials": 22,
+    "shards": 3
+   }
+  },
+  "set_crown_shoals": {
+   "nameKey": "set.set_crown_shoals.name",
+   "descKey": "set.set_crown_shoals.desc",
+   "regionId": "crown_shoals",
+   "members": [
+    "relic_gilded_seal",
+    "trophy_gilded_kraken",
+    "lore_crown_shoals_1",
+    "curio_crown_shoals_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.03,
+     "lootPct": 0.03
+    },
+    "gold": 350,
+    "materials": 25,
+    "shards": 3
+   }
+  },
+  "set_stormbelt": {
+   "nameKey": "set.set_stormbelt.name",
+   "descKey": "set.set_stormbelt.desc",
+   "regionId": "stormbelt",
+   "members": [
+    "relic_storm_anchor",
+    "trophy_thunder_roc",
+    "lore_stormbelt_1",
+    "curio_stormbelt_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.032,
+     "lootPct": 0.03
+    },
+    "gold": 390,
+    "materials": 28,
+    "shards": 4
+   }
+  },
+  "set_moonwake": {
+   "nameKey": "set.set_moonwake.name",
+   "descKey": "set.set_moonwake.desc",
+   "regionId": "moonwake",
+   "members": [
+    "relic_moon_lantern",
+    "trophy_dream_eater",
+    "lore_moonwake_1",
+    "curio_moonwake_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.034,
+     "lootPct": 0.03
+    },
+    "gold": 430,
+    "materials": 31,
+    "shards": 4
+   }
+  },
+  "set_ashen_trench": {
+   "nameKey": "set.set_ashen_trench.name",
+   "descKey": "set.set_ashen_trench.desc",
+   "regionId": "ashen_trench",
+   "members": [
+    "relic_abyss_ring",
+    "trophy_void_angler",
+    "lore_ashen_trench_1",
+    "curio_ashen_trench_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.036000000000000004,
+     "lootPct": 0.03
+    },
+    "gold": 470,
+    "materials": 34,
+    "shards": 4
+   }
+  },
+  "set_leviathan_ring": {
+   "nameKey": "set.set_leviathan_ring.name",
+   "descKey": "set.set_leviathan_ring.desc",
+   "regionId": "leviathan_ring",
+   "members": [
+    "relic_scale_talisman",
+    "trophy_world_serpent",
+    "lore_leviathan_ring_1",
+    "curio_leviathan_ring_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.038000000000000006,
+     "lootPct": 0.03
+    },
+    "gold": 510,
+    "materials": 37,
+    "shards": 5
+   }
+  },
+  "set_grand_horizon": {
+   "nameKey": "set.set_grand_horizon.name",
+   "descKey": "set.set_grand_horizon.desc",
+   "regionId": "grand_horizon",
+   "members": [
+    "relic_horizon_compass",
+    "trophy_dawn_titan",
+    "lore_grand_horizon_1",
+    "curio_grand_horizon_1"
+   ],
+   "bonus": {
+    "mods": {
+     "hpPct": 0.04,
+     "lootPct": 0.03
+    },
+    "gold": 550,
+    "materials": 40,
+    "shards": 5
+   }
+  },
+  "set_cartographer": {
+   "nameKey": "set.set_cartographer.name",
+   "descKey": "set.set_cartographer.desc",
+   "members": [
+    "chart_dawnwater",
+    "chart_emberreach",
+    "chart_verdant_maw",
+    "chart_glass_current",
+    "chart_crown_shoals",
+    "chart_stormbelt",
+    "chart_moonwake",
+    "chart_ashen_trench",
+    "chart_leviathan_ring",
+    "chart_grand_horizon"
+   ],
+   "bonus": {
+    "mods": {
+     "avoid": 0.05,
+     "foodSave": 1
+    },
+    "gold": 900,
+    "materials": 80,
+    "shards": 12,
+    "item": "x_a_cartographer_compass"
+   }
+  },
+  "set_tidebound": {
+   "nameKey": "set.set_tidebound.name",
+   "descKey": "set.set_tidebound.desc",
+   "members": [
+    "trophy_harbor_leviathan",
+    "trophy_magma_hydra",
+    "trophy_spore_matriarch",
+    "trophy_prism_serpent",
+    "trophy_gilded_kraken",
+    "trophy_thunder_roc",
+    "trophy_dream_eater",
+    "trophy_void_angler",
+    "trophy_world_serpent",
+    "trophy_dawn_titan"
+   ],
+   "bonus": {
+    "mods": {
+     "bossDmg": 0.08,
+     "hpPct": 0.03
+    },
+    "gold": 900,
+    "materials": 80,
+    "shards": 12,
+    "item": "x_a_tidebound_sigil"
+   }
+  },
+  "set_deep": {
+   "nameKey": "set.set_deep.name",
+   "descKey": "set.set_deep.desc",
+   "members": [
+    "trophy_golden_crab",
+    "trophy_cinder_moth",
+    "trophy_elder_mossback",
+    "trophy_mirror_ray",
+    "trophy_coin_drake",
+    "trophy_storm_roc",
+    "trophy_lunar_moth",
+    "trophy_pale_angler",
+    "trophy_island_whale",
+    "trophy_aurora_wyrm"
+   ],
+   "bonus": {
+    "mods": {
+     "lootPct": 0.08,
+     "goldPct": 0.08
+    },
+    "gold": 900,
+    "materials": 80,
+    "shards": 12,
+    "item": "x_a_deepseeker_lens"
+   }
+  },
+  "set_wild": {
+   "nameKey": "set.set_wild.name",
+   "descKey": "set.set_wild.desc",
+   "members": [
+    "relic_tide_compass",
+    "relic_ember_lodestone",
+    "relic_thornwood_idol",
+    "relic_prism_sextant",
+    "relic_gilded_seal",
+    "relic_storm_anchor",
+    "relic_moon_lantern",
+    "relic_abyss_ring",
+    "relic_scale_talisman",
+    "relic_horizon_compass"
+   ],
+   "bonus": {
+    "mods": {
+     "atkPct": 0.05,
+     "crit": 0.03
+    },
+    "gold": 900,
+    "materials": 80,
+    "shards": 12,
+    "item": "x_a_wildheart_charm"
+   }
+  },
+  "set_storm": {
+   "nameKey": "set.set_storm.name",
+   "descKey": "set.set_storm.desc",
+   "members": [
+    "curio_dawnwater_1",
+    "curio_emberreach_1",
+    "curio_verdant_maw_1",
+    "curio_glass_current_1",
+    "curio_crown_shoals_1",
+    "curio_stormbelt_1",
+    "curio_moonwake_1",
+    "curio_ashen_trench_1",
+    "curio_leviathan_ring_1",
+    "curio_grand_horizon_1"
+   ],
+   "bonus": {
+    "mods": {
+     "spd": 3,
+     "dodge": 0.04
+    },
+    "gold": 900,
+    "materials": 80,
+    "shards": 12
+   }
+  }
+ },
+ "SHOP": {
+  "items": [
+   {
+    "id": "x_w_blade_4",
+    "marketLevel": 3,
+    "regions": [
+     "leviathan_ring",
+     "grand_horizon"
+    ]
+   },
+   {
+    "id": "x_w_gun_4",
+    "marketLevel": 3,
+    "regions": [
+     "stormbelt",
+     "grand_horizon"
+    ]
+   },
+   {
+    "id": "x_w_staff_4",
+    "marketLevel": 3,
+    "regions": [
+     "moonwake",
+     "grand_horizon"
+    ]
+   },
+   {
+    "id": "x_w_banner_4",
+    "marketLevel": 3,
+    "regions": [
+     "grand_horizon",
+     "grand_horizon"
+    ]
+   },
+   {
+    "id": "x_o_coat_4",
+    "marketLevel": 3,
+    "regions": [
+     "moonwake",
+     "grand_horizon"
+    ]
+   },
+   {
+    "id": "x_o_armor_4",
+    "marketLevel": 3,
+    "regions": [
+     "ashen_trench",
+     "grand_horizon"
+    ]
+   },
+   {
+    "id": "x_o_tidecoat_4",
+    "marketLevel": 3,
+    "regions": [
+     "leviathan_ring",
+     "grand_horizon"
+    ]
+   },
+   {
+    "id": "x_o_stormplate_4",
+    "marketLevel": 3,
+    "regions": [
+     "stormbelt",
+     "grand_horizon"
+    ]
+   }
+  ],
+  "curiosPerPort": 3
+ },
+ "ITEMS": {
+  "x_w_blade_4": {
+   "id": "x_w_blade_4",
+   "slot": "weapon",
+   "wtype": "blade",
+   "tier": 4,
+   "regionId": "leviathan_ring",
+   "nameKey": "item.x_w_blade_4.name",
+   "stats": {
+    "atk": 17,
+    "def": 0,
+    "hp": 10,
+    "spd": 2
+   },
+   "props": [],
+   "mods": {
+    "crit": 0.04
+   },
+   "price": 520,
+   "recipe": {
+    "materials": 24,
+    "specialty": [
+     "abyss_alloy",
+     2
+    ]
+   }
+  },
+  "x_w_gun_4": {
+   "id": "x_w_gun_4",
+   "slot": "weapon",
+   "wtype": "gun",
+   "tier": 4,
+   "regionId": "stormbelt",
+   "nameKey": "item.x_w_gun_4.name",
+   "stats": {
+    "atk": 17,
+    "def": 0,
+    "hp": 0,
+    "spd": 1
+   },
+   "props": [
+    "ranged"
+   ],
+   "mods": {
+    "bossDmg": 0.08
+   },
+   "price": 520,
+   "recipe": {
+    "materials": 24,
+    "specialty": [
+     "stormwood",
+     2
+    ]
+   }
+  },
+  "x_w_staff_4": {
+   "id": "x_w_staff_4",
+   "slot": "weapon",
+   "wtype": "staff",
+   "tier": 4,
+   "regionId": "moonwake",
+   "nameKey": "item.x_w_staff_4.name",
+   "stats": {
+    "atk": 16,
+    "def": 0,
+    "hp": 16,
+    "spd": 0
+   },
+   "props": [
+    "splash"
+   ],
+   "mods": {
+    "lootPct": 0.05
+   },
+   "price": 520,
+   "recipe": {
+    "materials": 24,
+    "specialty": [
+     "moon_ink",
+     2
+    ]
+   }
+  },
+  "x_w_banner_4": {
+   "id": "x_w_banner_4",
+   "slot": "weapon",
+   "wtype": "banner",
+   "tier": 4,
+   "regionId": "grand_horizon",
+   "nameKey": "item.x_w_banner_4.name",
+   "stats": {
+    "atk": 12,
+    "def": 4,
+    "hp": 24,
+    "spd": 0
+   },
+   "props": [
+    "aura"
+   ],
+   "mods": {
+    "auraAtk": 0.06,
+    "crewSlot": 1
+   },
+   "price": 560,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "horizon_glass",
+     2
+    ]
+   }
+  },
+  "x_o_coat_4": {
+   "id": "x_o_coat_4",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 4,
+   "regionId": "moonwake",
+   "nameKey": "item.x_o_coat_4.name",
+   "stats": {
+    "atk": 0,
+    "def": 12,
+    "hp": 60,
+    "spd": 2
+   },
+   "props": [],
+   "resist": [],
+   "mods": {
+    "avoid": 0.04
+   },
+   "price": 460,
+   "recipe": {
+    "materials": 22,
+    "specialty": [
+     "moon_ink",
+     1
+    ]
+   }
+  },
+  "x_o_armor_4": {
+   "id": "x_o_armor_4",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 4,
+   "regionId": "ashen_trench",
+   "nameKey": "item.x_o_armor_4.name",
+   "stats": {
+    "atk": 0,
+    "def": 18,
+    "hp": 110,
+    "spd": -1
+   },
+   "props": [],
+   "resist": [
+    "pressure"
+   ],
+   "mods": {
+    "flatReduce": 3
+   },
+   "price": 640,
+   "recipe": {
+    "materials": 30,
+    "specialty": [
+     "abyss_alloy",
+     1
+    ]
+   }
+  },
+  "x_o_tidecoat_4": {
+   "id": "x_o_tidecoat_4",
+   "slot": "outfit",
+   "otype": "coat",
+   "tier": 4,
+   "regionId": "leviathan_ring",
+   "nameKey": "item.x_o_tidecoat_4.name",
+   "stats": {
+    "atk": 0,
+    "def": 10,
+    "hp": 72,
+    "spd": 2
+   },
+   "props": [],
+   "resist": [
+    "tide"
+   ],
+   "mods": {
+    "hpPct": 0.05
+   },
+   "price": 500,
+   "recipe": {
+    "materials": 24,
+    "specialty": [
+     "leviathan_scale",
+     1
+    ]
+   }
+  },
+  "x_o_stormplate_4": {
+   "id": "x_o_stormplate_4",
+   "slot": "outfit",
+   "otype": "armor",
+   "tier": 4,
+   "regionId": "stormbelt",
+   "nameKey": "item.x_o_stormplate_4.name",
+   "stats": {
+    "atk": 0,
+    "def": 16,
+    "hp": 96,
+    "spd": 0
+   },
+   "props": [],
+   "resist": [
+    "storm"
+   ],
+   "mods": {
+    "stunImmune": 1
+   },
+   "price": 700,
+   "recipe": {
+    "materials": 28,
+    "specialty": [
+     "stormwood",
+     2
+    ]
+   }
+  },
+  "x_a_cartographer_compass": {
+   "id": "x_a_cartographer_compass",
+   "slot": "accessory",
+   "tier": 4,
+   "regionId": null,
+   "nameKey": "item.x_a_cartographer_compass.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 20,
+    "spd": 1
+   },
+   "props": [],
+   "mods": {
+    "avoid": 0.04,
+    "foodSave": 1
+   },
+   "price": 0,
+   "unique": true
+  },
+  "x_a_tidebound_sigil": {
+   "id": "x_a_tidebound_sigil",
+   "slot": "accessory",
+   "tier": 4,
+   "regionId": null,
+   "nameKey": "item.x_a_tidebound_sigil.name",
+   "stats": {
+    "atk": 0,
+    "def": 2,
+    "hp": 30,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "bossDmg": 0.08,
+    "hpPct": 0.03
+   },
+   "price": 0,
+   "unique": true
+  },
+  "x_a_deepseeker_lens": {
+   "id": "x_a_deepseeker_lens",
+   "slot": "accessory",
+   "tier": 4,
+   "regionId": null,
+   "nameKey": "item.x_a_deepseeker_lens.name",
+   "stats": {
+    "atk": 0,
+    "def": 0,
+    "hp": 20,
+    "spd": 0
+   },
+   "props": [],
+   "mods": {
+    "lootPct": 0.08,
+    "goldPct": 0.08
+   },
+   "price": 0,
+   "unique": true
+  },
+  "x_a_wildheart_charm": {
+   "id": "x_a_wildheart_charm",
+   "slot": "accessory",
+   "tier": 4,
+   "regionId": null,
+   "nameKey": "item.x_a_wildheart_charm.name",
+   "stats": {
+    "atk": 4,
+    "def": 0,
+    "hp": 10,
+    "spd": 1
+   },
+   "props": [],
+   "mods": {
+    "atkPct": 0.05,
+    "crit": 0.03
+   },
+   "price": 0,
+   "unique": true
+  }
+ },
+ "INGREDIENTS": {
+  "ember_salt": {
+   "color": "red",
+   "price": 16
+  },
+  "deep_coral": {
+   "color": "blue",
+   "price": 16
+  },
+  "moss_sugar": {
+   "color": "green",
+   "price": 16
+  },
+  "sun_amber": {
+   "color": "yellow",
+   "price": 16
+  },
+  "void_pepper": {
+   "color": "purple",
+   "price": 16
+  },
+  "frost_salt": {
+   "color": "white",
+   "price": 16
+  }
+ },
+ "AFFIXES": {
+  "hunter": {
+   "bossDmg": 0.06
+  },
+  "tideward": {
+   "hpPct": 0.05,
+   "defPct": 0.03
+  },
+  "fleet": {
+   "spd": 3
+  },
+  "gilded": {
+   "goldPct": 0.08
+  },
+  "scavenger": {
+   "lootPct": 0.08
+  },
+  "stormbound": {
+   "crit": 0.04,
+   "spd": 1
+  },
+  "beastbane": {
+   "atkPct": 0.06
+  },
+  "runed": {
+   "defPct": 0.06,
+   "dodge": 0.02
+  }
+ }
+}

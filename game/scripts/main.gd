@@ -761,11 +761,35 @@ func _on_context_action(wname: String) -> void:
 			open_window("chart")
 		"return":
 			confirm(I18n.t("home.emergency_return"), I18n.t("home.emergency_hint"), _do_emergency_return)
+		"leave_site":
+			leave_site()
+		"land":
+			land()
 
 
 func _do_emergency_return() -> void:
 	_close_center_windows()
 	Game.act(Actions.emergency_return(Game.state))
+
+
+## Returns the landing party to the ship. The site view walks them back to
+## the rowboat first; without a site stage the action commits directly.
+func leave_site() -> void:
+	if not Game.has_game():
+		return
+	_close_center_windows()
+	if site_view != null and is_instance_valid(site_view):
+		site_view.return_to_ship()
+		return
+	Game.act(Actions.leave_site(Game.state))
+
+
+## Goes ashore again at the island the ship is anchored beside.
+func land() -> void:
+	if not Game.has_game():
+		return
+	_close_center_windows()
+	Game.act(Actions.land(Game.state))
 
 
 func _on_view_action(wname: String) -> void:

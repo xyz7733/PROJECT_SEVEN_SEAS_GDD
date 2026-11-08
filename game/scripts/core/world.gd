@@ -24,13 +24,23 @@ static func enemy(enemy_id: String) -> Variant:
 	if rivals.has(enemy_id):
 		var r = rivals[enemy_id]
 		return {"id": enemy_id, "archetype": "captain", "regionId": r.regionId, "skills": r.skills, "mult": r.mult,
-			"burn": bool(r.get("burn", false)), "regen": r.get("regen", 0), "boss": true, "rival": true}
+			"burn": bool(r.get("burn", false)), "regen": r.get("regen", 0), "boss": true, "rival": true,
+			"traits": ["unyielding"], "drops": Bestiary.default_drops(String(r.regionId), true)}
 	var pirates: Dictionary = C.data.PIRATES
 	if pirates.has(enemy_id):
 		var a = C.data.ENEMY_ARCHETYPES[pirates[enemy_id]]
-		return {"id": enemy_id, "archetype": pirates[enemy_id], "regionId": null, "skills": a.skills, "mult": 1, "pirate": true}
+		return {"id": enemy_id, "archetype": pirates[enemy_id], "regionId": null, "skills": a.skills, "mult": 1,
+			"pirate": true, "traits": [], "drops": []}
 	if enemy_id == "crystal_decoy":
-		return {"id": enemy_id, "archetype": "decoy", "regionId": "glass_current", "skills": [], "mult": 1, "decoy": true}
+		return {"id": enemy_id, "archetype": "decoy", "regionId": "glass_current", "skills": [], "mult": 1,
+			"decoy": true, "traits": [], "drops": []}
+	var known = Bestiary.entry(enemy_id)
+	if known != null:
+		return {"id": enemy_id, "archetype": known.archetype, "regionId": known.get("regionId"),
+			"skills": known.get("skills", []).duplicate(), "traits": known.get("traits", []).duplicate(),
+			"family": known.get("family"), "drops": known.get("drops", []), "mult": float(known.get("mult", 1.0)),
+			"boss": bool(known.get("boss", false)), "rare": bool(known.get("rare", false)),
+			"variant": known.get("variant"), "loreKey": known.get("loreKey"), "summonOnly": bool(known.get("summonOnly", false))}
 	for r in C.REGIONS:
 		for arch in r.enemies:
 			if r.enemies[arch] == enemy_id:
@@ -42,7 +52,8 @@ static func enemy(enemy_id: String) -> Variant:
 				if r.mechanic == "sealed" and arch == "caster":
 					skills = ["e_hex", "e_stun_all"]
 				return {"id": enemy_id, "archetype": arch, "regionId": r.id, "skills": skills, "mult": 1,
-					"burn": r.mechanic == "burning" and (arch == "skirmisher" or arch == "shooter")}
+					"burn": r.mechanic == "burning" and (arch == "skirmisher" or arch == "shooter"),
+					"traits": Bestiary.legacy_traits(arch), "drops": Bestiary.default_drops(r.id)}
 		var bi: int = r.bosses.find(enemy_id)
 		if bi >= 0:
 			var skills := ["e_crush", "e_roar" if bi == 0 else "e_stun_all"]
@@ -51,23 +62,42 @@ static func enemy(enemy_id: String) -> Variant:
 			if r.mechanic == "intent":
 				skills.append("e_charge")
 			return {"id": enemy_id, "archetype": "boss", "regionId": r.id, "skills": skills, "mult": 1.0 + 0.06 * bi,
-				"boss": true, "regen": 0.01 if r.mechanic == "sealed" else 0.0, "burn": r.mechanic == "burning"}
+				"boss": true, "regen": 0.01 if r.mechanic == "sealed" else 0.0, "burn": r.mechanic == "burning",
+				"traits": Bestiary.legacy_traits("boss") + (["regen"] if r.mechanic == "sealed" else []),
+				"drops": Bestiary.default_drops(r.id, true)}
 	return null
 
 
 static func all_enemy_ids() -> Array:
 	var ids := []
 	for r in C.REGIONS:
-		ids.append_array(r.enemies.values())
-		ids.append_array(r.bosses)
-	ids.append_array(C.data.PIRATES.keys())
-	ids.append("crystal_decoy")
-	ids.append_array(C.world.RIVALS.keys())
+		for id in r.enemies.values():
+			if not ids.has(id):
+				ids.append(id)
+		for id in r.bosses:
+			if not ids.has(id):
+				ids.append(id)
+	for id in Bestiary.all_ids():
+		if not ids.has(id):
+			ids.append(id)
+	for id in C.data.PIRATES.keys():
+		if not ids.has(id):
+			ids.append(id)
+	if not ids.has("crystal_decoy"):
+		ids.append("crystal_decoy")
+	for id in C.world.RIVALS.keys():
+		if not ids.has(id):
+			ids.append(id)
 	return ids
 
 
-static func _wave_entry(enemy_id: String, level: int) -> Dictionary:
-	return {"enemyId": enemy_id, "level": level}
+static func _wave_entry(enemy_id: String, level: int, variant: Variant = null, rare: bool = false) -> Dictionary:
+	var entry := {"enemyId": enemy_id, "level": level}
+	if variant != null and String(variant) != "":
+		entry.variant = String(variant)
+	if rare:
+		entry.rare = true
+	return entry
 
 
 ## Builds an encounter definition for a room (GDD encounter record).
@@ -89,14 +119,18 @@ static func encounter_for(loc_id: String, room_id: String, opts: Dictionary = {}
 			var wave := []
 			for entry in w:
 				var arch: String = entry[0]
+				var eid := ""
 				if arch == "captain":
-					wave.append(_wave_entry(r.rivalId, loc.level))
+					eid = r.rivalId
 				elif arch == "rival":
-					wave.append(_wave_entry(entry[1], int(loc.level) - 2))
+					eid = String(entry[1])
 				elif arch == "decoy":
-					wave.append(_wave_entry("crystal_decoy", loc.level))
+					eid = "crystal_decoy"
 				else:
-					wave.append(_wave_entry(r.enemies[arch], int(loc.level) - 1))
+					eid = Bestiary.pick_roster(r.id, arch, rand)
+				if eid == "":
+					continue
+				wave.append(_wave_entry(eid, int(loc.level) - 1 if arch not in ["captain", "rival", "decoy"] else loc.level))
 			waves.append(wave)
 		if legend:
 			var lg = C.world.LEGENDS[r.id]
@@ -119,17 +153,46 @@ static func encounter_for(loc_id: String, room_id: String, opts: Dictionary = {}
 			group = ["brute", "shooter", "caster"] if kind == "battle" else ["brute", "shooter", "caster", "healer"]
 		if r.mechanic == "disruptor" and kind != "boss":
 			group[group.size() - 1] = "caster"
-		var boss_id: String = r.bosses[0] if int(loc.slot) == 5 else r.bosses[1]
+		var boss_id: String = Bestiary.region_boss(r.id, int(loc.slot))
+		if boss_id == "" and r.bosses.size():
+			boss_id = String(r.bosses[0])
 		var wave := []
 		for arch in group:
-			wave.append(_wave_entry(boss_id if arch == "boss" else r.enemies[arch], lvl))
+			var eid := boss_id if arch == "boss" else Bestiary.pick_roster(r.id, arch, rand)
+			if eid != "":
+				wave.append(_wave_entry(eid, lvl))
 		if r.mechanic == "decoys":
 			wave.push_front(_wave_entry("crystal_decoy", lvl))
 		if r.mechanic == "elite":
-			wave.append(_wave_entry(r.enemies.skirmisher, lvl - 1))
+			var extra := Bestiary.pick_roster(r.id, "skirmisher", rand)
+			if extra != "":
+				wave.append(_wave_entry(extra, lvl - 1))
 		waves = [wave]
 		if r.mechanic == "waves" and (kind == "elite" or kind == "boss"):
-			waves.push_front([_wave_entry(r.enemies.skirmisher, lvl - 1), _wave_entry(r.enemies.shooter, lvl - 1), _wave_entry(r.enemies.skirmisher, lvl - 1)])
+			var front := []
+			for arch in ["skirmisher", "shooter", "skirmisher"]:
+				var eid := Bestiary.pick_roster(r.id, arch, rand)
+				if eid != "":
+					front.append(_wave_entry(eid, lvl - 1))
+			waves.push_front(front)
+		# Rare sightings and elite variants. Both are seeded from the room,
+		# so a reload shows the same encounter.
+		var vrand := U.Rng.new(U.hash32("%s:%s:variant" % [loc_id, room_id]))
+		if rm and not legend and kind in ["battle", "elite"]:
+			var rare_id := String(Bestiary.region_rare(r.id)) if Bestiary.region_rare(r.id) != null else ""
+			var rare_rec = Bestiary.entry(rare_id) if rare_id != "" else null
+			var rare_chance := 0.15 if kind == "elite" else 0.08
+			if rare_rec != null and (bool(opts.get("forceRare", false)) or vrand.next() < rare_chance):
+				wave.append(_wave_entry(rare_id, lvl, rare_rec.get("variant"), true))
+		var vkind := "elite" if kind == "elite" else ("boss_minion" if kind == "boss" else "battle")
+		var force_variant = opts.get("forceVariant")
+		for w in waves:
+			for e in w:
+				if e.get("rare", false) or e.enemyId == boss_id or e.enemyId == r.rivalId or e.enemyId == "crystal_decoy":
+					continue
+				var v = Bestiary.pick_variant(vrand, vkind, force_variant)
+				if v != null:
+					e.variant = v
 	return {
 		"id": loc_id + ":" + room_id + (":legend" if legend else ""), "locationId": loc_id, "roomId": room_id, "regionId": r.id,
 		"arena": "arena" if loc.type == "arena" else loc.type, "waves": waves, "modifiers": mods, "level": lvl,
@@ -150,10 +213,28 @@ static func sea_encounter(region_id: String, kind: String, variant: int, level: 
 		for i in range(1, n):
 			wave.append(_wave_entry(ids[int(floor(rand.next() * ids.size()))], level))
 	else:
-		var battle: Array = C.world.GROUPS.battle
-		var g: Array = battle[int(floor(rand.next() * battle.size()))]
-		for a in g:
-			wave.append(_wave_entry(r.enemies[a], level))
+		var rd: Dictionary = C.BESTIARY.REGIONS.get(region_id, {})
+		var pool: Array = rd.get("seaMonsters", [])
+		if pool.is_empty():
+			for arch in ["skirmisher", "shooter", "caster"]:
+				var eid := Bestiary.pick_roster(region_id, arch, rand)
+				if eid != "":
+					pool.append(eid)
+		var n := 4 if int(r.tier) >= 4 else 3
+		for i in n:
+			var eid := String(pool[int(floor(rand.next() * pool.size()))])
+			wave.append(_wave_entry(eid, level))
+		var rare_id := String(Bestiary.region_rare(region_id)) if Bestiary.region_rare(region_id) != null else ""
+		if rare_id != "":
+			var rare_rec = Bestiary.entry(rare_id)
+			if rare_rec != null and rand.next() < 0.10:
+				wave.append(_wave_entry(rare_id, level, rare_rec.get("variant"), true))
+		for e in wave:
+			if e.get("rare", false):
+				continue
+			var v = Bestiary.pick_variant(rand, "boarding")
+			if v != null:
+				e.variant = v
 	var mods := ["boarding"]
 	if r.hazard:
 		mods.append(r.hazard)

@@ -42,15 +42,15 @@ restarts in the new language. Saves don't depend on the language.
 - `settings.cfg`.
 
 Every save is written to a temporary file and renamed into place, and carries a SHA-256 content hash.
-A damaged file is reported as corrupt and is never loaded. Saves from before the multi-level ship
-(schema 3) are migrated on load. Rooms are moved off the open deck onto interior levels, and the
-ledger reports how many were moved.
+A damaged file is reported as corrupt and is never loaded. Older saves are migrated on load: schema-3
+saves move rooms off the open deck onto interior levels, and schema-4 saves gain the bestiary and
+collection-book fields. The ledger reports how many rooms were moved.
 
 ### Controls
 
 | Input | Action |
 |---|---|
-| Left click | Select crew, facilities, stairs, doors and town buildings; pick a room on an island; focus an enemy in battle |
+| Left click | Select crew, facilities, stairs, doors and town buildings; pick a room on an island; click the rowboat to return to the ship; focus an enemy in battle |
 | Right drag / middle drag, or WASD / arrow keys | Pan the camera |
 | Mouse wheel, `+` / `-` | Zoom |
 | `Tab`, `PgUp` / `PgDn` | Next ship level / level up or down (weather deck ↔ interior levels) |
@@ -119,7 +119,7 @@ Run `--import` again after adding a script with a new `class_name` or after rebu
 | `game/assets/gen/` | All generated pixel art: atlases plus JSON metadata (anchors, frames, spots, lights) |
 | `game/assets/fonts/` | Fusion Pixel 12px (SIL OFL 1.1, licences beside it) |
 | `game/assets/audio/` | Music, ambience and effects (CC0; per-pack licence files in `licenses/`) |
-| `game/data/` | Game content (`content.json`) and world (`world.json`) |
+| `game/data/` | Game content (`content.json`), world (`world.json`), bestiary (`bestiary.json`) and collection book (`collections.json`) |
 | `game/i18n/` | `strings.csv` (`keys,en,zh_CN`, imported as Godot translations), `names.json`, `source/` tables |
 | `docs/ASSET_INVENTORY.md` | **Asset inventory**: every shipped texture with size, frames, method and use; the audio files; code-drawn scene elements; the font licence |
 | `docs/AUDIO_LICENSES.md` | **Audio licences**: source URL, creator, original name and licence for every audio file |

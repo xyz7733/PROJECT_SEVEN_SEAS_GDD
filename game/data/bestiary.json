@@ -1,0 +1,2610 @@
+{
+ "ARCHETYPES": {
+  "lurker": {
+   "lane": "rear",
+   "range": "melee",
+   "base": {
+    "hp": 56,
+    "atk": 12,
+    "def": 3,
+    "spd": 15
+   },
+   "skills": [
+    "e_ambush"
+   ],
+   "tags": [
+    "swift",
+    "beast"
+   ]
+  },
+  "warden": {
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 135,
+    "atk": 8,
+    "def": 12,
+    "spd": 6
+   },
+   "skills": [
+    "e_bulwark"
+   ],
+   "tags": [
+    "armored",
+    "construct"
+   ]
+  },
+  "swarm": {
+   "lane": "front",
+   "range": "melee",
+   "base": {
+    "hp": 38,
+    "atk": 7,
+    "def": 2,
+    "spd": 12
+   },
+   "skills": [
+    "e_swarm_call"
+   ],
+   "tags": [
+    "swarm"
+   ]
+  }
+ },
+ "SKILLS": {
+  "e_ambush": {
+   "cat": "damage",
+   "cd": 7,
+   "scope": "enemy",
+   "power": 1.9,
+   "fx": {
+    "reachAll": true,
+    "mark": 3
+   }
+  },
+  "e_bulwark": {
+   "cat": "survival",
+   "cd": 10,
+   "scope": "self",
+   "fx": {
+    "shield": 0.22,
+    "taunt": 4
+   }
+  },
+  "e_swarm_call": {
+   "cat": "support",
+   "cd": 12,
+   "scope": "allies",
+   "fx": {
+    "buffAtk": 0.15,
+    "buffDur": 6,
+    "meter": 8
+   }
+  },
+  "e_venom_spit": {
+   "cat": "damage",
+   "cd": 7,
+   "scope": "enemy",
+   "power": 0.9,
+   "fx": {
+    "dot": 0.35,
+    "dotDur": 4,
+    "reachAll": true
+   }
+  },
+  "e_quake": {
+   "cat": "control",
+   "cd": 11,
+   "scope": "enemies",
+   "power": 0.65,
+   "fx": {
+    "stun": 1.2
+   }
+  },
+  "e_drain": {
+   "cat": "damage",
+   "cd": 9,
+   "scope": "enemy",
+   "power": 1.4,
+   "fx": {
+    "healSelf": 0.5
+   }
+  },
+  "e_curse": {
+   "cat": "control",
+   "cd": 10,
+   "scope": "enemy",
+   "power": 0.7,
+   "fx": {
+    "slow": 3,
+    "mark": 4,
+    "sunder": 3,
+    "reachAll": true
+   }
+  },
+  "e_barrage": {
+   "cat": "damage",
+   "cd": 10,
+   "scope": "enemies",
+   "power": 0.5,
+   "fx": {
+    "hits": 3
+   }
+  },
+  "e_frost_breath": {
+   "cat": "damage",
+   "cd": 10,
+   "scope": "enemies",
+   "power": 1.1,
+   "fx": {
+    "slow": 3,
+    "reachAll": true
+   }
+  },
+  "e_heal_all": {
+   "cat": "support",
+   "cd": 10,
+   "scope": "allies",
+   "heal": 1.2,
+   "fx": {
+    "cleanseAllies": true
+   }
+  },
+  "e_enrage": {
+   "cat": "support",
+   "cd": 14,
+   "scope": "self",
+   "fx": {
+    "buffAtk": 0.35,
+    "buffDur": 8,
+    "meter": 20
+   }
+  },
+  "e_shield_wall": {
+   "cat": "survival",
+   "cd": 12,
+   "scope": "front_allies",
+   "fx": {
+    "shield": 0.12
+   }
+  },
+  "e_pierce_shot": {
+   "cat": "damage",
+   "cd": 8,
+   "scope": "enemy",
+   "power": 1.6,
+   "fx": {
+    "pierce": 0.35,
+    "snipe": true,
+    "reachAll": true
+   }
+  },
+  "e_doom": {
+   "cat": "control",
+   "cd": 14,
+   "scope": "enemy",
+   "power": 0.8,
+   "fx": {
+    "windup": 3,
+    "stun": 2,
+    "dot": 0.25,
+    "dotDur": 5
+   }
+  },
+  "e_fire_breath": {
+   "cat": "damage",
+   "cd": 11,
+   "scope": "enemies",
+   "power": 1.2,
+   "fx": {
+    "dot": 0.3,
+    "dotDur": 4,
+    "reachAll": true
+   }
+  },
+  "e_void_gaze": {
+   "cat": "control",
+   "cd": 10,
+   "scope": "enemy",
+   "power": 0.6,
+   "fx": {
+    "stun": 1.5,
+    "mark": 4,
+    "reachAll": true
+   }
+  },
+  "e_dream_lull": {
+   "cat": "control",
+   "cd": 12,
+   "scope": "enemies",
+   "power": 0.35,
+   "fx": {
+    "stun": 1.8,
+    "slow": 4
+   }
+  },
+  "e_static_lash": {
+   "cat": "damage",
+   "cd": 8,
+   "scope": "enemy_lane",
+   "power": 1.0,
+   "fx": {
+    "stun": 0.5
+   }
+  }
+ },
+ "TRAITS": {
+  "armored": {
+   "mods": {
+    "flatReducePct": 0.12,
+    "flatReduce": 2
+   }
+  },
+  "venomous": {
+   "onHit": {
+    "dot": 0.12,
+    "dur": 3
+   }
+  },
+  "volatile": {
+   "onDeath": {
+    "aoe": 0.35
+   }
+  },
+  "summoner": {
+   "summon": {
+    "enemyId": "swarmling",
+    "every": 9.0,
+    "cap": 3,
+    "count": 1
+   }
+  },
+  "splitter": {
+   "onDeath": {
+    "spawn": 2,
+    "hp": 0.3
+   }
+  },
+  "berserk": {
+   "hpBelow": 0.4,
+   "atk": 0.35
+  },
+  "warded": {
+   "startShield": 0.18
+  },
+  "elusive": {
+   "mods": {
+    "dodge": 0.1
+   }
+  },
+  "unyielding": {
+   "surviveOnce": true
+  },
+  "vampiric": {
+   "mods": {
+    "lifesteal": 0.15
+   }
+  },
+  "bulwark": {
+   "mods": {
+    "guard": 0.2,
+    "intercept": 0.15
+   }
+  },
+  "regen": {
+   "mods": {
+    "regenPct": 0.006
+   }
+  }
+ },
+ "VARIANTS": {
+  "alpha": {
+   "mult": {
+    "hp": 1.4,
+    "atk": 1.2
+   },
+   "trait": "bulwark",
+   "tint": "#d8a25a",
+   "drop": "trophy"
+  },
+  "elder": {
+   "mult": {
+    "hp": 1.8,
+    "def": 1.3
+   },
+   "trait": "regen",
+   "tint": "#6fae8a",
+   "drop": "lore"
+  },
+  "corrupted": {
+   "mult": {
+    "hp": 1.3,
+    "atk": 1.3
+   },
+   "trait": "volatile",
+   "tint": "#9a5ac8",
+   "drop": "curio"
+  },
+  "swift": {
+   "mult": {
+    "hp": 1.1,
+    "spd": 1.5
+   },
+   "trait": "elusive",
+   "tint": "#6fd8e8",
+   "drop": "materials"
+  },
+  "armored": {
+   "mult": {
+    "hp": 1.5,
+    "def": 1.5
+   },
+   "trait": "armored",
+   "tint": "#a8b0c0",
+   "drop": "materials"
+  },
+  "feral": {
+   "mult": {
+    "hp": 1.2,
+    "atk": 1.4
+   },
+   "trait": "berserk",
+   "tint": "#d85a5a",
+   "drop": "ingredient"
+  }
+ },
+ "MONSTERS": [
+  {
+   "id": "tide_jelly",
+   "regionId": "dawnwater",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "regen"
+   ],
+   "skills": [
+    "e_venom_spit",
+    "e_mend"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.tide_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "kelp_sprig",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_dawnwater_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "shoal_ray",
+   "regionId": "dawnwater",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive"
+   ],
+   "skills": [
+    "e_ambush"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.shoal_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "kelp_sprig",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_dawnwater_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "brine_worm",
+   "regionId": "dawnwater",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_crush"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.brine_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "kelp_sprig",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_dawnwater_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "cinder_jelly",
+   "regionId": "emberreach",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "volatile"
+   ],
+   "skills": [
+    "e_fire_breath",
+    "e_venom_spit"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.cinder_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "ember_salt",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_emberreach_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "magma_ray",
+   "regionId": "emberreach",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "berserk"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_enrage"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.magma_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "ember_salt",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_emberreach_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "ash_worm",
+   "regionId": "emberreach",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "venomous"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_quake"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.ash_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "ember_salt",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_emberreach_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "spore_jelly",
+   "regionId": "verdant_maw",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "splitter"
+   ],
+   "skills": [
+    "e_curse",
+    "e_venom_spit"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.spore_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "moss_sugar",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_verdant_maw_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "canopy_ray",
+   "regionId": "verdant_maw",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "warded"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_barrage"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.canopy_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "moss_sugar",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_verdant_maw_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "mire_worm",
+   "regionId": "verdant_maw",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "regen"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_venom_spit"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.mire_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "moss_sugar",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_verdant_maw_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "prism_jelly",
+   "regionId": "glass_current",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "warded"
+   ],
+   "skills": [
+    "e_frost_breath",
+    "e_shield_wall"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.prism_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "frost_salt",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_glass_current_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "shard_ray",
+   "regionId": "glass_current",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "volatile"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_barrage"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.shard_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "frost_salt",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_glass_current_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "glass_worm",
+   "regionId": "glass_current",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "vampiric"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_drain"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.glass_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "frost_salt",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_glass_current_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "coin_jelly",
+   "regionId": "crown_shoals",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "unyielding"
+   ],
+   "skills": [
+    "e_drain",
+    "e_heal_all"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.coin_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "sun_amber",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_crown_shoals_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "gilded_ray",
+   "regionId": "crown_shoals",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "armored"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_pierce_shot"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.gilded_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "sun_amber",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_crown_shoals_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "vault_worm",
+   "regionId": "crown_shoals",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "bulwark"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_shield_wall"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.vault_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "sun_amber",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_crown_shoals_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "storm_jelly",
+   "regionId": "stormbelt",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "berserk"
+   ],
+   "skills": [
+    "e_static_lash",
+    "e_barrage"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.storm_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "deep_coral",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_stormbelt_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "squall_ray",
+   "regionId": "stormbelt",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "berserk"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_pierce_shot"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.squall_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "deep_coral",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_stormbelt_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "thunder_worm",
+   "regionId": "stormbelt",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "volatile"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_quake"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.thunder_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "deep_coral",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_stormbelt_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "dream_jelly",
+   "regionId": "moonwake",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "unyielding"
+   ],
+   "skills": [
+    "e_dream_lull",
+    "e_drain"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.dream_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "void_pepper",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_moonwake_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "moon_ray",
+   "regionId": "moonwake",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "warded"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_frost_breath"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.moon_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "void_pepper",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_moonwake_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "nightmare_worm",
+   "regionId": "moonwake",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "vampiric"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_dream_lull"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.nightmare_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "void_pepper",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_moonwake_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "abyss_jelly",
+   "regionId": "ashen_trench",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "volatile"
+   ],
+   "skills": [
+    "e_void_gaze",
+    "e_curse"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.abyss_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "void_pepper",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_ashen_trench_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "pale_ray",
+   "regionId": "ashen_trench",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "regen"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_drain"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.pale_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "void_pepper",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_ashen_trench_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "trench_worm",
+   "regionId": "ashen_trench",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "splitter"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_quake"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.trench_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "void_pepper",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_ashen_trench_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "leviathan_jelly",
+   "regionId": "leviathan_ring",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "regen"
+   ],
+   "skills": [
+    "e_venom_spit",
+    "e_heal_all"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.leviathan_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "deep_coral",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_leviathan_ring_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "reef_ray",
+   "regionId": "leviathan_ring",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "armored"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_barrage"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.reef_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "deep_coral",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_leviathan_ring_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "shell_worm",
+   "regionId": "leviathan_ring",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "bulwark"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_shield_wall"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.shell_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "deep_coral",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_leviathan_ring_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "star_jelly",
+   "regionId": "grand_horizon",
+   "archetype": "caster",
+   "family": "jelly",
+   "traits": [
+    "venomous",
+    "warded"
+   ],
+   "skills": [
+    "e_heal_all",
+    "e_dream_lull"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.star_jelly.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "sun_amber",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_grand_horizon_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "horizon_ray",
+   "regionId": "grand_horizon",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "elusive",
+    "berserk"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_pierce_shot"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.horizon_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "sun_amber",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_grand_horizon_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "dawn_worm",
+   "regionId": "grand_horizon",
+   "archetype": "warden",
+   "family": "worm",
+   "traits": [
+    "armored",
+    "unyielding"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_quake"
+   ],
+   "mult": 1.0,
+   "loreKey": "bestiary.dawn_worm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      2,
+      5
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "ingredient",
+     "id": "sun_amber",
+     "chance": 0.3
+    },
+    {
+     "kind": "collectible",
+     "id": "curio_grand_horizon_1",
+     "chance": 0.012
+    }
+   ]
+  },
+  {
+   "id": "swarmling",
+   "regionId": null,
+   "archetype": "swarm",
+   "family": "jelly",
+   "traits": [
+    "elusive"
+   ],
+   "skills": [
+    "e_ambush"
+   ],
+   "mult": 0.62,
+   "summonOnly": true,
+   "loreKey": "bestiary.swarmling.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      1,
+      2
+     ],
+     "chance": 1.0
+    }
+   ]
+  }
+ ],
+ "BOSSES": [
+  {
+   "id": "harbor_leviathan",
+   "regionId": "dawnwater",
+   "archetype": "boss",
+   "family": "serpent",
+   "traits": [
+    "armored",
+    "berserk"
+   ],
+   "skills": [
+    "e_crush",
+    "e_quake",
+    "e_bulwark"
+   ],
+   "mult": 1.02,
+   "boss": true,
+   "loreKey": "bestiary.harbor_leviathan.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_harbor_leviathan",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_tide_compass",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_dawnwater_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "magma_hydra",
+   "regionId": "emberreach",
+   "archetype": "boss",
+   "family": "serpent",
+   "traits": [
+    "venomous",
+    "splitter"
+   ],
+   "skills": [
+    "e_fire_breath",
+    "e_crush",
+    "e_enrage"
+   ],
+   "mult": 1.04,
+   "boss": true,
+   "loreKey": "bestiary.magma_hydra.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_magma_hydra",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_ember_lodestone",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_emberreach_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "spore_matriarch",
+   "regionId": "verdant_maw",
+   "archetype": "boss",
+   "family": "plant",
+   "traits": [
+    "summoner",
+    "regen"
+   ],
+   "skills": [
+    "e_curse",
+    "e_venom_spit",
+    "e_heal_all"
+   ],
+   "mult": 1.06,
+   "boss": true,
+   "loreKey": "bestiary.spore_matriarch.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_spore_matriarch",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_thornwood_idol",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_verdant_maw_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "prism_serpent",
+   "regionId": "glass_current",
+   "archetype": "boss",
+   "family": "serpent",
+   "traits": [
+    "warded",
+    "unyielding"
+   ],
+   "skills": [
+    "e_frost_breath",
+    "e_shield_wall",
+    "e_doom"
+   ],
+   "mult": 1.08,
+   "boss": true,
+   "loreKey": "bestiary.prism_serpent.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_prism_serpent",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_prism_sextant",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_glass_current_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "gilded_kraken",
+   "regionId": "crown_shoals",
+   "archetype": "boss",
+   "family": "crab",
+   "traits": [
+    "armored",
+    "bulwark"
+   ],
+   "skills": [
+    "e_quake",
+    "e_bulwark",
+    "e_barrage"
+   ],
+   "mult": 1.1,
+   "boss": true,
+   "loreKey": "bestiary.gilded_kraken.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_gilded_kraken",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_gilded_seal",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_crown_shoals_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "thunder_roc",
+   "regionId": "stormbelt",
+   "archetype": "boss",
+   "family": "bird",
+   "traits": [
+    "berserk",
+    "elusive"
+   ],
+   "skills": [
+    "e_static_lash",
+    "e_ambush",
+    "e_barrage"
+   ],
+   "mult": 1.12,
+   "boss": true,
+   "loreKey": "bestiary.thunder_roc.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_thunder_roc",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_storm_anchor",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_stormbelt_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "dream_eater",
+   "regionId": "moonwake",
+   "archetype": "boss",
+   "family": "ghost",
+   "traits": [
+    "vampiric",
+    "summoner"
+   ],
+   "skills": [
+    "e_dream_lull",
+    "e_drain",
+    "e_void_gaze"
+   ],
+   "mult": 1.1400000000000001,
+   "boss": true,
+   "loreKey": "bestiary.dream_eater.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_dream_eater",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_moon_lantern",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_moonwake_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "void_angler",
+   "regionId": "ashen_trench",
+   "archetype": "boss",
+   "family": "serpent",
+   "traits": [
+    "venomous",
+    "volatile"
+   ],
+   "skills": [
+    "e_void_gaze",
+    "e_venom_spit",
+    "e_doom"
+   ],
+   "mult": 1.16,
+   "boss": true,
+   "loreKey": "bestiary.void_angler.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_void_angler",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_abyss_ring",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_ashen_trench_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "world_serpent",
+   "regionId": "leviathan_ring",
+   "archetype": "boss",
+   "family": "serpent",
+   "traits": [
+    "armored",
+    "regen",
+    "berserk"
+   ],
+   "skills": [
+    "e_quake",
+    "e_fire_breath",
+    "e_enrage"
+   ],
+   "mult": 1.18,
+   "boss": true,
+   "loreKey": "bestiary.world_serpent.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_world_serpent",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_scale_talisman",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_leviathan_ring_1",
+     "chance": 0.2
+    }
+   ]
+  },
+  {
+   "id": "dawn_titan",
+   "regionId": "grand_horizon",
+   "archetype": "boss",
+   "family": "golem",
+   "traits": [
+    "armored",
+    "unyielding",
+    "bulwark"
+   ],
+   "skills": [
+    "e_quake",
+    "e_shield_wall",
+    "e_crush"
+   ],
+   "mult": 1.2,
+   "boss": true,
+   "loreKey": "bestiary.dawn_titan.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      8,
+      14
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_dawn_titan",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "relic",
+     "id": "relic_horizon_compass",
+     "chance": 0.35
+    },
+    {
+     "kind": "lore",
+     "id": "lore_grand_horizon_1",
+     "chance": 0.2
+    }
+   ]
+  }
+ ],
+ "RARES": [
+  {
+   "id": "golden_crab",
+   "regionId": "dawnwater",
+   "archetype": "warden",
+   "family": "crab",
+   "traits": [
+    "armored",
+    "unyielding"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_crush"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "alpha",
+   "chance": 0.08,
+   "loreKey": "bestiary.golden_crab.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_golden_crab",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_dawnwater",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_saltglass_prism",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "cinder_moth",
+   "regionId": "emberreach",
+   "archetype": "brute",
+   "family": "imp",
+   "traits": [
+    "volatile",
+    "elusive"
+   ],
+   "skills": [
+    "e_fire_breath",
+    "e_ambush"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "feral",
+   "chance": 0.08,
+   "loreKey": "bestiary.cinder_moth.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_cinder_moth",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_emberreach",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_cinder_lens",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "elder_mossback",
+   "regionId": "verdant_maw",
+   "archetype": "brute",
+   "family": "beast",
+   "traits": [
+    "armored",
+    "regen"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_venom_spit"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "elder",
+   "chance": 0.08,
+   "loreKey": "bestiary.elder_mossback.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_elder_mossback",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_verdant_maw",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_sporeglass_vial",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "mirror_ray",
+   "regionId": "glass_current",
+   "archetype": "lurker",
+   "family": "ray",
+   "traits": [
+    "warded",
+    "elusive"
+   ],
+   "skills": [
+    "e_ambush",
+    "e_barrage"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "swift",
+   "chance": 0.08,
+   "loreKey": "bestiary.mirror_ray.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_mirror_ray",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_glass_current",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_refraction_shard",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "coin_drake",
+   "regionId": "crown_shoals",
+   "archetype": "brute",
+   "family": "serpent",
+   "traits": [
+    "vampiric",
+    "armored"
+   ],
+   "skills": [
+    "e_drain",
+    "e_bulwark"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "alpha",
+   "chance": 0.08,
+   "loreKey": "bestiary.coin_drake.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_coin_drake",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_crown_shoals",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_silk_ledger",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "storm_roc",
+   "regionId": "stormbelt",
+   "archetype": "brute",
+   "family": "bird",
+   "traits": [
+    "berserk",
+    "elusive"
+   ],
+   "skills": [
+    "e_static_lash",
+    "e_pierce_shot"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "feral",
+   "chance": 0.08,
+   "loreKey": "bestiary.storm_roc.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_storm_roc",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_stormbelt",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_thunder_feather",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "lunar_moth",
+   "regionId": "moonwake",
+   "archetype": "brute",
+   "family": "imp",
+   "traits": [
+    "warded",
+    "unyielding"
+   ],
+   "skills": [
+    "e_dream_lull",
+    "e_frost_breath"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "elder",
+   "chance": 0.08,
+   "loreKey": "bestiary.lunar_moth.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_lunar_moth",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_moonwake",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_dream_marble",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "pale_angler",
+   "regionId": "ashen_trench",
+   "archetype": "brute",
+   "family": "serpent",
+   "traits": [
+    "venomous",
+    "vampiric"
+   ],
+   "skills": [
+    "e_venom_spit",
+    "e_drain"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "corrupted",
+   "chance": 0.08,
+   "loreKey": "bestiary.pale_angler.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_pale_angler",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_ashen_trench",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_pale_compass",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "island_whale",
+   "regionId": "leviathan_ring",
+   "archetype": "brute",
+   "family": "beast",
+   "traits": [
+    "armored",
+    "bulwark"
+   ],
+   "skills": [
+    "e_bulwark",
+    "e_quake"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "elder",
+   "chance": 0.08,
+   "loreKey": "bestiary.island_whale.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_island_whale",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_leviathan_ring",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_leviathan_pearl",
+     "chance": 0.08
+    }
+   ]
+  },
+  {
+   "id": "aurora_wyrm",
+   "regionId": "grand_horizon",
+   "archetype": "brute",
+   "family": "serpent",
+   "traits": [
+    "warded",
+    "regen"
+   ],
+   "skills": [
+    "e_frost_breath",
+    "e_ambush"
+   ],
+   "mult": 1.5,
+   "rare": true,
+   "variant": "swift",
+   "chance": 0.08,
+   "loreKey": "bestiary.aurora_wyrm.lore",
+   "drops": [
+    {
+     "kind": "materials",
+     "qty": [
+      4,
+      8
+     ],
+     "chance": 1.0
+    },
+    {
+     "kind": "trophy",
+     "id": "trophy_aurora_wyrm",
+     "chance": 1.0,
+     "firstOnly": true
+    },
+    {
+     "kind": "chart",
+     "id": "chart_grand_horizon",
+     "chance": 0.15
+    },
+    {
+     "kind": "collectible",
+     "id": "relic_dawnglass",
+     "chance": 0.08
+    }
+   ]
+  }
+ ],
+ "REGIONS": {
+  "dawnwater": {
+   "roster": {
+    "caster": [
+     "tide_jelly"
+    ],
+    "lurker": [
+     "shoal_ray"
+    ],
+    "warden": [
+     "brine_worm"
+    ]
+   },
+   "seaMonsters": [
+    "tide_jelly",
+    "shoal_ray",
+    "brine_worm"
+   ],
+   "rare": "golden_crab",
+   "boss": "harbor_leviathan"
+  },
+  "emberreach": {
+   "roster": {
+    "caster": [
+     "cinder_jelly"
+    ],
+    "lurker": [
+     "magma_ray"
+    ],
+    "warden": [
+     "ash_worm"
+    ]
+   },
+   "seaMonsters": [
+    "cinder_jelly",
+    "magma_ray",
+    "ash_worm"
+   ],
+   "rare": "cinder_moth",
+   "boss": "magma_hydra"
+  },
+  "verdant_maw": {
+   "roster": {
+    "caster": [
+     "spore_jelly"
+    ],
+    "lurker": [
+     "canopy_ray"
+    ],
+    "warden": [
+     "mire_worm"
+    ]
+   },
+   "seaMonsters": [
+    "spore_jelly",
+    "canopy_ray",
+    "mire_worm"
+   ],
+   "rare": "elder_mossback",
+   "boss": "spore_matriarch"
+  },
+  "glass_current": {
+   "roster": {
+    "caster": [
+     "prism_jelly"
+    ],
+    "lurker": [
+     "shard_ray"
+    ],
+    "warden": [
+     "glass_worm"
+    ]
+   },
+   "seaMonsters": [
+    "prism_jelly",
+    "shard_ray",
+    "glass_worm"
+   ],
+   "rare": "mirror_ray",
+   "boss": "prism_serpent"
+  },
+  "crown_shoals": {
+   "roster": {
+    "caster": [
+     "coin_jelly"
+    ],
+    "lurker": [
+     "gilded_ray"
+    ],
+    "warden": [
+     "vault_worm"
+    ]
+   },
+   "seaMonsters": [
+    "coin_jelly",
+    "gilded_ray",
+    "vault_worm"
+   ],
+   "rare": "coin_drake",
+   "boss": "gilded_kraken"
+  },
+  "stormbelt": {
+   "roster": {
+    "caster": [
+     "storm_jelly"
+    ],
+    "lurker": [
+     "squall_ray"
+    ],
+    "warden": [
+     "thunder_worm"
+    ]
+   },
+   "seaMonsters": [
+    "storm_jelly",
+    "squall_ray",
+    "thunder_worm"
+   ],
+   "rare": "storm_roc",
+   "boss": "thunder_roc"
+  },
+  "moonwake": {
+   "roster": {
+    "caster": [
+     "dream_jelly"
+    ],
+    "lurker": [
+     "moon_ray"
+    ],
+    "warden": [
+     "nightmare_worm"
+    ]
+   },
+   "seaMonsters": [
+    "dream_jelly",
+    "moon_ray",
+    "nightmare_worm"
+   ],
+   "rare": "lunar_moth",
+   "boss": "dream_eater"
+  },
+  "ashen_trench": {
+   "roster": {
+    "caster": [
+     "abyss_jelly"
+    ],
+    "lurker": [
+     "pale_ray"
+    ],
+    "warden": [
+     "trench_worm"
+    ]
+   },
+   "seaMonsters": [
+    "abyss_jelly",
+    "pale_ray",
+    "trench_worm"
+   ],
+   "rare": "pale_angler",
+   "boss": "void_angler"
+  },
+  "leviathan_ring": {
+   "roster": {
+    "caster": [
+     "leviathan_jelly"
+    ],
+    "lurker": [
+     "reef_ray"
+    ],
+    "warden": [
+     "shell_worm"
+    ]
+   },
+   "seaMonsters": [
+    "leviathan_jelly",
+    "reef_ray",
+    "shell_worm"
+   ],
+   "rare": "island_whale",
+   "boss": "world_serpent"
+  },
+  "grand_horizon": {
+   "roster": {
+    "caster": [
+     "star_jelly"
+    ],
+    "lurker": [
+     "horizon_ray"
+    ],
+    "warden": [
+     "dawn_worm"
+    ]
+   },
+   "seaMonsters": [
+    "star_jelly",
+    "horizon_ray",
+    "dawn_worm"
+   ],
+   "rare": "aurora_wyrm",
+   "boss": "dawn_titan"
+  }
+ },
+ "GROUPS": {
+  "battle": [
+   [
+    "lurker",
+    "warden",
+    "caster"
+   ],
+   [
+    "skirmisher",
+    "lurker",
+    "healer"
+   ],
+   [
+    "warden",
+    "shooter",
+    "caster"
+   ],
+   [
+    "lurker",
+    "lurker",
+    "shooter"
+   ]
+  ],
+  "elite": [
+   [
+    "warden",
+    "lurker",
+    "caster",
+    "healer"
+   ],
+   [
+    "brute",
+    "warden",
+    "shooter",
+    "caster"
+   ]
+  ],
+  "boss": [
+   [
+    "warden",
+    "lurker",
+    "caster",
+    "boss"
+   ],
+   [
+    "lurker",
+    "warden",
+    "healer",
+    "boss"
+   ]
+  ]
+ }
+}

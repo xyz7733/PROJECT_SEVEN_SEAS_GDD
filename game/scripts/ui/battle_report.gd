@@ -110,6 +110,7 @@ func _build() -> void:
 	tl.add_theme_color_override("font_color", Art.GOLD if outcome == "victory" else (Art.BAD if outcome == "defeat" else Art.INK))
 	_body.add_child(UIK.hbox([UIK.icon(icon), tl], 4))
 	_body.add_child(UIK.label(I18n.t("battle.report") + " · " + I18n.t("battle.result_time", {"n": I18n.fmt_num(sm.get("time", 0)), "hp": I18n.pct(float(sm.get("hpAvg", 0)))}), "DimLabel", true, int(WIDTH) - 16))
+	_build_special_foes()
 	match outcome:
 		"victory":
 			_build_rewards()
@@ -160,6 +161,27 @@ func _row(icon_name: String, text: String, variation := "", right: Control = nul
 	return h
 
 
+## One line per rare or variant foe defeated, so a special kill is visible
+## without opening the Codex.
+func _build_special_foes() -> void:
+	var seen := {}
+	for e in sm.get("enemies", []):
+		var id := String(e.get("enemyId", ""))
+		var tags := []
+		if bool(e.get("rare", false)):
+			tags.append(I18n.t("codex.rare_enemy"))
+		var variant = e.get("variant")
+		if variant != null:
+			tags.append(I18n.t("variant.%s.name" % String(variant)))
+		if tags.is_empty():
+			continue
+		var text := I18n.t("enemy.%s.name" % id) + " · " + " · ".join(tags)
+		if seen.has(text):
+			continue
+		seen[text] = true
+		_body.add_child(UIK.hbox([UIK.icon("ui_eye"), UIK.label(text, "WarnLabel", true, int(WIDTH) - 40)], 3))
+
+
 func _build_rewards() -> void:
 	var rw: Dictionary = sm.get("rewards") if sm.get("rewards") is Dictionary else {}
 	_section(I18n.t("settle.rewards"), "gold")
@@ -193,6 +215,8 @@ func _build_items() -> void:
 	var tally := {}
 	var pieces := 0
 	for r in rows:
+		if String(r.kind) == "collectible" and bool(r.get("duplicate", false)):
+			continue
 		pieces += int(r.qty)
 		tally[r.rarity] = int(tally.get(r.rarity, 0)) + int(r.qty)
 	_section(I18n.t("settle.items"), "ui_chest", I18n.t("settle.items_count", {"n": pieces}) if pieces > 0 else "")
@@ -208,14 +232,22 @@ func _build_items() -> void:
 	_body.add_child(chips)
 	rows.sort_custom(func(a, b): return RARITY_ORDER.find(a.rarity) > RARITY_ORDER.find(b.rarity))
 	for r in rows:
+		var right := UIK.hbox([], 3)
 		var qty := UIK.label("×%d" % int(r.qty), "")
 		qty.add_theme_color_override("font_color", BattleFx.rarity_color(String(r.rarity)))
-		_row(String(r.icon), _row_name(r), "", qty, BattleFx.rarity_color(String(r.rarity)) if String(r.rarity) != "common" else Color.WHITE)
+		right.add_child(qty)
+		if String(r.kind) == "collectible":
+			if bool(r.get("new", false)):
+				right.add_child(UIK.label(I18n.t("settle.new"), "GoodLabel"))
+			elif bool(r.get("duplicate", false)):
+				right.add_child(UIK.label(I18n.t("settle.duplicate_short"), "DimLabel"))
+		_row(String(r.icon), _row_name(r), "", right, BattleFx.rarity_color(String(r.rarity)) if String(r.rarity) != "common" else Color.WHITE)
 		if int(r.get("lost", 0)) > 0:
 			_body.add_child(_note(I18n.t("settle.lost", {"n": r.lost})))
 		if int(r.get("salvaged", 0)) > 0:
 			_body.add_child(_note(I18n.t("settle.salvaged", {"n": r.salvaged})))
-
+		if String(r.kind) == "collectible" and int(r.get("shards", 0)) > 0:
+			_body.add_child(_note(I18n.t("settle.duplicate_shards", {"n": r.shards})))
 
 func _note(text: String) -> Control:
 	var l := UIK.label(text, "WarnLabel", true, int(WIDTH) - 36)
@@ -246,6 +278,8 @@ func _row_name(r: Dictionary) -> String:
 			return I18n.t("battle.r_egg", {"family": "petfam.%s.name" % r.ref.familyId, "n": int(r.ref.grade)})
 		"item":
 			return I18n.item_name(String(r.ref))
+		"collectible":
+			return I18n.t(Collections.name_key(String(r.ref)))
 		"clue":
 			return I18n.t("settle.clue")
 	return String(r.id)

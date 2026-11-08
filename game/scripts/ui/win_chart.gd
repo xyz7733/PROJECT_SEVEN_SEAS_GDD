@@ -123,9 +123,12 @@ func build_footer(f: HBoxContainer) -> void:
 	status.clip_text = true
 	status.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	f.add_child(status)
-	if s.voyage != null and s.voyage.get("site") != null and s.encounter == null:
-		f.add_child(UIK.button(I18n.t("map.explore_site"), func(): main.show_site(), "ui_map", "", true,
-			I18n.t("site.title", {"location": "loc.%s.name" % s.voyage.site.locationId})))
+	if s.voyage != null and s.encounter == null:
+		if s.voyage.get("site") != null:
+			f.add_child(UIK.button(I18n.t("map.explore_site"), func(): main.show_site(), "ui_map", "", true,
+				I18n.t("site.title", {"location": "loc.%s.name" % s.voyage.site.locationId})))
+		elif C.rooms(current()).size() > 0:
+			f.add_child(UIK.button(I18n.t("site.land"), func(): main.land(), "loc_island", "", true, I18n.t("site.land_hint")))
 	if not has_dest():
 		status.text = I18n.t("map.no_selection")
 		if Rules.at_port(s):
@@ -270,6 +273,8 @@ func _dest(b: VBoxContainer, to_id: String, w: int) -> void:
 	var cw := w - 8
 	_cost_row(card, "time", I18n.t("map.cost_time", {"n": info.hours}), "", I18n.t("route.distance"), cw)
 	_cost_row(card, "food", I18n.t("map.cost_food", {"n": info.food, "after": info.foodAfter}), "BadLabel" if int(info.foodAfter) < 0 else "", I18n.t("route.food"), cw)
+	_cost_row(card, "supplies", I18n.t("route.supplies_after", {"now": info.supplies, "after": info.suppliesAfter}),
+		"", I18n.t("status.supplies"), cw)
 	if not is_port:
 		var ret := I18n.t("route.no_return")
 		if info.returnPorts.size():
@@ -303,6 +308,22 @@ func _dest(b: VBoxContainer, to_id: String, w: int) -> void:
 	b.add_child(UIK.label(I18n.t("route.hazards") + ": " + hz, "", true, w))
 	var caps: Array = info.capability.map(func(r): return I18n.t("role." + r))
 	b.add_child(UIK.label(I18n.t("route.capability") + ": " + ", ".join(caps), "", true, w))
+	b.add_child(UIK.label(I18n.t("route.scout_yes") if info.scout else I18n.t("route.scout_no"),
+		"GoodLabel" if info.scout else "DimLabel", true, w))
+	if info.scout and info.intel is Dictionary:
+		var intel: Dictionary = info.intel
+		var threats := []
+		for a in intel.get("threats", []):
+			threats.append(I18n.t("archetype." + String(a)) if I18n.has("archetype." + String(a)) else String(a))
+		b.add_child(UIK.label(I18n.t("route.scout_threats", {"list": ", ".join(threats)}), "DimLabel", true, w))
+		if String(intel.get("rare", "")) != "":
+			b.add_child(UIK.label(I18n.t("route.scout_rare", {"name": "enemy.%s.name" % intel.rare}), "WarnLabel", true, w))
+		b.add_child(UIK.label(I18n.t("route.scout_hidden", {"n": int(intel.get("hiddenRooms", 0))}), "DimLabel", true, w))
+		var sea := []
+		for e in intel.get("seaKinds", []):
+			sea.append(I18n.t("sea.%s.title" % e.kind) + " " + I18n.pct(float(e.pct)))
+		if sea.size():
+			b.add_child(UIK.label(I18n.t("route.scout_sea", {"list": ", ".join(sea)}), "DimLabel", true, w))
 	if not is_port:
 		b.add_child(UIK.label(I18n.t("route.level") + ": " + I18n.fmt_num(info.level), "WarnLabel" if float(info.level) > _avg_level() + 3.0 else "", true, w))
 	if info.encounters.size():

@@ -1167,6 +1167,148 @@ static func sell_specialty(state: Dictionary, spec_id: String, qty: int) -> Dict
 		return done(price * n))
 
 
+# ============================================================== COLLECTIONS
+static func _grant_collectible(d: Dictionary, id: String) -> Dictionary:
+	var res := Collections.grant(d, id)
+	if bool(res.get("ok", false)) and res.get("revealLocationId") != null:
+		reveal(d, String(res.revealLocationId))
+	return res
+
+
+## Returns the regions and tiers whose bestiary rewards are claimable. The
+## reward itself is only granted by claim_bestiary_reward.
+static func check_bestiary(d: Dictionary) -> Array:
+	var out := []
+	for r in C.REGIONS:
+		for tier in Bestiary.claimable(d, String(r.id)):
+			out.append({"regionId": String(r.id), "tier": int(tier)})
+	return out
+
+
+static func claim_bestiary_reward(state: Dictionary, region_id: String, tier: int) -> Dictionary:
+	return run(state, "bestiary.claim", func(d):
+		var reg = C.region(region_id)
+		if reg == null or not (tier == 50 or tier == 100): return fail("err.unknown")
+		if not d.captain.has("bestiaryRewards"):
+			d.captain.bestiaryRewards = []
+		var key := "%s:%d" % [region_id, int(tier)]
+		if d.captain.bestiaryRewards.has(key): return fail("err.already_claimed")
+		var p := Bestiary.progress(d, region_id)
+		if float(p.defeatedRatio) * 100.0 + 0.0001 < float(tier): return fail("err.not_ready")
+		d.captain.bestiaryRewards.append(key)
+		var t: int = int(reg.tier)
+		var gold_reward: int = 60 * t if tier == 50 else 180 * t
+		var mat_reward: int = 8 * t if tier == 50 else 24 * t
+		var shard_reward: int = 2 if tier == 50 else 6
+		var reward := {"gold": gold_reward, "materials": mat_reward, "shards": shard_reward, "collectibleId": null}
+		gain(d, {"gold": int(reward.gold), "materials": int(reward.materials)})
+		d.inventory.curioShards = int(d.inventory.curioShards) + int(reward.shards)
+		if tier == 100:
+			var cid := _region_reward_collectible(region_id)
+			if cid != "":
+				var res := _grant_collectible(d, cid)
+				reward.collectibleId = cid
+				reward.collectibleNew = bool(res.get("new", false))
+				reward.collectibleShards = int(res.get("shards", 0))
+		note(d, "log.bestiary_claim", {"region": "region." + region_id + ".name", "pct": int(tier)})
+		return done(reward))
+
+
+static func _region_reward_collectible(region_id: String) -> String:
+	var fallback := ""
+	for cid in C.COLLECTIBLES:
+		var rec: Dictionary = C.COLLECTIBLES[cid]
+		if String(rec.get("regionId", "")) != region_id:
+			continue
+		if String(rec.get("kind", "")) == "lore":
+			return String(cid)
+		if String(rec.get("kind", "")) == "relic" and fallback == "":
+			fallback = String(cid)
+	return fallback
+
+
+static func claim_collection_set(state: Dictionary, set_id: String) -> Dictionary:
+	return run(state, "collection.set", func(d):
+		if not C.COLLECTION_SETS.has(set_id): return fail("err.unknown")
+		if not d.captain.has("collectionSets"):
+			d.captain.collectionSets = []
+		if d.captain.collectionSets.has(set_id): return fail("err.already_claimed")
+		if not Collections.set_complete(d, set_id): return fail("err.set_incomplete")
+		d.captain.collectionSets.append(set_id)
+		var bonus: Dictionary = C.COLLECTION_SETS[set_id].get("bonus", {})
+		var gold := int(bonus.get("gold", 0))
+		var materials := int(bonus.get("materials", 0))
+		var shards := int(bonus.get("shards", 0))
+		if gold or materials:
+			gain(d, {"gold": gold, "materials": materials})
+		d.inventory.curioShards = int(d.inventory.curioShards) + shards
+		var item_id = bonus.get("item")
+		if item_id != null and C.ITEMS.has(String(item_id)):
+			add_equipment(d, String(item_id))
+		note(d, "log.set_claim", {"set": "set." + set_id + ".name"})
+		return done({"setId": set_id, "gold": gold, "materials": materials, "shards": shards, "item": item_id}))
+
+
+static func use_chart(state: Dictionary, chart_id: String) -> Dictionary:
+	return run(state, "collection.chart", func(d):
+		if not Collections.owns(d, chart_id): return fail("err.no_chart")
+		if Collections.kind(chart_id) != "chart": return fail("err.no_chart")
+		var rec: Dictionary = C.COLLECTIBLES[chart_id]
+		var loc_id := String(rec.get("locationId", ""))
+		if loc_id == "" or d.world.currentLocationId != loc_id: return fail("err.chart_wrong_place")
+		var inv: Dictionary = d.inventory
+		var owned = inv.collectibles.get(chart_id)
+		if owned is Dictionary and bool(owned.get("used", false)): return fail("err.chart_used")
+		if not (owned is Dictionary):
+			inv.collectibles[chart_id] = {"count": 1, "firstAt": int(d.envelope.gameClock), "used": false}
+		var rows := Collections.chart_rows(d, chart_id)
+		var got := Settle.grant(d, rows, {}, C.location(loc_id))
+		var now = inv.collectibles.get(chart_id)
+		if now is Dictionary:
+			now.used = true
+		note(d, "log.chart_used", {"item": Collections.name_key(chart_id)})
+		return done({"rows": got.rows, "out": got.out}))
+
+
+static func buy_curio(state: Dictionary, curio_id: String) -> Dictionary:
+	return run(state, "port.curio", func(d):
+		var bad = require_port(d)
+		if bad: return bad
+		var offer = null
+		for o in Rules.curio_offers(d, here(d)):
+			if String(o.id) == curio_id:
+				offer = o
+				break
+		if offer == null: return fail("err.not_sold")
+		if Collections.owns(d, curio_id): return fail("err.already_claimed")
+		var c = pay(d, {"gold": int(offer.price)})
+		if c: return c
+		var res := _grant_collectible(d, curio_id)
+		if not bool(res.get("ok", false)): return fail("err.no_collectible")
+		note(d, "log.curio_buy", {"item": Collections.name_key(curio_id)})
+		return done(res))
+
+
+static func exchange_curio(state: Dictionary, curio_id: String) -> Dictionary:
+	return run(state, "port.curio_exchange", func(d):
+		var bad = require_port(d)
+		if bad: return bad
+		var offer = null
+		for o in Rules.curio_exchange(d, here(d)):
+			if String(o.id) == curio_id:
+				offer = o
+				break
+		if offer == null: return fail("err.not_sold")
+		if Collections.owns(d, curio_id): return fail("err.already_claimed")
+		var cost := int(offer.shards)
+		if int(d.inventory.get("curioShards", 0)) < cost: return fail("err.no_shards")
+		d.inventory.curioShards = int(d.inventory.get("curioShards", 0)) - cost
+		var res := _grant_collectible(d, curio_id)
+		if not bool(res.get("ok", false)): return fail("err.no_collectible")
+		note(d, "log.curio_exchange", {"item": Collections.name_key(curio_id)})
+		return done(res))
+
+
 static func accept_quest(state: Dictionary, qid: String) -> Dictionary:
 	return run(state, "port.quest", func(d):
 		var bad = require_port(d)
@@ -1506,6 +1648,33 @@ static func emergency_return(state: Dictionary) -> Dictionary:
 
 
 # ------------------------------------------------------------------- rooms
+## Returns the landing party to the ship without sailing away. Free: no
+## stamina, food or time. Cleared rooms stay cleared for the next landing.
+static func leave_site(state: Dictionary) -> Dictionary:
+	return run(state, "site.leave", func(d):
+		var bad = require_calm(d)
+		if bad: return bad
+		if d.voyage == null: return fail("err.already_docked")
+		if d.voyage.site == null: return fail("err.not_at_site")
+		d.voyage.site = null
+		return done({"aboard": true}))
+
+
+## Puts the party ashore again at the ship's current island, starting from
+## the landing. The mirror of leave_site.
+static func land(state: Dictionary) -> Dictionary:
+	return run(state, "site.land", func(d):
+		var bad = require_calm(d)
+		if bad: return bad
+		if d.voyage == null: return fail("err.already_docked")
+		if d.voyage.site != null: return fail("err.already_ashore")
+		var loc_id := here(d)
+		if C.PORTS.has(loc_id) or C.rooms(loc_id).is_empty():
+			return fail("err.already_docked")
+		d.voyage.site = {"locationId": loc_id, "current": null}
+		return done({"landed": loc_id}))
+
+
 static func room_accessible(d: Dictionary, loc_id: String, room_id: String) -> bool:
 	var rooms: Array = C.rooms(loc_id)
 	var cleared: Array = d.world.locations[loc_id].rooms
@@ -1639,11 +1808,51 @@ static func start_encounter(d: Dictionary, def: Dictionary, context: Dictionary)
 		"stance": d.tactics.stance, "priority": d.tactics.priority, "bonuses": battle_bonuses(d, def),
 		"retreatSecs": def.retreat.escapeSecs if def.get("retreat") != null else 3}
 	d.encounter = {"attemptId": attempt_id, "def": def, "spec": spec, "context": context, "startedAt": d.envelope.gameClock}
+	var region_id := str(def.get("regionId", context.get("regionId", "")))
 	for w in def.waves:
 		for e in w:
-			if not d.codex.enemies.has(e.enemyId):
-				d.codex.enemies[e.enemyId] = {"seen": true, "defeated": 0}
+			codex_see_enemy(d, String(e.enemyId), region_id)
 	return attempt_id
+
+
+## Marks an enemy as seen in the codex and records the region where it was
+## met. Reads from old saves with missing fields without requiring migration.
+static func codex_see_enemy(d: Dictionary, enemy_id: String, region_id: String) -> void:
+	if not d.codex.has("enemies"):
+		d.codex.enemies = {}
+	var rec: Dictionary = d.codex.enemies.get(enemy_id, {})
+	if not (rec is Dictionary):
+		rec = {}
+	rec.seen = true
+	if not rec.has("defeated"):
+		rec.defeated = 0
+	if not rec.has("kills"):
+		rec.kills = int(rec.defeated)
+	if not (rec.get("variants") is Array):
+		rec.variants = []
+	if not (rec.get("regions") is Array):
+		rec.regions = []
+	if region_id != "" and not rec.regions.has(region_id):
+		rec.regions.append(region_id)
+	d.codex.enemies[enemy_id] = rec
+
+
+## Records one defeated enemy in the codex, including its variant and rare
+## status. Summoned units never reach this path (Combat filters them out).
+static func codex_defeat_enemy(d: Dictionary, detail: Dictionary, region_id: String) -> void:
+	var enemy_id := String(detail.get("enemyId", ""))
+	if enemy_id == "":
+		return
+	codex_see_enemy(d, enemy_id, region_id)
+	var rec: Dictionary = d.codex.enemies[enemy_id]
+	rec.defeated = int(rec.get("defeated", 0)) + 1
+	rec.kills = int(rec.get("kills", rec.get("defeated", 1) - 1)) + 1
+	var variant = detail.get("variant")
+	if variant != null and String(variant) != "" and not rec.variants.has(String(variant)):
+		rec.variants.append(String(variant))
+	if bool(detail.get("rare", false)):
+		rec.rareSeen = true
+	d.codex.enemies[enemy_id] = rec
 
 
 static func set_tactics(state: Dictionary, stance: Variant, priority: Variant) -> Dictionary:
@@ -1741,10 +1950,15 @@ static func resolve_encounter(state: Dictionary, attempt_id: String, commands: A
 		var summary := {"attemptId": attempt_id, "outcome": res.outcome, "reason": res.reason, "time": res.time, "context": ctx,
 			"rewards": null, "losses": null, "injured": [], "allyHp": res.allyHp, "hpAvg": hp_avg, "defId": def.id, "kind": def.kind,
 			"ledger": [], "plunder": int(res.get("plunder", 0)), "recruit": {}, "spoils": plan.rows}
-		for id in res.enemiesDefeated:
-			if not d.codex.enemies.has(id):
-				d.codex.enemies[id] = {"seen": true, "defeated": 0}
-			d.codex.enemies[id].defeated = int(d.codex.enemies[id].defeated) + 1
+		var codex_region := str(def.get("regionId", ctx.get("regionId", "")))
+		var details: Array = res.get("enemyDetails", [])
+		if details.is_empty() and res.enemiesDefeated.size() > 0:
+			for id in res.enemiesDefeated:
+				details.append({"enemyId": id, "variant": null, "rare": false})
+		summary.enemies = details
+		for detail in details:
+			codex_defeat_enemy(d, detail, codex_region)
+		check_bestiary(d)
 		var offer := {}
 		if res.outcome == "victory":
 			offer = Settle.recruit_offer(d, enc)

@@ -399,8 +399,117 @@ def plan_ghost(sc, p, pal, kind="ghost"):
         sc.px(x, y - 10, EYE, FLAT)
 
 
+def plan_jelly(sc, p, pal, kind="jelly"):
+    b, l, a = pal["body"], pal["belly"], pal["accent"]
+    x = 16 + p["lunge"] - p["wind"]
+    y = 14 + p["bob"] + (1 if p["step"] is not None and p["step"] % 2 else 0)
+    if p["down"]:
+        sc.ell(16, 26, 9, 3, b)
+        sc.ell(16, 25, 6, 1.5, b, LIGHT)
+        return
+    w = p["wave"]
+    # trailing tentacles
+    for i in range(5):
+        tx = x - 8 + i * 4
+        sway = (w * 2 - 1) * (1 if i % 2 else -1)
+        sc.line(tx, y + 3, tx + sway, y + 10 + (i % 2) * 2, mul(hexrgb(b), 0.78), th=1)
+        if i % 2 == 0:
+            sc.px(tx + sway, y + 11, a, LIGHT)
+    # dome
+    dome_h = 4 if p["open"] else 5
+    sc.ell(x, y, 9, dome_h, b)
+    sc.ell(x + 1, y - 2, 6, 2.2, b, LIGHT)
+    sc.ell(x - 2, y + 2, 7, 2, l)
+    for k in (-5, 0, 5):
+        sc.px(x + k, y - 2, a, SHINE)
+    if kind == "swarm":
+        for k in (-7, -3, 3, 7):
+            sc.px(x + k, y - 4 + (k % 3), a, SHINE)
+    eyes(sc, x - 2, y - 1, p, gap=4, glow=a)
+    if p["open"]:
+        sc.ell(x + 1, y + 2, 2.2, 1.4, (90, 30, 50), FLAT)
+
+
+def plan_ray(sc, p, pal, kind="ray"):
+    b, l, a = pal["body"], pal["belly"], pal["accent"]
+    x = 16 + p["lunge"] - p["wind"]
+    y = 15 + p["bob"]
+    if p["down"]:
+        sc.ell(16, 26, 10, 3, b)
+        sc.ell(16, 25, 6, 1.2, l)
+        eyes(sc, 14, 24, p)
+        return
+    w = p["wave"]
+    spread = 2 if p["open"] else 0
+    sc.poly([(x - 13, y - 1 - w), (x - 2, y - 5), (x + 2, y - 1), (x - 8, y + 4 + w)], mul(hexrgb(b), 0.84), SHADE)
+    sc.poly([(x + 13, y - 1 - w), (x + 2, y - 5), (x - 2, y - 1), (x + 8, y + 4 + w)], b)
+    sc.line(x - 9, y - w, x - 3, y + 1, mul(hexrgb(b), 0.7), FLAT)
+    sc.line(x + 4, y, x + 10, y - w, mul(hexrgb(b), 0.7), FLAT)
+    sc.ell(x, y + 1, 5, 3.5 + spread * 0.3, b)
+    sc.ell(x, y - 1, 3.5, 1.2, b, LIGHT)
+    sc.ell(x, y + 2, 3.5, 1.3, l)
+    sc.line(x - 3, y + 3, x - 7, y + 8 + w * 2, mul(hexrgb(b), 0.8), th=1)
+    sc.px(x - 7, y + 9 + w * 2, a, SHINE)
+    eyes(sc, x - 2, y - 1, p, gap=3, glow=a)
+
+
+def plan_worm(sc, p, pal, kind="worm"):
+    b, l, a = pal["body"], pal["belly"], pal["accent"]
+    x = 16 + p["lunge"] - p["wind"]
+    if p["down"]:
+        for i in range(4):
+            sc.ell(10 + i * 4, 26, 3.5, 2.5, b if i % 2 == 0 else mul(hexrgb(b), 0.88))
+        return
+    sway = p["wave"] if p["step"] is None else (1 if p["step"] % 2 else -1)
+    segs = 5
+    for i in range(segs):
+        t = i / (segs - 1)
+        sx = x - 4 + t * sway * 3
+        sy = 28 - t * (16 + p["bob"])
+        r = 4.2 - t * 1.7
+        sc.ell(sx, sy, r, r, b if i % 2 == 0 else mul(hexrgb(b), 0.88))
+        sc.ell(sx - 1, sy - r * 0.45, r * 0.5, r * 0.28, b, LIGHT)
+        sc.px(sx + r * 0.5, sy - 1, a, SHINE)
+    hx = x - 4 + sway * 3 + (p["lunge"] if p["open"] else 0)
+    hy = 12 - p["bob"]
+    sc.ell(hx, hy, 5.2, 4.6, b)
+    sc.ell(hx - 1, hy - 2, 3, 1.2, b, LIGHT)
+    open_ = 2.4 if p["open"] else 1.2
+    sc.ell(hx + 1, hy + 1, 3.2, open_, (90, 30, 50), FLAT)
+    for k in (-2, 0, 2):
+        sc.px(hx + 1 + k, hy + 1 - open_, (250, 245, 230), FLAT)
+        sc.px(hx + 1 + k, hy + 1 + open_, (250, 245, 230), FLAT)
+    sc.px(hx - 3, hy - 3, a, SHINE)
+
+
+def plan_bird(sc, p, pal, kind="bird"):
+    b, l, a = pal["body"], pal["belly"], pal["accent"]
+    x = 16 + p["lunge"] - p["wind"]
+    y = 15 + p["bob"]
+    if p["down"]:
+        sc.ell(16, 27, 9, 2.5, b)
+        sc.ell(23, 25, 3, 2, b)
+        return
+    w = p["wave"]
+    flap = -3 + w * 5
+    sc.poly([(x - 2, y - 1), (x - 12, y - 6 + flap), (x - 5, y + 3), (x + 1, y + 2)], mul(hexrgb(b), 0.8), SHADE)
+    sc.poly([(x - 5, y + 2), (x - 11, y + 5), (x - 9, y + 6), (x - 4, y + 4)], a, SHADE)
+    sc.ell(x, y, 6, 5, b)
+    sc.ell(x, y + 2, 4.5, 2, l)
+    sc.poly([(x, y - 1), (x + 10, y - 9 + flap), (x + 7, y + 1), (x + 2, y + 3)], b)
+    sc.line(x + 3, y - 1, x + 8, y - 7 + flap, mul(hexrgb(b), 0.7), FLAT)
+    hx = x + 7 + (2 if p["open"] else 0)
+    hy = y - 6
+    sc.ell(hx, hy, 3.8, 3.4, b)
+    sc.poly([(hx + 2, hy - 1), (hx + 7, hy + 1), (hx + 2, hy + 2)], "#e8b040")
+    for k in (-4, 0, 4):
+        sc.px(hx + k, hy - 4, a, SHINE)
+    eyes(sc, hx - 1, hy - 2, p, gap=3, glow=a)
+
+
 PLANS = {"crab": plan_crab, "golem": plan_golem, "imp": plan_imp, "beast": plan_beast, "plant": plan_plant,
-         "serpent": plan_serpent, "ghost": plan_ghost}
+         "serpent": plan_serpent, "ghost": plan_ghost, "jelly": plan_jelly, "ray": plan_ray, "worm": plan_worm,
+         "bird": plan_bird}
 
 
 def pal(body, belly, accent, **kw):
@@ -446,6 +555,68 @@ BOSSES = {
     "colossus_core": ("golem", pal("#5f9a8a", "#9ac8b8", "#9ef0d0"), {"kind": "core"}),
     "gate_warden": ("golem", pal("#e8e0d0", "#fff3c4", "#e08a4a"), {"kind": "knight"}),
     "compass_guardian": ("golem", pal("#a87a3a", "#f2b84a", "#fff3c4"), {"kind": "brass"}),
+}
+
+# Expansion bestiary (game/data/bestiary.json). Palettes are keyed by region so
+# the same body plan reads as a different creature in every sea.
+EXPANSION_MONSTERS = {
+    "tide_jelly": ("jelly", pal("#6fb8d8", "#d8f4ff", "#ffd76a"), {}),
+    "shoal_ray": ("ray", pal("#5aa8d8", "#d8f0ff", "#2a7a9a"), {}),
+    "brine_worm": ("worm", pal("#7aa898", "#d8e8d8", "#ffd76a"), {}),
+    "cinder_jelly": ("jelly", pal("#d8683a", "#ffc890", "#ffe066"), {}),
+    "magma_ray": ("ray", pal("#c8543a", "#ffb080", "#ffd060"), {}),
+    "ash_worm": ("worm", pal("#8a6a5a", "#c8b0a0", "#ff7a3a"), {}),
+    "spore_jelly": ("jelly", pal("#7ab84a", "#d8f0a0", "#f07aa0"), {}),
+    "canopy_ray": ("ray", pal("#4a9a4a", "#c8e898", "#f0d060"), {}),
+    "mire_worm": ("worm", pal("#5a7a3a", "#b0c890", "#c6e86b"), {}),
+    "prism_jelly": ("jelly", pal("#a8d8f0", "#ffffff", "#7af0f0"), {}),
+    "shard_ray": ("ray", pal("#9fd3e6", "#ffffff", "#7af0f0"), {}),
+    "glass_worm": ("worm", pal("#b8d8d8", "#e8f8f8", "#ffffff"), {}),
+    "coin_jelly": ("jelly", pal("#e8c060", "#fff3c4", "#ffffff"), {}),
+    "gilded_ray": ("ray", pal("#e8b040", "#fff3c4", "#c88a30"), {}),
+    "vault_worm": ("worm", pal("#a8904a", "#e8d8a0", "#f0c048"), {}),
+    "storm_jelly": ("jelly", pal("#5a6ab0", "#aab8ff", "#ffe066"), {}),
+    "squall_ray": ("ray", pal("#6a7aa8", "#c8d0f0", "#ffe066"), {}),
+    "thunder_worm": ("worm", pal("#6a6a8a", "#b0b0d0", "#ffe066"), {}),
+    "dream_jelly": ("jelly", pal("#9a8ad8", "#e0d8ff", "#fff3c4"), {}),
+    "moon_ray": ("ray", pal("#b0a8e0", "#f0e8ff", "#ffffff"), {}),
+    "nightmare_worm": ("worm", pal("#6a5a8a", "#b0a0d0", "#ff8aa0"), {}),
+    "abyss_jelly": ("jelly", pal("#8a98a8", "#d8e0e8", "#ff8a7a"), {}),
+    "pale_ray": ("ray", pal("#c8d0d8", "#f0f4f8", "#ff9a8a"), {}),
+    "trench_worm": ("worm", pal("#5a6068", "#a0a8b0", "#ff7a5a"), {}),
+    "leviathan_jelly": ("jelly", pal("#4a9a8a", "#a8e0d0", "#ffe066"), {}),
+    "reef_ray": ("ray", pal("#5ab0a0", "#c8f0e0", "#e8c060"), {}),
+    "shell_worm": ("worm", pal("#7a9a7a", "#c8e0b8", "#e8c060"), {}),
+    "star_jelly": ("jelly", pal("#e890a8", "#ffd8e0", "#fff3c4"), {}),
+    "horizon_ray": ("ray", pal("#f0a8b8", "#fff0f4", "#ffd76a"), {}),
+    "dawn_worm": ("worm", pal("#c8a080", "#f0dcc0", "#fff3c4"), {}),
+    "swarmling": ("jelly", pal("#b8a84a", "#e8dca0", "#d84a3a"), {"kind": "swarm"}),
+}
+
+EXPANSION_BOSSES = {
+    "harbor_leviathan": ("serpent", pal("#3a6a9a", "#9ad8e8", "#ffe066", pool="#1f4a6a"), {"kind": "eel"}),
+    "magma_hydra": ("serpent", pal("#8a3a2a", "#ff8a4a", "#ffd060", pool="#5a2a1a"), {"kind": "eel"}),
+    "spore_matriarch": ("plant", pal("#3a7a3a", "#8ad06a", "#f07aa0"), {"kind": "trap"}),
+    "prism_serpent": ("serpent", pal("#8ac8e8", "#e8f8ff", "#7af0f0", pool="#5a9ab8"), {"kind": "eel"}),
+    "gilded_kraken": ("crab", pal("#c8a040", "#f2dfa7", "#fff3c4"), {"crown": True}),
+    "thunder_roc": ("bird", pal("#4a5f8a", "#a8b8e8", "#ffe066"), {"kind": "bird"}),
+    "dream_eater": ("ghost", pal("#5a4a8a", "#a89ae0", "#ff8aa0"), {"kind": "eye"}),
+    "void_angler": ("serpent", pal("#3a2a40", "#5a4050", "#ff5a4a", pool="#221d28"), {"kind": "abyss"}),
+    "world_serpent": ("serpent", pal("#2f7a6a", "#8ae0c8", "#e8c060", pool="#1a4a40"), {"kind": "eel"}),
+    "dawn_titan": ("golem", pal("#d8b878", "#fff3c4", "#ffb060"), {"kind": "brass"}),
+}
+
+EXPANSION_RARES = {
+    "golden_crab": ("crab", pal("#e0b040", "#fff0b0", "#ffffff"), {"crown": True}),
+    "cinder_moth": ("imp", pal("#d85a3a", "#ffb060", "#ffe066"), {"kind": "wisp"}),
+    "elder_mossback": ("beast", pal("#4a7a3a", "#9ac87a", "#d8e8a0"), {"kind": "cat"}),
+    "mirror_ray": ("ray", pal("#c8e8f0", "#ffffff", "#7af0f0"), {}),
+    "coin_drake": ("serpent", pal("#c8a040", "#f2dfa7", "#fff3c4", pool="#8a6a2a"), {"kind": "eel"}),
+    "storm_roc": ("bird", pal("#5a6aa8", "#c8d0f0", "#ffe066"), {"kind": "bird"}),
+    "lunar_moth": ("imp", pal("#8a7ac8", "#d8c8ff", "#fff3c4"), {"kind": "wisp"}),
+    "pale_angler": ("serpent", pal("#b8c0c8", "#e8eef2", "#ff8a7a", pool="#5a6068"), {"kind": "abyss"}),
+    "island_whale": ("serpent", pal("#5a7a8a", "#b8d8e0", "#e8c060", pool="#2f4a5a"), {"kind": "eel"}),
+    "aurora_wyrm": ("serpent", pal("#4a8a8a", "#a8f0d8", "#ffd76a", pool="#2a6a6a"), {"kind": "eel"}),
 }
 
 
@@ -610,8 +781,10 @@ def draw_pet(sc, p, fam, role, evo):
 
 def build():
     content = json.loads((GAME / "data" / "content.json").read_text())
-    mon, mon_atlas = pack(render_rows(MONSTERS, 32, 1.0, (16, 29)), 32, "monsters")
-    boss, boss_atlas = pack(render_rows(BOSSES, 48, 1.5, (24, 45)), 48, "bosses")
+    all_monsters = {**MONSTERS, **EXPANSION_MONSTERS, **EXPANSION_RARES}
+    all_bosses = {**BOSSES, **EXPANSION_BOSSES}
+    mon, mon_atlas = pack(render_rows(all_monsters, 32, 1.0, (16, 29)), 32, "monsters")
+    boss, boss_atlas = pack(render_rows(all_bosses, 48, 1.5, (24, 45)), 48, "bosses")
     pet_strips = {}
     for sid, sp in content["PET_SPECIES"].items():
         fam = PET_FAMILIES[sp["familyId"]]

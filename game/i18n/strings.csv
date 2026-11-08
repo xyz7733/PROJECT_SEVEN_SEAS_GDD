@@ -1,8 +1,16 @@
 keys,en,zh_CN
+affix.beastbane.name,Beastbane,克兽
+affix.fleet.name,Fleet,疾行
+affix.gilded.name,Gilded,鎏金
+affix.hunter.name,Hunter,猎手
 affix.keen.name,Keen,锋利的
 affix.mighty.name,Mighty,强力的
+affix.runed.name,Runed,符文
+affix.scavenger.name,Scavenger,拾荒
+affix.stormbound.name,Stormbound,缚雷
 affix.sturdy.name,Sturdy,坚固的
 affix.swift.name,Swift,迅捷的
+affix.tideward.name,Tideward,潮护
 affix.warded.name,Warded,护佑的
 aid.meal,Free meal,免费餐食
 aid.meal.desc,Enough food for the next leg when you cannot afford it.,负担不起时，提供下一段航程所需的食物。
@@ -87,8 +95,11 @@ archetype.captain,Captain,船长
 archetype.caster,Caster,施法者
 archetype.decoy,Decoy,诱饵
 archetype.healer,Healer,治疗者
+archetype.lurker,Lurker,潜伏者
 archetype.shooter,Shooter,射手
 archetype.skirmisher,Skirmisher,游击者
+archetype.swarm,Swarm,虫群
+archetype.warden,Warden,守卫
 battle.allies,Your crew,我方船员
 battle.basic_attack,Attack,攻击
 battle.boarding,Boarding battle,接舷战
@@ -170,6 +181,57 @@ battle.title_room,{room} · {location},{room} · {location}
 battle.title_sea,{kind} near {location},{location}附近：{kind}
 battle.wave,Wave {n}/{max},第 {n}/{max} 波
 battle.winding,Winding up {skill} ({n}s),正在蓄力 {skill}（{n} 秒）
+bestiary.abyss_jelly.lore,"No light reaches it, so it makes its own.",没有光能到达它，于是它自己造光。
+bestiary.ash_worm.lore,Its rings are packed with ash from a hundred burned fleets.,体环里塞满上百支被焚舰队的灰。
+bestiary.aurora_wyrm.lore,Its wake is a ribbon of colour across a sky that has no night.,它的尾迹是在没有夜晚的天空上划过的彩色缎带。
+bestiary.brine_worm.lore,A segmented bulk that reshapes the wreck it nests in. The hull learned to fear it.,分节的巨躯把栖身的沉船挤得变形，船骨学会了怕它。
+bestiary.canopy_ray.lore,"It hunts beneath the mangrove canopy, where the water is green and blind.",它在红树林冠下狩猎，那里的水是绿色而盲目的。
+bestiary.cinder_jelly.lore,A jelly lit from within by a coal that refuses to go out.,体内燃着一块不肯熄灭的炭火。
+bestiary.cinder_moth.lore,"Its wings are made of cooled ash. Where it lands, the wood remembers fire.",双翼由冷却的灰烬构成。它落过的地方，木头会记起火焰。
+bestiary.coin_drake.lore,"A serpent that hoards coins it cannot spend, in a nest it cannot leave.",一条囤积着花不出去的金币、守着一座离不开的巢的蛇。
+bestiary.coin_jelly.lore,It has swallowed so many coins that its bell rings when it moves.,吞下太多金币，移动时伞盖会叮当作响。
+bestiary.dawn_titan.lore,It was old when the first ship was built. It is still waiting at the gate.,第一艘船造好时它已古老。它仍在门前等待。
+bestiary.dawn_worm.lore,Its rings are the colour of a sunrise seen from below the sea.,体环是自海底仰望日出的颜色。
+bestiary.dream_eater.lore,"It has no face of its own, so it borrows the face of whoever is dreaming.",它没有自己的脸，于是借用每一个做梦者的脸。
+bestiary.dream_jelly.lore,"It drifts through sleep, and sleep drifts through it.",它穿过梦，梦也穿过它。
+bestiary.elder_mossback.lore,A beast so old that a forest has taken root on its back.,一头老到背上长出一片森林的巨兽。
+bestiary.gilded_kraken.lore,It wears the treasury it swallowed. Every coin is a scale.,它穿着自己吞下的宝库，每一枚金币都是一片鳞。
+bestiary.gilded_ray.lore,Its underside is plated with stolen leaf and coin.,它的腹面镶满偷来的金箔与钱币。
+bestiary.glass_worm.lore,A living tube of clear glass. You see your own blood move inside it.,一截活着的透明玻璃管。你能看见自己的血在里面流动。
+bestiary.golden_crab.lore,A crab whose shell grew rich on shipwreck gold. It has never once been caught.,一只靠沉船金子养出金壳的蟹，从未被真正抓住。
+bestiary.harbor_leviathan.lore,"It has slept beneath the harbour for a hundred years, and the harbour has learned to sleep around it.",它在港湾之下沉睡百年，整座港湾都学会了绕着它入眠。
+bestiary.horizon_ray.lore,It leaps farther than the eye can follow and lands on the other side of the light.,它跃得比目光更远，落在光的另一侧。
+bestiary.island_whale.lore,Sailors have charted it as an island three times.,水手已经三次把它标成岛屿。
+bestiary.leviathan_jelly.lore,"A bell the size of a chapel, drifting with the world serpent's pulse.",一座礼拜堂大小的伞盖，随世界海蛇的脉搏漂流。
+bestiary.lunar_moth.lore,Its wings hold the last light of a moon that set long ago.,双翼盛着一轮早已落下的月亮的最后的光。
+bestiary.magma_hydra.lore,Cut one head from the molten dark and two more rise to take its place.,从熔岩的黑暗里斩下一颗头，会有两颗新的升起来。
+bestiary.magma_ray.lore,It swims through molten stone as if the sea were only a rumour.,它在熔石中游动，仿佛海水只是一个传闻。
+bestiary.mire_worm.lore,The swamp closes over its back and calls it ground.,沼泽合拢在它背上，把它当作地面。
+bestiary.mirror_ray.lore,"A ray with no colour of its own, only the sea it borrows.",没有自己颜色的鳐，只映出它借来的海。
+bestiary.moon_ray.lore,Its wings are the colour of a cloud crossing the moon.,双翼是云穿过月亮时的颜色。
+bestiary.nightmare_worm.lore,It burrows through the space behind closed eyes.,它在闭上的眼睛后面的空间里掘进。
+bestiary.pale_angler.lore,A deep angler that has eaten so much light it has become pale.,一条吃了太多光的深海鮟鱇，自己变得苍白。
+bestiary.pale_ray.lore,"It has no shadow, because nothing down here casts one.",它没有影子，因为这里没有什么能投下影子。
+bestiary.prism_jelly.lore,"Seven colours drift inside it, none of them its own.",七种颜色在它体内漂浮，没有一种属于它。
+bestiary.prism_serpent.lore,Its scales are mirrors. Look too long and you will see yourself losing.,鳞片是镜子。看得太久，你会看见自己落败的样子。
+bestiary.reef_ray.lore,"It carries a reef on its back, and the reef carries hunters.",它背上驮着礁石，礁石上驮着猎手。
+bestiary.shard_ray.lore,It is not one animal but a school of glass splinters keeping a shape.,它不是一只动物，而是一群维持着形状的玻璃碎片。
+bestiary.shell_worm.lore,Its shell is made of the plates of things that tried to eat it.,它的壳由试图吃掉它的东西的甲片拼成。
+bestiary.shoal_ray.lore,"It glides a hand's breadth above the seabed, wings silent, eyes never closing.",它贴着海床滑行，翼无声，眼不闭。
+bestiary.spore_jelly.lore,A breathing cloud of spores shaped like a bell. It is never alone.,一团钟形的呼吸孢子云。它从不孤单。
+bestiary.spore_matriarch.lore,Every breath in the Maw carries her children. Every wreck is her nursery.,翠喉的每一口气都带着她的子嗣，每一艘沉船都是她的育婴房。
+bestiary.squall_ray.lore,"It rides the underside of waves, faster than the wind above.",它贴着浪底滑翔，比上方的风更快。
+bestiary.star_jelly.lore,"A jelly full of small lights, each one a place it has never been.",一只装满小光点的水母，每一点都是它未曾到过的地方。
+bestiary.storm_jelly.lore,Its bell is a thunderhead. Its tendrils are rain that stings.,伞盖是一团雷云，触须是会蜇人的雨。
+bestiary.storm_roc.lore,A younger roc with a longer temper and a shorter memory.,一头更年轻的巨鹏，脾气更长，记性更短。
+bestiary.swarmling.lore,A palm-sized hunter that only feels brave in a crowd.,掌心大小的猎手，只有在成群时才觉得勇敢。
+bestiary.thunder_roc.lore,It nests in the eye of the storm and has never touched the sea.,它筑巢于风暴之眼，从未触碰过海面。
+bestiary.thunder_worm.lore,"Each segment holds a charge. When it dies, the storm gets it back.",每一节都蓄着电。它死去时，风暴会收回这些电。
+bestiary.tide_jelly.lore,A drifting bell of translucent flesh. Its sting lingers long after the light fades.,半透明的钟形身躯随潮漂流，螫伤在光芒消失后仍会作痛。
+bestiary.trench_worm.lore,It is longer than the wreck it circles and older than the trench.,它比它环绕的沉船更长，比海沟更古老。
+bestiary.vault_worm.lore,It nests inside a sunken vault and wears the door as a crown.,它筑巢于沉没的金库，把库门当作王冠。
+bestiary.void_angler.lore,Its lure is a small sun. The dark around it is not empty.,它的诱灯是一颗小太阳。它周围的黑暗并不空。
+bestiary.world_serpent.lore,The ring is its body. The currents are its breath. The sea is its dream.,环礁是它的身体，洋流是它的呼吸，海是它的梦。
 blueprint.legend_keel,Legend Keel blueprint,传说龙骨蓝图
 cat.control,Control,控制
 cat.damage,Damage,伤害
@@ -276,23 +338,39 @@ clue.pet.shellwarden,"Shellwarden notes: green, blue, green hatches a Prime ship
 clue.pet.starwake,"Starwake notes: white, yellow, purple hatches a Prime explorer. All signatures are now in the Pet Lab.",星痕笔记：按白、黄、紫的顺序喂养，可完美孵化出探索者。全部特征序列已记录在宠物研究室。
 clue.pet.tidefin,"Tidefin notes: red, blue, blue hatches a Prime companion. All signatures are now in the Pet Lab.",潮鳍笔记：按红、蓝、蓝的顺序喂养，可完美孵化出伙伴。全部特征序列已记录在宠物研究室。
 codex.arc,Main arc,主线
+codex.bestiary_claim_100,Claim 100% reward,领取 100% 奖励
+codex.bestiary_claim_50,Claim 50% reward,领取 50% 奖励
+codex.bestiary_region,"{region}: {seen}/{total} seen, {defeated} defeated",{region}：已见 {seen}/{total}，已击败 {defeated}
 codex.blueprints,Blueprints,蓝图
 codex.boss,Boss,首领
 codex.captain,{title} · trials won {n},{title} · 赢得试炼 {n} 次
 codex.classes_hint,Classes appear once a crew member trains in them.,有船员修习某个职业后，它才会出现在这里。
+codex.collection_chart_here,You must be at {place}.,必须位于{place}。
+codex.collection_chart_used,Chart already used,海图已使用
+codex.collection_charts,Charts,海图
+codex.collection_claim,Claim reward,领取奖励
+codex.collection_claimed,Claimed,已领取
+codex.collection_incomplete,Not yet complete,尚未集齐
+codex.collection_progress,{n} / {max} collected,已收集 {n} / {max}
+codex.collection_sets,Sets,套装
+codex.collection_shards,Curio shards: {n},古物碎片：{n}
+codex.collection_use_chart,Use chart here,在此使用海图
 codex.defeated,Defeated {n},已击败 {n}
 codex.family,Family,族群
 codex.hatch_hint,Every hatch is recorded: the same family and input order give the same pet.,每次孵化都会被记录：同一族群、同样的投入顺序，会孵出同样的宠物。
 codex.hatch_log,Hatch log,孵化记录
 codex.hazard,Hazard,环境危害
 codex.items_seen,Items seen,见过的物品
+codex.kills,{n} kills,击杀 {n} 次
 codex.mechanic,Battle rule,战斗规则
 codex.no_clues,No clues found yet.,还没有找到线索。
+codex.no_collectibles,No pieces collected yet.,尚未收集到任何藏品。
 codex.no_hatches,No hatches recorded yet.,还没有孵化记录。
 codex.none,Nothing yet.,暂无。
 codex.none_value,—,—
 codex.order,Input order,投入顺序
 codex.pet_family,Pet family,宠物族群
+codex.rare_enemy,Rare,稀有
 codex.recipe_cost,{n} materials · {k} {item},{n} 材料 · {k} 个{item}
 codex.recipe_known,Known,已知
 codex.recipes,Recipes,配方
@@ -301,6 +379,7 @@ codex.result,Result,结果
 codex.rival,Rival captain,对手船长
 codex.tab_classes,Classes,职业
 codex.tab_clues,Clues,线索
+codex.tab_collections,Collections,收集册
 codex.tab_enemies,Enemies,敌人
 codex.tab_items,Items,物品
 codex.tab_locations,Seas,海域
@@ -314,6 +393,171 @@ codex.unknown_class,Unknown class,未知职业
 codex.unknown_enemy,Unknown enemy,未知敌人
 codex.unknown_location,Uncharted,未标记
 codex.unknown_pet,Unknown,未知
+codex.variant_badge,Variant: {name},变体：{name}
+collectible.chart_ashen_trench.desc,A chart marking a wreck in the Ashen Trench. Use it at the site to open the stash.,标出灰烬海沟一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_ashen_trench.name,Chart of Ashen Trench,灰烬海沟海图
+collectible.chart_crown_shoals.desc,A chart marking a wreck in the Crown Shoals. Use it at the site to open the stash.,标出王冠浅滩一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_crown_shoals.name,Chart of Crown Shoals,王冠浅滩海图
+collectible.chart_dawnwater.desc,A chart marking a wreck in the Dawnwater. Use it at the site to open the stash.,标出晨水湾一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_dawnwater.name,Chart of Dawnwater,晨水湾海图
+collectible.chart_emberreach.desc,A chart marking a wreck in the Emberreach. Use it at the site to open the stash.,标出烬火峡一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_emberreach.name,Chart of Emberreach,烬火峡海图
+collectible.chart_glass_current.desc,A chart marking a wreck in the Glass Current. Use it at the site to open the stash.,标出玻璃洋流一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_glass_current.name,Chart of Glass Current,玻璃洋流海图
+collectible.chart_grand_horizon.desc,A chart marking a wreck in the Grand Horizon. Use it at the site to open the stash.,标出大天际一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_grand_horizon.name,Chart of Grand Horizon,大天际海图
+collectible.chart_leviathan_ring.desc,A chart marking a wreck in the Leviathan Ring. Use it at the site to open the stash.,标出利维坦环一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_leviathan_ring.name,Chart of Leviathan Ring,利维坦环海图
+collectible.chart_moonwake.desc,A chart marking a wreck in the Moonwake. Use it at the site to open the stash.,标出月醒海一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_moonwake.name,Chart of Moonwake,月醒海海图
+collectible.chart_stormbelt.desc,A chart marking a wreck in the Stormbelt. Use it at the site to open the stash.,标出风暴带一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_stormbelt.name,Chart of Stormbelt,风暴带海图
+collectible.chart_verdant_maw.desc,A chart marking a wreck in the Verdant Maw. Use it at the site to open the stash.,标出翠喉一处沉船的海图。抵达该处后使用可打开藏宝。
+collectible.chart_verdant_maw.name,Chart of Verdant Maw,翠喉海图
+collectible.curio_ashen_trench_1.desc,An ingot that drinks lamplight and gives back nothing.,一块吸走灯光却什么也不返还的合金。
+collectible.curio_ashen_trench_1.name,Pale Alloy Ingot,苍白合金锭
+collectible.curio_crown_shoals_1.desc,A shell plated in gold by a jeweller with more money than sense.,被一位钱多过脑的珠宝匠镀成金色的贝壳。
+collectible.curio_crown_shoals_1.name,Gilded Shell,鎏金贝壳
+collectible.curio_dawnwater_1.desc,A smooth bead worn by dock children for luck.,码头孩子佩戴的光滑珠子，据说能带来好运。
+collectible.curio_dawnwater_1.name,Saltglass Bead,盐玻璃珠
+collectible.curio_emberreach_1.desc,"A flower of cooled slag, prized by collectors for its colour.",冷却矿渣凝成的花，因色泽奇异而受收藏家追捧。
+collectible.curio_emberreach_1.name,Slag Rosette,矿渣玫瑰
+collectible.curio_glass_current_1.desc,A marble that splits sunlight into seven thin blades.,把阳光劈成七道细刃的弹珠。
+collectible.curio_glass_current_1.name,Prism Marble,棱镜弹珠
+collectible.curio_grand_horizon_1.desc,It splits dawn into colours no sailor has named.,把黎明拆成水手尚未命名的颜色。
+collectible.curio_grand_horizon_1.name,First Light Prism,初光棱镜
+collectible.curio_leviathan_ring_1.desc,A tooth worn smooth by a hundred years of tide.,被百年潮水磨得光滑的牙。
+collectible.curio_leviathan_ring_1.name,Leviathan Tooth,利维坦之牙
+collectible.curio_moonwake_1.desc,A pearl that grows heavier with every nightmare it eats.,每吞下一个噩梦就重一分的珍珠。
+collectible.curio_moonwake_1.name,Sleeping Pearl,沉睡珍珠
+collectible.curio_stormbelt_1.desc,A glass eye that clouds before lightning strikes.,闪电落下前会起雾的玻璃眼。
+collectible.curio_stormbelt_1.name,Stormglass Eye,风暴玻璃眼
+collectible.curio_verdant_maw_1.desc,A seedpod that glows faintly when held to the ear.,贴近耳边时会发出微光的种荚。
+collectible.curio_verdant_maw_1.name,Amber Seedpod,琥珀种荚
+collectible.lore_ashen_trench_1.desc,A door at the bottom of the trench is sealed from the inside.,海沟底部的门，是从里面封住的。
+collectible.lore_ashen_trench_1.name,The Sealed Door,封印之门
+collectible.lore_crown_shoals_1.desc,The founding families bought the shoals with a promise they never intended to keep.,创始家族用一句从未打算兑现的承诺买下了浅滩。
+collectible.lore_crown_shoals_1.name,The Family Debt,家族债
+collectible.lore_crown_shoals_2.desc,The old crypt is said to hold a coin that always returns.,据说旧墓穴里有一枚总会回到主人手中的硬币。
+collectible.lore_crown_shoals_2.name,A Coin for the Ferryman,摆渡人的硬币
+collectible.lore_dawnwater_1.desc,The first settlers found a sheltered bay and swore the tide would never take it.,最初的定居者发现了一处避风湾，并立誓不让潮水夺走它。
+collectible.lore_dawnwater_1.name,The First Landing,初次登陆
+collectible.lore_dawnwater_2.desc,A drowned cartographer's last map showed a route no living sailor remembers.,一位溺亡制图师的最后一张海图，标着无人记得的航路。
+collectible.lore_dawnwater_2.name,A Chart in the Rain,雨中的海图
+collectible.lore_emberreach_1.desc,Miners followed a singing vent and found a cavern full of molten glass.,矿工追随歌唱的喷口，发现了一座装满熔玻璃的洞窟。
+collectible.lore_emberreach_1.name,The Vent That Sang,歌唱的喷口
+collectible.lore_emberreach_2.desc,"The old forge clans buried their dead with hammers, not coins.",古老的锻造氏族用锤子而非钱币陪葬。
+collectible.lore_emberreach_2.name,Ash and Iron,灰与铁
+collectible.lore_glass_current_1.desc,Sailors say a fleet of glass ships once crossed the Current and vanished.,水手说，一支玻璃船队曾横渡洋流，随后消失。
+collectible.lore_glass_current_1.name,The Fleet of Mirrors,镜之舰队
+collectible.lore_glass_current_2.desc,The refraction queen keeps every reflection she has ever stolen.,折射女王收藏着她偷走的所有倒影。
+collectible.lore_glass_current_2.name,The Queen's Reflection,女王的倒影
+collectible.lore_grand_horizon_1.desc,"Beyond the horizon gate, the sea ends and something else begins.",天际门之后，海结束，别的东西开始。
+collectible.lore_grand_horizon_1.name,The Last Gate,最后之门
+collectible.lore_leviathan_ring_1.desc,The ring is not a reef; it is the ribs of something older than the sea.,环礁不是礁，是比海更古老之物的肋骨。
+collectible.lore_leviathan_ring_1.name,The Ring of Bones,骸骨之环
+collectible.lore_moonwake_1.desc,The observatory charts a sky that does not exist above the sea.,天文台描绘着一片海面上不存在的星空。
+collectible.lore_moonwake_1.name,The Observatory Below,地下天文台
+collectible.lore_stormbelt_1.desc,Three keepers drowned; the beacon still burns.,三任守塔人溺亡，灯塔仍在燃烧。
+collectible.lore_stormbelt_1.name,The Beacon That Would Not Die,不灭的灯塔
+collectible.lore_stormbelt_2.desc,"A captain's log written in one hand, then another, then another.",一本船长日志，先是几种笔迹，最后只剩一种。
+collectible.lore_stormbelt_2.name,Squall's Log,飑风日志
+collectible.lore_verdant_maw_1.desc,"A galleon swallowed by the jungle, its cannon now a planter.",一艘被丛林吞没的大帆船，火炮成了花盆。
+collectible.lore_verdant_maw_1.name,The Green Wreck,绿色沉船
+collectible.lore_verdant_maw_2.desc,The roots remember every sailor who fell in the Maw.,根须记得每一个倒在翠喉的水手。
+collectible.lore_verdant_maw_2.name,What the Roots Remember,根的记忆
+collectible.relic_abyss_ring.desc,Cold iron from a trench that has never seen daylight.,取自从未见过日光的海沟的冷铁。
+collectible.relic_abyss_ring.name,Abyss Ring,深渊指环
+collectible.relic_cinder_lens.desc,Smoke-grey glass that reveals the weak points in armour.,烟灰色的镜片，能映出甲胄的薄弱处。
+collectible.relic_cinder_lens.name,Cinder Lens,煤烬透镜
+collectible.relic_crown_coin.desc,A coin stamped on both sides with the same face.,两面都铸着同一张脸的硬币。
+collectible.relic_crown_coin.name,Crown Coin,王冠币
+collectible.relic_dawnglass.desc,A pane of glass that holds the first light of morning.,盛着清晨第一缕光的玻璃片。
+collectible.relic_dawnglass.name,Dawnglass,黎明玻璃
+collectible.relic_dream_marble.desc,A marble that rolls uphill when no one watches.,没人看时会向坡上滚的弹珠。
+collectible.relic_dream_marble.name,Dream Marble,梦弹珠
+collectible.relic_ember_lodestone.desc,"Warm to the touch, it pulls blades toward an enemy's guard.",触手温热，能把刀锋引向敌人的破绽。
+collectible.relic_ember_lodestone.name,Ember Lodestone,烬火磁石
+collectible.relic_forge_ember.desc,An ember that has outlived every forge in the Reach.,一粒比烬火峡所有锻炉都活得久的余烬。
+collectible.relic_forge_ember.name,Forge Ember,锻炉余烬
+collectible.relic_gilded_seal.desc,The seal of a merchant house that no longer exists.,一个已不存在的商会的印玺。
+collectible.relic_gilded_seal.name,Gilded Seal,鎏金印玺
+collectible.relic_harbor_bell.desc,Its ring once guided fishing boats home through the fog.,铃声曾在浓雾中指引渔船归港。
+collectible.relic_harbor_bell.name,Harbor Bell,港湾铜铃
+collectible.relic_horizon_compass.desc,It points at the place where the sun is always rising.,它指向太阳永远升起的地方。
+collectible.relic_horizon_compass.name,Horizon Compass,天际罗盘
+collectible.relic_leviathan_pearl.desc,"A pearl the size of a fist, heavy with drowned songs.",拳头大的珍珠，盛满溺亡者的歌。
+collectible.relic_leviathan_pearl.name,Leviathan Pearl,利维坦珍珠
+collectible.relic_mirror_sail.desc,A scrap of sailcloth that reflects the sea instead of the sky.,一块映海而不映天的帆布。
+collectible.relic_mirror_sail.name,Mirror Sail,镜帆
+collectible.relic_moon_lantern.desc,It burns with a light that only dreamers can see.,它燃烧着只有做梦者能看见的光。
+collectible.relic_moon_lantern.name,Moon Lantern,月灯
+collectible.relic_pale_compass.desc,"Its needle points down, always down.",指针永远向下，向下。
+collectible.relic_pale_compass.name,Pale Compass,苍白罗盘
+collectible.relic_prism_sextant.desc,"It measures the angle of light, not the stars.",它测量的是光的夹角，而非星辰。
+collectible.relic_prism_sextant.name,Prism Sextant,棱镜六分仪
+collectible.relic_refraction_shard.desc,A shard that shows a different horizon in each facet.,每一面都映出不同地平线的碎片。
+collectible.relic_refraction_shard.name,Refraction Shard,折射碎片
+collectible.relic_rootheart_seed.desc,"Still warm, still waiting for soil.",仍有余温，仍在等待土壤。
+collectible.relic_rootheart_seed.name,Rootheart Seed,根心种子
+collectible.relic_saltglass_prism.desc,"A cloudy prism that turns sea light into a warm, steady glow.",浑浊的棱镜，把海光折成温暖而稳定的微光。
+collectible.relic_saltglass_prism.name,Saltglass Prism,盐玻璃棱镜
+collectible.relic_scale_talisman.desc,"A scale from the world serpent, still warm.",世界海蛇的一片鳞，仍有余温。
+collectible.relic_scale_talisman.name,Scale Talisman,鳞片护符
+collectible.relic_silk_ledger.desc,Every debt written in it is still owed.,写在上面的每一笔债，至今仍有人偿还。
+collectible.relic_silk_ledger.name,Silk Ledger,丝绸账本
+collectible.relic_sporeglass_vial.desc,A vial of glowing spores that never settle.,一瓶永不停歇的发光孢子。
+collectible.relic_sporeglass_vial.name,Sporeglass Vial,孢子玻璃瓶
+collectible.relic_squall_glass.desc,A stormglass that fills with lightning instead of crystals.,一块装满闪电而非晶体的风暴玻璃。
+collectible.relic_squall_glass.name,Squall Glass,飑风玻璃
+collectible.relic_storm_anchor.desc,An anchor that has held through nine typhoons.,曾扛过九场台风的老锚。
+collectible.relic_storm_anchor.name,Storm Anchor,风暴锚
+collectible.relic_thornwood_idol.desc,A small idol carved from a tree that grew through a shipwreck.,用穿透沉船生长的树木雕成的小神像。
+collectible.relic_thornwood_idol.name,Thornwood Idol,棘木神像
+collectible.relic_thunder_feather.desc,A feather that crackles before every storm.,每场风暴来临前都会噼啪作响的羽毛。
+collectible.relic_thunder_feather.name,Thunder Feather,雷霆羽
+collectible.relic_tide_compass.desc,A brass compass that always points toward the nearest safe harbour.,黄铜罗盘，总是指向最近的安全港湾。
+collectible.relic_tide_compass.name,Tide Compass,潮汐罗盘
+collectible.trophy_aurora_wyrm.desc,Proof of defeating the elusive Aurora Wyrm.,击败稀有怪物极光翼蛇的证明。
+collectible.trophy_aurora_wyrm.name,Aurora Wyrm Trophy,极光翼蛇战利品
+collectible.trophy_cinder_moth.desc,Proof of defeating the elusive Cinder Moth.,击败稀有怪物烬翼蛾的证明。
+collectible.trophy_cinder_moth.name,Cinder Moth Trophy,烬翼蛾战利品
+collectible.trophy_coin_drake.desc,Proof of defeating the elusive Coin Drake.,击败稀有怪物金币龙的证明。
+collectible.trophy_coin_drake.name,Coin Drake Trophy,金币龙战利品
+collectible.trophy_dawn_titan.desc,Proof of defeating the Dawn Titan.,击败黎明泰坦的证明。
+collectible.trophy_dawn_titan.name,Dawn Titan Crest,黎明泰坦之冠
+collectible.trophy_dream_eater.desc,Proof of defeating the Dream Eater.,击败噬梦者的证明。
+collectible.trophy_dream_eater.name,Dream Eater Crest,噬梦者之冠
+collectible.trophy_elder_mossback.desc,Proof of defeating the elusive Elder Mossback.,击败稀有怪物苔背长者的证明。
+collectible.trophy_elder_mossback.name,Elder Mossback Trophy,苔背长者战利品
+collectible.trophy_gilded_kraken.desc,Proof of defeating the Gilded Kraken.,击败鎏金海妖的证明。
+collectible.trophy_gilded_kraken.name,Gilded Kraken Crest,鎏金海妖之冠
+collectible.trophy_golden_crab.desc,Proof of defeating the elusive Golden Crab.,击败稀有怪物黄金蟹的证明。
+collectible.trophy_golden_crab.name,Golden Crab Trophy,黄金蟹战利品
+collectible.trophy_harbor_leviathan.desc,Proof of defeating the Harbor Leviathan.,击败港湾利维坦的证明。
+collectible.trophy_harbor_leviathan.name,Harbor Leviathan Crest,港湾利维坦之冠
+collectible.trophy_island_whale.desc,Proof of defeating the elusive Island Whale.,击败稀有怪物岛屿鲸的证明。
+collectible.trophy_island_whale.name,Island Whale Trophy,岛屿鲸战利品
+collectible.trophy_lunar_moth.desc,Proof of defeating the elusive Lunar Moth.,击败稀有怪物月蛾的证明。
+collectible.trophy_lunar_moth.name,Lunar Moth Trophy,月蛾战利品
+collectible.trophy_magma_hydra.desc,Proof of defeating the Magma Hydra.,击败熔岩九头蛇的证明。
+collectible.trophy_magma_hydra.name,Magma Hydra Crest,熔岩九头蛇之冠
+collectible.trophy_mirror_ray.desc,Proof of defeating the elusive Mirror Ray.,击败稀有怪物镜鳐的证明。
+collectible.trophy_mirror_ray.name,Mirror Ray Trophy,镜鳐战利品
+collectible.trophy_pale_angler.desc,Proof of defeating the elusive Pale Angler.,击败稀有怪物苍白鮟鱇的证明。
+collectible.trophy_pale_angler.name,Pale Angler Trophy,苍白鮟鱇战利品
+collectible.trophy_prism_serpent.desc,Proof of defeating the Prism Serpent.,击败棱镜巨蛇的证明。
+collectible.trophy_prism_serpent.name,Prism Serpent Crest,棱镜巨蛇之冠
+collectible.trophy_spore_matriarch.desc,Proof of defeating the Spore Matriarch.,击败孢子母后的证明。
+collectible.trophy_spore_matriarch.name,Spore Matriarch Crest,孢子母后之冠
+collectible.trophy_storm_roc.desc,Proof of defeating the elusive Storm Roc.,击败稀有怪物风暴巨鹏的证明。
+collectible.trophy_storm_roc.name,Storm Roc Trophy,风暴巨鹏战利品
+collectible.trophy_thunder_roc.desc,Proof of defeating the Thunder Roc.,击败雷霆巨鹏的证明。
+collectible.trophy_thunder_roc.name,Thunder Roc Crest,雷霆巨鹏之冠
+collectible.trophy_void_angler.desc,Proof of defeating the Void Angler.,击败虚空鮟鱇的证明。
+collectible.trophy_void_angler.name,Void Angler Crest,虚空鮟鱇之冠
+collectible.trophy_world_serpent.desc,Proof of defeating the World Serpent.,击败世界海蛇的证明。
+collectible.trophy_world_serpent.name,World Serpent Crest,世界海蛇之冠
 color.blue,Blue,蓝
 color.green,Green,绿
 color.purple,Purple,紫
@@ -433,19 +677,28 @@ dress.shot_rack,Shot rack,炮弹架
 dress.water_butt,Scuttlebutt,淡水桶
 dress.workbench,Carpenter's bench,木工台
 enemy.abyss_brute.name,Abyss Brute,深渊蛮兵
+enemy.abyss_jelly.name,Abyss Jelly,深渊水母
 enemy.archive_keeper.name,Archive Keeper,档案看守
 enemy.ash_hexer.name,Ash Hexer,灰烬咒术师
 enemy.ash_slinger.name,Ash Slinger,灰烬投石手
+enemy.ash_worm.name,Ash Worm,灰烬蠕虫
 enemy.aurelia_dawn.name,Captain Aurelia Dawn,奥蕾莉亚·晨船长
+enemy.aurora_wyrm.name,Aurora Wyrm,极光翼蛇
 enemy.bark_brute.name,Bark Brute,树皮蛮兵
 enemy.beacon_keeper.name,Beacon Keeper,信标看守
 enemy.bloom_nurse.name,Bloom Nurse,花朵护士
 enemy.bone_spitter.name,Bone Spitter,吐骨者
 enemy.brakka_reef.name,Captain Brakka Reef,布拉卡·礁船长
 enemy.brine_witch.name,Brine Witch,盐水女巫
+enemy.brine_worm.name,Brine Worm,卤水蠕虫
+enemy.canopy_ray.name,Canopy Ray,林冠鳐
 enemy.cassian_crest.name,Captain Cassian Crest,卡西安·纹章船长
 enemy.cellar_king.name,Cellar King,地窖之王
 enemy.cinder_imp.name,Cinder Imp,余烬小恶魔
+enemy.cinder_jelly.name,Cinder Jelly,烬火水母
+enemy.cinder_moth.name,Cinder Moth,烬翼蛾
+enemy.coin_drake.name,Coin Drake,金币龙
+enemy.coin_jelly.name,Coin Jelly,金币水母
 enemy.colossus_core.name,Colossus Core,巨像核心
 enemy.compass_guardian.name,Compass Guardian,罗盘守护者
 enemy.conclave_medic.name,Conclave Medic,议会医师
@@ -454,9 +707,14 @@ enemy.crown_enforcer.name,Crown Enforcer,王冠执法者
 enemy.crystal_decoy.name,Crystal Decoy,水晶诱饵
 enemy.cutpurse.name,Cutpurse,扒手
 enemy.dawn_mage.name,Dawn Mage,黎明法师
+enemy.dawn_titan.name,Dawn Titan,黎明泰坦
+enemy.dawn_worm.name,Dawn Worm,黎明蠕虫
 enemy.deep_priest.name,Deep Priest,深海祭司
+enemy.dream_eater.name,Dream Eater,噬梦者
+enemy.dream_jelly.name,Dream Jelly,梦水母
 enemy.dream_ogre.name,Dream Ogre,梦魇食人魔
 enemy.drowned_keeper.name,Drowned Keeper,溺亡看守
+enemy.elder_mossback.name,Elder Mossback,苔背长者
 enemy.ember_monk.name,Ember Monk,余烬僧侣
 enemy.family_patriarch.name,Family Patriarch,家族族长
 enemy.flame_seer.name,Flame Seer,火焰先知
@@ -465,33 +723,53 @@ enemy.forge_colossus.name,Forge Colossus,熔炉巨像
 enemy.gale_harpooner.name,Gale Harpooner,疾风鱼叉手
 enemy.gate_duelist.name,Gate Duelist,关门决斗者
 enemy.gate_warden.name,Gate Warden,大门守卫
+enemy.gilded_kraken.name,Gilded Kraken,鎏金海妖
 enemy.gilded_medic.name,Gilded Medic,镀金医师
+enemy.gilded_ray.name,Gilded Ray,鎏金鳐
+enemy.glass_worm.name,Glass Worm,玻璃蠕虫
+enemy.golden_crab.name,Golden Crab,黄金蟹
 enemy.gull_raider.name,Gull Raider,海鸥劫掠者
 enemy.gut_leviathan.name,Gut Leviathan,腹中利维坦
+enemy.harbor_leviathan.name,Harbor Leviathan,港湾利维坦
 enemy.horizon_knight.name,Horizon Knight,地平线骑士
+enemy.horizon_ray.name,Horizon Ray,天际鳐
+enemy.island_whale.name,Island Whale,岛屿鲸
 enemy.kelp_tender.name,Kelp Tender,海带看护
 enemy.labyrinth_dreamer.name,Labyrinth Dreamer,迷宫梦者
 enemy.lens_cleric.name,Lens Cleric,透镜牧师
+enemy.leviathan_jelly.name,Leviathan Jelly,利维坦水母
 enemy.lookout_warden.name,Lookout Warden,瞭望台看守
 enemy.lull_spirit.name,Lull Spirit,安眠之灵
+enemy.lunar_moth.name,Lunar Moth,月蛾
 enemy.magma_golem.name,Magma Golem,岩浆魔像
+enemy.magma_hydra.name,Magma Hydra,熔岩九头蛇
+enemy.magma_ray.name,Magma Ray,熔岩鳐
 enemy.mira_gull.name,Captain Mira Gull,米拉·鸥船长
+enemy.mire_worm.name,Mire Worm,泥沼蠕虫
 enemy.mirror_mage.name,Mirror Mage,镜像法师
+enemy.mirror_ray.name,Mirror Ray,镜鳐
 enemy.moon_oracle.name,Moon Oracle,月之神谕
+enemy.moon_ray.name,Moon Ray,月鳐
 enemy.musket_noble.name,Musket Noble,火枪贵族
 enemy.nessa_gale.name,Captain Nessa Gale,内莎·疾风船长
 enemy.night_stalker.name,Night Stalker,夜行者
+enemy.nightmare_worm.name,Nightmare Worm,梦魇蠕虫
 enemy.observatory_ghost.name,Observatory Ghost,天文台幽灵
 enemy.orin_lantern.name,Captain Orin Lantern,奥林·灯笼船长
+enemy.pale_angler.name,Pale Angler,苍白鮟鱇
+enemy.pale_ray.name,Pale Ray,苍白鳐
 enemy.pennant_bosun.name,Pennant Bosun,红旗水手长
 enemy.pennant_deckhand.name,Pennant Deckhand,红旗水手
 enemy.pennant_gunner.name,Pennant Gunner,红旗枪手
 enemy.pennant_hexer.name,Pennant Hexer,红旗咒术师
 enemy.pennant_surgeon.name,Pennant Surgeon,红旗军医
+enemy.prism_jelly.name,Prism Jelly,棱镜水母
+enemy.prism_serpent.name,Prism Serpent,棱镜巨蛇
 enemy.prism_sniper.name,Prism Sniper,棱光狙击手
 enemy.quartz_knight.name,Quartz Knight,石英骑士
 enemy.reef_crab.name,Reef Crab,礁石蟹
 enemy.reef_mender.name,Reef Mender,礁石修补者
+enemy.reef_ray.name,Reef Ray,礁鳐
 enemy.refraction_queen.name,Refraction Queen,折射女王
 enemy.relic_thief.name,Relic Thief,遗物窃贼
 enemy.ring_raider.name,Ring Raider,环礁掠夺者
@@ -500,26 +778,45 @@ enemy.root_mother.name,Root Mother,根之母
 enemy.seal_guardian.name,Seal Guardian,封印守卫
 enemy.selene_prism.name,Captain Selene Prism,瑟琳·棱光船长
 enemy.shard_fencer.name,Shard Fencer,碎晶剑客
+enemy.shard_ray.name,Shard Ray,碎片鳐
 enemy.shell_titan.name,Shell Titan,甲壳巨人
+enemy.shell_worm.name,Shell Worm,甲壳蠕虫
+enemy.shoal_ray.name,Shoal Ray,浅滩鳐
 enemy.shrine_tyrant.name,Shrine Tyrant,神殿暴君
 enemy.sky_gunner.name,Sky Gunner,天空枪手
+enemy.spore_jelly.name,Spore Jelly,孢子水母
+enemy.spore_matriarch.name,Spore Matriarch,孢子母后
 enemy.spore_shaman.name,Spore Shaman,孢子萨满
 enemy.spray_gunner.name,Spray Gunner,浪花枪手
+enemy.squall_ray.name,Squall Ray,飑风鳐
 enemy.squall_runner.name,Squall Runner,疾风奔袭者
 enemy.star_archer.name,Star Archer,星辰弓手
+enemy.star_jelly.name,Star Jelly,星水母
+enemy.storm_jelly.name,Storm Jelly,风暴水母
+enemy.storm_roc.name,Storm Roc,风暴巨鹏
 enemy.storm_witch.name,Storm Witch,风暴女巫
+enemy.swarmling.name,Swarmling,群巢幼体
 enemy.tempest_wyrm.name,Tempest Wyrm,暴风巨龙
 enemy.thorn_archer.name,Thorn Archer,荆棘弓手
 enemy.thunder_brute.name,Thunder Brute,雷鸣蛮兵
+enemy.thunder_roc.name,Thunder Roc,雷霆巨鹏
+enemy.thunder_worm.name,Thunder Worm,雷霆蠕虫
+enemy.tide_jelly.name,Tide Jelly,潮汐水母
 enemy.tide_shaman.name,Tide Shaman,潮汐萨满
 enemy.trench_gunner.name,Trench Gunner,海沟枪手
 enemy.trench_horror.name,Trench Horror,海沟恐魔
+enemy.trench_worm.name,Trench Worm,海沟蠕虫
 enemy.vale_ash.name,Captain Vale Ash,维尔·灰船长
 enemy.vault_sentinel.name,Vault Sentinel,宝库哨兵
+enemy.vault_worm.name,Vault Worm,金库蠕虫
 enemy.vent_tyrant.name,Vent Tyrant,喷口暴君
 enemy.vine_stalker.name,Vine Stalker,藤蔓潜伏者
+enemy.void_angler.name,Void Angler,虚空鮟鱇
+enemy.world_serpent.name,World Serpent,世界海蛇
 err.aid_not_needed,You can afford this yourself.,你自己负担得起。
 err.already_accepted,Already accepted.,已经接受了。
+err.already_ashore,The landing party is already ashore.,登岛小队已经在岛上了。
+err.already_claimed,That reward has already been claimed.,该奖励已经领取过。
 err.already_docked,You are already docked.,你已经停靠在港口了。
 err.already_evolved,Already evolved.,已经进化过了。
 err.already_hired,Already hired.,已经招募过了。
@@ -532,6 +829,8 @@ err.cell_door,Keep doorways clear.,门口必须保持通畅。
 err.cell_entry,Keep the deck entry clear.,甲板入口必须保持通畅。
 err.cell_occupied,That cell is occupied.,这个格子已被占用。
 err.cell_stair,A stair is there.,那里有楼梯。
+err.chart_used,This chart has already been used.,这张海图已经使用过。
+err.chart_wrong_place,You must use the chart at the marked wreck.,必须在海图标记的沉船处使用。
 err.contract_incomplete,Not finished yet ({have}/{need}).,尚未完成（{have}/{need}）。
 err.contract_limit,Three contracts are already active.,已有三个进行中的委托。
 err.empty_formation,Put at least one crew member in the formation.,编队中至少要有一名船员。
@@ -566,6 +865,8 @@ err.need_muster,Needs a Muster Deck.,需要集结甲板。
 err.need_port,Only possible while docked at a port.,只能在停靠港口时进行。
 err.need_workshop,Needs a Workshop aboard or a port workshop.,需要船上的工坊或港口工坊。
 err.need_workshop2,Needs a level 2 workshop.,需要 2 级工坊。
+err.no_chart,You do not own that chart.,你没有这张海图。
+err.no_collectible,That collectible does not exist.,该收集品不存在。
 err.no_encounter,There is no battle in progress.,当前没有进行中的战斗。
 err.no_event,There is no sea event to resolve.,没有需要处理的海上事件。
 err.no_food,Needs {need} food.,需要 {need} 食物。
@@ -578,6 +879,7 @@ err.no_lower_deck,Stairs go on a deck edge right beside a higher deck.,楼梯只
 err.no_materials,Needs {need} materials.,需要 {need} 材料。
 err.no_preset,That preset is empty.,这个预设是空的。
 err.no_recipe,Recipe unknown.,未知配方。
+err.no_shards,You do not have enough curio shards.,古物碎片不足。
 err.no_specialty,Needs {need} {item}.,需要 {need} 个{item}。
 err.no_stair_slot,Stairs go on a deck edge right beside a higher deck.,楼梯只能放在紧邻较高甲板的甲板边缘。
 err.no_stamina,Needs {need} stamina (you have {have}).,需要 {need} 体力（现有 {have}）。
@@ -586,8 +888,9 @@ err.not_at_site,You are not at that location.,你不在那个地点。
 err.not_injured,Not injured.,没有受伤。
 err.not_mastered,Master the class first.,请先精通这个职业。
 err.not_qualified,Not qualified for {cls}.,不具备{cls}的资格。
+err.not_ready,You have not met the requirement yet.,尚未达到要求。
 err.not_revealed,That location is not charted yet.,这个地点尚未标记在海图上。
-err.not_sold,Not sold here.,这里不出售。
+err.not_sold,That item is not sold here.,此处不出售该物品。
 err.nothing_to_deliver,Nothing to deliver.,没有可交付的东西。
 err.nothing_to_repair,Nothing needs repair.,没有需要维修的地方。
 err.out_of_bounds,Outside the deck.,超出甲板范围。
@@ -607,6 +910,7 @@ err.save_missing,No save found.,找不到存档。
 err.save_newer,This save comes from a newer version.,这个存档来自更新的版本。
 err.save_old,This save is from an unsupported version.,这个存档的版本已不受支持。
 err.save_write_failed,The game could not be saved. Free some storage or export your save.,无法保存游戏。请释放一些存储空间或导出存档。
+err.set_incomplete,The set is not complete yet.,套装尚未集齐。
 err.stamina_full,Stamina is already full.,体力已满。
 err.supplies_full,Supply storage is full.,补给储存已满。
 err.trial_locked,The captain trial opens after the main arc.,船长试炼将在主线完成后开放。
@@ -617,6 +921,48 @@ err.wrong_port,Not available at this port.,本港口不提供此项。
 err.wrong_slot,Wrong equipment slot.,装备栏位不对。
 err.zone_deck,This fitting must stand on an exposed deck.,此船具必须放在露天甲板上。
 err.zone_interior,Ordinary rooms belong inside the hull. Switch to an interior level.,普通房间应建在船舱内部。请切换到船舱楼层。
+eskill.e_ambush.name,Ambush,伏击
+eskill.e_barrage.name,Barrage,弹幕
+eskill.e_bulwark.name,Bulwark,壁垒
+eskill.e_curse.name,Curse,诅咒
+eskill.e_doom.name,Doom,厄运
+eskill.e_drain.name,Drain,汲取
+eskill.e_dream_lull.name,Dream Lull,沉眠之歌
+eskill.e_enrage.name,Enrage,狂怒
+eskill.e_fire_breath.name,Fire Breath,火焰吐息
+eskill.e_frost_breath.name,Frost Breath,霜息
+eskill.e_heal_all.name,Heal All,群体治疗
+eskill.e_pierce_shot.name,Pierce Shot,穿甲射击
+eskill.e_quake.name,Quake,震地
+eskill.e_shield_wall.name,Shield Wall,盾墙
+eskill.e_static_lash.name,Static Lash,静电鞭击
+eskill.e_swarm_call.name,Swarm Call,虫群召唤
+eskill.e_venom_spit.name,Venom Spit,毒液喷吐
+eskill.e_void_gaze.name,Void Gaze,虚空凝视
+etrait.armored.desc,Takes less damage from every hit.,每次受击时减免伤害。
+etrait.armored.name,Armored,披甲
+etrait.berserk.desc,Grows stronger when badly wounded.,重伤时攻击力提升。
+etrait.berserk.name,Berserk,狂暴
+etrait.bulwark.desc,Guards the back line and intercepts attacks.,保护后排并拦截攻击。
+etrait.bulwark.name,Bulwark,壁垒
+etrait.elusive.desc,Harder to hit.,更难被命中。
+etrait.elusive.name,Elusive,灵巧
+etrait.regen.desc,Slowly recovers health in battle.,战斗中缓慢恢复生命。
+etrait.regen.name,Regenerating,再生
+etrait.splitter.desc,Splits into weaker copies when defeated.,被击败时分裂成较弱的复制体。
+etrait.splitter.name,Splitter,分裂
+etrait.summoner.desc,Calls lesser creatures into the fight.,战斗中召唤弱小生物。
+etrait.summoner.name,Summoner,召唤者
+etrait.unyielding.desc,Survives one killing blow at 1 HP.,每场战斗可免疫一次致命伤，保留 1 点生命。
+etrait.unyielding.name,Unyielding,不屈
+etrait.vampiric.desc,Heals from the damage it deals.,按造成的伤害恢复生命。
+etrait.vampiric.name,Vampiric,吸血
+etrait.venomous.desc,Attacks leave a lingering poison.,攻击会留下持续毒素。
+etrait.venomous.name,Venomous,剧毒
+etrait.volatile.desc,Bursts for area damage when defeated.,被击败时对敌方全体造成伤害。
+etrait.volatile.name,Volatile,易爆
+etrait.warded.desc,Starts battle with a shield.,开局自带护盾。
+etrait.warded.name,Warded,护盾
 event.collector.desc,Deliver one specialty from their home waters ({origin}) at any port.,在任意港口交付一件其家乡海域（{origin}）的特产。
 event.collector.title,Keepsake,纪念品
 event.feast.desc,Serve rations to the crew ({n}/5).,为船员分发口粮（{n}/5）。
@@ -782,12 +1128,18 @@ hull.starter.desc,A stout sloop: an open weather deck for boarding fights above 
 hull.starter.name,Driftling Sloop,漂木单桅船
 hull.voyager.desc,"A brig with a raised quarterdeck, a long gun deck and a deeper hold.",一艘双桅船，有抬高的后甲板、更长的炮甲板和更深的货舱。
 hull.voyager.name,Voyager Brig,远航双桅船
+ing.deep_coral.name,Deep Coral,深海珊瑚
 ing.dusk_ink.name,Dusk Ink,暮色墨
+ing.ember_salt.name,Ember Salt,烬盐
 ing.fire_pepper.name,Fire Pepper,火椒
+ing.frost_salt.name,Frost Salt,霜盐
 ing.kelp_sprig.name,Kelp Sprig,海带芽
+ing.moss_sugar.name,Moss Sugar,苔糖
 ing.salt_crystal.name,Salt Crystal,盐晶
 ing.sea_pearl.name,Sea Pearl,海珍珠
+ing.sun_amber.name,Sun Amber,日琥珀
 ing.sun_honey.name,Sun Honey,太阳蜜
+ing.void_pepper.name,Void Pepper,虚空椒
 item.a_abyss_ring.name,Abyss Ring,深渊戒指
 item.a_crown_seal.name,Crown Seal,王冠印章
 item.a_ember_charm.name,Ember Charm,余烬护符
@@ -828,6 +1180,18 @@ item.u_selene_mirror.name,Selene's Mirror,瑟琳的镜子
 item.u_storm_crown.name,Storm Crown,风暴王冠
 item.u_trench_seal.name,Trench Seal,海沟封印
 item.u_vale_ring.name,Vale's Ring,维尔的戒指
+item.x_a_cartographer_compass.name,Cartographer's Compass,制图师罗盘
+item.x_a_deepseeker_lens.name,Deepseeker Lens,深寻透镜
+item.x_a_tidebound_sigil.name,Tidebound Sigil,潮缚印记
+item.x_a_wildheart_charm.name,Wildheart Charm,野性护符
+item.x_o_armor_4.name,Abyss Plate,深渊甲
+item.x_o_coat_4.name,Cartographer's Coat,制图师外套
+item.x_o_stormplate_4.name,Stormplate,风暴铠
+item.x_o_tidecoat_4.name,Tidebound Coat,潮缚外套
+item.x_w_banner_4.name,Dawn Banner,黎明旗
+item.x_w_blade_4.name,Tidefang Blade,潮牙刃
+item.x_w_gun_4.name,Stormcaller Gun,唤雷铳
+item.x_w_staff_4.name,Dreamwood Staff,梦木法杖
 itemtier.1,Driftwood,漂木
 itemtier.10,Horizon,地平线
 itemtier.2,Harbor,港湾
@@ -975,14 +1339,20 @@ log.aid,Received emergency aid: {kind}.,获得紧急援助：{kind}。
 log.arrived,Arrived at {location}.,抵达 {location}。
 log.banked,Banked {gold} gold and {materials} materials.,入账 {gold} 金币和 {materials} 材料。
 log.battle_recruit,{crew} joined the crew after the battle (formerly {enemy}).,{crew} 在战后加入了船队（原为{enemy}）。
+log.bestiary_claim,Bestiary reward claimed: {region} {pct}%,图鉴奖励已领取：{region} {pct}%
 log.blueprint,Blueprint found: {item}.,获得蓝图：{item}。
 log.boarded,Encounter: {kind}.,遭遇：{kind}。
 log.built,Built {facility}.,建造了{facility}。
+log.chart_used,Chart used: {item},已使用海图：{item}
 log.cleared,Cleared {location}.,清理了 {location}。
 log.clue,New clue: {clue},新线索：{clue}
+log.collectible_duplicate,Duplicate {item} converted to {n} curio shards.,重复的{item}转化为 {n} 枚古物碎片。
+log.collectible_new,New collection piece: {item},新收集品：{item}
 log.contract_done,Contract complete (+{gold} gold).,委托完成（+{gold} 金币）。
 log.crafted,Crafted {item}.,制作了{item}。
 log.crew_event_done,"{crew} completed ""{event}"".",{crew} 完成了「{event}」。
+log.curio_buy,Bought {item} from the curio dealer.,从古物商处购买{item}。
+log.curio_exchange,Exchanged curio shards for {item}.,用古物碎片兑换{item}。
 log.defeat,Defeated. Lost {gold} gold and {materials} materials.,战败。损失了 {gold} 金币和 {materials} 材料。
 log.demolished,"Dismantled {facility} (+{gold} gold, +{materials} materials).",拆除了{facility}（+{gold} 金币，+{materials} 材料）。
 log.dock_work,Dock work paid {gold} gold.,码头打工赚了 {gold} 金币。
@@ -1003,12 +1373,14 @@ log.new_game,You take command of a small ship at Brightquay.,你在明港接管�
 log.pet_found_secret,Your explorer pet found a secret place.,你的探索宠物发现了一处秘境。
 log.postgame,You are now the Strongest Captain of the Seven Seas.,你现在是七海最强船长了。
 log.quest_accepted,Accepted: {quest}.,已接受：{quest}。
+log.rare_sighted,A rare {enemy} appears!,稀有敌人{enemy}出现了！
 log.recruited,{crew} joined the crew.,{crew} 加入了船队。
 log.region_unlocked,New sea opened: {region}.,新的海域开放了：{region}。
 log.repaired,Ship repaired.,船只已修复。
 log.respec,{crew} changed class from {from} to {to}.,{crew} 从{from}转职为{to}。
 log.retreated,The crew retreated.,船员撤退了。
 log.revealed,Charted {location}.,在海图上标记了 {location}。
+log.set_claim,Collection set complete: {set},收集套装完成：{set}
 log.ship_refit,The shipwrights moved {n} rooms off the exposed deck into the hull below.,船匠把 {n} 个房间从露天甲板搬进了下方船舱。
 log.side_done,Completed: {quest}.,已完成：{quest}。
 log.supply_overflow,{n} supplies did not fit in the hold.,有 {n} 份补给放不进货舱。
@@ -1290,6 +1662,15 @@ port.contract_reward,Reward: {gold} gold · {materials} materials,奖励：{gold
 port.contracts,Contracts,委托
 port.contracts_elsewhere,Active contracts elsewhere,其他港口进行中的委托
 port.craft,Craft,制作
+port.curio_buy,Buy,购买
+port.curio_exchange,Exchange shards,碎片兑换
+port.curio_exchange_btn,Exchange,兑换
+port.curio_exchanged,Exchanged for {item}.,已兑换{item}。
+port.curio_none,Nothing new today. Return another day.,今日没有新货，改日再来。
+port.curio_offer,Today's offers,今日报价
+port.curio_shards,Shards: {n},碎片：{n}
+port.curio_sold,Purchased {item}.,已购买{item}。
+port.curio_title,Curio dealer,古物商
 port.deliver,Deliver {n} {item},交付 {n} 个{item}
 port.dock_work,Dock work (+{n} gold),码头打工（+{n} 金币）
 port.dock_work_hint,"Crew take a shift on the docks. Takes 4 hours, costs nothing.",船员去码头干一班活。耗时 4 小时，不花任何费用。
@@ -1464,8 +1845,16 @@ route.return,Nearest return,最近的返程
 route.return_value,{n} food to {port},前往 {port} 需 {n} 食物
 route.return_warning,After this leg you may not have enough food to sail back. Emergency Return is always free.,这段航程之后，食物可能不够返航。紧急返航始终免费。
 route.sail,Sail,起航
+route.scout,Scout,斥候
+route.scout_hidden,Unseen hidden rooms: {n},未发现的隐藏房间：{n}
+route.scout_no,No scout: intel unknown,无斥候：情报未知
+route.scout_rare,Rare sighting: {name},稀有目击：{name}
+route.scout_sea,Sea events: {list},海上事件：{list}
+route.scout_threats,Threats: {list},威胁：{list}
+route.scout_yes,Scout aboard: exact intel,船上有斥候：情报精确
 route.stamina,Planned stamina,预计体力
 route.stamina_value,{need} needed / {have} available,需要 {need} / 现有 {have}
+route.supplies_after,Supplies {now} → {after},补给 {now} → {after}
 route.unknown,Unknown,未知
 sail.skip,Click to skip,点击跳过
 sail.underway,Under way to {location},正驶向{location}
@@ -1514,10 +1903,44 @@ sea.vessel.title,Stranded vessel,遇难船只
 sea.weather.desc,A sudden squall sweeps over {region}.,一场突如其来的暴风雨席卷了{region}。
 sea.weather.effect,"Without a Navigator or Barricade Room, the hull takes damage and you lose 2 hours.",如果没有领航员或防御工事舱，船体会受损并耽误 2 小时。
 sea.weather.title,Squall,狂风骤雨
+set.set_ashen_trench.desc,"A complete record of Ashen Trench: one relic, one trophy, one memory, one curiosity.",关于灰烬海沟的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_ashen_trench.name,Ashen Trench Collection,灰烬海沟收藏
+set.set_cartographer.desc,"Every chart in the known seas, bound by one patient hand.",已知海域的每一张海图，被同一双耐心的手装订在一起。
+set.set_cartographer.name,Cartographer's Round,制图师之环
+set.set_crown_shoals.desc,"A complete record of Crown Shoals: one relic, one trophy, one memory, one curiosity.",关于王冠浅滩的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_crown_shoals.name,Crown Shoals Collection,王冠浅滩收藏
+set.set_dawnwater.desc,"A complete record of Dawnwater: one relic, one trophy, one memory, one curiosity.",关于晨水湾的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_dawnwater.name,Dawnwater Collection,晨水湾收藏
+set.set_deep.desc,"Trophies from the rarest things in the sea, and the patience it took to find them.",来自海中极稀有之物的战利品，以及找到它们所需的耐心。
+set.set_deep.name,Deepwatcher's Hoard,深望者之藏
+set.set_emberreach.desc,"A complete record of Emberreach: one relic, one trophy, one memory, one curiosity.",关于烬火峡的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_emberreach.name,Emberreach Collection,烬火峡收藏
+set.set_glass_current.desc,"A complete record of Glass Current: one relic, one trophy, one memory, one curiosity.",关于玻璃洋流的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_glass_current.name,Glass Current Collection,玻璃洋流收藏
+set.set_grand_horizon.desc,"A complete record of Grand Horizon: one relic, one trophy, one memory, one curiosity.",关于大天际的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_grand_horizon.name,Grand Horizon Collection,大天际收藏
+set.set_leviathan_ring.desc,"A complete record of Leviathan Ring: one relic, one trophy, one memory, one curiosity.",关于利维坦环的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_leviathan_ring.name,Leviathan Ring Collection,利维坦环收藏
+set.set_moonwake.desc,"A complete record of Moonwake: one relic, one trophy, one memory, one curiosity.",关于月醒海的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_moonwake.name,Moonwake Collection,月醒海收藏
+set.set_storm.desc,Every small strange thing the sea gave up after a storm.,每一场风暴后，海归还的每一件小小奇物。
+set.set_storm.name,Stormchaser's Cabinet,逐风者陈列柜
+set.set_stormbelt.desc,"A complete record of Stormbelt: one relic, one trophy, one memory, one curiosity.",关于风暴带的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_stormbelt.name,Stormbelt Collection,风暴带收藏
+set.set_tidebound.desc,The crests of every great beast that rules a region.,统治每一片海域的巨兽之冠。
+set.set_tidebound.name,Tidebound Crown,潮缚王冠
+set.set_verdant_maw.desc,"A complete record of Verdant Maw: one relic, one trophy, one memory, one curiosity.",关于翠喉的完整记录：一件遗物、一件战利品、一段记忆、一件奇物。
+set.set_verdant_maw.name,Verdant Maw Collection,翠喉收藏
+set.set_wild.desc,"One relic from each shore, carried until the brass wore smooth.",来自每一片海岸的一件遗物，被带到黄铜磨得光滑。
+set.set_wild.name,Wildheart Reliquary,野性圣物匣
 settle.berths,Berths: {n} / {max},床位：{n} / {max}
 settle.clue,Chart clue,海图线索
 settle.collect,Collect,收下战利品
+settle.collectible,Collection,收集品
+settle.collectibles,Collectibles,收集品
 settle.decide,Sign on or let go first.,请先决定招募或放其离开。
+settle.duplicate_shards,Owned — converted to {n} curio shards,已拥有——转化为 {n} 枚古物碎片
+settle.duplicate_short,Duplicate,重复
 settle.food,Food,食物
 settle.items,Spoils,战利品
 settle.items_count,{n} in all,共 {n}
@@ -1526,8 +1949,10 @@ settle.let_go,Let go,放其离开
 settle.let_gone,{name} went their own way.,{name} 自行离开了。
 settle.losses,Losses,损失
 settle.lost,{n} left behind: storage is full.,{n} 份因仓储已满而留下。
+settle.new,New,新
 settle.no_items,No goods or gear this time.,这次没有货物或装备。
 settle.plunder,(incl. {n} plundered),（含掠夺 {n}）
+settle.rare_foe,Rare foe,稀有敌人
 settle.rarity_common,Common,普通
 settle.rarity_epic,Epic,史诗
 settle.rarity_legendary,Legendary,传说
@@ -1542,11 +1967,13 @@ settle.recruit_offer,A defeated {enemy} lays down arms and asks to sign on.,战�
 settle.rewards,Rewards,奖励
 settle.salvaged,Sea chest full: salvaged for {n} materials.,装备箱已满：拆解为 {n} 材料。
 settle.saved,Result saved.,结果已保存。
+settle.shards,Curio shards,古物碎片
 settle.sign_on,Sign on,收入船队
 settle.signed,{name} signed on and took a free berth.,{name} 加入船队，住进了空床位。
 settle.spoils_tip,Spoils picked up from fallen foes. They are counted and stored in the report after the battle.,从倒下的敌人身上拾得的战利品，战斗结束后在报告中清点入库。
 settle.stowed,Stowed and saved.,已入库并保存。
 settle.supplies,Supplies,补给
+settle.variant_foe,Variant foe,变体敌人
 settle.xp,+{n} XP for the crew who fought,参战船员 +{n} 经验
 ship.access_ladder,Ladder and hatch,梯子与舱口
 ship.access_stair,Deck stair,甲板楼梯
@@ -1675,6 +2102,10 @@ site.enter,Enter {room},进入{room}
 site.fight,Fight,战斗
 site.found,Search results,搜索收获
 site.hint,Click a marker to walk there. Rooms you can enter glow.,点击标记即可走过去。可进入的区域会发光。
+site.land,Go ashore,上岛
+site.land_hint,Take the rowboat to the landing.,乘小艇登上岛屿。
+site.leave,Return to ship,返回船上
+site.leave_hint,Take the rowboat back to the ship. Free.,乘小艇回到船上，不消耗任何资源。
 site.legend,Legend challenge,传说挑战
 site.locked,Locked — clear an adjacent room first.,未解锁——请先清理相邻区域。
 site.move,Pass through,穿过
@@ -1948,6 +2379,12 @@ ui.ok,OK,确定
 ui.tier,Tier {n},{n} 阶
 ui.unknown,Unknown,未知
 ui.yes,Yes,是
+variant.alpha.name,Alpha,头目
+variant.armored.name,Armored,重甲
+variant.corrupted.name,Corrupted,腐化
+variant.elder.name,Elder,长者
+variant.feral.name,Feral,野性
+variant.swift.name,Swift,迅捷
 view.chore,Lending a hand: {task},帮忙：{task}
 view.deck,Deck: {deck},甲板：{deck}
 view.deck_next,Next level (Tab),下一层 (Tab)

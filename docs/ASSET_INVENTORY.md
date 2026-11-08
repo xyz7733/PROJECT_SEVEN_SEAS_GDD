@@ -32,8 +32,8 @@ Preview sheets (not shipped) are written to `art/previews/`.
 | `game/assets/gen/chars/hats.png` | 1008x1440 | 89 rows x 21 frames (24x32) | procedural pixel puppet (gen_chars.py) | character layer: hats |
 | `game/assets/gen/chars/weapons.png` | 1008x768 | 47 rows x 21 frames (24x32) | procedural pixel puppet (gen_chars.py) | character layer: weapons |
 | `game/assets/gen/chars/bodies.png` | 1008x352 | 22 rows x 21 frames (24x32) | procedural pixel puppet (gen_chars.py) | character layer: bodies |
-| `game/assets/gen/creatures/monsters.png` | 704x224 | 13 rows x 11 frames (32x32) | procedural body-plan pixel art (gen_creatures.py) | monsters sprites |
-| `game/assets/gen/creatures/bosses.png` | 1056x480 | 20 rows x 11 frames (48x48) | procedural body-plan pixel art (gen_creatures.py) | bosses sprites |
+| `game/assets/gen/creatures/monsters.png` | 704x864 | 54 rows x 11 frames (32x32) | procedural body-plan pixel art (gen_creatures.py) | monsters sprites |
+| `game/assets/gen/creatures/bosses.png` | 1056x720 | 30 rows x 11 frames (48x48) | procedural body-plan pixel art (gen_creatures.py) | bosses sprites |
 | `game/assets/gen/creatures/pets.png` | 792x480 | 60 rows x 11 frames (24x24) | procedural body-plan pixel art (gen_creatures.py) | pets sprites |
 | `game/assets/gen/env/terrain_<region>.png` | 512x128 | row0 water x4 (+open sea x4), row1 shallow/reef/lagoon x4, row2 16 ground tiles, row3 5 cliff sides, rows 4-6 single-face, low-ledge and top-band sides, row7 15 coast and town ground tiles | procedural pixel tiles (gen_env.py) | TileMapLayer atlases for sea, islands, ports, arenas |
 | `game/assets/gen/env/props.png` | 1024x338 | 287 sprites | voxel render (gen_env.py) | island/port/arena props and interactables |
@@ -45,7 +45,7 @@ Preview sheets (not shipped) are written to `art/previews/`.
 | `game/assets/gen/env/chart_marks.png` | 272x16 | 17 markers | procedural pixel icons (gen_chart.py) | chart markers: port badges, location discs, hollow charted-unvisited markers, ship, last safe port, objective, cleared badge, lock |
 | `game/assets/gen/env/chart_fog.png` | 1008x263 | 1 | procedural cloud billows (gen_chart.py) | exploration cloud bank: two billow layers lit from the upper left; alpha, haze and bank edges are set at runtime from the save (sea_chart.gd) |
 | `game/assets/gen/env/chart_fogkey.png` | 1008x263 | 1 | procedural data image (gen_chart.py) | fog key: edge noise (R), sea index and land flag (G); read at runtime, never drawn |
-| `game/assets/gen/ui/icons.png` | 256x160 | 148 icons 16x16 | pixel canvas drawing (gen_ui.py) | HUD/menus: resources, categories, roles, stances, items, hazards, actions |
+| `game/assets/gen/ui/icons.png` | 256x160 | 154 icons 16x16 | pixel canvas drawing (gen_ui.py) | HUD/menus: resources, categories, roles, stances, items, hazards, actions |
 | `game/assets/gen/ui/ui.png` | 256x76 | 53 pieces | pixel drawing (gen_ui.py) | 9-slice theme panels/buttons/bars, iso selection & placement diamonds, shadows, emote bubbles, cursor |
 | `game/assets/gen/ui/fx.png` | 168x281 | steam x6, smoke x6, sparks x4, notes x6, bubbles x6, heart x4, zzz x6, heal x6, hit x4, slash x4, splash x5, fire x4, dust x4, sparkle x6, coin x6, orb x4, bullet x2, arrow x1, wake x6 | pixel canvas animation (gen_ui.py) | facility steam/smoke/sparks/notes, crew emotes, combat hit/slash/projectiles/heal, splashes, wake, coins |
 | `game/icon.png, game/icon.ico` | 256x256 (+ico 16-256) | 1 | pixel drawing 32x32 upscaled (gen_ui.py) | application / window icon |

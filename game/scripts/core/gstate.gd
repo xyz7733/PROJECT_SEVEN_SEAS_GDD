@@ -3,7 +3,7 @@
 class_name GS
 extends RefCounted
 
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
 ## Oldest save schema that migrate() can still upgrade.
 const MIN_SCHEMA_VERSION := 3
 const SAVE_FORMAT := "p7s-native-save"
@@ -112,6 +112,7 @@ static func create_new_game(seed_input: int = -1) -> Dictionary:
 		"captain": {"titleKey": "title.unknown_captain", "regionId": "dawnwater", "regionsUnlocked": ["dawnwater"],
 			"mainStep": {"dawnwater": 0}, "trialsWon": [], "legendsWon": [],
 			"reputation": {"conclave": 0, "league": 0, "tidebound": 0, "pennants": 0}, "postgame": false,
+			"collectionSets": [], "bestiaryRewards": [],
 			"stats": {"battlesWon": 0, "battlesLost": 0, "retreats": 0, "rations": 0, "voyages": 0, "hatches": 0}, "flags": {}},
 		"world": {"currentLocationId": "brightquay", "lastSafePortId": "brightquay", "locations": locations, "chartedRoutes": [],
 			"clues": [], "ports": ports, "shortcuts": {}, "quests": {}, "contracts": {}, "taverns": {}},
@@ -121,8 +122,9 @@ static func create_new_game(seed_input: int = -1) -> Dictionary:
 		"pets": [],
 		"inventory": {"gold": Tn.startGold, "food": Tn.startFood, "supplies": Tn.startSupplies, "materials": Tn.startMaterials,
 			"specialties": {}, "ingredients": {}, "equipment": [], "eggs": [], "recipes": [], "uniques": [], "blueprints": [],
-			"ledger": {"gold": 0, "materials": 0}},
-		"codex": {"locations": {}, "enemies": {}, "classes": {}, "pets": {}, "recipes": [], "clues": [], "items": {}, "hatchLog": []},
+			"collectibles": {}, "curioShards": 0, "ledger": {"gold": 0, "materials": 0}},
+		"codex": {"locations": {}, "enemies": {}, "classes": {}, "pets": {}, "recipes": [], "clues": [], "items": {}, "hatchLog": [],
+			"collectibles": {}},
 		"voyage": null, "encounter": null, "committed": {}, "committedOrder": [], "log": [],
 	}
 	Actions.auto_stairs(state)
@@ -181,8 +183,58 @@ static func migrate(state: Dictionary) -> bool:
 		# Old layout presets point at the old single-level decks.
 		state.ship.presets = [null, null, null]
 		add_log(state, "log.ship_refit", {"n": on_deck})
+		v = 4
 		state.envelope.schemaVersion = 4
+	if v == 4:
+		_fill_schema5(state)
+		state.envelope.schemaVersion = SCHEMA_VERSION
 	return true
+
+
+## Adds the collection book, curio shards and expanded bestiary counters
+## that schema 5 introduced. Safe to call on a partially populated state.
+static func _fill_schema5(state: Dictionary) -> void:
+	if not (state.get("inventory") is Dictionary):
+		state.inventory = {}
+	var inv: Dictionary = state.inventory
+	if not (inv.get("collectibles") is Dictionary):
+		inv.collectibles = {}
+	if not inv.has("curioShards"):
+		inv.curioShards = 0
+	if not (state.get("captain") is Dictionary):
+		state.captain = {}
+	var cap: Dictionary = state.captain
+	if not (cap.get("collectionSets") is Array):
+		cap.collectionSets = []
+	if not (cap.get("bestiaryRewards") is Array):
+		cap.bestiaryRewards = []
+	if not (state.get("codex") is Dictionary):
+		state.codex = {}
+	var cx: Dictionary = state.codex
+	if not (cx.get("collectibles") is Dictionary):
+		cx.collectibles = {}
+	if not (cx.get("enemies") is Dictionary):
+		cx.enemies = {}
+	for id in cx.enemies.keys():
+		var rec = cx.enemies[id]
+		if rec is bool:
+			rec = {"seen": rec, "defeated": 0}
+		if not (rec is Dictionary):
+			rec = {"seen": true, "defeated": 0}
+		if not rec.has("seen"):
+			rec.seen = true
+		if not rec.has("defeated"):
+			rec.defeated = 0
+		if not rec.has("kills"):
+			rec.kills = int(rec.defeated)
+		if not (rec.get("variants") is Array):
+			rec.variants = []
+		if not (rec.get("regions") is Array):
+			rec.regions = []
+			var e = World.enemy(String(id))
+			if e != null and e.get("regionId") != null:
+				rec.regions.append(String(e.regionId))
+		cx.enemies[id] = rec
 
 
 ## Applies `mutator` to a deep copy. Returns {ok, state, value, reasonKey, ...}.

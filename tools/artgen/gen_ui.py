@@ -1171,6 +1171,69 @@ def _(cv):
     cv.rect(7, 6, 8, 9, GOLD, FLAT)
 
 
+@icon("ui_relic")
+def _(cv):
+    # a chalice on a plinth: collectible relic
+    cv.poly([(4, 3), (12, 3), (11, 7), (8, 9), (5, 7)], GOLD)
+    cv.hline(4, 12, 3, YELLOW, LIGHT)
+    cv.vline(8, 9, 12, GOLD_D)
+    cv.rect(5, 13, 11, 14, GOLD_D)
+    cv.px(7, 5, WHITE, SHINE)
+    cv.px(9, 4, WHITE, SHINE)
+
+
+@icon("ui_trophy")
+def _(cv):
+    cv.poly([(4, 2), (12, 2), (11, 7), (8, 9), (5, 7)], GOLD)
+    cv.hline(4, 12, 2, YELLOW, LIGHT)
+    cv.line(4, 3, 2, 4, GOLD_D)
+    cv.line(2, 4, 3, 7, GOLD_D)
+    cv.line(12, 3, 14, 4, GOLD_D)
+    cv.line(14, 4, 13, 7, GOLD_D)
+    cv.vline(8, 9, 12, GOLD_D)
+    cv.rect(5, 13, 11, 14, GOLD_D)
+    cv.px(7, 4, WHITE, SHINE)
+
+
+@icon("ui_chart")
+def _(cv):
+    cv.rect(2, 4, 13, 12, CREAM)
+    cv.hline(2, 13, 4, PAPER, FLAT)
+    cv.hline(2, 13, 12, PAPER, FLAT)
+    cv.vline(2, 4, 12, WOOD_D)
+    cv.vline(13, 4, 12, WOOD_D)
+    for y in (7, 10):
+        cv.hline(4, 7, y, (120, 180, 190), FLAT)
+    cv.line(9, 7, 11, 9, RED, FLAT)
+    cv.line(11, 7, 9, 9, RED, FLAT)
+
+
+@icon("ui_lore")
+def _(cv):
+    cv.rect(3, 2, 12, 13, CREAM)
+    cv.rect(3, 2, 4, 13, (200, 60, 60))
+    for y in (5, 7, 9, 11):
+        cv.hline(6, 11, y, (150, 130, 110), FLAT)
+    cv.px(10, 12, (150, 130, 110), FLAT)
+
+
+@icon("ui_curio")
+def _(cv):
+    cv.ellipse(8, 9, 6, 5.5, (232, 170, 110))
+    cv.ellipse(9, 7, 4, 3.5, (246, 205, 160))
+    cv.ellipse(10, 6, 2.2, 2, (255, 235, 205))
+    cv.px(10, 6, (200, 120, 80), FLAT)
+    cv.poly([(3, 10), (1, 13), (4, 12)], (232, 170, 110))
+
+
+@icon("ui_shard")
+def _(cv):
+    cv.poly([(8, 1), (12, 7), (10, 14), (6, 14), (4, 7)], CYAN)
+    cv.poly([(8, 2), (9, 7), (8, 12), (7, 7)], WHITE, LIGHT)
+    cv.line(4, 7, 6, 14, (40, 120, 140), FLAT)
+    cv.px(10, 4, WHITE, SHINE)
+
+
 @icon("ui_hp")
 def _(cv):
     heart(cv, 8, 7, 4, (230, 70, 90))

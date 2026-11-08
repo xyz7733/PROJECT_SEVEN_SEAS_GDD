@@ -389,7 +389,7 @@ static func staff_mult(state: Dictionary, fac_id: String, lay: Variant = null) -
 
 
 static func crew_capacity(state: Dictionary, lay: Variant = null) -> int:
-	return (lay if lay != null else layout_of(state)).capacity
+	return (lay if lay != null else layout_of(state)).capacity + int(Collections.mod(state, "crewSlot"))
 
 
 static func food_capacity(state: Dictionary, lay: Variant = null) -> int:
@@ -529,6 +529,7 @@ static func member_stats(state: Dictionary, m: Dictionary) -> Dictionary:
 		U.add_mods(mods, C.PASSIVES.get(p))
 	for a in m.aptitudes:
 		U.add_mods(mods, C.data.APTITUDES.get(a))
+	U.add_mods(mods, Collections.mod_map(state))
 	var props := []
 	var resist := []
 	var hp := float(cls.base.hp) * float(cls.mult.hp) * (1.0 + float(g.hp) * (L - 1.0)) + float(m.variance.hp)
@@ -734,7 +735,7 @@ static func best_mod(state: Dictionary, key: String) -> float:
 
 
 static func sea_event_chance(state: Dictionary) -> float:
-	return float(C.world.SEA_EVENT_CHANCE) * (1.0 - min(0.5, best_mod(state, "avoid")))
+	return float(C.world.SEA_EVENT_CHANCE) * (1.0 - min(0.6, max(best_mod(state, "avoid"), Collections.mod(state, "avoid"))))
 
 
 static func leg_cost(state: Dictionary, from_id: String, to_id: String) -> Dictionary:
@@ -751,7 +752,7 @@ static func leg_cost(state: Dictionary, from_id: String, to_id: String) -> Dicti
 		food -= 2 * fac_level(state, "compass_room", false, lay)
 	if not cross and state.world.shortcuts.get(a.regionId, false):
 		food -= 1
-	food -= int(best_mod(state, "foodSave"))
+	food -= int(max(best_mod(state, "foodSave"), Collections.mod(state, "foodSave")))
 	if int(state.ship.damage) >= 40:
 		food += 1
 	return {"distance": d, "hours": U.jround(4.0 + d * 20.0), "food": max(1, food), "cross": cross}
@@ -871,6 +872,59 @@ static func sail_block(state: Dictionary, to_id: String, fast: bool) -> String:
 	return ""
 
 
+## A healthy scout in the active formation makes the route panel show exact
+## intelligence instead of vague warnings.
+static func scout_active(state: Dictionary) -> bool:
+	for m in active_crew(state):
+		if bool(m.get("injured", false)):
+			continue
+		var roles: Array = C.CLASSES.get(m.classId, {}).get("roles", [])
+		if roles.has("scout"):
+			return true
+	return false
+
+
+## Deterministic route intelligence for a destination. Returns an empty
+## dictionary when no scout is aboard; otherwise threats, the regional rare
+## monster, unseen hidden rooms and exact sea-event odds.
+static func scout_intel(state: Dictionary, to_id: String) -> Dictionary:
+	if not scout_active(state):
+		return {}
+	var loc = C.location(to_id)
+	if loc == null:
+		return {}
+	var reg = C.region(loc.regionId)
+	if reg == null:
+		return {}
+	var threats := []
+	for arch in Bestiary.region_archetypes(reg.id):
+		if not threats.has(arch):
+			threats.append(String(arch))
+	if reg.bosses.size() and not threats.has("boss"):
+		threats.append("boss")
+	threats.sort()
+	var done: Array = state.world.locations.get(to_id, {}).get("rooms", [])
+	var hidden := 0
+	for rm in C.rooms(to_id):
+		if done.has(rm.id):
+			continue
+		if rm.get("secret", false) or rm.get("objective", false):
+			hidden += 1
+	var sea := []
+	if not C.PORTS.has(to_id):
+		var w := sea_weights(state, loc.regionId)
+		var total := U.sum_values(w)
+		var chance := sea_event_chance(state)
+		if total > 0.0:
+			for k in C.world.SEA_EVENT_KINDS:
+				var weight := float(w.get(k, 0.0))
+				if weight > 0.0:
+					sea.append({"kind": String(k), "pct": chance * weight / total})
+	var rare = Bestiary.region_rare(reg.id)
+	return {"threats": threats, "rare": String(rare) if rare != null else "", "hiddenRooms": hidden,
+		"seaKinds": sea, "exact": true}
+
+
 static func route_info(state: Dictionary, to_id: String, fast: bool) -> Dictionary:
 	var from: String = state.world.currentLocationId
 	var loc = C.location(to_id)
@@ -899,10 +953,13 @@ static func route_info(state: Dictionary, to_id: String, fast: bool) -> Dictiona
 			var pct := U.jround(100.0 * chance * float(w[k]) / total)
 			if pct > 0:
 				encounters.append({"kind": k, "pct": pct})
+	var supplies_now: int = int(state.inventory.supplies)
 	return {"toId": to_id, "fromId": from, "fast": fast, "distance": leg.distance, "hours": leg.hours, "food": leg.food,
 		"foodAfter": food_after, "returnFood": return_food, "returnOk": food_after >= return_food,
 		"stamina": state.ship.stamina, "plannedStamina": planned, "staminaAfter": int(state.ship.stamina) - planned,
 		"hazards": hz, "hazardsKnown": hazard_known(state, loc.regionId), "encounters": encounters,
+		"supplies": supplies_now, "suppliesAfter": supplies_now,
+		"scout": scout_active(state), "intel": scout_intel(state, to_id),
 		"exact": forecast_exact(state, loc.regionId), "firstDiscovery": not is_visited(state, to_id), "level": loc.level,
 		"capability": reg.capability, "returnPorts": ports, "blockKey": sail_block(state, to_id, fast)}
 
@@ -972,11 +1029,88 @@ static func shop_items(state: Dictionary, port_id: String) -> Array:
 		out.append("o_armor_%d" % t)
 	if m >= 3:
 		out.append("a_" + C.data.REGIONAL_ACCESSORIES[t - 1].id)
+	var region_id := String(C.PORTS[port_id].regionId)
+	for offer in C.SHOP_ITEMS:
+		if not (offer is Dictionary):
+			continue
+		if m < int(offer.get("marketLevel", 3)):
+			continue
+		var regions: Array = offer.get("regions", [])
+		if regions.size() and not regions.has(region_id):
+			continue
+		var item_id := String(offer.get("id", ""))
+		if C.ITEMS.has(item_id) and not out.has(item_id):
+			out.append(item_id)
 	return out
 
 
 static func item_price(item_id: String) -> int:
 	return int(C.ITEMS[item_id].price)
+
+
+## Deterministic daily curio stock: unowned curios from the port's region
+## and its immediate neighbours. Same port on the same game day gives the
+## same offers.
+static func curio_offers(state: Dictionary, port_id: String) -> Array:
+	var port = C.PORTS.get(port_id)
+	if port == null:
+		return []
+	var home = C.region(String(port.regionId))
+	if home == null:
+		return []
+	var regions := [String(home.id)]
+	for rid in C.REGION_BY_ID:
+		var r = C.region(String(rid))
+		if r == null:
+			continue
+		if abs(int(r.order) - int(home.order)) <= 1 and not regions.has(String(rid)):
+			regions.append(String(rid))
+	var pool := []
+	for cid in C.COLLECTIBLES:
+		var rec: Dictionary = C.COLLECTIBLES[cid]
+		if String(rec.get("kind", "")) != "curio":
+			continue
+		if not regions.has(String(rec.get("regionId", ""))):
+			continue
+		if Collections.owns(state, String(cid)):
+			continue
+		pool.append(String(cid))
+	var rng := U.Rng.new(U.seed_of("curio:%s:%d" % [port_id, day(state)]))
+	var out := []
+	while out.size() < C.CURIOS_PER_PORT and not pool.is_empty():
+		var idx := int(floor(rng.next() * float(pool.size())))
+		var cid := String(pool[idx])
+		pool.remove_at(idx)
+		var rec: Dictionary = C.COLLECTIBLES[cid]
+		var tier := region_tier_of_port(port_id)
+		var price := U.jround(float(Collections.sell_value(cid)) * 1.6 + 25.0 * float(tier))
+		out.append({"id": cid, "price": price, "nameKey": Collections.name_key(cid),
+			"descKey": Collections.desc_key(cid), "icon": Collections.icon(cid),
+			"rarity": Collections.rarity(cid), "kind": Collections.kind(cid),
+			"regionId": String(rec.get("regionId", ""))})
+	return out
+
+
+## Shard exchange list for the port: unowned collectibles from the local
+## region, priced by rarity. Sorted for a stable panel.
+static func curio_exchange(state: Dictionary, port_id: String) -> Array:
+	var port = C.PORTS.get(port_id)
+	if port == null:
+		return []
+	var region_id := String(port.regionId)
+	var costs := {"common": 4, "uncommon": 8, "rare": 16, "epic": 28, "legendary": 45}
+	var out := []
+	for cid in C.COLLECTIBLES:
+		var rec: Dictionary = C.COLLECTIBLES[cid]
+		if String(rec.get("regionId", "")) != region_id:
+			continue
+		if Collections.owns(state, String(cid)):
+			continue
+		out.append({"id": String(cid), "shards": int(costs.get(Collections.rarity(String(cid)), 8)),
+			"nameKey": Collections.name_key(String(cid)), "icon": Collections.icon(String(cid)),
+			"rarity": Collections.rarity(String(cid)), "kind": Collections.kind(String(cid))})
+	out.sort_custom(func(a, b): return int(a.shards) < int(b.shards) or (int(a.shards) == int(b.shards) and String(a.id) < String(b.id)))
+	return out
 
 
 static func salvage_value(inst: Dictionary) -> Dictionary:
@@ -1169,4 +1303,5 @@ static func codex_progress(state: Dictionary) -> Dictionary:
 	return {"locations": [loc_seen, C.LOCATIONS.size()], "enemies": [state.codex.enemies.size(), World.all_enemy_ids().size()],
 		"classes": [state.codex.classes.size(), C.CLASSES.size()], "pets": [state.codex.pets.size(), C.PET_SPECIES.size()],
 		"recipes": [state.inventory.recipes.size(), recipes_total], "items": [state.codex.items.size(), C.ITEMS.size()],
+		"collectibles": [state.codex.get("collectibles", {}).size(), C.COLLECTIBLES.size()],
 		"clues": [state.codex.clues.size(), null]}

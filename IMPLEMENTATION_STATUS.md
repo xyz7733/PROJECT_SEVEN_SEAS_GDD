@@ -112,7 +112,7 @@ requested Windows checks. `docs/WINDOWS_HANDOFF.json` always describes the newes
 **Saves and migration:**
 - Each deck in the save keeps its `id`, `kind` and `elev`. Presets store `deckId`, so a preset is
   matched to levels by name rather than by index.
-- Schema 4. `GS.migrate` upgrades schema-3 saves:
+- Schema 5. `GS.migrate` upgrades schema-3 saves through 4 and schema-4 saves to 5:
   1. It rebuilds the deck list from the hull with `Actions.rebuild_decks`. Facilities, doors and
      stairs carry over by deck id, and the default stairs are added.
   2. It re-seats each facility with `Actions.reseat_facilities`. A valid placement is kept. Otherwise
@@ -121,6 +121,8 @@ requested Windows checks. `docs/WINDOWS_HANDOFF.json` always describes the newes
      wherever possible. Required facilities are placed first.
   3. It clears the old single-level layout presets.
   4. It writes a ledger entry (`log.ship_refit`) saying how many rooms were moved off the open deck.
+  5. It adds the collection book, curio-shard and set-reward fields, and backfills every seen enemy
+     with kills, variants and region sightings.
 
 **Scale:** a ship cell is 2×2 terrain tiles (64×32 px) and one deck level is 48 px high. This was
 fixed in the geometry, so the crew and the hull stay in proportion. Camera zoom only changes how
@@ -231,6 +233,10 @@ close the view is.
   pet drop to 50 % opacity, and the tooltip shows name, class, level and role. The front-most figure
   wins; the room marker itself (within about 12 px) still picks the room. A click opens the crew
   window on that member.
+- **Returning to the ship:** the moored rowboat is clickable (hover: Return to ship), and the site HUD
+  has a Return to ship button. Either walks the party back to the landing for free and boards the
+  ship; no stamina, food or time is spent, and cleared rooms stay cleared. From the ship at an island
+  the HUD's Go ashore button (also in the chart footer) lands the party at the landing again.
 - **Guide** (`scripts/ui/guide.gd`): while the first main objective is open, one card at a time points
   at the next control with a pulsing gold frame and an arrow: ship levels, Set sail, the objective's
   destination in the chart list, Sail (with a note when it is blocked), and a room after landing. Each
@@ -341,9 +347,9 @@ close the view is.
   | Inspector | selected crew, facility (with level and access), stair or door |
   | Crew | formation, detail, equipment, skills, classes |
   | Pets | eggs (hatching), roster (roles, evolution) |
-  | Port | investment, market, tavern, workshop, quest board |
-  | Chart | one illustrated chart of the ten seas with rule-based exploration fog, markers, routes, zoom/pan/fit and legend; cost-first destination panel; footer Sail / Fast travel / Explore |
-  | Codex | locations, enemies, classes, pets, items, clues |
+  | Port | investment, market (goods, equipment, daily curio dealer and shard exchange), tavern, workshop, quest board |
+  | Chart | one illustrated chart of the ten seas with rule-based exploration fog, markers, routes, zoom/pan/fit and legend; cost-first destination panel with supplies projection and scout intel; footer Sail / Fast travel / Explore |
+  | Codex | locations, regional bestiary with claimable rewards, classes, pets, items, clues, collections (sets, charts, shards) |
   | Overview | objective, stamina and food, readiness, quests, and the log |
   | System | saves, settings (language, battle speed, UI size, fullscreen, motion, getting-started tips, audio volumes), captain |
 
@@ -351,7 +357,17 @@ close the view is.
 - **Ships:** four hulls with 3–7 levels, 27 facilities with zones, stairs, hatch ladders and doors,
   reachability rules, departure requirements, repair.
 - **Crew:** 36 classes (12 base × 2 branches plus base forms), respec that keeps level and mastery,
-  legacy passives, equipment (167 items), formation lanes.
+  legacy passives, equipment (179 items), formation lanes.
+- **Bestiary:** 50 expansion enemies (30 monsters, 10 bosses, 10 rares, plus a summonable swarmling)
+  across ten regional rosters, 3 new combat archetypes, 18 enemy skills, 12 traits and 6 elite
+  variants. Per-monster drop tables feed first-kill trophies; the Codex tracks seen/defeated, kills,
+  variants and regions, and pays one-time 50%/100% region rewards.
+- **Collections:** 82 relics, trophies, charts, lore pages and curios; 15 sets whose modifiers apply
+  once complete and whose gold/material/shard/item rewards are claimed once; chart digs at their
+  location; duplicate conversions into curio shards; and a deterministic daily curio dealer with a
+  shard exchange in every port.
+- **Scout and supplies:** a healthy scout on the crew reveals exact threats, rare sightings, hidden
+  rooms and sea-event odds; route cards project supplies on arrival.
 - **World:** ten seas and 100 locations with knowledge states, voyages, food per leg, sea events,
   fast travel, Emergency Return and port aid.
 - **Economy:** port investment, market, tavern recruiting, workshop crafting, specialties, galley and
@@ -359,11 +375,11 @@ close the view is.
 - **Pets:** 10 families, deterministic egg recipes, three roles, evolution.
 - **Campaign:** 100 quests, captain trials, the title, postgame and legend challenges.
 - **Saves:**
-  - schema 4, migrated from schema 3;
+  - schema 5, migrated from schemas 3 and 4;
   - 3 manual slots plus 3 rotating recovery autosaves under `user://saves`;
   - atomic writes with SHA-256 content hashes;
   - corrupt files are detected and never loaded.
-- **Localization:** 1,846 keys in both languages, built from `game/i18n/source/` by
+- **Localization:** 2,424 keys in both languages, built from `game/i18n/source/` by
   `tools/i18n/build_strings.py`, which reports 0 key or placeholder mismatches. Saves contain no
   localized text.
 
@@ -387,10 +403,11 @@ close the view is.
 | Check | Result |
 |---|---|
 | `godot --headless --import` | Completes without errors. All audio imports, with loops set in code |
-| Script load-probe (temporary script, deleted before export) | All 43 GDScript files compile and load, with no warnings (guide-01) |
+| Script load check (headless suite) | Every script under `scripts/ui/` and `scripts/view/` loads with no parse errors |
+| Headless test suite (`res://tests/test_main.tscn`) | 1,885 checks: content integrity (enemy, drop, sprite, icon and i18n coverage), every bestiary enemy in combat with deterministic replay, codex kills/variants/rewards, collection sets/charts/curio dealer, schema 3/4→5 migration and save-hash rejection, route supplies/scout intel, leaving a site for the ship and landing again, and UI/view script loading. 0 script errors |
 | Scene load check | `scenes/boot.tscn` and `scenes/main.tscn` load as instantiable PackedScenes |
 | Localization key check | Every literal key used by the scripts exists. Runtime-built families (deck titles, room names and kinds, sea events, outcomes) were checked against the data |
-| `tools/i18n/build_strings.py` | 1,987 keys, 0 problems (guide-01) |
+| `tools/i18n/build_strings.py` | 2,424 keys, 0 problems |
 | Chart probes (temporary, deleted before export) | Fog built for new, mid and late-game states in 93–186 ms on a worker thread. The chart window fits at 16:9 UI 1.0/1.25/1.5 and 16:10 UI 1.0/1.5 in both languages: 30 of 30 layout cases pass, with default HUD insets and nothing rendered |
 | Coast probes (temporary, deleted before export) | 8 ports (4 styles, 7 regions): ship water open, quay built, townsfolk stroll area, buildings, set pieces and sprites on land, moored boats afloat: 0 problems, built in 262–362 ms. 11 sites (islands, dungeons, wreck, secret, arena): rooms, trails, formation offsets on raised land, jetty and boat lane clear: 0 problems, built in 55–129 ms (coast-01) |
 | Dressing probe (temporary, deleted before export) | Real ship view bound for the starter, voyager, adventurer and legend hulls: every cell reachable without furniture stays reachable, every ladder/hatch/stair approach, facility access and work-spot access reachable, every chore on a reachable cell: 0 problems on all four; view bind 157–341 ms (int-01) |
@@ -406,7 +423,12 @@ scenarios A–G rely on the ported rules but haven't been re-verified in the nat
 
 ## Unfinished work and known gaps
 
-- **Bosses and pets** were not redrawn in this pass. Boss designs are still simple.
+- **Bosses and pets** use the same parameterised body plans as other creatures; they were not
+  hand-drawn in this pass. New bestiary art was generated but not visually reviewed in motion.
+- **Bestiary and collection balance** is first-pass: drop rates, curio prices, shard costs and set
+  bonuses have not been tuned against a long-run economy simulation.
+- **The seven-tab Codex strip and the port curio dealer** were load-checked and structurally tested
+  headless, not screenshot-tested at UI 1.5× or with long Chinese text.
 - **Islands and dungeons** are still laid out from the room graphs. Their coasts are now shaped
   (coast-01), but only Gull Rock is hand-tuned.
 - **Land battle arenas** are still a generic regional field. Only boarding fights use real authored

@@ -461,13 +461,24 @@ func refresh(world_mode: String) -> void:
 		"port":
 			ctx_box.add_child(UIK.primary(I18n.t("hud.sail"), func(): context_action.emit("sail"), "ui_sail"))
 		"site":
+			ctx_box.add_child(UIK.button(I18n.t("site.leave"), func(): context_action.emit("leave_site"), "ui_sail", "", true, I18n.t("site.leave_hint")))
 			ctx_box.add_child(UIK.button(I18n.t("home.open_chart"), func(): context_action.emit("sail"), "ui_map"))
 			ctx_box.add_child(UIK.button(I18n.t("home.emergency_return"), func(): context_action.emit("return"), "ui_home", "", true, I18n.t("home.emergency_hint")))
 		"at_sea":
 			if s.voyage != null and s.encounter == null:
+				var here_id := String(s.world.currentLocationId)
+				if s.voyage.get("site") == null and C.rooms(here_id).size() > 0:
+					ctx_box.add_child(UIK.primary(I18n.t("site.land"), func(): context_action.emit("land"), _loc_icon(here_id), true, I18n.t("site.land_hint")))
 				ctx_box.add_child(UIK.button(I18n.t("home.emergency_return"), func(): context_action.emit("return"), "ui_home", "", true, I18n.t("home.emergency_hint")))
 	_viewp.visible = world_mode == "port" or world_mode == "at_sea" or world_mode == "site"
 	_queue_layout()
+
+
+## Location-type icon, falling back to the generic island marker.
+func _loc_icon(loc_id: String) -> String:
+	var l = C.location(loc_id)
+	var icon_name := "loc_" + (String(l.type) if l != null else "island")
+	return icon_name if Art.has_icon(icon_name) else "loc_island"
 
 
 ## `up_name` / `down_name` name the level each arrow leads to ("" = none).

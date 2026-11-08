@@ -123,8 +123,8 @@ static func rarity_of_item(item_id: String) -> String:
 ## `pick` chooses an ingredient from a key list (seeded per caller).
 ## Row: {id, kind, ref, qty, rarity, icon}.
 static func roll(d: Dictionary, r: Dictionary, loc: Variant, pick: Callable) -> Array:
-	var bonus := 1.0 + Actions.crew_mod_max(d, "lootPct")
-	var gold_pct := 1.0 + Actions.crew_mod_max(d, "goldPct")
+	var bonus := 1.0 + Actions.crew_mod_max(d, "lootPct") + Collections.mod(d, "lootPct")
+	var gold_pct := 1.0 + Actions.crew_mod_max(d, "goldPct") + Collections.mod(d, "goldPct")
 	var bench := 1.0 + 0.15 * Rules.fac_level(d, "material_bench") * Rules.staff_mult(d, "material_bench")
 	var rows := []
 	var gold := U.jround(float(r.get("gold", 0)) * gold_pct)
@@ -174,7 +174,7 @@ static func roll(d: Dictionary, r: Dictionary, loc: Variant, pick: Callable) -> 
 ## actually stored: got, lost (no room) and salvaged (materials for
 ## equipment that did not fit in the sea chest).
 static func grant(d: Dictionary, rows: Array, r: Dictionary, loc: Variant) -> Dictionary:
-	var out := {"gold": 0, "materials": 0, "items": []}
+	var out := {"gold": 0, "materials": 0, "items": [], "collectibles": [], "shards": 0}
 	var done_rows := []
 	var reg = C.region(String(loc.regionId)) if loc != null else null
 	for row0 in rows:
@@ -223,26 +223,59 @@ static func grant(d: Dictionary, rows: Array, r: Dictionary, loc: Variant) -> Di
 			"clue":
 				Actions.add_clue(d, String(row.ref))
 				out.clue = row.ref
+			"collectible", "relic", "trophy", "chart", "lore", "curio":
+				var cid := String(row.ref)
+				var new_count := 0
+				var shards := 0
+				var reveal = null
+				for i in maxi(1, q):
+					var res := Collections.grant(d, cid)
+					if not bool(res.get("ok", false)):
+						break
+					if bool(res.get("new", false)):
+						new_count += 1
+						if reveal == null:
+							reveal = res.get("revealLocationId")
+					shards += int(res.get("shards", 0))
+				row.qty = maxi(1, q)
+				row.got = new_count
+				row.new = new_count > 0
+				row.duplicate = new_count == 0
+				row.shards = shards
+				row.lost = 0 if new_count > 0 or shards > 0 else q
+				out.shards = int(out.shards) + shards
+				out.collectibles.append({"id": cid, "new": row.new, "shards": shards})
+				if reveal != null:
+					Actions.reveal(d, String(reveal))
 		done_rows.append(row)
 	if r.get("shortcut") and reg != null:
 		d.world.shortcuts[reg.id] = true
 	return {"out": out, "rows": done_rows}
 
 
-## Opponents that carry spoils, in wave order: {uid, enemyId, weight}.
-## Decoys carry nothing; bosses and rivals carry a larger share.
+## Opponents that carry spoils, in wave order:
+## {uid, enemyId, weight, regionId, variant, rare, wave}.
+## Decoys and summoned units carry nothing; bosses and rivals carry a
+## larger share.
 static func carriers(def: Dictionary) -> Array:
 	var out := []
 	var waves: Array = def.waves
 	for w in waves.size():
 		var wave: Array = waves[w]
 		for i in wave.size():
-			var eid := String(wave[i].enemyId)
+			var entry: Dictionary = wave[i]
+			if entry.get("summoned", false):
+				continue
+			var eid := String(entry.enemyId)
 			var e = World.enemy(eid)
 			if e == null or e.get("decoy", false):
 				continue
 			var wt := 3.0 if (e.get("boss", false) or e.get("rival", false)) else 1.0
-			out.append({"uid": "e%d_%d" % [w, i], "enemyId": eid, "weight": wt})
+			var region_id := str(e.get("regionId", ""))
+			if region_id == "":
+				region_id = String(def.get("regionId", ""))
+			out.append({"uid": "e%d_%d" % [w, i], "enemyId": eid, "weight": wt, "wave": w,
+				"regionId": region_id, "variant": entry.get("variant"), "rare": bool(entry.get("rare", false))})
 	return out
 
 
@@ -315,6 +348,24 @@ static func plan(d: Dictionary, enc: Dictionary) -> Dictionary:
 				if not drops.has(uid):
 					drops[uid] = []
 				drops[uid].append([ri, int(shares[i])])
+	# Per-monster loot tables. This uses its own stream so the existing
+	# room-reward rolls stay byte-identical for the same attempt.
+	var drop_rng := U.Rng.new(U.seed_of(String(d.envelope.profileId) + ":drops:" + String(enc.attemptId)))
+	var enemy_codex: Dictionary = d.codex.get("enemies", {})
+	for c in cs:
+		var rec: Dictionary = enemy_codex.get(c.enemyId, {})
+		if not (rec is Dictionary):
+			rec = {}
+		var first_kill := int(rec.get("kills", rec.get("defeated", 0))) == 0
+		var extra := Bestiary.drop_rows(d, c, first_kill, drop_rng)
+		for row0 in extra:
+			var row: Dictionary = row0
+			var idx := rows.size()
+			rows.append(row)
+			var uid: String = c.uid
+			if not drops.has(uid):
+				drops[uid] = []
+			drops[uid].append([idx, int(row.qty)])
 	return {"rows": rows, "table": r, "drops": drops}
 
 

@@ -61,6 +61,8 @@ static func ally_unit(a: Dictionary, i: int) -> Dictionary:
 
 static func enemy_unit(e: Dictionary, i: int, wave: Variant, party_level: float) -> Dictionary:
 	var def: Dictionary = World.enemy(e.enemyId)
+	if def == null:
+		return {}
 	var arch: Dictionary = C.data.ENEMY_ARCHETYPES[def.archetype]
 	var g: Dictionary = C.TUNING.enemyGrowth
 	var sc: Dictionary = C.TUNING.enemyScale
@@ -68,21 +70,60 @@ static func enemy_unit(e: Dictionary, i: int, wave: Variant, party_level: float)
 	var pl: float = party_level if party_level else float(L)
 	var gap: float = max(0.55, min(2.2, 1.0 + float(C.TUNING.levelGap) * (L - pl)))
 	var dm: float = float(def.get("mult", 1.0)) if def.get("mult") else 1.0
+	var variant_id = e.get("variant", def.get("variant"))
+	var vrec = Bestiary.variant_record(variant_id)
+	var vm: Dictionary = vrec.get("mult", {}) if vrec is Dictionary else {}
 	var m: float = dm * gap * (1.0 + float(sc.get("perLevel", 0)) * (L - 1))
-	var hp := U.jround(float(arch.base.hp) * float(sc.hp) * (1.0 + float(g.hp) * (L - 1)) * m)
+	var hp := U.jround(float(arch.base.hp) * float(sc.hp) * (1.0 + float(g.hp) * (L - 1)) * m * float(vm.get("hp", 1.0)))
 	var atk_mult: float = float(e.get("atkMult", 1.0)) if e.get("atkMult") else 1.0
 	var skills := []
 	for id in def.skills:
 		skills.append({"id": id, "cd": float(2 + i)})
 	var base_spd := float(arch.base.spd)
+	var spd := (base_spd + float(g.spd) * (L - 1) * (1.0 if base_spd else 0.0)) * float(vm.get("spd", 1.0))
+	var mods := {"regenPct": def.get("regen", 0)}
+	var props: Array = ["burn"] if def.get("burn") else []
+	var on_hit = null
+	var summoner = null
+	var volatile = null
+	var splitter = null
+	var berserk = null
+	var survive_once := false
+	var start_shield := 0.0
+	for tid in Bestiary.traits_for(def, variant_id):
+		var tr = C.BESTIARY.TRAITS.get(tid)
+		if not (tr is Dictionary):
+			continue
+		U.add_mods(mods, tr.get("mods"))
+		if tr.get("onHit") != null:
+			on_hit = tr.onHit.duplicate(true)
+		if tr.get("summon") != null:
+			summoner = tr.summon.duplicate(true)
+		if tr.get("onDeath") != null:
+			if tr.onDeath.get("aoe") != null:
+				volatile = tr.onDeath.duplicate(true)
+			if tr.onDeath.get("spawn") != null:
+				splitter = tr.onDeath.duplicate(true)
+		if tr.get("hpBelow") != null:
+			berserk = tr.duplicate(true)
+		if tr.get("surviveOnce", false):
+			survive_once = true
+		start_shield += float(tr.get("startShield", 0.0))
+	var st := make_status()
+	st.shield = U.jround(float(hp) * start_shield)
 	return {"uid": "e%s_%d" % [str(wave), i], "side": "enemy", "key": e.enemyId, "defId": e.enemyId, "nameKey": "enemy." + e.enemyId + ".name",
 		"name": null, "level": L, "archetype": def.archetype, "lane": arch.lane, "slot": i, "range": arch.range, "maxHp": hp, "hp": hp,
-		"atk": float(U.jround(float(arch.base.atk) * float(sc.atk) * (1.0 + float(g.atk) * (L - 1)) * m * atk_mult)),
-		"def": float(U.jround(float(arch.base.def) * float(sc.def) * (1.0 + float(g.def) * (L - 1)) * dm)),
-		"spd": base_spd + float(g.spd) * (L - 1) * (1.0 if base_spd else 0.0), "crit": 0.05,
-		"dodge": 0.05 if def.archetype == "skirmisher" else 0.0, "mods": {"regenPct": def.get("regen", 0)},
-		"props": ["burn"] if def.get("burn") else [], "resist": [], "skills": skills, "roles": [], "meter": 0.0, "st": make_status(),
+		"atk": float(U.jround(float(arch.base.atk) * float(sc.atk) * (1.0 + float(g.atk) * (L - 1)) * m * atk_mult * float(vm.get("atk", 1.0)))),
+		"def": float(U.jround(float(arch.base.def) * float(sc.def) * (1.0 + float(g.def) * (L - 1)) * dm * float(vm.get("def", 1.0)))),
+		"spd": spd, "crit": 0.05 + U.num(mods, "crit"),
+		"dodge": (0.05 if def.archetype == "skirmisher" else 0.0) + U.num(mods, "dodge"),
+		"mods": mods, "props": props, "resist": [], "skills": skills, "roles": [], "meter": 0.0, "st": st,
 		"alive": true, "boss": bool(def.get("boss", false)), "decoy": bool(def.get("decoy", false)), "rival": bool(def.get("rival", false)),
+		"rare": bool(e.get("rare", def.get("rare", false))), "variantId": variant_id,
+		"variantTint": vrec.get("tint") if vrec is Dictionary else null,
+		"onHit": on_hit, "summoner": summoner, "volatile": volatile, "splitter": splitter, "berserk": berserk,
+		"surviveOnce": survive_once, "survivedLethal": false, "enraged": false, "deathDone": false,
+		"summoned": false, "summonOwner": null, "summonTimer": 0.0,
 		"pet": null, "firstAidUsed": false, "windup": null, "dealt": 0, "healed": 0}
 
 
@@ -104,7 +145,8 @@ static func create(spec: Dictionary) -> Dictionary:
 	var sd: int = int(spec.get("seed", 1))
 	var sim := {"spec": spec, "tick": 0, "rs": (sd if sd else 1) & U.M32, "wave": 0, "allies": allies, "enemies": [],
 		"stance": spec.get("stance", "balanced"), "priority": spec.get("priority", "auto"), "focus": null, "retreating": 0.0,
-		"outcome": null, "reason": null, "commands": [], "cmdIndex": 0, "log": [], "logSeq": 0, "defeated": [], "plunder": 0,
+		"outcome": null, "reason": null, "commands": [], "cmdIndex": 0, "log": [], "logSeq": 0, "defeated": [],
+		"defeatedDetails": [], "onDeathDepth": 0, "summonSerial": 0, "plunder": 0,
 		"trap": null, "encored": false, "mods": mods, "partyLevel": pl}
 	var b: Dictionary = spec.get("bonuses", {})
 	for u in allies:
@@ -315,14 +357,30 @@ static func deal_damage(sim: Dictionary, src: Dictionary, target: Dictionary, po
 	if o.get("execute") and hp_ratio(tgt) < 0.3:
 		dmg *= 1.0 + float(o.execute)
 	var dmg_i: int = max(1, U.jround(dmg))
+	var flat_pct := minf(0.6, U.num(tgt.mods, "flatReducePct"))
+	if flat_pct > 0.0:
+		dmg_i = max(1, U.jround(float(dmg_i) * (1.0 - flat_pct)))
+	var flat := U.num(tgt.mods, "flatReduce")
+	if flat > 0.0:
+		dmg_i = max(1, dmg_i - U.jround(flat))
 	var absorbed := 0
 	if tgt.st.shield > 0:
 		absorbed = min(int(tgt.st.shield), dmg_i)
 		tgt.st.shield = int(tgt.st.shield) - absorbed
 	var net := dmg_i - absorbed
+	if net >= int(tgt.hp) and tgt.get("surviveOnce", false) and not tgt.get("survivedLethal", false):
+		net = max(0, int(tgt.hp) - 1)
+		tgt.survivedLethal = true
+		push_log(sim, {"type": "endure", "tgt": tgt.uid})
 	tgt.hp = int(tgt.hp) - net
 	src.dealt = int(src.dealt) + dmg_i
 	push_log(sim, {"type": "hit", "src": src.uid, "tgt": tgt.uid, "amount": dmg_i, "crit": crit, "skill": o.get("skill"), "absorbed": absorbed})
+	if src.alive and src.get("onHit") != null and tgt.alive and not tgt.decoy:
+		var oh: Dictionary = src.onHit
+		if oh.get("dot"):
+			tgt.st.dot = max(float(tgt.st.dot), float(oh.dot) * float(src.atk))
+			tgt.st.dotT = max(float(tgt.st.dotT), float(oh.get("dur", 3)))
+			push_log(sim, {"type": "venom", "src": src.uid, "tgt": tgt.uid})
 	if U.num(tgt.mods, "thorns") and src.range != "ranged" and src.alive:
 		var r: int = max(1, U.jround(dmg_i * U.num(tgt.mods, "thorns")))
 		src.hp = int(src.hp) - r
@@ -379,15 +437,79 @@ static func apply_stun(sim: Dictionary, u: Dictionary, secs: float) -> void:
 
 
 static func check_death(sim: Dictionary, u: Dictionary) -> void:
-	if u.alive and int(u.hp) <= 0:
-		u.hp = 0
-		u.alive = false
-		u.windup = null
-		push_log(sim, {"type": "ko", "tgt": u.uid})
-		if u.side == "enemy":
+	if not u.alive or int(u.hp) > 0:
+		return
+	u.hp = 0
+	u.alive = false
+	u.windup = null
+	push_log(sim, {"type": "ko", "tgt": u.uid})
+	if u.side == "enemy":
+		if not u.get("summoned", false):
 			sim.defeated.append(u.key)
-		if sim.focus == u.uid:
-			sim.focus = null
+			if not sim.has("defeatedDetails"):
+				sim.defeatedDetails = []
+			sim.defeatedDetails.append({"enemyId": u.key, "variant": u.get("variantId"), "rare": bool(u.get("rare", false)),
+				"wave": int(sim.wave)})
+		if not u.get("deathDone", false) and int(sim.get("onDeathDepth", 0)) < 1:
+			u.deathDone = true
+			sim.onDeathDepth = int(sim.get("onDeathDepth", 0)) + 1
+			if u.get("volatile") != null:
+				volatile_burst(sim, u)
+			if u.get("splitter") != null:
+				split_on_death(sim, u)
+			sim.onDeathDepth = max(0, int(sim.get("onDeathDepth", 1)) - 1)
+	if sim.focus == u.uid:
+		sim.focus = null
+
+
+static func volatile_burst(sim: Dictionary, u: Dictionary) -> void:
+	var power := float(u.volatile.get("aoe", 0.3))
+	if power <= 0.0:
+		return
+	push_log(sim, {"type": "burst", "src": u.uid})
+	for a in living(sim.allies).duplicate():
+		if a.alive:
+			deal_damage(sim, u, a, power, {"noDodge": true, "skill": "volatile"})
+
+
+static func split_on_death(sim: Dictionary, u: Dictionary) -> void:
+	var count := int(u.splitter.get("spawn", 2))
+	var ratio := float(u.splitter.get("hp", 0.3))
+	for i in count:
+		if living(sim.enemies).size() >= 8:
+			break
+		var copy = summon_unit(sim, u, String(u.key), ratio)
+		if copy == null:
+			break
+		copy.hp = max(1, U.jround(float(copy.maxHp) * ratio))
+		copy.tint_done = true
+
+
+static func summon_unit(sim: Dictionary, owner: Dictionary, enemy_id: String, hp_ratio: float = 1.0) -> Variant:
+	if living(sim.enemies).size() >= 8:
+		return null
+	if Bestiary.entry(enemy_id) == null:
+		return null
+	sim.summonSerial = int(sim.get("summonSerial", 0)) + 1
+	var copy := enemy_unit({"enemyId": enemy_id, "level": owner.level}, 100 + int(sim.summonSerial), "s", sim.partyLevel)
+	if copy.is_empty():
+		return null
+	copy.uid = "s%d_%d" % [int(sim.summonSerial), int(sim.tick)]
+	copy.hp = max(1, U.jround(float(copy.maxHp) * hp_ratio))
+	copy.summoned = true
+	copy.summonOwner = owner.uid
+	copy.summoner = null
+	copy.summonTimer = 0.0
+	copy.volatile = null
+	copy.splitter = null
+	copy.surviveOnce = false
+	copy.survivedLethal = false
+	copy.rare = false
+	copy.boss = false
+	copy.deathDone = false
+	sim.enemies.append(copy)
+	push_log(sim, {"type": "summon", "src": owner.uid, "tgt": copy.uid, "enemy": enemy_id})
+	return copy
 
 
 static func cleanse(u: Dictionary) -> void:
@@ -548,8 +670,15 @@ static func resolve_skill(sim: Dictionary, u: Dictionary, def: Dictionary, skill
 	var no_heal: bool = u.side == "ally" and has_mod(sim, "legend_no_healing")
 	for t in targets:
 		var hostile: bool = t.side != u.side
+		var dealt := 0
 		if hostile and power > 0:
-			deal_damage(sim, u, t, power, {"skill": skill_id, "pierce": fx.get("pierce"), "execute": fx.get("execute"), "boss": fx.get("boss")})
+			var hits: int = max(1, int(fx.get("hits", 1)))
+			for h in hits:
+				if not t.alive:
+					break
+				dealt += deal_damage(sim, u, t, power, {"skill": skill_id, "pierce": fx.get("pierce"), "execute": fx.get("execute"), "boss": fx.get("boss")})
+			if fx.get("healSelf") and dealt > 0:
+				heal(sim, u, u, float(dealt) * float(fx.healSelf), {"quiet": true})
 		if not t.alive and hostile:
 			continue
 		if def.get("heal") and not hostile:
@@ -820,6 +949,25 @@ static func step(sim: Dictionary) -> Dictionary:
 				push_log(sim, {"type": "skill", "src": u.uid, "skill": w.skill})
 				resolve_skill(sim, u, C.SKILLS[w.skill], w.skill, unit_by_uid(sim, w.target))
 			continue
+		if u.side == "enemy":
+			if u.get("berserk") != null and not u.get("enraged", false) and hp_ratio(u) <= float(u.berserk.get("hpBelow", 0.4)):
+				u.enraged = true
+				u.atk = float(u.atk) * (1.0 + float(u.berserk.get("atk", 0.35)))
+				push_log(sim, {"type": "enrage", "src": u.uid})
+			if u.get("summoner") != null and not u.get("summoned", false):
+				u.summonTimer = float(u.get("summonTimer", 0.0)) + DT
+				var summon_def: Dictionary = u.summoner
+				if u.summonTimer >= float(summon_def.get("every", 9.0)):
+					u.summonTimer = 0.0
+					var cap := int(summon_def.get("cap", 3))
+					var count := int(summon_def.get("count", 1))
+					var owned := 0
+					for other in sim.enemies:
+						if other.alive and other.get("summonOwner") == u.uid:
+							owned += 1
+					var room: int = min(8 - living(sim.enemies).size(), cap - owned)
+					for k in max(0, min(count, room)):
+						summon_unit(sim, u, String(summon_def.get("enemyId", "swarmling")))
 		if u.pet != null and u.alive and sim.retreating <= 0:
 			var interval := (6.0 if u.pet.evolved else 7.0) - (1.0 if u.props.has("pet") else 0.0)
 			u.pet.timer = float(u.pet.timer) + DT
@@ -896,7 +1044,8 @@ static func result(sim: Dictionary) -> Dictionary:
 		healed[a.key] = a.healed
 	return {"outcome": sim.outcome, "reason": sim.reason, "ticks": sim.tick, "time": U.round1(float(sim.tick) * dt()),
 		"wave": int(sim.wave) + 1, "waves": sim.spec.waves.size(), "koAllies": ko, "allyHp": hp,
-		"enemiesDefeated": sim.defeated.duplicate(), "plunder": sim.plunder, "dealt": dealt, "healed": healed}
+		"enemiesDefeated": sim.defeated.duplicate(), "enemyDetails": sim.get("defeatedDetails", []).duplicate(true),
+		"plunder": sim.plunder, "dealt": dealt, "healed": healed}
 
 
 ## Replays a full battle from a spec and a command list (stable by tick).

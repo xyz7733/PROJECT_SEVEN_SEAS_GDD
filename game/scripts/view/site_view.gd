@@ -81,6 +81,8 @@ var _here := LANDING
 var _hover := ""
 ## Party member under the mouse (index into _party) or -1.
 var _hover_m := -1
+## Whether the pointer is over the moored rowboat (the way back to the ship).
+var _hover_boat := false
 ## Walk generation: a follower's delayed start is dropped once a newer
 ## walk or placement has been ordered.
 var _walk_gen := 0
@@ -1140,6 +1142,30 @@ func _room_tip(id: String) -> String:
 	return "\n".join(lines)
 
 
+## The moored rowboat is the way back to the ship.
+func _over_boat(p: Vector2) -> bool:
+	return Rect2(_berth + Vector2(-34, -15), Vector2(68, 30)).has_point(p)
+
+
+func _boat_tip() -> String:
+	return I18n.t("site.leave") + "\n" + I18n.t("site.leave_hint")
+
+
+## Walks the landing party back to the rowboat (free along cleared paths),
+## then boards the ship. Ignored mid-walk, like room clicks.
+func return_to_ship() -> void:
+	if busy or main == null:
+		return
+	if _here == LANDING:
+		_commit_leave()
+		return
+	walk_to(LANDING, _commit_leave)
+
+
+func _commit_leave() -> void:
+	Game.act(Actions.leave_site(Game.state))
+
+
 func _click_room(id: String) -> void:
 	if busy or main == null:
 		return
@@ -1378,12 +1404,15 @@ func _unhandled_input(ev: InputEvent) -> void:
 				_drag_moved = 0.0
 			get_viewport().set_input_as_handled()
 		elif mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			var pick := _pick(get_global_mouse_position())
+			var wp := get_global_mouse_position()
+			var pick := _pick(wp)
 			if int(pick[1]) >= 0:
 				if main != null:
 					main.open_window("crew", "", _party[int(pick[1])].key)
 			elif String(pick[0]) != "":
 				_click_room(String(pick[0]))
+			elif _over_boat(wp):
+				return_to_ship()
 			get_viewport().set_input_as_handled()
 	elif ev is InputEventMouseMotion:
 		var mm := ev as InputEventMouseMotion
@@ -1422,7 +1451,8 @@ func _update_hover(wp: Vector2) -> void:
 	var pick := _pick(wp)
 	var id := String(pick[0])
 	var mi := int(pick[1])
-	if id == _hover and mi == _hover_m:
+	var boat := id == "" and mi < 0 and _over_boat(wp)
+	if id == _hover and mi == _hover_m and boat == _hover_boat:
 		return
 	if _hover_m >= 0 and _hover_m < _party.size() and is_instance_valid(_party[_hover_m]):
 		_party[_hover_m].set_marker("")
@@ -1437,7 +1467,8 @@ func _update_hover(wp: Vector2) -> void:
 		_pet.modulate = others
 	_hover = id
 	_hover_m = mi
-	hover_changed.emit(_member_tip(mi) if mi >= 0 else (_room_tip(id) if id != "" else ""))
+	_hover_boat = boat
+	hover_changed.emit(_member_tip(mi) if mi >= 0 else (_room_tip(id) if id != "" else (_boat_tip() if boat else "")))
 
 
 ## Hover text for a landing-party member: who they are and their role.

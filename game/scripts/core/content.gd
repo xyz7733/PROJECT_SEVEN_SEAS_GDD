@@ -20,11 +20,53 @@ var QUESTS: Dictionary
 var ROUTES: Array
 var REGION_BY_ID: Dictionary = {}
 var NEIGHBORS: Dictionary = {}
+## Expansion content, merged into the reference data above.
+var BESTIARY: Dictionary = {}
+var COLLECTIONS: Dictionary = {}
+var COLLECTIBLES: Dictionary = {}
+var COLLECTION_SETS: Dictionary = {}
+var MONSTERS_BY_ID: Dictionary = {}
+var MONSTERS_BY_REGION: Dictionary = {}
+var RARE_BY_REGION: Dictionary = {}
+var SHOP_ITEMS: Array = []
+var CURIOS_PER_PORT := 3
 
 
 func _init() -> void:
 	data = U.load_json("res://data/content.json")
 	world = U.load_json("res://data/world.json")
+	var best: Dictionary = U.load_json("res://data/bestiary.json")
+	var coll: Dictionary = U.load_json("res://data/collections.json")
+	_merge_dict(data.ENEMY_ARCHETYPES, best.get("ARCHETYPES", {}))
+	_merge_dict(data.SKILLS, best.get("SKILLS", {}))
+	_merge_dict(data.ITEMS, coll.get("ITEMS", {}))
+	_merge_dict(data.INGREDIENTS, coll.get("INGREDIENTS", {}))
+	_merge_dict(data.AFFIXES, coll.get("AFFIXES", {}))
+	for key in ["battle", "elite", "boss"]:
+		if not world.GROUPS.has(key):
+			world.GROUPS[key] = []
+		_merge_array_unique(world.GROUPS[key], best.get("GROUPS", {}).get(key, []))
+	BESTIARY = best
+	COLLECTIONS = coll
+	COLLECTIBLES = coll.get("COLLECTIBLES", {})
+	COLLECTION_SETS = coll.get("SETS", {})
+	var shop: Dictionary = coll.get("SHOP", {})
+	SHOP_ITEMS = shop.get("items", [])
+	CURIOS_PER_PORT = int(shop.get("curiosPerPort", 3))
+	for group in ["MONSTERS", "BOSSES", "RARES"]:
+		for rec in best.get(group, []):
+			var r: Dictionary = rec.duplicate(true)
+			r["boss"] = bool(r.get("boss", false)) or group == "BOSSES"
+			r["rare"] = bool(r.get("rare", false)) or group == "RARES"
+			MONSTERS_BY_ID[r.id] = r
+			var rid = r.get("regionId")
+			if rid != null:
+				if not MONSTERS_BY_REGION.has(rid):
+					MONSTERS_BY_REGION[rid] = []
+				if not MONSTERS_BY_REGION[rid].has(r.id):
+					MONSTERS_BY_REGION[rid].append(r.id)
+				if r.rare:
+					RARE_BY_REGION[rid] = r.id
 	TUNING = data.TUNING
 	FACILITIES = data.FACILITIES
 	CLASSES = data.CLASSES
@@ -48,6 +90,21 @@ func _init() -> void:
 			NEIGHBORS[pair[1]] = []
 		NEIGHBORS[pair[0]].append(pair[1])
 		NEIGHBORS[pair[1]].append(pair[0])
+
+
+func _merge_dict(into: Dictionary, extra: Variant) -> void:
+	if not (extra is Dictionary):
+		return
+	for key in extra:
+		into[key] = extra[key]
+
+
+func _merge_array_unique(into: Array, extra: Variant) -> void:
+	if not (extra is Array):
+		return
+	for value in extra:
+		if not into.has(value):
+			into.append(value)
 
 
 func k(name: String) -> Variant:

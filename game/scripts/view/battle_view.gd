@@ -753,7 +753,7 @@ func _make_actor(u: Dictionary) -> Actor:
 		a.setup_puppet(Art.crew_look(m) if m != null else {})
 		a.key = String(u.key)
 	else:
-		a.setup_enemy(String(u.key))
+		a.setup_enemy(String(u.key), u.get("variantTint"))
 	a.show_hp(true, u.side == "ally")
 	a.face(ALLY_FACE if u.side == "ally" else ENEMY_FACE)
 	stage.add_child(a)

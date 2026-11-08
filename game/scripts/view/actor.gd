@@ -153,7 +153,8 @@ func setup_prop(tex: Texture2D, anchor: Vector2) -> Actor:
 
 
 ## Builds the right visual for an enemy id (puppet, creature or prop).
-func setup_enemy(enemy_id: String) -> Actor:
+## Variant tints multiply every sprite layer without touching the HP bar.
+func setup_enemy(enemy_id: String, variant_tint: Variant = null) -> Actor:
 	key = enemy_id
 	var v := Art.enemy_visual(enemy_id)
 	match v.type:
@@ -167,7 +168,17 @@ func setup_enemy(enemy_id: String) -> Actor:
 				setup_creature(Art.creature_info("reef_crab"))
 			else:
 				setup_prop(p.tex, p.anchor)
+	tint(variant_tint)
 	return self
+
+
+## Multiplies the sprite layers by a hex colour, leaving UI overlays alone.
+func tint(hex: Variant) -> void:
+	if hex == null or String(hex) == "":
+		return
+	var c := Color.html(String(hex))
+	for l in _layers:
+		(l.sprite as Sprite2D).modulate = c
 
 
 func _clear_layers() -> void:
