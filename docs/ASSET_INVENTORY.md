@@ -38,17 +38,20 @@ Preview sheets (not shipped) are written to `art/previews/`.
 | `game/assets/gen/env/terrain_<region>.png` | 512x128 | row0 water x4 (+open sea x4), row1 shallow/reef/lagoon x4, row2 16 ground tiles, row3 5 cliff sides, rows 4-6 single-face, low-ledge and top-band sides, row7 15 coast and town ground tiles | procedural pixel tiles (gen_env.py) | TileMapLayer atlases for sea, islands, ports, arenas |
 | `game/assets/gen/env/props.png` | 1024x338 | 287 sprites | voxel render (gen_env.py) | island/port/arena props and interactables |
 | `game/assets/gen/env/buildings.png` | 1024x488 | 60 sprites | voxel render (gen_env.py) | port buildings per region (market, tavern, workshop, quest board, navigation, house) |
+| `game/assets/gen/env/buildings_lit.png` | 1024x488 | 60 window masks | derived from the emissive window voxels (gen_env.py) | lit windows on port buildings at night |
 | `game/assets/gen/env/foam.png` | 48x6 | 4 frames 12x6 | procedural | hull waterline foam |
 | `game/assets/gen/env/chart_icons.png` | 144x16 | 9 icons | procedural | location type icons in lists (the chart itself uses chart_marks.png from gen_chart.py) |
+| `game/assets/gen/env/ambient.png` | 322x450 | gull x4 + shadow, glint x5, whitecap x6, fish x8, ripple x4, spray x5, butterfly x2, 3 cloud shadows, window light | pixel canvas (gen_ambient.py) | ambient life in every stage: gulls, sea glints and whitecaps, leaping fish, bow spray, butterflies, drifting cloud shadows, lit windows at night |
 | `game/assets/gen/env/chart_world.png` | 2016x526 | 1 | procedural chart (gen_chart.py) | world sea chart: ten seas in progression order around a mainland with one strait; depth bands, contours, dashed sea boundaries, a compass rose and rhumb lines per sea, vignettes, neat line |
 | `game/assets/gen/env/chart_isles.png` | 512x509 | 100 islands | procedural coastline silhouettes (gen_chart.py) | one island per location (harbour, trees, cave, atoll, reef wreck); drawn only once known |
 | `game/assets/gen/env/chart_marks.png` | 272x16 | 17 markers | procedural pixel icons (gen_chart.py) | chart markers: port badges, location discs, hollow charted-unvisited markers, ship, last safe port, objective, cleared badge, lock |
 | `game/assets/gen/env/chart_fog.png` | 1008x263 | 1 | procedural cloud billows (gen_chart.py) | exploration cloud bank: two billow layers lit from the upper left; alpha, haze and bank edges are set at runtime from the save (sea_chart.gd) |
 | `game/assets/gen/env/chart_fogkey.png` | 1008x263 | 1 | procedural data image (gen_chart.py) | fog key: edge noise (R), sea index and land flag (G); read at runtime, never drawn |
-| `game/assets/gen/ui/icons.png` | 256x160 | 154 icons 16x16 | pixel canvas drawing (gen_ui.py) | HUD/menus: resources, categories, roles, stances, items, hazards, actions |
+| `game/assets/gen/ui/icons.png` | 256x160 | 159 icons 16x16 | pixel canvas drawing (gen_ui.py) | HUD/menus: resources, categories, roles, stances, items, hazards, actions |
 | `game/assets/gen/ui/ui.png` | 256x76 | 53 pieces | pixel drawing (gen_ui.py) | 9-slice theme panels/buttons/bars, iso selection & placement diamonds, shadows, emote bubbles, cursor |
 | `game/assets/gen/ui/fx.png` | 168x281 | steam x6, smoke x6, sparks x4, notes x6, bubbles x6, heart x4, zzz x6, heal x6, hit x4, slash x4, splash x5, fire x4, dust x4, sparkle x6, coin x6, orb x4, bullet x2, arrow x1, wake x6 | pixel canvas animation (gen_ui.py) | facility steam/smoke/sparks/notes, crew emotes, combat hit/slash/projectiles/heal, splashes, wake, coins |
 | `game/icon.png, game/icon.ico` | 256x256 (+ico 16-256) | 1 | pixel drawing 32x32 upscaled (gen_ui.py) | application / window icon |
+| `game/assets/gen/ui/title.png` | 63x63 | ship's wheel emblem 47x47, pennant 61x13 | pixel canvas (gen_title.py) | title screen emblem |
 
 Each atlas has a JSON sidecar beside it (rects, anchors/origins, frame lists, animation tables). The
 Godot scripts read these at runtime to build `AtlasTexture` regions, `TileSet` sources and animations.
@@ -65,6 +68,8 @@ Godot scripts read these at runtime to build `AtlasTexture` regions, `TileSet` s
 - **Water** (`env/terrain_*`): 4-frame animated deep, open and shallow tiles per region.
 - **FX** (`ui/fx.png`): steam, smoke, sparks, notes, bubbles, hearts, sleep, heal, hit, slash, splash,
   fire, dust, sparkle, coin, orb, bullet, arrow and wake.
+- **Ambient life** (`env/ambient.png`): gull ×4 (flap and glide), sea glint ×5, whitecap ×6, leaping
+  fish ×8 with a ripple ×4, bow spray ×5 and butterfly ×2, plus three still cloud shadows.
 
 ## Third-party resources
 
@@ -80,7 +85,7 @@ Audio lives in `game/assets/audio/`. The music, ambience and most effects are th
 - ambience field recordings from BigSoundBank;
 - effects from Kenney (Interface Sounds, Impact Sounds, RPG Audio, Music Jingles) and from Thimras's "Battle at sea".
 
-The victory and defeat stingers are original. They are synthesised by `tools/audiogen/gen_stingers.py`.
+The victory and defeat stingers, the rain and storm beds, the two thunder claps and the boss horn are original. They are synthesised by `tools/audiogen/gen_stingers.py` and `tools/audiogen/gen_weather.py`.
 
 Every file's source URL, creator, original filename and licence is listed in `docs/AUDIO_LICENSES.md`.
 That file, the CC0 legal code and the Kenney pack licence notes are distributed in `build/windows/licenses/`.
@@ -88,8 +93,8 @@ That file, the CC0 legal code and the Kenney pack licence notes are distributed 
 | Folder | Files | Contents | Licence |
 |---|---|---|---|
 | `audio/music/` | 3 | Sailing/title loop, port loop, battle drum loop | CC0 1.0 |
-| `audio/ambience/` | 5 | Open sea (masts), harbour gulls, coast waves, cave, rowing | CC0 1.0 |
-| `audio/sfx/` | 53 | UI cues, wood/plank/door/creak/coins/cloth/bell, combat swings, hits, knockouts, jingles, cannon, ram, two stingers | CC0 1.0 (stingers original) |
+| `audio/ambience/` | 7 | Open sea (masts), harbour gulls, coast waves, cave, rowing, rain loop, storm loop | CC0 1.0 (rain and storm loops original) |
+| `audio/sfx/` | 56 | UI cues, wood/plank/door/creak/coins/cloth/bell, combat swings, hits, knockouts, jingles, cannon, ram, two stingers, near and far thunder, boss horn | CC0 1.0 (stingers, thunder and boss horn original) |
 
 ## Code-drawn scene elements
 
@@ -104,6 +109,11 @@ Some scene dressing is drawn at runtime with Godot's 2D drawing API rather than 
 | Chimney smoke | `scripts/view/ship_view.gd` | Particle puffs over houses. |
 | Boarding planks and grapnel ropes | `scripts/view/battle_view.gd` | Lines spanning the two hulls. |
 | Impact bursts (`BattleView.Burst`) | `scripts/view/battle_view.gd` | Shapes for critical hits, skills and knockouts. |
+| Wake and bow wave (`SailFx`) | `scripts/view/sail_fx.gd` | Foam flecks along the waterline, the stern trail and the two bow-wave arms while under way. The spray sprites come from `env/ambient.png`. |
+| Lighthouse beam and fireflies (`Ambience`) | `scripts/view/ambience.gd` | The rotating additive beam at night and the firefly glows. Gulls, glints, whitecaps, fish, butterflies and cloud shadows are sprites from `env/ambient.png`. |
+| Weather (`WeatherLayer`) | `scripts/view/weather_layer.gd` | The overcast tint, rain streaks and the splashes where they land, dithered fog banks, falling ash and embers, and lightning flashes. |
+| Boss aura and boss bar (`BattleView.BossAura`, `BattleView.BossBar`) | `scripts/view/battle_view.gd` | The pulsing red ring under a boss and the boss health gauge with its trailing chip. |
+| Stage sweep (`Curtain`) | `scripts/view/curtain.gd` | The dithered diagonal sweep between stages, drawn by a shader over a frozen frame. |
 
 The font and the CC0 audio are the only third-party files the game ships. Godot Engine itself is MIT-licensed.
 The export templates come from the official Godot release and are not part of this repository's assets.

@@ -1256,6 +1256,45 @@ def _(cv):
         cv.hline(0, 2, y, WHITE, FLAT)
 
 
+# Weather (HUD clock): appended last so the existing icons keep their cells.
+SKY_GREY, SKY_DARK = (196, 204, 222), (122, 130, 158)
+
+
+@icon("sky_cloudy")
+def _(cv):
+    cloud(cv, (150, 158, 182), 10, 5)
+    cloud(cv, SKY_GREY, 7, 8)
+
+
+@icon("sky_rain")
+def _(cv):
+    cloud(cv, SKY_GREY, 8, 5)
+    for x, y in ((4, 11), (8, 12), (12, 11), (6, 14), (10, 14)):
+        cv.line(x + 1, y - 1, x, y, BLUE, FLAT)
+
+
+@icon("sky_storm")
+def _(cv):
+    cloud(cv, SKY_DARK, 8, 5)
+    cv.poly([(8, 8), (5, 12), (7.5, 12), (6, 15.5), (11, 10.5), (8.5, 10.5), (10, 8)], YELLOW)
+    cv.line(3, 10, 2, 12, BLUE, FLAT)
+    cv.line(14, 10, 13, 12, BLUE, FLAT)
+
+
+@icon("sky_fog")
+def _(cv):
+    for y, x0, x1, c in ((4, 3, 12, SKY_GREY), (7, 1, 10, (170, 178, 200)), (10, 5, 14, SKY_GREY), (13, 2, 11, (170, 178, 200))):
+        cv.rect(x0, y, x1, y + 1, c)
+        cv.px(x0, y, c, LIGHT)
+
+
+@icon("sky_ash")
+def _(cv):
+    cloud(cv, (110, 100, 104), 8, 5)
+    for x, y, c in ((4, 11, (150, 140, 136)), (9, 12, ORANGE), (12, 10, (150, 140, 136)), (6, 14, (150, 140, 136)), (11, 14, YELLOW)):
+        cv.px(x, y, c, FLAT)
+
+
 # --------------------------------------------------------------- theme ----
 
 def frame_panel(w, h, fill, edge_hi, edge_lo, outer=(16, 14, 24), corner=None, alpha=255, inner_line=None):
@@ -1282,8 +1321,10 @@ def frame_panel(w, h, fill, edge_hi, edge_lo, outer=(16, 14, 24), corner=None, a
 
 def theme_pieces():
     out = {}
+    # Opaque: a see-through window let the HUD chips and the level selector
+    # behind it show through its text.
     out["panel"] = (frame_panel(24, 24, (22, 28, 44), (150, 108, 62), (88, 58, 36), corner=(236, 190, 90),
-                                alpha=236, inner_line=(40, 48, 70)), 6)
+                                alpha=255, inner_line=(40, 48, 70)), 6)
     out["panel_light"] = (frame_panel(24, 24, (232, 214, 172), (255, 244, 214), (176, 140, 92), outer=(70, 46, 30),
                                       corner=(170, 120, 60)), 6)
     out["panel_flat"] = (frame_panel(12, 12, (16, 20, 32), (40, 50, 74), (30, 36, 54), outer=(10, 10, 16), alpha=210), 3)

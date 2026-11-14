@@ -90,7 +90,7 @@ func _hatch(b: VBoxContainer, hatchery: int) -> void:
 	right.add_child(UIK.hbox([_egg_tex(egg.familyId), UIK.label(I18n.t("pets.feed_title", {"family": "petfam.%s.name" % egg.familyId}), "GoldLabel")], 3))
 	right.add_child(UIK.para(I18n.t("pets.feed_rule"), "DimLabel", 300))
 	# feeding slots
-	var slots := UIK.hbox([], 3)
+	var slots := UIK.flow(3)
 	for i in 3:
 		var v := UIK.vbox([UIK.label(I18n.t("pets.feed_n", {"n": i + 1}), "DimLabel")], 0)
 		v.custom_minimum_size = Vector2(96, 30)

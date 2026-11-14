@@ -101,7 +101,12 @@ func _formation(b: VBoxContainer) -> void:
 	var lane_ids: Array = C.data.FORMATION_LANES
 	for li in lane_ids.size():
 		var lane: String = lane_ids[li]
-		var col := UIK.vbox([UIK.label(I18n.t("lane." + lane), "GoldLabel"), UIK.para(I18n.t("lane.%s.desc" % lane), "DimLabel", 140)], 3)
+		# Three lanes share the window width (they used to need about 560 px
+		# of a 480 px window, which pushed the rear lane off the right edge).
+		var desc := UIK.para(I18n.t("lane.%s.desc" % lane), "DimLabel", 96)
+		# Room for two lines in every lane, so the slot rows line up across.
+		desc.custom_minimum_size.y = 27
+		var col := UIK.vbox([UIK.label(I18n.t("lane." + lane), "GoldLabel"), desc], 3)
 		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		for k in 2:
 			var slot := li * 2 + k
@@ -112,31 +117,39 @@ func _formation(b: VBoxContainer) -> void:
 				items.append([c.id, I18n.crew_name(c) + " · " + I18n.t("class.%s.name" % c.classId)])
 			var opt := UIK.option(items, id, func(v): act(Actions.set_formation(Game.state, slot, v)))
 			opt.disabled = reason != ""
-			opt.custom_minimum_size.x = 140
+			# Sized by the lane, not by the longest name in the list.
+			opt.fit_to_longest_item = false
+			opt.custom_minimum_size.x = 84
 			opt.clip_text = true
-			var slot_box := UIK.hbox([UIK.portrait("crew", m, Vector2(24, 32)) if m else UIK.tex(Art.ui_tex("slot"), Vector2(32, 38)), UIK.vbox([
+			opt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			opt.tooltip_text = String(items[opt.selected][1])
+			var slot_info := UIK.vbox([
 				UIK.label(I18n.t("crew.slot_n", {"n": slot + 1}), "DimLabel"), opt,
-				UIK.label(I18n.t("crew.power", {"n": Rules.power(s, m)}) if m else "", "DimLabel")], 1)], 3)
+				UIK.label(I18n.t("crew.power", {"n": Rules.power(s, m)}) if m else "", "DimLabel")], 1)
+			slot_info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			var slot_box := UIK.hbox([UIK.portrait("crew", m, Vector2(24, 32)) if m else UIK.tex(Art.ui_tex("slot"), Vector2(24, 32)), slot_info], 3)
 			col.add_child(UIK.panel(slot_box, "FlatPanel"))
 		lanes.add_child(col)
 	b.add_child(lanes)
-	b.add_child(UIK.para(reason if reason != "" else I18n.t("crew.formation_hint"), "WarnLabel" if reason != "" else "DimLabel", 440))
+	b.add_child(UIK.para(reason if reason != "" else I18n.t("crew.formation_hint"), "WarnLabel" if reason != "" else "DimLabel", 300))
 	b.add_child(UIK.header(I18n.t("crew.tactics"), "stance_" + String(s.tactics.stance)))
-	var srow := UIK.hbox([UIK.label(I18n.t("battle.stance"), "DimLabel")], 2)
+	var srow := HFlowContainer.new()
+	srow.add_child(UIK.label(I18n.t("battle.stance"), "DimLabel"))
 	for sid in C.data.STANCES:
 		var bt := UIK.button(I18n.t("stance.%s.name" % sid), func(): act(Actions.set_tactics(Game.state, sid, null)), "stance_" + sid, "TabButton", true, I18n.t("stance.%s.desc" % sid))
 		bt.toggle_mode = true
 		bt.button_pressed = s.tactics.stance == sid
 		srow.add_child(bt)
 	b.add_child(srow)
-	var prow := UIK.hbox([UIK.label(I18n.t("battle.priority"), "DimLabel")], 2)
+	var prow := HFlowContainer.new()
+	prow.add_child(UIK.label(I18n.t("battle.priority"), "DimLabel"))
 	for pid in C.data.PRIORITIES:
 		var bt := UIK.button(I18n.t("priority.%s.name" % pid), func(): act(Actions.set_tactics(Game.state, null, pid)), "prio_" + pid, "TabButton", true, I18n.t("priority.%s.desc" % pid))
 		bt.toggle_mode = true
 		bt.button_pressed = s.tactics.priority == pid
 		prow.add_child(bt)
 	b.add_child(prow)
-	b.add_child(UIK.para(I18n.t("crew.tactics_hint"), "DimLabel", 440))
+	b.add_child(UIK.para(I18n.t("crew.tactics_hint"), "DimLabel", 300))
 
 
 # ---------------------------------------------------------------- detail
@@ -165,7 +178,7 @@ func _detail(b: VBoxContainer, m: Dictionary) -> void:
 			UIK.hbox([UIK.button(I18n.t("crew.treat"), func(): act(Actions.treat(Game.state, m.id)), "ui_heal", "", ok and Fmt.can_afford(s, cost),
 				"" if ok else I18n.t("err.need_infirmary")), UIK.label(UIK.cost_text(cost) if at_port else "1 " + I18n.t("status.supplies"), "DimLabel")], 3)], 2), "FlatPanel"))
 	var st_ := Rules.member_stats(s, m)
-	var g := UIK.grid(6, 6)
+	var g := UIK.flow(6)
 	for k in ["hp", "atk", "def", "spd"]:
 		g.add_child(UIK.stat("ui_" + k, I18n.fmt_num(st_[k]), "", I18n.t("stat." + k)))
 	g.add_child(UIK.label(I18n.t("stat.crit") + " " + I18n.pct(float(st_.crit)), "DimLabel"))
@@ -240,7 +253,9 @@ func _equipment(b: VBoxContainer, m: Dictionary) -> void:
 		var box := UIK.vbox([], 2)
 		var head := UIK.hbox([UIK.icon("w_blade" if slot == "weapon" else "w_" + slot), UIK.label(I18n.t("slot." + slot), "GoldLabel")], 3)
 		if slot == "weapon":
-			head.add_child(UIK.label(I18n.t("crew.weapons_allowed", {"list": ", ".join(cls.weapons.map(func(w): return I18n.t("wtype." + w)))}), "DimLabel"))
+			var allowed := UIK.label(I18n.t("crew.weapons_allowed", {"list": ", ".join(cls.weapons.map(func(w): return I18n.t("wtype." + w)))}), "DimLabel", true, 120)
+			allowed.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			head.add_child(allowed)
 		box.add_child(head)
 		if inst != null:
 			box.add_child(UIK.hbox([UIK.icon(Fmt.item_icon(inst.itemId)), UIK.label(I18n.item_name(inst.itemId, inst), "")], 3))
@@ -263,8 +278,10 @@ func _equipment(b: VBoxContainer, m: Dictionary) -> void:
 		opts.append_array(items)
 		var o := UIK.option(opts, null, func(v): if v != null and v != "": act(Actions.equip(Game.state, m.id, slot, v)))
 		o.disabled = not calm or items.is_empty()
-		o.custom_minimum_size.x = 200
+		o.custom_minimum_size.x = 120
+		o.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		o.clip_text = true
+		o.fit_to_longest_item = false
 		row.add_child(o)
 		if inst != null:
 			row.add_child(UIK.button(I18n.t("crew.unequip"), func(): act(Actions.equip(Game.state, m.id, slot, null)), "ui_close", "", calm))
@@ -318,7 +335,7 @@ func _classes(b: VBoxContainer, m: Dictionary) -> void:
 		var base: Dictionary = C.CLASSES[base_id]
 		var ids := [base_id]
 		ids.append_array(base.get("branches", []))
-		var row := UIK.hbox([], 2)
+		var row := UIK.flow(2)
 		for id in ids:
 			row.add_child(_class_node(m, id, reason, cost))
 		b.add_child(row)

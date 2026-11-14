@@ -750,6 +750,165 @@ func make_foam() -> Foam:
 	return f
 
 
+## Soft borders between kinds of raised ground. Tiles meet along their
+## diamond edges, so a worn patch or a trail shows stair steps. This
+## overlay redraws every pixel near a border with the ground that wins a
+## noisy bilinear vote of the four nearest cell centres. The border then
+## follows a ragged natural line instead of the tile edges. Built cells
+## (quays, decks) and lower ground keep their own edges. `atlas` is the
+## region terrain atlas the ground tiles come from.
+func make_blend(atlas: Texture2D) -> GroundBlend:
+	var img := Image.create(_w, _h, false, Image.FORMAT_RGBA8)
+	var code := PackedInt32Array()
+	code.resize(lvl.size())
+	for i in lvl.size():
+		code[i] = -1
+		if lvl[i] != HIGH or _built.has(cell_of(i)):
+			continue
+		var t := Art.ground_tile(ground[i])
+		code[i] = t.x + t.y * 256
+		img.set_pixel(i % _w, i / _w, Color8(t.x, t.y, 0, 255))
+	var b := GroundBlend.new()
+	b.z_index = -11
+	b.position = Vector2(0, -LIFT[HIGH])
+	# Only cells next to a different raised ground can change.
+	for i in lvl.size():
+		if code[i] < 0:
+			continue
+		var c := cell_of(i)
+		var edge := false
+		for dy in range(-1, 2):
+			for dx in range(-1, 2):
+				var j := idx(c + Vector2i(dx, dy))
+				if j >= 0 and code[j] >= 0 and code[j] != code[i]:
+					edge = true
+		if edge:
+			b.rects.append(Rect2(Art.iso(c.x, c.y) - Vector2(16, 8), Vector2(32, 16)))
+	var mat := ShaderMaterial.new()
+	mat.shader = GroundBlend.shader()
+	mat.set_shader_parameter("cells", ImageTexture.create_from_image(img))
+	mat.set_shader_parameter("atlas", atlas)
+	mat.set_shader_parameter("origin", Vector2(rect.position))
+	b.material = mat
+	return b
+
+
+class GroundBlend:
+	extends Node2D
+	## Bounding boxes of the border cells' diamonds, in cell-centre space.
+	var rects: Array[Rect2] = []
+	static var _shader: Shader
+
+	static func shader() -> Shader:
+		if _shader == null:
+			_shader = Shader.new()
+			_shader.code = BLEND_SHADER
+		return _shader
+
+	func _draw() -> void:
+		for r in rects:
+			draw_rect(r, Color.WHITE)
+
+	const BLEND_SHADER := """
+shader_type canvas_item;
+// Raised cells: rg = atlas column/row of the cell's ground tile (0..255),
+// a = 1 for cells that take part in blending.
+uniform sampler2D cells : filter_nearest;
+uniform sampler2D atlas : filter_nearest;
+// Cell coordinates of texel (0,0) of `cells`.
+uniform vec2 origin;
+varying vec2 world;
+
+void vertex() {
+	world = VERTEX;
+}
+
+float hash(vec2 p) {
+	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float vnoise(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+	f = f * f * (3.0 - 2.0 * f);
+	float a = hash(i);
+	float b = hash(i + vec2(1.0, 0.0));
+	float c = hash(i + vec2(0.0, 1.0));
+	float d = hash(i + vec2(1.0, 1.0));
+	return mix(mix(a, b, f.x), mix(c, d, f.x), f.y) * 2.0 - 1.0;
+}
+
+vec4 cell(ivec2 c) {
+	ivec2 k = c - ivec2(origin);
+	ivec2 sz = textureSize(cells, 0);
+	if (k.x < 0 || k.y < 0 || k.x >= sz.x || k.y >= sz.y) {
+		return vec4(0.0);
+	}
+	return texelFetch(cells, k, 0);
+}
+
+float same(vec4 a, vec4 b) {
+	return (b.a > 0.5 && abs(a.r - b.r) + abs(a.g - b.g) < 0.001) ? 1.0 : 0.0;
+}
+
+void fragment() {
+	vec2 px = floor(world);
+	vec2 pc = px + 0.5;
+	// Fractional cell coordinates: cell centres sit on integers.
+	vec2 u = vec2(pc.x / 16.0 + pc.y / 8.0, pc.y / 8.0 - pc.x / 16.0) * 0.5;
+	ivec2 own = ivec2(round(u));
+	vec4 d0 = cell(own);
+	if (d0.a < 0.5) {
+		discard;
+	}
+	ivec2 i0 = ivec2(floor(u));
+	vec2 f = u - floor(u);
+	vec4 k[4];
+	k[0] = cell(i0);
+	k[1] = cell(i0 + ivec2(1, 0));
+	k[2] = cell(i0 + ivec2(0, 1));
+	k[3] = cell(i0 + ivec2(1, 1));
+	float w[4];
+	w[0] = (1.0 - f.x) * (1.0 - f.y);
+	w[1] = f.x * (1.0 - f.y);
+	w[2] = (1.0 - f.x) * f.y;
+	w[3] = f.x * f.y;
+	// Each candidate ground scores the weight of the corners it holds plus
+	// a wobble of its own, so borders bend and fray but stay put.
+	float best = -9.0;
+	vec4 win = d0;
+	for (int n = 0; n < 4; n++) {
+		if (k[n].a < 0.5) {
+			continue;
+		}
+		float s = 0.0;
+		for (int m = 0; m < 4; m++) {
+			s += w[m] * same(k[n], k[m]);
+		}
+		vec2 o = k[n].rg * vec2(1731.0, 977.0);
+		s += 0.30 * vnoise(px / 7.0 + o) + 0.09 * vnoise(px / 2.3 + o.yx);
+		if (s > best) {
+			best = s;
+			win = k[n];
+		}
+	}
+	if (same(d0, win) > 0.5) {
+		discard;
+	}
+	// Sample the winner's tile where the own cell's tile would be sampled,
+	// so the texture stays continuous across the border.
+	vec2 iso0 = vec2(float(own.x - own.y) * 16.0, float(own.x + own.y) * 8.0);
+	ivec2 tx = ivec2(px - iso0 + vec2(16.0, 8.0));
+	ivec2 tile = ivec2(round(win.rg * 255.0));
+	vec4 col = texelFetch(atlas, tile * ivec2(32, 16) + clamp(tx, ivec2(0), ivec2(31, 15)), 0);
+	if (col.a < 0.5) {
+		discard;
+	}
+	COLOR = col;
+}
+"""
+
+
 class Foam:
 	extends Node2D
 	var seg_a := PackedVector2Array()

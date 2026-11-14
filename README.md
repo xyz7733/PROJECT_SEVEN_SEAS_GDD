@@ -8,6 +8,34 @@ targets and retreat. Languages: **English** and **Simplified Chinese**.
 The game follows `PROJECT_SEVEN_SEAS_GDD.md` (v1.0) and the art direction in `VISUAL_REWORK_BRIEF.md`.
 Current status and known gaps: `IMPLEMENTATION_STATUS.md`.
 
+Current release: **craft-01-fix1**, following craft-01. It gives the game a sense of occasion:
+- battles open on a wide shot of the whole arena and settle on the fight, framed clear of the HUD
+  and the combat log, on ground that wears away naturally instead of in stair-stepped tiles;
+- bosses step forward in a letterboxed intro with their name, a horn and a roar, and keep a health bar
+  under the title strip for the rest of the fight; the last blow of a fight lands in slow motion;
+- weather: overcast skies, rain, fog, storms with lightning and thunder, and ashfall over the volcanic
+  seas. Each region has its own climate, the sky changes every six hours and spells hold for a while.
+  It shows in port, at sea, on islands and in battle, never underground, and can be turned off in
+  System;
+- original rain and storm loops, near and far thunder and the boss horn
+  (`tools/audiogen/gen_weather.py`);
+- no more hard cuts between stages: the old view is swept away in a dithered diagonal (a short
+  crossfade with Reduce Motion).
+
+The previous release, life-01, added ambient life in every stage, the wake and bow wave, lit windows
+at night and more feedback for actions (see `IMPLEMENTATION_STATUS.md`).
+
+The follow-up fixes weather showing below decks, clears active lightning when entering shelter,
+corrects 18 enemy skill names in both languages and includes the current audio credits in the
+Windows distribution. The original craft-01 checkpoint is retained.
+
+Automated Windows rendering now runs on an RTX 4070 Laptop GPU: at 1280×720 with VSync on a 240 Hz
+display, the sampled weather and battle scenes average about 239–241 FPS. Stage construction still
+blocks for 17–75 ms, with a measured battle-entry frame of 128 ms. The source probe and screenshots
+cover weather, shelter, stage changes and ordinary/boss battles; human motion review, mouse-driven
+play, speaker listening and campaign balance remain pending. See `IMPLEMENTATION_STATUS.md` for
+evidence and limits.
+
 ## Play on Windows
 
 The native Windows x86-64 build is in `build/windows/`:
@@ -107,13 +135,83 @@ download archive.
 
 Run `--import` again after adding a script with a new `class_name` or after rebuilding `strings.csv`.
 
+### Validate on Windows
+
+With the matching Windows editor in `tools/godot/windows/`, run from the repository root:
+
+```
+python tools/validation/validate_windows.py
+python tools/validation/validate_windows.py --skip-import --export
+```
+
+Use `--engine PATH` for another installation of Godot 4.7.2. The runner imports resources, runs the
+core suite and the populated real-font layout suite, and optionally exports the Windows release.
+It redirects only its child processes' profile paths into `build/validation/`, preserving installed
+player saves and preferences. Logs are written there too. This verifies rules and layout without
+opening a game window; animation, mouse interaction and audio still need a playtest.
+
+For an automated rendering and frame-pacing probe in a real Windows window:
+
+```
+python tools/validation/validate_gpu_windows.py
+```
+
+This runs silently with the Dummy audio driver and an isolated profile. It writes screenshots,
+`metrics.json` and logs under `build/validation/gpu-craft/<timestamp>/`. Frame intervals include
+VSync and presentation waits; these are not GPU execution timings. Use `--locale zh_CN`, `--ui 1.5`
+or `--screen INDEX` as needed. `--audio` enables sound for a human listening review.
+
+### Screenshot harness
+
+`game/tests/shots.tscn` runs the real main scene in a window and saves viewport PNGs, driven by a small
+scenario script. It is development-only and is not exported (`tests/*` is excluded).
+
+```
+godot --path game res://tests/shots.tscn -- --out DIR --scenario FILE.gd [--locale zh_CN] [--ui 1.5]
+```
+
+A scenario is a GDScript file with a `run` coroutine. `h` is the harness: `h.main` is the main scene,
+and `h.new_game(seed)`, `h.wait(seconds)`, `h.frames(n)`, `h.shot(name)`, `h.act(result)`, `h.key`,
+`h.move`, `h.click` and `h.wheel` drive it.
+
+```gdscript
+extends RefCounted
+
+func run(h) -> void:
+	await h.new_game(7)
+	await h.wait(0.5)
+	await h.shot("port")
+	h.main.open_window("crew", "detail")
+	await h.wait(0.4)
+	await h.shot("crew_detail")
+```
+
+It needs a display. On a Linux machine without one, `xvfb-run` with Mesa's software renderer works
+(`--rendering-driver opengl3`). Point `XDG_DATA_HOME` / `APPDATA` at a scratch folder first, so the
+player's saves and settings are never touched. `tools/shots/run_linux.sh` does both:
+
+```
+bash tools/shots/run_linux.sh tools/shots/scenarios/tour.gd OUT_DIR [--locale zh_CN] [--ui 1.5]
+```
+
+Ready-made scenarios are in `tools/shots/scenarios/`:
+
+| Scenario | What it does |
+|---|---|
+| `tour.gd` | Title, port by day and night, lower decks, a crossing with any sea fight, the first island and a land fight with its report (14 screenshots) |
+| `battles.gd` | Five land battles (island, dungeon boss, wreck elite, trial ring, volcanic boss): the opening shot, the boss intro, the fight and late in the fight (20 screenshots) |
+| `weather.gd` | Every sky over the port, a stormy night with a lightning flash, rain at sea and in a sea fight, island fog, an island fight in rain and a dungeon fight (no weather underground) (12 screenshots) |
+| `transitions.gd` | Stage changes caught mid-sweep, plus the frozen frame saved next to its screenshot for a pixel comparison (8 screenshots) |
+| `windows.gd` | Every tab of every window from a new game (30 screenshots); run it per language and UI size |
+| `width_audit.gd` | No screenshots: prints, for every window tab, whether its content fits the window's width and which control is too wide if not |
+
 ## Where things live
 
 | Path | Contents |
 |---|---|
 | `game/` | The Godot project |
-| `game/scripts/core/` | Rules, transactions, combat simulation, world generation, saves, settings, localization, audio (`Game`, `C`, `I18n`, `Settings` and `Audio` autoloads) |
-| `game/scripts/view/` | In-world stages: `ShipView` (isometric decks, crew, town quay), `SiteView` (island and dungeon exploration), `BattleView` (live battles), `Actor`, the `Art` atlas loader, input bindings |
+| `game/scripts/core/` | Rules, transactions, combat simulation, world generation, saves, settings, localization, audio, weather rolls (`Game`, `C`, `I18n`, `Settings` and `Audio` autoloads) |
+| `game/scripts/view/` | In-world stages: `ShipView` (isometric decks, crew, town quay), `SiteView` (island and dungeon exploration), `BattleView` (live battles), `Ambience` (gulls, sea life, cloud shadows, night lights), `SailFx` (wake and bow wave), `WeatherLayer` (rain, fog, ash, lightning), `Curtain` (the sweep between stages), `Actor`, the `Art` atlas loader, input bindings |
 | `game/scripts/ui/` | Compact HUD, game windows (ship builder, inspector, crew, pets, port, chart, codex, log, system), dialogs |
 | `game/scripts/main.gd`, `boot.gd` | Scene flow: title screen, stage switching, sailing transition, sea events, battle reports, hotkeys |
 | `game/assets/gen/` | All generated pixel art: atlases plus JSON metadata (anchors, frames, spots, lights) |
@@ -124,9 +222,11 @@ Run `--import` again after adding a script with a new `class_name` or after rebu
 | `docs/ASSET_INVENTORY.md` | **Asset inventory**: every shipped texture with size, frames, method and use; the audio files; code-drawn scene elements; the font licence |
 | `docs/AUDIO_LICENSES.md` | **Audio licences**: source URL, creator, original name and licence for every audio file |
 | `art/previews/` | Contact sheets of the generated art (not shipped) |
+| `tools/shots/` | Screenshot scenarios and a headless Linux runner for the [screenshot harness](#screenshot-harness) |
 | `art/reference/` | The two user reference screenshots: art direction only, never shipped or traced |
 | `tools/artgen/` | Original art generators (Python + Pillow, voxel and pixel renderers) |
-| `tools/audiogen/gen_stingers.py` | Generates the original victory and defeat stingers |
+| `game/tests/` | Headless suites (`test_main.tscn`, `test_ui_layout.tscn`) and the screenshot harness (`shots.tscn`). Not exported |
+| `tools/audiogen/` | Original sound generators: `gen_stingers.py` (victory and defeat stingers), `gen_weather.py` (rain and storm loops, thunder, boss horn) |
 | `tools/i18n/build_strings.py` | Builds `strings.csv` from `game/i18n/source/*.json` and checks keys and placeholders |
 | `tools/data_export/export_data.js` | Development-only: converted the archived prototype's data to `game/data/` |
 | `archive/web-prototype-superseded/` | The earlier HTML/JS prototype, kept only as a mechanics and data reference. It is not part of the game |

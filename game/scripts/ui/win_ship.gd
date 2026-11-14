@@ -118,14 +118,14 @@ func _palette_card(fid: String, def: Dictionary, can: bool) -> Control:
 		name_row.add_child(UIK.label(I18n.t("ship.required"), "WarnLabel"))
 	txt.add_child(name_row)
 	txt.add_child(UIK.label("%d×%d · %s" % [int(def.w), int(def.h), I18n.t("ship.owned", {"n": count, "max": limit})], "DimLabel"))
-	txt.add_child(UIK.label(UIK.cost_text(def.cost), "DimLabel" if reason == "" else "BadLabel"))
+	txt.add_child(UIK.label(UIK.cost_text(def.cost), "DimLabel" if reason == "" else "BadLabel", true, 136))
 	var where := []
 	for d in Rules.eligible_decks(s.ship, fid):
 		where.append(I18n.t("deck.%s.title" % s.ship.decks[int(d)].id))
 	var zone_txt := I18n.t("ship.zone_" + Rules.zone_of(fid))
 	if not where.is_empty():
 		zone_txt += ": " + ", ".join(where)
-	var zl := UIK.label(zone_txt, "DimLabel" if not where.is_empty() else "WarnLabel", true, 150)
+	var zl := UIK.label(zone_txt, "DimLabel" if not where.is_empty() else "WarnLabel", true, 136)
 	txt.add_child(zl)
 	row.add_child(txt)
 	var btn := UIK.icon_button("ui_plus", I18n.t("ship.place") + (" — " + reason if reason != "" else ""), func(): _sv().begin_build(fid), "PrimaryButton", can and reason == "")
@@ -219,7 +219,7 @@ func _hulls_tab(b: VBoxContainer) -> void:
 		elif int(h.tier) < int(s.ship.hullTier):
 			box.add_child(UIK.label(I18n.t("ship.hull_owned"), "DimLabel"))
 		else:
-			box.add_child(UIK.label(UIK.cost_text(h.cost), "DimLabel"))
+			box.add_child(UIK.para(UIK.cost_text(h.cost), "DimLabel", 196))
 			var ok: bool = av.ok and Fmt.can_afford(s, h.cost)
 			var tip := I18n.reason(av) if not av.ok else ("" if ok else I18n.t("ship.cannot_afford"))
 			box.add_child(UIK.primary(I18n.t("ship.upgrade_hull"), _upgrade_hull.bind(h.id), "ui_up", ok, tip))

@@ -103,6 +103,8 @@ archetype.warden,Warden,守卫
 battle.allies,Your crew,我方船员
 battle.basic_attack,Attack,攻击
 battle.boarding,Boarding battle,接舷战
+battle.boss_rival,Rival captain,宿敌船长
+battle.boss_title,Guardian of {place},{place}的守护者
 battle.continue,Continue,继续
 battle.defeat_facility,Damaged: {facility},损坏：{facility}
 battle.defeat_injured,Injured: {list},受伤：{list}
@@ -921,24 +923,6 @@ err.wrong_port,Not available at this port.,本港口不提供此项。
 err.wrong_slot,Wrong equipment slot.,装备栏位不对。
 err.zone_deck,This fitting must stand on an exposed deck.,此船具必须放在露天甲板上。
 err.zone_interior,Ordinary rooms belong inside the hull. Switch to an interior level.,普通房间应建在船舱内部。请切换到船舱楼层。
-eskill.e_ambush.name,Ambush,伏击
-eskill.e_barrage.name,Barrage,弹幕
-eskill.e_bulwark.name,Bulwark,壁垒
-eskill.e_curse.name,Curse,诅咒
-eskill.e_doom.name,Doom,厄运
-eskill.e_drain.name,Drain,汲取
-eskill.e_dream_lull.name,Dream Lull,沉眠之歌
-eskill.e_enrage.name,Enrage,狂怒
-eskill.e_fire_breath.name,Fire Breath,火焰吐息
-eskill.e_frost_breath.name,Frost Breath,霜息
-eskill.e_heal_all.name,Heal All,群体治疗
-eskill.e_pierce_shot.name,Pierce Shot,穿甲射击
-eskill.e_quake.name,Quake,震地
-eskill.e_shield_wall.name,Shield Wall,盾墙
-eskill.e_static_lash.name,Static Lash,静电鞭击
-eskill.e_swarm_call.name,Swarm Call,虫群召唤
-eskill.e_venom_spit.name,Venom Spit,毒液喷吐
-eskill.e_void_gaze.name,Void Gaze,虚空凝视
 etrait.armored.desc,Takes less damage from every hit.,每次受击时减免伤害。
 etrait.armored.name,Armored,披甲
 etrait.berserk.desc,Grows stronger when badly wounded.,重伤时攻击力提升。
@@ -2132,14 +2116,32 @@ skill.cleanse.name,Cleanse,净化
 skill.cond_critical,only when an ally is below 35% HP,仅在有队友生命低于 35% 时
 skill.deploy_barrier.name,Deploy Barrier,展开屏障
 skill.dispel_hex.name,Dispel Hex,驱散诅咒
+skill.e_ambush.name,Ambush,伏击
+skill.e_barrage.name,Barrage,弹幕
+skill.e_bulwark.name,Bulwark,壁垒
 skill.e_charge.name,Charge,冲锋
 skill.e_crush.name,Crush,碾压
+skill.e_curse.name,Curse,诅咒
+skill.e_doom.name,Doom,厄运
+skill.e_drain.name,Drain,汲取
+skill.e_dream_lull.name,Dream Lull,沉眠之歌
+skill.e_enrage.name,Enrage,狂怒
+skill.e_fire_breath.name,Fire Breath,火焰吐息
+skill.e_frost_breath.name,Frost Breath,霜息
+skill.e_heal_all.name,Heal All,群体治疗
 skill.e_hex.name,Hex,诅咒
 skill.e_mend.name,Mend,修补
+skill.e_pierce_shot.name,Pierce Shot,穿甲射击
+skill.e_quake.name,Quake,震地
 skill.e_roar.name,Roar,咆哮
 skill.e_shell.name,Shell Up,缩壳
+skill.e_shield_wall.name,Shield Wall,盾墙
 skill.e_slash.name,Slash,斩击
+skill.e_static_lash.name,Static Lash,静电鞭击
 skill.e_stun_all.name,Shockwave,冲击波
+skill.e_swarm_call.name,Swarm Call,虫群召唤
+skill.e_venom_spit.name,Venom Spit,毒液喷吐
+skill.e_void_gaze.name,Void Gaze,虚空凝视
 skill.e_volley.name,Volley,齐射
 skill.ebb_tide.name,Ebb Tide,退潮
 skill.emergency_surgery.name,Emergency Surgery,紧急手术
@@ -2180,6 +2182,13 @@ skill.sweep_spear.name,Spear Sweep,横扫长枪
 skill.tribute.name,Tribute,贡金
 skill.turret.name,Turret,炮塔
 skill.whirling_blades.name,Whirling Blades,旋舞之刃
+sky.ash,Ashfall,落灰
+sky.clear,Clear skies,晴朗
+sky.cloudy,Overcast,阴天
+sky.fog,Fog,起雾
+sky.rain,Rain,下雨
+sky.storm,Storm,暴风雨
+sky.tip,{sky}. The weather changes every few hours and differs from region to region.,{sky}。天气每隔几个小时变化一次，各海域也不相同。
 slot.accessory,Accessory,饰品
 slot.outfit,Outfit,服装
 slot.weapon,Weapon,武器
@@ -2315,6 +2324,7 @@ system.vol_music,Music,音乐
 system.vol_off,Off,关
 system.vol_sfx,Effects,音效
 system.voyages,Voyages,航行次数
+system.weather,Weather effects,天气效果
 title.continue,Continue,继续游戏
 title.footer,Offline native game · progress is saved on this computer · original pixel art,离线原生游戏 · 进度保存在本机 · 原创像素美术
 title.language,Language: {lang},语言：{lang}

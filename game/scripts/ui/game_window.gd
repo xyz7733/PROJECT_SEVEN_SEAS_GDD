@@ -60,6 +60,15 @@ func _init() -> void:
 	outer.add_child(_footer)
 
 
+## Opens with a short fade instead of popping in. (Position and size are
+## left alone: the layout owns them and the layout checks measure them.)
+func _ready() -> void:
+	if bool(Settings.get_value("reduceMotion")):
+		return
+	modulate.a = 0.0
+	create_tween().tween_property(self, "modulate:a", 1.0, 0.14)
+
+
 ## Overridables -----------------------------------------------------------
 func window_title() -> String:
 	return ""
@@ -176,6 +185,10 @@ func _layout() -> void:
 	s.x = minf(s.x, free.size.x)
 	s.y = minf(s.y, free.size.y)
 	custom_minimum_size = s
+	# Paragraphs wrap to the column instead of making the body scroll sideways.
+	if not fills_body():
+		UIK.fit_paragraphs(body, s.x - get_theme_stylebox("panel").get_minimum_size().x
+			- _scroll.get_v_scroll_bar().get_combined_minimum_size().x)
 	size = s
 	var real := size
 	var pos: Vector2

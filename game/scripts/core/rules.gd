@@ -1300,8 +1300,9 @@ static func codex_progress(state: Dictionary) -> Dictionary:
 	for it in C.ITEMS.values():
 		if it.get("recipe"):
 			recipes_total += 1
+	var collection_progress := Collections.completeness(state)
 	return {"locations": [loc_seen, C.LOCATIONS.size()], "enemies": [state.codex.enemies.size(), World.all_enemy_ids().size()],
 		"classes": [state.codex.classes.size(), C.CLASSES.size()], "pets": [state.codex.pets.size(), C.PET_SPECIES.size()],
 		"recipes": [state.inventory.recipes.size(), recipes_total], "items": [state.codex.items.size(), C.ITEMS.size()],
-		"collectibles": [state.codex.get("collectibles", {}).size(), C.COLLECTIBLES.size()],
+		"collections": [int(collection_progress.owned), int(collection_progress.total)],
 		"clues": [state.codex.clues.size(), null]}

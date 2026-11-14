@@ -19,6 +19,7 @@ const SPEEDS := [1.0, 2.0, 4.0]
 const ZOOMS := [1.0, 2.0, 3.0]
 const LANE_INDEX := {"front": 0, "center": 1, "rear": 2}
 const ALLY_FACE := Vector2(1, 0.25)
+const BOSS_RED := Color(0.96, 0.36, 0.3)
 const ENEMY_FACE := Vector2(-1, 0.25)
 ## Swing style for each melee weapon kind (see BattleFx.Swing).
 const MELEE_STYLE := {"blade": "slash", "cutlass": "slash", "ladle": "slash", "tool": "slash", "banner": "slash",
@@ -33,6 +34,13 @@ const SHOT_ARC := {"bullet": 0.0, "arrow": 22.0, "orb": 4.0, "vial": 26.0, "spit
 const DROP_SECS := 0.9
 ## Drops shown per fallen opponent; further shares ride on the last one.
 const DROP_MAX := 6
+## The battle log keeps a few recent lines; older ones are dimmer.
+const LOG_LINES := 4
+const LOG_FADE := [0.5, 0.66, 0.83, 1.0]
+const LOG_SECS := 7.0
+## Log width and the height it takes over the control bar (base px).
+const LOG_W := 230.0
+const LOG_H := 46.0
 const LOG_TYPES := ["skill", "ko", "wave", "windup", "interrupt", "pet", "hazard", "encore", "end", "command", "heal", "stun"]
 
 var enc: Dictionary = {}
@@ -71,6 +79,7 @@ var _zoom_i := 1
 var _drag := false
 var _drag_moved := 0.0
 var _shake := 0.0
+var _hitstop := 0.0
 var _rng := RandomNumberGenerator.new()
 var _bounds := Rect2(-220, -120, 440, 240)
 # Sea coverage: land cells, the sea layer alignment, the area already
@@ -97,6 +106,8 @@ var _foe_hull := "starter"
 var _foe_deck: Dictionary = {}
 var _foe_off := Vector2.ZERO
 var _night := false
+## Ambient life around the arena (gulls, glints, cloud shadows).
+var ambience: Ambience
 
 # UI
 var _title_label: Label
@@ -115,7 +126,7 @@ var _banner: Label
 var _paused_panel: PanelContainer
 var _strip_panel: PanelContainer
 var _status_panel: PanelContainer
-var _log_panel: PanelContainer
+var _log_panel: VBoxContainer
 var _float_root: Control
 var _bar: PanelContainer
 var _spoils_box: HBoxContainer
@@ -141,6 +152,25 @@ var _ko_wait := {}
 var _hp_hold := {}
 var _impact_at := {}
 var _lunged := {}
+# Cinematics: the opening shot, a boss's intro and the finishing blow.
+var _cam_tw: Tween
+var _cine_tw: Tween
+var _cine_hold := false
+var _cine_card: VBoxContainer
+var _cine_name: Label
+var _cine_sub: Label
+var _letterbox: Array[ColorRect] = []
+var _cine_layer: CanvasLayer
+var _flash_rect: ColorRect
+var _boss_bar: BossBar
+var _boss_uid: Variant = null
+var _boss_met := {}
+var _last_ko: Variant = null
+var _skipped := false
+## HUD insets (base px) the fight framing keeps clear: the top bar and the
+## navigation bar.
+var _hud_top := 22.0
+var _hud_bottom := 30.0
 
 
 func _init() -> void:
@@ -253,6 +283,7 @@ func start(state: Dictionary) -> void:
 	_consume_log()
 	_refresh_controls()
 	fit_view()
+	_open_shot()
 
 
 ## The save was taken after the fight ended but before its report was
@@ -324,6 +355,13 @@ func _build_arena() -> void:
 	var tc := int(Game.state.envelope.gameClock) % 24 if Game.has_game() else 12
 	_night = tc < 6 or tc >= 19
 	_on_ship = boarding and _build_boarding()
+	if ambience == null:
+		ambience = Ambience.new()
+		add_child(ambience)
+	ambience.night = _night
+	ambience.gull_target = 1
+	ambience.whitecap_density = 0.6 if boarding else 0.0
+	ambience.fish_every = Vector2(0, 0)
 	if _on_ship:
 		_land = {}
 		_fill_sea()
@@ -331,6 +369,10 @@ func _build_arena() -> void:
 		return
 	if not boarding:
 		_build_scene()
+		if scene.underground:
+			ambience.gull_target = 0
+			ambience.cloud_alpha = 0.0
+			ambience.glint_density = 0.0
 		return
 	# Fallback without a live ship: two decks lashed together by planks.
 	for gx in range(-16, 17):
@@ -372,6 +414,7 @@ func _build_scene() -> void:
 	else:
 		_foam = coast.make_foam()
 		add_child(_foam)
+	add_child(coast.make_blend(Art.terrain_atlas(rid)))
 	for pr in scene.props:
 		_scene_prop(String(pr[0]), pr[1], bool(pr[2]))
 	for l in scene.lights:
@@ -790,6 +833,8 @@ func _sync_units(initial := false) -> void:
 		_actors[u.uid] = a
 		var home := _unit_home(u)
 		_home[u.uid] = home
+		if u.side == "enemy" and u.get("boss", false):
+			_meet_boss(u.uid, a, initial)
 		if _on_ship and u.side == "enemy":
 			# Boarders swarm over the planks from the enemy deck.
 			var ent := _boarding_entry(home)
@@ -892,9 +937,14 @@ func _process(delta: float) -> void:
 	_t += delta
 	var pan := Vector2(Input.get_axis("pan_left", "pan_right"), Input.get_axis("pan_up", "pan_down"))
 	if pan != Vector2.ZERO:
+		_stop_glide()
 		cam.position += pan * 240.0 * delta / cam.zoom.x
 		_clamp_cam()
-	if not paused and not _ended:
+	# Hit-stop: a heavy blow or a knockout holds the fight for an instant.
+	# A boss's intro holds it until the intro ends.
+	if _hitstop > 0.0:
+		_hitstop = maxf(0.0, _hitstop - delta)
+	elif not paused and not _ended and not _cine_hold:
 		_acc += delta * float(SPEEDS[speed_i])
 		var dtt := Combat.dt()
 		var n := 0
@@ -907,6 +957,7 @@ func _process(delta: float) -> void:
 				break
 	_update_actors(delta)
 	_update_dynamic_ui()
+	_update_boss_bar()
 	_coin_t = maxf(0.0, _coin_t - delta)
 	if _shake > 0.0:
 		_shake = maxf(0.0, _shake - delta)
@@ -940,6 +991,8 @@ func _consume_log() -> void:
 func skip_to_end() -> void:
 	if _ended or sim.is_empty():
 		return
+	_skipped = true
+	_end_cine()
 	_quiet = true
 	var guard := 0
 	while sim.outcome == null and guard < 20000:
@@ -986,6 +1039,8 @@ func _begin_end() -> void:
 			_pets[uid].walk_path([[_pets[uid].position + Vector2(-140, 0), 0.0]], 80.0)
 		elif outcome == "victory":
 			_pets[uid].play("cheer")
+	if outcome == "victory" and not _skipped:
+		_finishing_blow()
 	var key := "battle.outcome_" + outcome
 	if outcome == "defeat" and sim.reason == "timeout":
 		key = "battle.outcome_defeat_timeout"
@@ -1002,6 +1057,7 @@ func _begin_end() -> void:
 ## encounter (nothing is granted yet) and hand over to the report.
 func _commit() -> void:
 	_committed = true
+	_normal_time()
 	var res := Actions.end_encounter(Game.state, String(enc.attemptId), sim.commands)
 	finished.emit(res)
 
@@ -1084,6 +1140,8 @@ func _present(ev: Dictionary) -> void:
 			var u5 = _units.get(ev.tgt)
 			if t5 == null or u5 == null:
 				return
+			if u5.side == "enemy":
+				_last_ko = ev.tgt
 			if _quiet:
 				t5.play("down")
 				_fallen(String(ev.tgt), t5, true)
@@ -1508,11 +1566,12 @@ func _update_spoils_chip() -> void:
 ## `panel_w` is the report's width in base-viewport pixels.
 func set_report_mode(on: bool, panel_w := 0.0) -> void:
 	report_mode = on
-	for p in [_strip_panel, _status_panel, _log_panel, _bar, _paused_panel, _banner]:
+	for p in [_strip_panel, _status_panel, _log_panel, _bar, _paused_panel, _banner, _boss_bar]:
 		if p != null:
 			p.visible = not on
 	if not on:
 		return
+	_end_cine()
 	var focus := Vector2.ZERO
 	var n := 0
 	for uid in _actors:
@@ -1527,9 +1586,9 @@ func set_report_mode(on: bool, panel_w := 0.0) -> void:
 				focus += _actors[uid].position
 				n += 1
 	focus = focus / float(n) if n > 0 else cam.position
-	var target := Vector2(focus.x + panel_w * 0.5 / cam.zoom.x, focus.y - 14.0).round()
-	var tw := create_tween()
-	tw.tween_property(cam, "position", target, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	var z := float(ZOOMS[_zoom_i])
+	var target := Vector2(focus.x + panel_w * 0.5 / z, focus.y - 14.0).round()
+	_glide(target, z, 0.45, Tween.EASE_OUT)
 
 
 func _lunge(a: Actor, toward: Vector2, frac: float) -> void:
@@ -1595,6 +1654,8 @@ func _shake_cam(secs: float) -> void:
 	if bool(Settings.get_value("reduceMotion")):
 		return
 	_shake = maxf(_shake, secs)
+	# Shorter at higher battle speeds so fast fights keep their pace.
+	_hitstop = maxf(_hitstop, 0.07 / float(SPEEDS[speed_i]))
 
 
 ## Floating text lives on the UI layer so it stays crisp at any zoom.
@@ -1615,6 +1676,11 @@ func _float_text(world_pos: Vector2, text: String, color: Color, secs := 0.8, bi
 	l.position = (sp - Vector2(l.size.x * 0.5, l.size.y)).round()
 	var tw := l.create_tween()
 	tw.set_parallel(true)
+	if not bool(Settings.get_value("reduceMotion")):
+		# Numbers land with a pop (bigger for critical hits) and settle.
+		l.pivot_offset = Vector2(l.size.x * 0.5, l.size.y)
+		l.scale = Vector2.ONE * (1.6 if big else 1.3)
+		tw.tween_property(l, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tw.tween_property(l, "position:y", l.position.y - 14.0, secs)
 	tw.tween_property(l, "modulate:a", 0.0, secs).set_delay(secs * 0.5)
 	tw.chain().tween_callback(l.queue_free)
@@ -1686,12 +1752,25 @@ func _push_log_line(ev: Dictionary) -> void:
 		tone = "WarnLabel"
 	elif ev.type == "end" or ev.type == "wave":
 		tone = "GoldLabel"
-	var l := UIK.label(s, tone, true, 196)
+	var l := UIK.label(s, tone)
+	l.custom_minimum_size.x = LOG_W
+	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	l.add_theme_color_override("font_outline_color", Color(0.04, 0.035, 0.06, 0.92))
+	l.add_theme_constant_override("outline_size", 4)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_log_box.add_child(l)
-	while _log_box.get_child_count() > 5:
+	while _log_box.get_child_count() > LOG_LINES:
 		var c := _log_box.get_child(0)
 		_log_box.remove_child(c)
 		c.queue_free()
+	# Older lines dim; every line fades away after a while.
+	var n := _log_box.get_child_count()
+	for i in n:
+		(_log_box.get_child(i) as Control).self_modulate.a = LOG_FADE[LOG_LINES - n + i]
+	var tw := l.create_tween()
+	tw.tween_interval(LOG_SECS)
+	tw.tween_property(l, "modulate:a", 0.0, 0.8)
+	tw.tween_callback(l.queue_free)
 
 
 # ===================================================================== UI
@@ -1732,8 +1811,16 @@ func _build_ui() -> void:
 	sp.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	sp.offset_top = 45
 	sp.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sp.visible = false
 	ui_root.add_child(sp)
 	_status_panel = sp
+	# --- boss health (top centre, under the title strip)
+	_boss_bar = BossBar.new()
+	_boss_bar.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	_boss_bar.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_boss_bar.offset_top = 46
+	_boss_bar.visible = false
+	ui_root.add_child(_boss_bar)
 	# --- banner
 	_banner = UIK.label("", "TitleLabel")
 	_banner.set_anchors_preset(Control.PRESET_CENTER)
@@ -1755,19 +1842,19 @@ func _build_ui() -> void:
 	_paused_panel.offset_top = 40
 	_paused_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	ui_root.add_child(_paused_panel)
-	# --- battle log (left, above the navigation)
-	var lp := UIK.panel(null, "TipPanel")
+	# --- battle log (left, above the navigation): outlined lines with no
+	# backing panel, so the fight stays visible behind them.
+	var lp := UIK.vbox([], 0)
 	lp.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
 	lp.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	lp.offset_left = 4
+	lp.offset_left = 6
+	lp.offset_top = -32
 	lp.offset_bottom = -32
 	lp.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	lp.modulate.a = 0.92
 	ui_root.add_child(lp)
 	_log_panel = lp
-	_log_box = UIK.vbox([], 1)
-	_log_box.custom_minimum_size.x = 200
-	lp.add_child(_log_box)
+	_log_box = lp
+	_build_cine_ui()
 	# --- control bar (bottom centre)
 	var bar := UIK.panel(null, "HudBar")
 	bar.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
@@ -1785,6 +1872,12 @@ func _build_ui() -> void:
 	for i in SPEEDS.size():
 		var b := UIK.button("×%d" % int(SPEEDS[i]), set_speed.bind(i), "", "FlatButton", true, I18n.t("battle.speed") + " (%d)" % (i + 1))
 		b.toggle_mode = true
+		# The flat style has no margins until pressed; without matching
+		# margins the pressed button clips its own label ("×1" showed "×").
+		var flat := StyleBoxEmpty.new()
+		flat.set_content_margin_all(2)
+		b.add_theme_stylebox_override("normal", flat)
+		b.add_theme_stylebox_override("disabled", flat)
 		row.add_child(b)
 		_speed_btns.append(b)
 	row.add_child(VSeparator.new())
@@ -1822,9 +1915,15 @@ func _build_ui() -> void:
 func set_hud_insets(top_bar: float, _chips: float, bottom: float) -> void:
 	if _strip_panel == null:
 		return
+	_hud_top = top_bar
+	_hud_bottom = bottom
 	_strip_panel.offset_top = maxf(25.0, top_bar + 3.0)
 	_status_panel.offset_top = _strip_panel.offset_top + 20.0
-	_log_panel.offset_bottom = -maxf(32.0, bottom + 2.0)
+	_boss_bar.offset_top = _strip_panel.offset_top + 21.0
+	if _boss_bar.visible:
+		_status_panel.offset_top += _boss_bar.get_combined_minimum_size().y + 1.0
+	_log_panel.offset_bottom = -maxf(32.0, bottom + 4.0)
+	_log_panel.offset_top = _log_panel.offset_bottom
 
 
 func _refresh_controls() -> void:
@@ -1858,15 +1957,18 @@ func _update_dynamic_ui() -> void:
 	if sim.focus != null:
 		focus_name = _uname(sim.focus)
 	_focus_label.text = focus_name
-	var line := I18n.t("battle.status", {"stance": "stance.%s.name" % sim.stance, "priority": "priority.%s.name" % sim.priority, "focus": focus_name})
+	# The status line only appears for something to act on: a retreat under
+	# way or a foe winding up a big attack. The bar shows the tactics.
+	var line := ""
 	if float(sim.retreating) > 0.0 and not _ended:
 		line = I18n.t("battle.retreating", {"n": I18n.fmt_num(snappedf(float(sim.retreating), 0.1))})
-	else:
+	elif not _ended:
 		for u in sim.enemies:
 			if u.alive and u.windup != null:
 				line = I18n.t("battle.winding", {"skill": _skill_name(u.windup.skill), "n": I18n.fmt_num(snappedf(maxf(0.0, float(u.windup.left)), 0.1))})
 				break
 	_status_label.text = line
+	_status_panel.visible = line != "" and not report_mode and not _cine_hold
 
 
 func toggle_pause() -> void:
@@ -1913,16 +2015,396 @@ func _on_retreat() -> void:
 # ================================================================ camera
 ## Default framing of the arena (also the HUD "fit" button).
 func fit_view() -> void:
-	cam.position = Vector2(0, -12)
-	_zoom_i = 1
+	_stop_glide()
 	if _on_ship:
 		# Frame the whole weather deck with the enemy rail behind it.
 		cam.position = _deck_pt(float(_ship_deck.w) * 0.5 - 0.5, float(_ship_deck.h) * 0.5 - 1.2) + Vector2(0, -24)
 		_zoom_i = 0
+		cam.zoom = Vector2.ONE * ZOOMS[_zoom_i]
+		return
+	var fv := _fight_view()
+	cam.position = fv[0]
+	_zoom_i = ZOOMS.find(fv[1])
+	cam.zoom = Vector2.ONE * fv[1]
+
+
+## Every unit's place with room for its sprite, health bar and the numbers
+## that float over it (world px).
+func _fight_rect() -> Rect2:
+	var r := Rect2()
+	var first := true
+	for uid in _home:
+		var a: Actor = _actors.get(uid)
+		var h := a.height() if a != null else 30.0
+		var box := Rect2(_home[uid] + Vector2(-14.0, -h - 14.0), Vector2(28.0, h + 22.0))
+		r = box if first else r.merge(box)
+		first = false
+	return Rect2(-140, -70, 300, 110) if first else r
+
+
+## Camera centre and zoom that show the whole fight in the part of the
+## screen the HUD leaves free: the closest zoom up to x2 that fits, centred
+## between the title strip (and boss bar) and the control bar.
+func _fight_view() -> Array:
+	var r := _fight_rect()
+	var vp := get_viewport_rect().size
+	var top := maxf(25.0, _hud_top + 3.0) + 20.0
+	if _boss_uid != null:
+		top += 21.0
+	var bottom := maxf(32.0, _hud_bottom + 4.0)
+	var free := Vector2(vp.x - 8.0, vp.y - top - bottom)
+	var z := float(ZOOMS[0])
+	for zz in ZOOMS:
+		if float(zz) <= 2.0 and r.size.x * float(zz) <= free.x and r.size.y * float(zz) <= free.y + 12.0:
+			z = float(zz)
+	var c := r.get_center()
+	c.y -= (top - bottom) * 0.5 / z
+	# Lift the fight off the log (bottom left) as far as the free band allows.
+	var slack := free.y - r.size.y * z
+	if slack > 0.0:
+		c.y += clampf(LOG_H - slack * 0.5, 0.0, slack * 0.5) / z
+	c.x = clampf(c.x, _bounds.position.x, _bounds.end.x)
+	c.y = clampf(c.y, _bounds.position.y, _bounds.end.y)
+	return [c.round(), z]
+
+
+## The opening shot: the whole arena with its set pieces at x1, then the
+## camera settles on the fight while the crew walks in. A boss met at the
+## start gets its intro instead of the plain settle.
+func _open_shot() -> void:
+	if restored:
+		return
+	if _on_ship:
+		_show_boss_bar()
+		return
+	if bool(Settings.get_value("reduceMotion")):
+		if _boss_uid != null:
+			_boss_intro(_boss_uid)
+		return
+	var fv := _fight_view()
+	var wide: Vector2 = fv[0] + Vector2(0, -34)
+	_zoom_i = 0
+	cam.zoom = Vector2.ONE * ZOOMS[0]
+	cam.position = wide.round()
+	_clamp_cam()
+	if _boss_uid != null:
+		_boss_intro(_boss_uid, 0.5)
+		return
+	_glide(fv[0], fv[1], 1.15, Tween.EASE_IN_OUT, 0.5)
+
+
+## Eases the camera to a centre and zoom. The zoom changes geometrically,
+## so a x1 -> x2 move feels even; the HUD zoom label follows at the end.
+func _glide(to: Vector2, z: float, secs: float, ease := Tween.EASE_IN_OUT, delay := 0.0) -> void:
+	_stop_glide()
+	var from := cam.position
+	var z0 := cam.zoom.x
+	_cam_tw = create_tween()
+	if delay > 0.0:
+		_cam_tw.tween_interval(delay)
+	_cam_tw.tween_method(_cam_at.bind(from, z0, to, z), 0.0, 1.0, secs).set_trans(Tween.TRANS_SINE).set_ease(ease)
+	_cam_tw.tween_callback(_settle_zoom.bind(z))
+
+
+func _cam_at(t: float, p0: Vector2, z0: float, p1: Vector2, z1: float) -> void:
+	var z := z0 * pow(z1 / z0, t)
+	cam.zoom = Vector2.ONE * z
+	cam.position = p0.lerp(p1, t)
+
+
+func _settle_zoom(z: float) -> void:
+	var i := ZOOMS.find(z)
+	if i >= 0:
+		_zoom_i = i
+		cam.zoom = Vector2.ONE * z
+
+
+func _stop_glide() -> void:
+	if _cam_tw != null and _cam_tw.is_valid():
+		_cam_tw.kill()
+	_cam_tw = null
 	cam.zoom = Vector2.ONE * ZOOMS[_zoom_i]
 
 
+# ============================================================ cinematics
+func _build_cine_ui() -> void:
+	# Intros play over the HUD: the letterbox slides over the top and
+	# bottom bars (a click on it skips the intro, like a click on the field).
+	_cine_layer = CanvasLayer.new()
+	_cine_layer.layer = 6
+	add_child(_cine_layer)
+	var root := Control.new()
+	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.theme = Art.theme
+	_cine_layer.add_child(root)
+	for top in [true, false]:
+		var bar := ColorRect.new()
+		bar.color = Color(0.02, 0.02, 0.035)
+		bar.set_anchors_preset(Control.PRESET_TOP_WIDE if top else Control.PRESET_BOTTOM_WIDE)
+		bar.mouse_filter = Control.MOUSE_FILTER_STOP
+		bar.gui_input.connect(_on_letterbox_input)
+		bar.visible = false
+		root.add_child(bar)
+		_letterbox.append(bar)
+	_cine_card = UIK.vbox([], 0)
+	_cine_card.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	_cine_card.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_cine_card.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	_cine_card.offset_bottom = -44
+	_cine_card.alignment = BoxContainer.ALIGNMENT_END
+	_cine_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_cine_card.visible = false
+	root.add_child(_cine_card)
+	_cine_sub = UIK.label("", "DimLabel")
+	_cine_name = UIK.label("", "TitleLabel")
+	_cine_name.add_theme_font_size_override("font_size", 24)
+	_cine_name.add_theme_color_override("font_color", BOSS_RED)
+	_cine_sub.add_theme_color_override("font_color", Color(0.93, 0.84, 0.66))
+	for l in [_cine_sub, _cine_name]:
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		l.add_theme_color_override("font_outline_color", Color(0.03, 0.02, 0.04))
+		l.add_theme_constant_override("outline_size", 6)
+		_cine_card.add_child(l)
+	var rule := ColorRect.new()
+	rule.color = Color(BOSS_RED, 0.85)
+	rule.custom_minimum_size = Vector2(150, 1)
+	rule.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_cine_card.add_child(rule)
+	_flash_rect = ColorRect.new()
+	_flash_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_flash_rect.color = Color(1, 0.97, 0.9, 0.0)
+	_flash_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_flash_rect.visible = false
+	ui_root.add_child(_flash_rect)
+
+
+func _on_letterbox_input(ev: InputEvent) -> void:
+	if ev is InputEventMouseButton and ev.pressed and _cine_hold:
+		_end_cine()
+
+
+## A boss arrived: mark it with an aura, name it on the boss bar and give
+## it an intro (at the start of the fight, after the opening wide shot).
+func _meet_boss(uid: Variant, a: Actor, initial: bool) -> void:
+	if _boss_met.has(uid):
+		return
+	_boss_met[uid] = true
+	var aura := BossAura.new()
+	aura.rx = clampf(a.height() * 0.62, 14.0, 30.0)
+	a.add_ground_fx(aura)
+	var cur = Combat.unit_by_uid(sim, _boss_uid) if _boss_uid != null else null
+	if cur == null or not cur.alive:
+		# The bar follows the newest living boss.
+		_boss_uid = uid
+		_boss_bar.setup(_uname(uid))
+		if not initial:
+			_boss_bar.visible = false
+			_boss_bar.modulate.a = 1.0
+	if not initial and not _quiet:
+		if _on_ship:
+			_show_boss_bar()
+		else:
+			_boss_intro(uid)
+	elif not initial:
+		_show_boss_bar()
+
+
+## Letterbox, the camera on the boss, its roar and name card; the fight
+## holds until the intro ends (a click skips it).
+func _boss_intro(uid: Variant, delay := 0.0) -> void:
+	var a := _actor(uid)
+	if a == null:
+		return
+	_end_cine()
+	_cine_hold = true
+	var u: Dictionary = _units.get(uid, {})
+	_cine_sub.text = I18n.t("battle.boss_rival") if u.get("rival", false) else I18n.t("battle.boss_title", {"place": _place_name()})
+	_cine_name.text = _uname(uid)
+	_boss_bar.visible = false
+	var still := bool(Settings.get_value("reduceMotion"))
+	_cine_card.offset_bottom = -(_letterbox_h()[1] + 8.0)
+	_cine_tw = create_tween()
+	if still:
+		_cine_tw.tween_callback(_letterbox_to.bind(1.0))
+		_cine_tw.tween_callback(_roar.bind(uid))
+		_cine_tw.tween_interval(1.8)
+		_cine_tw.tween_callback(_end_cine)
+		return
+	var z := 2.0
+	var home: Vector2 = _home.get(uid, a.position)
+	var focus := (home + Vector2(0, -a.height() * 0.5 + 10.0)).round()
+	_cine_tw.tween_interval(delay)
+	_cine_tw.tween_callback(_letterbox_to.bind(1.0))
+	_cine_tw.tween_callback(_glide.bind(focus, z, 0.9))
+	_cine_tw.tween_interval(0.95)
+	_cine_tw.tween_callback(_roar.bind(uid))
+	_cine_tw.tween_interval(1.9)
+	_cine_tw.tween_callback(_end_cine)
+
+
+func _roar(uid: Variant) -> void:
+	var a := _actor(uid)
+	if a == null:
+		return
+	a.play("attack", true, 0.6)
+	a.flash(Color(1.6, 0.9, 0.9), 0.4)
+	Audio.duck(2.2, -10.0)
+	Audio.play("boss")
+	_shake = maxf(_shake, 0.35) if not bool(Settings.get_value("reduceMotion")) else _shake
+	_burst(a.position + Vector2(0, -2), BOSS_RED, 34.0, 10, true)
+	_cine_card.visible = true
+	_cine_card.modulate.a = 0.0
+	_fresh_tween(_cine_card).tween_property(_cine_card, "modulate:a", 1.0, 0.3)
+
+
+## Ends any intro now: card and letterbox away, the fight framed, the boss
+## bar up and the fight running again.
+func _end_cine() -> void:
+	if _cine_tw != null and _cine_tw.is_valid():
+		_cine_tw.kill()
+	_cine_tw = null
+	var was := _cine_hold
+	_cine_hold = false
+	if _cine_card == null:
+		return
+	if _cine_card.visible:
+		var tw := _fresh_tween(_cine_card)
+		tw.tween_property(_cine_card, "modulate:a", 0.0, 0.25)
+		tw.tween_callback(_cine_card.hide)
+	_letterbox_to(0.0)
+	if not was:
+		return
+	_show_boss_bar()
+	if not report_mode:
+		var fv := _fight_view()
+		if bool(Settings.get_value("reduceMotion")):
+			_stop_glide()
+			cam.position = fv[0]
+			_settle_zoom(fv[1])
+		else:
+			_glide(fv[0], fv[1], 0.8)
+
+
+## The boss bar fades in under the title strip (the status line moves
+## below it).
+func _show_boss_bar() -> void:
+	if _boss_uid == null or report_mode or _ended or _boss_bar.visible:
+		return
+	_boss_bar.visible = true
+	_boss_bar.modulate.a = 0.0
+	_fresh_tween(_boss_bar).tween_property(_boss_bar, "modulate:a", 1.0, 0.3)
+	set_hud_insets(_hud_top, 0.0, _hud_bottom)
+
+
+## Letterbox band heights (top, bottom): over the HUD bars, at least a
+## tenth of the screen each.
+func _letterbox_h() -> Array:
+	var tenth := get_viewport_rect().size.y * 0.1
+	return [maxf(tenth, _hud_top + 4.0), maxf(tenth, _hud_bottom + 6.0)]
+
+
+## Slides the letterbox in (k = 1) or out (k = 0); the title strip and the
+## log step aside while it is in.
+func _letterbox_to(k: float) -> void:
+	var hs := _letterbox_h()
+	for c in [_strip_panel, _log_panel]:
+		if c != null:
+			_fresh_tween(c).tween_property(c, "modulate:a", 1.0 - k, 0.3)
+	for i in _letterbox.size():
+		var bar := _letterbox[i]
+		if not bar.visible and k <= 0.0:
+			continue
+		var tw := _fresh_tween(bar)
+		if k > 0.0:
+			bar.visible = true
+		var h: float = hs[i] * k
+		var prop := "offset_bottom" if i == 0 else "offset_top"
+		tw.tween_property(bar, prop, h if i == 0 else -h, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		if k <= 0.0:
+			tw.tween_callback(bar.hide)
+
+
+## A tween on n that replaces the last one started through here (two
+## tweens on one property would fight).
+func _fresh_tween(n: Node) -> Tween:
+	var old = n.get_meta("fx_tween") if n.has_meta("fx_tween") else null
+	if old is Tween and old.is_valid():
+		old.kill()
+	var tw := n.create_tween()
+	n.set_meta("fx_tween", tw)
+	return tw
+
+
+func _place_name() -> String:
+	var ctx: Dictionary = enc.get("context", {})
+	var loc_id = ctx.get("locationId") if ctx.get("locationId") else ctx.get("toId")
+	if loc_id != null and C.location(String(loc_id)) != null:
+		return I18n.t("loc.%s.name" % loc_id)
+	return I18n.t("region.%s.name" % rid)
+
+
+func _update_boss_bar() -> void:
+	if _boss_bar == null or _boss_uid == null:
+		return
+	var u = Combat.unit_by_uid(sim, _boss_uid)
+	if u == null:
+		return
+	_boss_bar.set_frac(float(u.hp) / float(maxi(1, int(u.maxHp))) if u.alive else 0.0)
+	if not u.alive and _boss_bar.visible and not _boss_bar.leaving:
+		_boss_bar.leaving = true
+		var tw := _fresh_tween(_boss_bar)
+		tw.tween_interval(0.9)
+		tw.tween_property(_boss_bar, "modulate:a", 0.0, 0.5)
+		tw.tween_callback(_hide_boss_bar)
+
+
+func _hide_boss_bar() -> void:
+	_boss_bar.visible = false
+	_boss_bar.leaving = false
+	_boss_bar.modulate.a = 1.0
+	set_hud_insets(_hud_top, 0.0, _hud_bottom)
+
+
+## The blow that wins the fight: a moment of slow motion, a soft flash and
+## the camera leaning in on the last foe to fall (longer for a boss).
+func _finishing_blow() -> void:
+	if bool(Settings.get_value("reduceMotion")):
+		return
+	var a := _actor(_last_ko)
+	if a == null:
+		return
+	var boss: bool = _units.get(_last_ko, {}).get("boss", false)
+	var hold := 1.0 if boss else 0.6
+	Engine.time_scale = 0.3
+	get_tree().create_timer(hold, true, false, true).timeout.connect(_normal_time)
+	_flash_rect.visible = true
+	_flash_rect.color.a = 0.42 if boss else 0.26
+	var ft := _flash_rect.create_tween().set_ignore_time_scale(true)
+	ft.tween_property(_flash_rect, "color:a", 0.0, 0.35)
+	ft.tween_callback(_flash_rect.hide)
+	var p0 := cam.position
+	var z0 := cam.zoom.x
+	var p1 := p0.lerp(a.position + Vector2(0, -a.height() * 0.5), 0.4).round()
+	_stop_glide()
+	_cam_tw = create_tween().set_ignore_time_scale(true)
+	_cam_tw.tween_method(_cam_at.bind(p0, z0, p1, z0 * 1.3), 0.0, 1.0, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_cam_tw.tween_interval(hold - 0.2)
+	_cam_tw.tween_method(_cam_at.bind(p1, z0 * 1.3, p0, z0), 0.0, 1.0, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_cam_tw.tween_callback(_settle_zoom.bind(z0))
+
+
+func _normal_time() -> void:
+	Engine.time_scale = 1.0
+
+
+func _exit_tree() -> void:
+	_normal_time()
+
+
 func zoom_step(dir: int, at_mouse := true) -> void:
+	_stop_glide()
 	var ni := clampi(_zoom_i + dir, 0, ZOOMS.size() - 1)
 	if ni == _zoom_i:
 		return
@@ -1973,13 +2455,16 @@ func _unhandled_input(ev: InputEvent) -> void:
 			if mb.pressed:
 				_drag = true
 				_drag_moved = 0.0
+				_stop_glide()
 			else:
 				_drag = false
 				if _drag_moved < 4.0 and mb.button_index == MOUSE_BUTTON_RIGHT and sim.focus != null:
 					_clear_focus()
 			get_viewport().set_input_as_handled()
 		elif mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			if _ended and not _committed:
+			if _cine_hold:
+				_end_cine()
+			elif _ended and not _committed:
 				_end_t = 99.0
 			else:
 				var uid = _enemy_at(get_global_mouse_position())
@@ -2050,3 +2535,112 @@ class Burst extends Node2D:
 			var ang2 := TAU * float(i) / float(rays) + 0.3
 			var d := Vector2(cos(ang2), sin(ang2))
 			draw_line((d * r * 0.55).round(), (d * r * 1.15).round(), c, 2.0)
+
+
+## The boss's name and health under the title strip. The bar drains with a
+## pale trailing chip that catches up a moment later.
+class BossBar extends PanelContainer:
+	var leaving := false
+	var _name: Label
+	var _gauge: Gauge
+
+	func _init() -> void:
+		theme_type_variation = "ChipPanel"
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var box := VBoxContainer.new()
+		box.add_theme_constant_override("separation", 1)
+		box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(box)
+		_name = Label.new()
+		_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_name.add_theme_color_override("font_color", BOSS_RED)
+		box.add_child(_name)
+		_gauge = Gauge.new()
+		box.add_child(_gauge)
+
+	func setup(title: String) -> void:
+		_name.text = title
+		_gauge.frac = 1.0
+		_gauge.trail = 1.0
+		_gauge.queue_redraw()
+
+	func set_frac(f: float) -> void:
+		_gauge.set_frac(clampf(f, 0.0, 1.0))
+
+
+class Gauge extends Control:
+	var frac := 1.0
+	var trail := 1.0
+	var _hold := 0.0
+
+	func _init() -> void:
+		custom_minimum_size = Vector2(200, 6)
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	func set_frac(f: float) -> void:
+		if f < frac - 0.0001:
+			_hold = 0.45
+		frac = f
+		if trail < frac:
+			trail = frac
+		queue_redraw()
+
+	func _process(delta: float) -> void:
+		if trail <= frac:
+			return
+		if _hold > 0.0:
+			_hold -= delta
+			return
+		trail = maxf(frac, trail - delta * 0.6)
+		queue_redraw()
+
+	func _draw() -> void:
+		var w := size.x
+		var h := size.y
+		draw_rect(Rect2(0, 0, w, h), Color(0.05, 0.03, 0.05))
+		draw_rect(Rect2(1, 1, w - 2, h - 2), Color(0.18, 0.08, 0.09))
+		var inner := w - 2.0
+		if trail > frac:
+			draw_rect(Rect2(1 + roundf(inner * frac), 1, roundf(inner * (trail - frac)), h - 2), Color(1.0, 0.86, 0.66))
+		var fw := roundf(inner * frac)
+		if fw > 0.0:
+			draw_rect(Rect2(1, 1, fw, h - 2), Color(0.78, 0.2, 0.18))
+			draw_rect(Rect2(1, 1, fw, 1), Color(0.98, 0.45, 0.36))
+		# Quarter ticks help read how far the fight has come.
+		for q in [0.25, 0.5, 0.75]:
+			draw_rect(Rect2(1 + roundf(inner * q), 1, 1, h - 2), Color(0.05, 0.03, 0.05, 0.55))
+
+
+## A slow red ring on the ground under a boss.
+class BossAura extends Node2D:
+	var rx := 18.0
+	var _t := 0.0
+	var _still := false
+
+	func _ready() -> void:
+		_still = bool(Settings.get_value("reduceMotion"))
+		z_index = -1
+
+	func _process(delta: float) -> void:
+		if _still:
+			return
+		_t += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		var pulse := 0.5 + 0.5 * sin(_t * 2.4)
+		var ry := rx * 0.5
+		var pts := PackedVector2Array()
+		for i in 25:
+			var a := TAU * float(i) / 24.0
+			pts.append(Vector2(cos(a) * rx, sin(a) * ry).round())
+		var fill := PackedVector2Array(pts)
+		fill.remove_at(fill.size() - 1)
+		draw_colored_polygon(fill, Color(BOSS_RED, 0.10 + 0.06 * pulse))
+		draw_polyline(pts, Color(BOSS_RED, 0.45 + 0.3 * pulse), 1.0)
+		var r2 := rx + 3.0 + 2.0 * pulse
+		var arc := PackedVector2Array()
+		for i in 25:
+			var a := TAU * float(i) / 24.0
+			arc.append(Vector2(cos(a) * r2, sin(a) * r2 * 0.5).round())
+		draw_polyline(arc, Color(BOSS_RED, 0.18 * (1.0 - pulse)), 1.0)

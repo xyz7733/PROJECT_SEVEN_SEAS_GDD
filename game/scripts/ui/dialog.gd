@@ -58,6 +58,14 @@ func _init() -> void:
 	resized.connect(_queue_fit)
 
 
+## The dimmer and the panel fade in together.
+func _ready() -> void:
+	if bool(Settings.get_value("reduceMotion")):
+		return
+	modulate.a = 0.0
+	create_tween().tween_property(self, "modulate:a", 1.0, 0.12)
+
+
 func _queue_fit() -> void:
 	if _fit_queued:
 		return

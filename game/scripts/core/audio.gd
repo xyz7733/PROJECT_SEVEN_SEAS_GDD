@@ -62,8 +62,18 @@ const SFX := {
 	"ram": [["ship_ram.ogg"], -7.0, 1.5, 1, 0.0],
 	"rowing": [["ambience/rowing_slowly.ogg"], -6.0, 2.0, 1, 0.0],
 	"victory": [["stinger_victory.wav"], -4.0, 2.0, 1, 0.0],
+	"boss": [["boss_horn.wav"], -4.0, 2.0, 1, 0.0],
+	"thunder_near": [["thunder_near.wav"], -6.0, 1.5, 1, 0.06],
+	"thunder_far": [["thunder_far.wav"], -9.0, 1.5, 1, 0.08],
 	"defeat": [["stinger_defeat.wav"], -4.0, 2.0, 1, 0.0],
 }
+## Weather beds: seamless synthesised loops layered over the ambience.
+## id -> [file, bed volume dB]
+const WEATHER := {
+	"rain": ["ambience/rain_loop.wav", -11.0],
+	"storm": ["ambience/storm_loop.wav", -8.0],
+}
+const WEATHER_FADE := 2.5
 const VOICES := 12
 const AMB_XFADE := 3.0
 const MUSIC_FADE := 1.6
@@ -79,6 +89,9 @@ var _amb: Array[AudioStreamPlayer] = []
 var _amb_id := ""
 var _amb_cur := 0
 var _amb_db := 0.0
+var _wx: Array[AudioStreamPlayer] = []
+var _wx_id := ""
+var _wx_cur := 0
 var _duck_tw: Tween
 
 
@@ -94,6 +107,8 @@ func _ready() -> void:
 	_music_b = _player("Music")
 	for _i in 2:
 		_amb.append(_player("Ambience"))
+	for _i in 2:
+		_wx.append(_player("Ambience"))
 	for _i in VOICES:
 		_pool.append(_player("SFX"))
 	Settings.changed.connect(apply_volumes)
@@ -258,6 +273,48 @@ func _process(_delta: float) -> void:
 		cur.set_meta("tw", tw)
 		_amb_cur = (_amb_cur + 1) % 2
 		_start_bed(nxt, cur.stream, 0.0)
+
+
+## Switches the weather bed ("" for none; "rain", "storm") with a slow
+## crossfade. Same id is a no-op. `muffle_db` lowers it (heard from below
+## deck or through a cave mouth).
+func weather(id: String, muffle_db := 0.0) -> void:
+	var key := "%s|%d" % [id, int(muffle_db)]
+	if key == _wx_id:
+		return
+	var same := id != "" and _wx_id.begins_with(id + "|")
+	_wx_id = key
+	if same:
+		# Only the level changed.
+		var p := _wx[_wx_cur]
+		_fade(p, float(WEATHER[id][1]) + muffle_db, 1.0, false)
+		return
+	for p in _wx:
+		if p.playing:
+			_fade(p, -60.0, WEATHER_FADE, true)
+	if not WEATHER.has(id):
+		return
+	var s := _looping(String(WEATHER[id][0]))
+	if s == null:
+		return
+	_wx_cur = (_wx_cur + 1) % 2
+	var nxt := _wx[_wx_cur]
+	nxt.stop()
+	nxt.stream = s
+	nxt.volume_db = -60.0
+	nxt.play(randf_range(0.0, s.get_length()))
+	_fade(nxt, float(WEATHER[id][1]) + muffle_db, WEATHER_FADE, false)
+
+
+func _fade(p: AudioStreamPlayer, to_db: float, secs: float, stop_after: bool) -> void:
+	var tw0 := (p.get_meta("tw") if p.has_meta("tw") else null) as Tween
+	if tw0 and tw0.is_valid():
+		tw0.kill()
+	var tw := create_tween()
+	tw.tween_property(p, "volume_db", to_db, secs)
+	if stop_after:
+		tw.tween_callback(p.stop)
+	p.set_meta("tw", tw)
 
 
 ## Music and ambience for a world context ("title", "port", "at_sea",

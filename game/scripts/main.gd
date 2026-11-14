@@ -56,6 +56,12 @@ var _report: BattleReport
 var _level_t := 0.0
 ## HUD insets in base-viewport pixels: [top strip, objective chip, bottom].
 var _hud_insets := Vector3(24, 40, 30)
+## The sky over the stage (presentation only, see Weather).
+var weather: WeatherLayer
+var _sky_key := ""
+var _sky_stage := ""
+## Sweeps the old stage away when the stage changes (see Curtain).
+var curtain: Curtain
 
 
 func _ready() -> void:
@@ -70,6 +76,12 @@ func _ready() -> void:
 	ship_view.selected.connect(_on_stage_selected)
 	ship_view.hover_changed.connect(_on_hover)
 	ship_view.mode_changed.connect(_on_mode_changed)
+	weather = WeatherLayer.new()
+	weather.name = "Weather"
+	add_child(weather)
+	curtain = Curtain.new()
+	curtain.name = "Curtain"
+	add_child(curtain)
 	ui_layer = CanvasLayer.new()
 	ui_layer.layer = 5
 	add_child(ui_layer)
@@ -101,6 +113,7 @@ func _ready() -> void:
 	modal_layer.add_child(modal_root)
 	Game.state_changed.connect(_on_state_changed)
 	Settings.changed.connect(_apply_ui_scale)
+	Settings.changed.connect(_update_weather)
 	get_viewport().size_changed.connect(_apply_ui_scale)
 	_apply_ui_scale()
 	if Game.has_game():
@@ -111,6 +124,7 @@ func _ready() -> void:
 
 # ================================================================== title
 func show_title() -> void:
+	curtain.cover(true)
 	mode = "title"
 	world_mode = ""
 	_close_all_windows()
@@ -132,6 +146,7 @@ func show_title() -> void:
 	_ship_key = ""
 	_build_title(newest)
 	Audio.scene("title")
+	_update_weather()
 
 
 func _build_title(newest: Variant) -> void:
@@ -154,11 +169,20 @@ func _build_title(newest: Variant) -> void:
 	var v := UIK.vbox([], 4)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(v)
+	# Emblem (dropped by the layout when the screen is short), title, motto.
+	var emblem := TextureRect.new()
+	emblem.texture = Art.title_tex("wheel")
+	emblem.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	emblem.custom_minimum_size = Vector2(47, 47)
+	emblem.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(emblem)
 	var title_lbl := UIK.label(I18n.t("app.title"), "TitleLabel")
 	title_lbl.add_theme_font_size_override("font_size", 24)
 	title_lbl.add_theme_color_override("font_color", Art.GOLD)
+	title_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(title_lbl)
 	var sub := UIK.label(I18n.t("title.strongest"), "DimLabel", true, 120)
+	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(sub)
 	v.add_child(UIK.sep())
 	var wrapped: Array = [sub]
@@ -192,7 +216,7 @@ func _build_title(newest: Variant) -> void:
 	tp.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	title_root.add_child(tp)
 	_title = {"panel": panel, "scroll": scroll, "body": v, "grid": grid, "wrapped": wrapped,
-		"foot": foot, "tag": tag, "tag_panel": tp}
+		"foot": foot, "tag": tag, "tag_panel": tp, "emblem": emblem}
 	v.minimum_size_changed.connect(_queue_title_layout)
 	_queue_title_layout()
 
@@ -239,6 +263,13 @@ func _layout_title() -> void:
 		pad = sb.get_minimum_size()
 	var band_top := m
 	var band_h := maxf(60.0, foot.position.y - 4.0 - band_top)
+	# The emblem is shown only where the menu still fits in one column.
+	var emblem: TextureRect = _title.emblem
+	var want_emblem := band_h >= 300.0
+	if emblem.visible != want_emblem:
+		emblem.visible = want_emblem
+		_queue_title_layout()
+		return
 	var left := 24.0 if scr.x >= 560.0 else m
 	var avail_w := scr.x - left - m
 	# A short band (large UI size) also tightens the spacing.
@@ -295,6 +326,13 @@ func _layout_title() -> void:
 		tp.position = Vector2(scr.x - m - tw, m)
 		tp.size = Vector2(tw, th)
 		tp.visible = th <= band_h
+	# Frame the ship in the part of the screen the menu leaves free.
+	var sc := ui_layer.scale.x
+	var vp := get_viewport().get_visible_rect().size
+	var free_x := (left + pw + m) * sc
+	if vp.x - free_x >= 200.0 and ship_view != null and not ship_view.st.is_empty():
+		ship_view.free_screen = Rect2(free_x, 0.0, vp.x - free_x, vp.y)
+		ship_view.fit_view()
 
 
 func _meta_line(sm: Dictionary) -> String:
@@ -367,10 +405,12 @@ func restart_scene() -> void:
 
 
 func enter_game() -> void:
+	curtain.cover()
 	mode = "game"
 	if title_root:
 		title_root.queue_free()
 		title_root = null
+	hud.forget_resources()
 	hud.visible = true
 	GameWindow.hud_insets = true
 	ship_view.set_process_unhandled_input(true)
@@ -404,12 +444,18 @@ func _sync_world() -> void:
 		Audio.scene(w, String(lt.type) if lt != null else "")
 	world_mode = w
 	hud.refresh(w)
+	_update_weather()
 	_update_view_info()
 	if w == "at_sea" and Game.state.voyage != null and Game.state.voyage.event != null:
 		_open_sea_event()
 
 
 func _show_ship_stage(ctx: String) -> void:
+	var key := "%s|%s" % [ctx, String(Game.state.world.currentLocationId)]
+	if site_view != null or battle_view != null:
+		curtain.cover(true)
+	elif key != _ship_key and _ship_key != "":
+		curtain.cover()
 	if site_view:
 		site_view.queue_free()
 		site_view = null
@@ -418,7 +464,6 @@ func _show_ship_stage(ctx: String) -> void:
 		battle_view = null
 	ship_view.visible = true
 	ship_view.process_mode = Node.PROCESS_MODE_INHERIT
-	var key := "%s|%s" % [ctx, String(Game.state.world.currentLocationId)]
 	if key != _ship_key:
 		_ship_key = key
 		ship_view.bind(Game.state, ctx, true)
@@ -437,6 +482,7 @@ func _hide_ship_stage() -> void:
 
 
 func _show_site_stage() -> void:
+	curtain.cover()
 	_close_window("ship")
 	_close_window("inspect")
 	_hide_ship_stage()
@@ -460,6 +506,7 @@ func show_site() -> void:
 
 
 func _show_battle() -> void:
+	curtain.cover()
 	_close_all_windows()
 	_hide_ship_stage()
 	if site_view:
@@ -490,12 +537,51 @@ func _on_state_changed(kind: String) -> void:
 		return
 	if kind == "loaded" or kind == "new_game":
 		_ship_key = ""
+		hud.forget_resources()
 	else:
 		Audio.tx(kind)
 	hud.refresh(world_mode if _lock > 0 and world_mode != "" else Game.where())
 	for n in windows:
 		windows[n].mark_dirty()
 	_sync_world()
+
+
+## Matches the sky to the stage now showing: the region's weather for this
+## watch, none underground. A new stage gets its sky at once; on the same
+## stage a change of weather eases in.
+func _update_weather() -> void:
+	if weather == null:
+		return
+	if mode != "game" or not Game.has_game():
+		_sky_key = ""
+		_sky_stage = ""
+		weather.set_sky("clear", "", false, false, true)
+		return
+	var s := Game.state
+	var hour := int(s.envelope.gameClock) % 24
+	var night := hour >= 20 or hour < 6
+	var stage := "ship"
+	var under := false
+	if battle_view != null:
+		stage = "battle"
+		under = battle_view.arena in ["dungeon", "secret"]
+	elif site_view != null:
+		stage = "site"
+		var lt = C.location(String(s.world.currentLocationId))
+		under = lt != null and String(lt.type) in ["dungeon", "secret"]
+	else:
+		under = ship_view != null and ship_view.view_level > 0
+	var sky := Weather.now(s)
+	var rid := Weather.region_here(s)
+	var key := "%s|%s|%s|%s|%s" % [sky, rid, under, night, Settings.get_value("weather")]
+	# Crossing a roof must remove particles immediately, including when the
+	# stage stays "ship" and only the selected deck changes.
+	var snap := stage != _sky_stage or under != weather.under
+	if key == _sky_key and not snap:
+		return
+	_sky_key = key
+	_sky_stage = stage
+	weather.set_sky(sky, rid, under, night, snap)
 
 
 # ================================================================ voyage
@@ -513,6 +599,7 @@ func depart(to_id: String, fast := false, confirmed := false) -> void:
 	_close_window("inspect")
 	_close_window("ship")
 	_lock += 1
+	curtain.cover(true)
 	Game.act(res)
 	_free_stage_views()
 	ship_view.visible = true
@@ -524,6 +611,8 @@ func depart(to_id: String, fast := false, confirmed := false) -> void:
 	Audio.scene("at_sea")
 	Audio.play("bell")
 	Audio.play("cloth")
+	hud.sailing_to = to_id
+	_update_weather()
 	hud.refresh("at_sea")
 	hud.set_hint(I18n.t("hud.sailing_to", {"location": "loc.%s.name" % to_id}))
 	ship_view.sailing_done.connect(_on_sailing_done, CONNECT_ONE_SHOT)
@@ -531,6 +620,7 @@ func depart(to_id: String, fast := false, confirmed := false) -> void:
 
 
 func _on_sailing_done() -> void:
+	hud.sailing_to = ""
 	hud.set_hint("")
 	Audio.play("bell")
 	_lock = maxi(0, _lock - 1)
@@ -635,6 +725,7 @@ func _close_report() -> void:
 
 
 func _after_report(_choice: Variant) -> void:
+	curtain.cover(true)
 	_report = null
 	_report_open = false
 	_lock = maxi(0, _lock - 1)
@@ -928,6 +1019,7 @@ func _on_hover(text: String) -> void:
 func _on_mode_changed(_m: String, text: String) -> void:
 	hud.set_hint(text)
 	_update_view_info()
+	_update_weather()
 
 
 func _on_stage_selected(kind: String, payload: Variant) -> void:

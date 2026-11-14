@@ -13,6 +13,9 @@ extends Node2D
 
 signal arrived
 signal clicked(actor: Actor)
+## Emitted after a path step has updated both the ground point and lift.
+## Views use this to update floor occlusion before this frame is drawn.
+signal surface_moved
 
 const PUPPET_LAYERS := ["hair_back", "outfit", "skin", "hair_front", "hat", "weapon"]
 
@@ -262,6 +265,7 @@ func _process(delta: float) -> void:
 			_apply_frame()
 	if not _path.is_empty():
 		_step_path(delta)
+		surface_moved.emit()
 	if _bubble and _bubble_t > 0.0:
 		_bubble_t -= delta
 		if _bubble_t <= 0.0:
@@ -343,6 +347,14 @@ func fade_in(secs := 0.15) -> void:
 func attach_fx(n: Node2D, at := Vector2.ZERO) -> void:
 	n.position = (at + Vector2(0, -lift)).round()
 	_undo.add_child(n)
+
+
+## Adds a lasting ground effect (a boss's aura) drawn under the actor's
+## shadow and sprite, so it reads as lying on the ground.
+func add_ground_fx(n: Node2D) -> void:
+	n.position = Vector2(0, -lift).round()
+	_undo.add_child(n)
+	_undo.move_child(n, 0)
 
 
 ## Height of the sprite above the ground point (head top is -height).

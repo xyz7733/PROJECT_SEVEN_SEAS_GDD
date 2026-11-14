@@ -7,6 +7,20 @@ static func run(t: TestKit) -> void:
 	_test_sets(t)
 	_test_chart(t)
 	_test_curios(t)
+	_test_progress(t)
+
+
+## Every Codex tab needs a matching progress counter before its body builds.
+static func _test_progress(t: TestKit) -> void:
+	var state := GS.create_new_game(2005)
+	var progress := Rules.codex_progress(state)
+	for tab in ["locations", "enemies", "classes", "pets", "items", "clues", "collections"]:
+		t.ok(progress.has(tab), "codex progress includes " + tab)
+	t.eq(progress.get("collections"), [0, C.COLLECTIBLES.size()], "fresh collection counter")
+	Collections.grant(state, "chart_dawnwater")
+	t.eq(Rules.codex_progress(state).collections, [1, C.COLLECTIBLES.size()], "owned chart counted once")
+	Collections.grant(state, "chart_dawnwater")
+	t.eq(Rules.codex_progress(state).collections, [1, C.COLLECTIBLES.size()], "duplicate adds no collection progress")
 
 
 static func _own_all(state: Dictionary, set_id: String) -> void:

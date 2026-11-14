@@ -6,9 +6,35 @@ extends RefCounted
 
 static func run(t: TestKit) -> void:
 	_test_monsters(t)
+	_test_skill_names(t)
 	_test_collectibles(t)
 	_test_regions(t)
 	_test_shop(t)
+	_test_ambient_art(t)
+
+
+## The stages draw their ambient life, night windows and the title emblem
+## from generated atlases: every sprite the scripts ask for must be there.
+static func _test_ambient_art(t: TestKit) -> void:
+	var sheet := Ambience.atlas()
+	t.ok(sheet != null, "ambient atlas missing")
+	if sheet == null:
+		return
+	var bounds := Rect2(Vector2.ZERO, sheet.get_size())
+	for sprite in [["gull", 4], ["gull_shadow", 1], ["glint", 5], ["whitecap", 6], ["fish", 8], ["ripple", 4],
+			["spray", 5], ["butterfly", 2], ["cloud_a", 1], ["cloud_b", 1], ["cloud_c", 1]]:
+		for frame in int(sprite[1]):
+			var r := Ambience.frame_rect(String(sprite[0]), frame)
+			t.ok(r.size.x > 0.0 and r.size.y > 0.0 and bounds.encloses(r),
+				"ambient sprite %s frame %d outside the atlas" % [sprite[0], frame])
+	for emblem in ["wheel", "pennant"]:
+		t.ok(Art.title_tex(emblem) != null, "missing title art " + emblem)
+	var lit := 0
+	for key in Art.env.buildings:
+		var parts := String(key).split(":")
+		if parts.size() == 2 and Art.building_lit(parts[0], parts[1]) != null:
+			lit += 1
+	t.eq(lit, Art.env.buildings.size(), "every port building has a lit-window overlay")
 
 
 static func _test_monsters(t: TestKit) -> void:
@@ -39,10 +65,23 @@ static func _test_monsters(t: TestKit) -> void:
 	for tid in C.BESTIARY.TRAITS:
 		t.ok(I18n.has("etrait." + tid + ".name"), "missing trait name " + tid)
 		t.ok(I18n.has("etrait." + tid + ".desc"), "missing trait desc " + tid)
-	for sid in C.BESTIARY.SKILLS:
-		t.ok(I18n.has("eskill." + sid + ".name"), "missing skill name " + sid)
 	for vid in C.BESTIARY.VARIANTS:
 		t.ok(I18n.has("variant." + vid + ".name"), "missing variant name " + vid)
+
+
+## BattleView displays every combat skill through skill.<id>.name. Check
+## each shipped locale directly so English fallback cannot hide a missing
+## Chinese entry, including skills merged from the expanded bestiary.
+static func _test_skill_names(t: TestKit) -> void:
+	for locale in I18n.SUPPORTED:
+		var translation := TranslationServer.get_translation_object(locale)
+		t.ok(translation != null, "missing skill-name translation table " + locale)
+		if translation == null:
+			continue
+		for sid in C.SKILLS:
+			var key := "skill.%s.name" % sid
+			var text := String(translation.get_message(key))
+			t.ok(text != "" and text != key, "missing battle skill name %s in %s" % [sid, locale])
 
 
 static func _check_drop(t: TestKit, drop: Variant, owner_id: String) -> void:

@@ -181,7 +181,7 @@ func _settings(b: VBoxContainer) -> void:
 	fs.button_pressed = DisplayServer.window_get_mode() in [DisplayServer.WINDOW_MODE_FULLSCREEN, DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN]
 	fs.toggled.connect(_set_fullscreen)
 	g.add_child(fs)
-	for pair in [["reduceMotion", "system.reduce_motion"], ["pauseAtEncounterStart", "system.pause_start"], ["showRoofs", "ship.show_rigging"]]:
+	for pair in [["reduceMotion", "system.reduce_motion"], ["weather", "system.weather"], ["pauseAtEncounterStart", "system.pause_start"], ["showRoofs", "ship.show_rigging"]]:
 		if not I18n.has(pair[1]):
 			continue
 		g.add_child(UIK.label(I18n.t(pair[1]), "DimLabel"))

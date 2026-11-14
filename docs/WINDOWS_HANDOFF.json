@@ -1,36 +1,49 @@
 {
-  "revision": "guide-01",
-  "status": "ready",
-  "directory": "build/windows-checkpoints/guide-01",
+  "revision": "craft-01-fix1",
+  "status": "ready_for_manual_playtest",
+  "directory": "build/windows-checkpoints/craft-01-fix1",
   "exe_sha256": "1edeef2171ef1dc274f2175bf90de4da4658731983edb3a855415a4d9dabfb4b",
-  "pck_sha256": "e1d14cac495eba803d7c3ef7b6cc3307baadfb29b42fc322eac035ac88bf1e20",
-  "engine": "Godot 4.7.2 (headless Linux export, Windows Desktop preset)",
+  "pck_sha256": "2bacd8f85c3381caecbc13a562e518df029a921a1ec312f8bf9caf4e73b11436",
+  "engine": "Godot 4.7.2 stable Windows x86-64 editor and release template",
   "verified_here": [
-    "native import",
-    "load-probe of all 43 scripts (0 failures, probe file deleted before export)",
-    "i18n build: 1987 keys, 0 problems (19 new keys in English and Chinese for the guide card, the System 'Show again' row and the landing-party tooltip)",
-    "pack diff against battle-01 using the per-file MD5 stored in each pck: only guide.gd (new), site_view.gd, actor.gd (animation phase helper), main.gd (guide creation), win_system.gd (Show again row), settings.gd (guide settings), the two translations, project.binary (revision) and Godot's class/uid caches differ; battle, report, ship, interior, chart, HUD, title, coast and rowboat code are byte-identical to battle-01",
-    "headless site probe (temporary, nothing rendered): all 80 non-port sites built; every party and pet spot and every sampled point of every walk leg (slot to slot, slot to line, line to line, line to slot, every trail, both directions) on raised prop-free land, boat lane still water, land shape identical to the previous version, at most one prop moved per site, no two standing spots closer than 12 px, slowest build 142.7 ms: 0 problems",
-    "headless party probe (temporary, nothing rendered): real site view on 7 islands without a pet and 4 with an explorer pet; everyone on their slot after landing, a there-and-back walk started while followers were settling ends on the slots with one arrival, closest pair during long walks at least 13.8-15.6 px (median about 18.5-19.2 px), one-room shifts 11.5-15.6 px, idle members face different directions, head pick finds each member (4/4), others dim to 50 % and restore, tooltip text correct: 0 problems",
-    "headless guide probe (temporary, main scene built without rendering or a window): 6 new games (English and Chinese at UI 1.0, 1.25 and 1.5); steps come in order (levels, Set sail, destination, Sail), the first case also sails, lands, shows the island step, enters a room (card hidden over the room dialog, step ends) and checks Hide guide; every card fully on screen, never over its target, below the top bar and the objective chip: 0 problems",
-    "user data folder touched by the probes restored afterwards",
-    "Windows release export"
+    "Godot 4.7.2 Windows resource import and script registration",
+    "2,263 core checks passed, including 11 real-scene shelter regressions and imported skill-name translations for all 75 skills in both languages",
+    "748 real-font UI layout checks passed in English/Simplified Chinese at UI 1.0/1.25/1.5",
+    "Source suites and headless exported startup have no script errors or object/RID leak warnings",
+    "Windows release export; 353 packed resources verified against their MD5 directory hashes, tests and translation sources excluded",
+    "Automated source rendering on RTX 4070 Laptop GPU, NVIDIA OpenGL 3.3 / driver 617.42: 16 assertions, 21 frame-interval samples, 8 stage-bind measurements and 16 screenshots; Dummy audio throughout",
+    "Final translated Old Lookout battle rendered and reviewed separately: English UI 1.0 and Simplified Chinese UI 1.5; localized enemy skills visible, logs clean",
+    "Original craft-01 and final fix1 executables both rendered for 180 frames on NVIDIA hardware with isolated fresh profiles; final known-language title starts without script errors but abrupt CLI exit has the audio warning below",
+    "Current audio credits synchronized to the Windows distribution; original craft-01 checkpoint preserved"
   ],
-  "not_verified_here": "Any Windows runtime behaviour; the game was not launched. The look of the formation and single-file walks at pixel scale and each zoom, the readability of the 50 % dimming, the guide card, frame and arrow with the real mouse, window sizes and fullscreen, and long Chinese text in the card on a real font raster are unverified until checked on Windows.",
+  "not_verified_here": "Human motion assessment and mouse-driven play (desktop native control pipe unavailable); click-to-skip, finishing-blow timing, fullscreen interaction, larger battles, speaker listening/mixing and full campaign/economy balance. All new runs were silent at user request.",
   "changes": [
-    "Landing-party formation on islands (scripts/view/site_view.gd): four crew in two staggered rows left of the room marker (about 20 px apart in a row, 12 px between rows, leader at the right of the back row) with the pet in front of the leader, replacing the old 14 px diamond where the pet stood 2 px from the second member; walker animation phases desynced and idle members glance aside, back or at a neighbour on per-member timers",
-    "Walking order: a walk to the next room shifts the group with a 0.07 s stagger; a walk across two or more rooms becomes a single file on the leader's line, followers joining nearest first about 0.3 s (about 19 px) apart with up to 2 px side-steps, then spreading to their spots; a new walk first settles stragglers and each walk reports one arrival; the island builder also forces the single-file legs onto raised prop-free land",
-    "Crew hover and click on islands: selection marker under the member, the other members and the pet at 50 % opacity, tooltip with name, class, level and role (leader, landing party, injured), front-most figure wins, a click opens the crew window on that member, the room marker itself (within about 12 px) still picks the room",
-    "First-session guide (scripts/ui/guide.gd): one card at a time while the first main objective is open, with a pulsing gold frame and an arrow to its control and placement beside the target that never covers it, the top bar or the objective chip; five steps (ship levels, Set sail, pick the objective's destination, Sail with the food cost or a blocked note, click a room after landing) that end on the action; Got it skips a step, Hide guide turns it off, System > Settings > Getting-started tips > Show again turns it back on; progress stored in Settings, not the save; hidden during modals, battles and departures",
-    "Title footer shows 'v2.0.0 · guide-01'"
+    "Weather and active lightning now stop immediately when selecting an interior ship deck; returning to the weather deck restores the sky and weather bed",
+    "Corrected 18 enemy-skill name keys in English and Simplified Chinese; content validation checks imported translations directly",
+    "Synchronized Windows audio credits and added a silent, isolated Windows GPU rendering/timing runner",
+    "Battle camera: land battles open on a wide shot of the whole arena and glide to the fight, framed to keep every fighter clear of the title strip, boss bar, action strip and combat log",
+    "Natural ground: borders between worn ground, trails and grass follow a ragged line instead of tile stair steps on islands, in dungeons and in land battle arenas",
+    "Combat log: at most four single lines that fade with age and never run over the front rank",
+    "Bosses and rival captains get an intro: black bars, a camera glide, a war horn over drum hits, the boss rears up with a flash and a name card; click to skip. A boss bar with a trailing damage chip stays under the title strip, and a red ring pulses under each boss",
+    "Finishing blow: the knockout that ends a fight plays in slow motion with a white flash while the camera leans in",
+    "Weather by region: clear, overcast, rain, fog, storm with lightning and distance-delayed thunder, and ashfall, drawn over port, sea, islands and battles but never underground; deterministic from the seed, region and watch, with spells that last; the first morning is always clear. Gulls, butterflies and fireflies react to it, the HUD clock shows the sky, and 'Weather effects' in the System window turns it off. Presentation only: no rule, odds, cost or save change",
+    "Stage changes (title, ship, island, battle) sweep the old frame away in a dithered pixel band in 0.5 s instead of cutting; a 0.25 s crossfade with Reduce motion",
+    "Original synthesized rain and storm loops, near and far thunder and a boss horn (CC0); five sky icons for the HUD",
+    "Screenshot harness gains battles, weather and transitions scenarios and stops all sound before quitting; source revision and latest Windows handoff updated to craft-01"
   ],
   "windows_checks": [
-    "The guide in a new game at UI 1.0 in English, then at UI 1.5 in Chinese (Show again is enough for the second run): one card at a time from 1/5 to 5/5 beside its control with frame and arrow, each ending when you act, none during dialogs, the voyage or battles; report a card off screen or over its target, the top bar or the objective chip, a wrong arrow, clipped text, or a step that does not end",
-    "Hide and show again: Got it moves to the next step, Hide guide removes all cards, System > Settings > Show again prints 'Getting-started tips are on again.' and the cards return",
-    "The landing party at zoom 2 on the first island: two staggered rows with every head visible and the pet in front, occasional glances, a short walk moves the group together, a walk across two or more rooms becomes a single file that spreads out on arrival; report overlap at rest, walkers passing through each other, crossing water or props, jumping, or a room opening twice",
-    "Hover and click on the crew: marker under the member, others half see-through, tooltip with name, class, level and role, a click opens the crew window on that member, pointing right at a room marker picks the room; report a wrong pick, dimming that does not clear, or a room that cannot be clicked",
-    "Actor clipping: island members crossing each other and props during single-file walks, and ship crew on each level at zoom 2 (deck clipping P1 is still open and unchanged); report the place, zoom and crew member of any clip",
-    "Retention (code byte-identical to battle-01): title footer 'v2.0.0 · guide-01', F11 fill, sidebar, build window, floor selector and Fit as in hud-02, M opens the chart as in chart-01, Brightquay coast as in coast-01, furnished interiors as in int-01, the battle result report as in battle-01, no 'Invalid polygon data' or 'fac' lines on stderr"
+    "On display TL160ADMP11-0, start the game and confirm the title shows revision craft-01-fix1. Check English and Simplified Chinese at UI 1.0/1.25/1.5; preserve normal mouse use on the other display.",
+    "Start a new game: the first morning should be clear with a sun icon on the HUD clock. Advance time and sail through several regions (the Stormbelt for storms, the Moonwake for fog, the Emberreach for ash). Rain, fog drift, lightning and ash should read well in motion, never hide crew or UI, and stop below decks. Thunder should follow a flash after a short delay.",
+    "Turn 'Weather effects' off and on in the System window, and turn on Reduce motion: rain and fog stay, flashes go.",
+    "Move between the title, the ship, an island and a battle: each change should sweep smoothly with no flicker, colour shift or stall; with Reduce motion it should be a short crossfade.",
+    "Fight land battles including a boss (Old Lookout) and a rival captain: the opening glide, the boss intro with horn and name card (also try clicking it away), the boss bar draining, and the slow-motion finishing blow. Check at each battle speed and with Reduce motion.",
+    "Listen to the rain and storm beds, the thunder and the boss horn on speakers next to the music and ambience; report anything too loud, too quiet or tiring.",
+    "Watch the frame rate in port, at sea in a storm and in a large battle: the weather layer and the stage sweep were only ever drawn by a software renderer. Assess longer-term balance; it was not covered by this pass."
   ],
-  "handoff_doc": "build/windows-checkpoints/guide-01/HANDOFF.md"
+  "handoff_doc": "build/windows-checkpoints/craft-01-fix1/HANDOFF.md",
+  "gpu_evidence": "build/validation/gpu-craft/20261114-193924-597377/metrics.json",
+  "known_issues": [
+    "At 1280x720 / VSync / 240 Hz, sampled steady scenes average 239-241 FPS. Synchronous stage construction costs 17-75 ms; first land-battle transition includes a 128 ms frame (boss entry 102 ms). These wall-frame timings are not GPU execution timers.",
+    "Exiting the final exported title with active music/ambience under the Dummy audio backend returns code 0 but reports 8 audio playback/sequence instances and 4 audio resources at exit, with no running-script errors. Observed using --quit-after 180; UI Quit also calls SceneTree.quit directly, so this is not established as CLI-only. Normal sound-device shutdown remains untested. Fresh-profile GPU startup, source GPU probe, final localization probes and headless suites exit cleanly. See build/validation/craft-takeover/fixed-release-title/render.log."
+  ]
 }

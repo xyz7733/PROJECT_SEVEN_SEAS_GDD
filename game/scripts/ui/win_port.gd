@@ -35,8 +35,8 @@ func build(b: VBoxContainer) -> void:
 	var s := st()
 	if not Rules.at_port(s):
 		b.add_child(UIK.label(I18n.t("port.not_docked"), "GoldLabel"))
-		b.add_child(UIK.para(Fmt.where_text(s), "", 440))
-		b.add_child(UIK.para(I18n.t("port.not_docked_hint", {"location": "loc.%s.name" % s.world.lastSafePortId}), "DimLabel", 440))
+		b.add_child(UIK.para(Fmt.where_text(s), "", 60))
+		b.add_child(UIK.para(I18n.t("port.not_docked_hint", {"location": "loc.%s.name" % s.world.lastSafePortId}), "DimLabel", 60))
 		var row := UIK.hbox([], 4)
 		if s.voyage != null and s.encounter == null:
 			row.add_child(UIK.button(I18n.t("home.emergency_return"), _emergency_return, "ui_home"))
@@ -48,8 +48,8 @@ func build(b: VBoxContainer) -> void:
 	var reps := []
 	for f in C.data.FACTIONS:
 		reps.append(I18n.t("faction.%s.name" % f) + " " + I18n.t("rank.%d" % Rules.rep_rank(s, f)))
-	b.add_child(UIK.label(I18n.t("region.%s.name" % reg.id) + " · " + I18n.t("map.specialty", {"item": "spec.%s.name" % reg.specialtyId}), "GoldLabel"))
-	b.add_child(UIK.label(I18n.t("port.reputation", {"list": " · ".join(reps)}), "DimLabel", true, 460))
+	b.add_child(UIK.label(I18n.t("region.%s.name" % reg.id) + " · " + I18n.t("map.specialty", {"item": "spec.%s.name" % reg.specialtyId}), "GoldLabel", true))
+	b.add_child(UIK.label(I18n.t("port.reputation", {"list": " · ".join(reps)}), "DimLabel", true))
 	if tab == "":
 		tab = "invest"
 	match tab:
@@ -93,11 +93,13 @@ func _good_row(label: String, icon_name: String, color: String, sub: String, but
 		dot.custom_minimum_size = Vector2(8, 8)
 		dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		lead = dot
-	var txt := UIK.vbox([UIK.label(label), UIK.label(sub, "DimLabel")], 0)
+	var txt := UIK.vbox([UIK.label(label, "", true), UIK.label(sub, "DimLabel", true)], 0)
 	txt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var row := UIK.hbox([lead, txt], 4)
+	var row := UIK.vbox([UIK.hbox([lead, txt], 4)], 3)
+	var actions := UIK.flow(3)
 	for bt in buttons:
-		row.add_child(bt)
+		actions.add_child(bt)
+	row.add_child(actions)
 	return row
 
 
@@ -105,8 +107,8 @@ func _good_row(label: String, icon_name: String, color: String, sub: String, but
 func _invest(b: VBoxContainer, port_id: String) -> void:
 	var s := st()
 	b.add_child(UIK.header(I18n.t("port.invest_title"), "ui_invest"))
-	b.add_child(UIK.para(I18n.t("port.invest_hint"), "DimLabel", 460))
-	var g := UIK.grid(2, 4)
+	b.add_child(UIK.para(I18n.t("port.invest_hint"), "DimLabel", 60))
+	var g := UIK.responsive_grid(2, 4)
 	for tr in C.data.INVESTMENT_TRACKS:
 		var lvl := Rules.port_track(s, port_id, tr)
 		var cost = Rules.invest_cost(s, port_id, tr)
@@ -146,12 +148,12 @@ func _market(b: VBoxContainer, port_id: String, reg: Dictionary) -> void:
 			why = I18n.t("err.supplies_full")
 		sup_btns.append(_cost_btn("+%d" % q, _buy.bind("supplies", null, q), {"gold": int(pr.supplies) * q}, why))
 	b.add_child(_good_row(I18n.t("status.supplies"), "supplies", "", I18n.t("port.stock", {"n": inv.supplies, "max": sup_cap}), sup_btns))
-	b.add_child(UIK.para(I18n.t("port.food_rule"), "DimLabel", 460))
+	b.add_child(UIK.para(I18n.t("port.food_rule"), "DimLabel", 60))
 	# ingredients
 	b.add_child(UIK.header(I18n.t("port.ingredients"), "ui_cook"))
 	if _locked(m, 1) != "":
 		b.add_child(UIK.label(_locked(m, 1), "WarnLabel"))
-	var ig := UIK.grid(2, 4)
+	var ig := UIK.responsive_grid(2, 4)
 	for id in C.data.INGREDIENTS:
 		var ing: Dictionary = C.data.INGREDIENTS[id]
 		var row := _good_row(I18n.t("ing.%s.name" % id), "ing_" + id if Art.has_icon("ing_" + id) else "", ing.color,
@@ -174,7 +176,7 @@ func _market(b: VBoxContainer, port_id: String, reg: Dictionary) -> void:
 		b.add_child(_good_row(I18n.t("spec.%s.name" % id), "sp_" + id if Art.has_icon("sp_" + id) else "", C.data.SPECIALTIES[id].color,
 			I18n.t("port.owned", {"n": n}) + " · " + I18n.t("port.sell_price", {"n": price}),
 			[UIK.button(I18n.t("port.sell_one"), func(): act(Actions.sell_specialty(Game.state, id, 1)), "gold")]))
-	b.add_child(UIK.para(I18n.t("port.specialty_rule"), "DimLabel", 460))
+	b.add_child(UIK.para(I18n.t("port.specialty_rule"), "DimLabel", 60))
 	# eggs
 	b.add_child(UIK.header(I18n.t("port.eggs"), "ui_egg"))
 	b.add_child(_good_row(I18n.t("port.egg_offer", {"family": "petfam.%s.name" % reg.petFamilyId}), "ui_egg", "", "",
@@ -186,7 +188,7 @@ func _market(b: VBoxContainer, port_id: String, reg: Dictionary) -> void:
 	b.add_child(UIK.label(I18n.t("port.equip_stock", {"n": inv.equipment.size(), "max": cap}), "DimLabel"))
 	if items.is_empty():
 		b.add_child(UIK.label(I18n.t("err.market_level", {"level": 1}), "WarnLabel"))
-	var sg := UIK.grid(2, 4)
+	var sg := UIK.responsive_grid(2, 4)
 	for id in items:
 		var full := I18n.t("err.equip_full") if inv.equipment.size() >= cap else ""
 		sg.add_child(_item_card(id, null, [_cost_btn(I18n.t("port.buy"), func(): act(Actions.buy_item(Game.state, id)), {"gold": Rules.item_price(id)}, full)]))
@@ -198,7 +200,7 @@ func _market(b: VBoxContainer, port_id: String, reg: Dictionary) -> void:
 	var offers := Rules.curio_offers(s, port_id)
 	if offers.is_empty():
 		b.add_child(UIK.label(I18n.t("port.curio_none"), "DimLabel"))
-	var og := UIK.grid(2, 4)
+	var og := UIK.responsive_grid(2, 4)
 	for offer0 in offers:
 		var offer: Dictionary = offer0
 		var cid := String(offer.id)
@@ -207,14 +209,14 @@ func _market(b: VBoxContainer, port_id: String, reg: Dictionary) -> void:
 			[_cost_btn(I18n.t("port.curio_buy"), func(): act(Actions.buy_curio(Game.state, cid)),
 				{"gold": int(offer.price)}, "", "gold")])
 		row.tooltip_text = I18n.t(String(offer.descKey))
-		row.custom_minimum_size.x = 224
-		og.add_child(row)
+		row.custom_minimum_size.x = 214
+		og.add_child(UIK.panel(row, "FlatPanel"))
 	b.add_child(og)
 	b.add_child(UIK.label(I18n.t("port.curio_exchange"), "GoldLabel"))
 	var exchange := Rules.curio_exchange(s, port_id)
 	if exchange.is_empty():
 		b.add_child(UIK.label(I18n.t("port.curio_none"), "DimLabel"))
-	var eg := UIK.grid(2, 4)
+	var eg := UIK.responsive_grid(2, 4)
 	for offer0 in exchange:
 		var offer: Dictionary = offer0
 		var cid := String(offer.id)
@@ -226,8 +228,8 @@ func _market(b: VBoxContainer, port_id: String, reg: Dictionary) -> void:
 		var row := _good_row(I18n.t(String(offer.nameKey)), String(offer.icon), "",
 			I18n.t("region.%s.name" % String(reg.id)), [btn])
 		row.tooltip_text = I18n.t(Collections.desc_key(cid))
-		row.custom_minimum_size.x = 224
-		eg.add_child(row)
+		row.custom_minimum_size.x = 214
+		eg.add_child(UIK.panel(row, "FlatPanel"))
 	b.add_child(eg)
 
 
@@ -243,7 +245,10 @@ func _item_card(item_id: String, inst: Variant, actions: Array) -> Control:
 	var it: Dictionary = C.ITEMS[item_id]
 	var v := UIK.vbox([], 1)
 	v.custom_minimum_size.x = 222
-	v.add_child(UIK.hbox([UIK.icon(Fmt.item_icon(item_id)), UIK.label(I18n.item_name(item_id, inst), "GoldLabel", true, 120), UIK.label(Fmt.item_tags(item_id), "DimLabel")], 3))
+	var name_l := UIK.label(I18n.item_name(item_id, inst), "GoldLabel", true, 120)
+	name_l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.add_child(UIK.hbox([UIK.icon(Fmt.item_icon(item_id)), name_l], 3))
+	v.add_child(UIK.label(Fmt.item_tags(item_id), "DimLabel", true, 214))
 	v.add_child(UIK.label("  ".join(Fmt.item_lines(item_id, inst)), "", true, 214))
 	if it.get("wtype"):
 		var users := []
@@ -269,7 +274,7 @@ func _tavern(b: VBoxContainer, port_id: String) -> void:
 	b.add_child(UIK.header(I18n.t("port.tavern_title"), "ui_recruit"))
 	b.add_child(UIK.para(I18n.t("port.tavern_hint", {"day": next_day, "level": lvl}), "DimLabel", 460))
 	b.add_child(UIK.label(I18n.t("home.crew_cap_value", {"n": s.crew.size(), "max": cap}), "DimLabel"))
-	var g := UIK.grid(2, 4)
+	var g := UIK.responsive_grid(2, 4)
 	for o in pool:
 		var m: Dictionary = o.member
 		var cls: Dictionary = C.CLASSES[m.classId]
@@ -316,7 +321,9 @@ func _workshop(b: VBoxContainer) -> void:
 	o.disabled = not reinf
 	o.custom_minimum_size.x = 260
 	o.clip_text = true
-	var arow := UIK.hbox([UIK.label(I18n.t("port.affix"), "DimLabel"), o], 4)
+	o.fit_to_longest_item = false
+	var arow := UIK.flow(4)
+	arow.add_child(UIK.hbox([UIK.label(I18n.t("port.affix"), "DimLabel"), o], 4))
 	if not reinf:
 		arow.add_child(UIK.label(I18n.t("err.need_workshop2"), "DimLabel"))
 	b.add_child(arow)
@@ -326,7 +333,7 @@ func _workshop(b: VBoxContainer) -> void:
 			recipes.append(id)
 	if recipes.is_empty():
 		b.add_child(UIK.label(I18n.t("port.no_recipes"), "DimLabel"))
-	var g := UIK.grid(2, 4)
+	var g := UIK.responsive_grid(2, 4)
 	for id in recipes:
 		var cost = Rules.craft_cost(id, affix, s)
 		var preview = {"affix": affix} if affix != null else null
@@ -335,7 +342,7 @@ func _workshop(b: VBoxContainer) -> void:
 	b.add_child(UIK.header(I18n.t("port.inventory", {"n": s.inventory.equipment.size(), "max": Rules.equip_capacity(s)}), "ui_chest"))
 	if s.inventory.equipment.is_empty():
 		b.add_child(UIK.label(I18n.t("port.no_equipment"), "DimLabel"))
-	var ig := UIK.grid(2, 4)
+	var ig := UIK.responsive_grid(2, 4)
 	for e in s.inventory.equipment:
 		var owner = null
 		for c in s.crew:

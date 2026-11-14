@@ -1341,6 +1341,17 @@ def build():
     record("game/assets/gen/env/buildings.png", f"{BW}x{BH}", f"{len(brects)} sprites", "voxel render (gen_env.py)",
            "port buildings per region (market, tavern, workshop, quest board, navigation, house)")
 
+    # Lit-window overlay: the emissive window pixels of every building, in
+    # the same atlas layout, drawn over the building after dark.
+    b_arr = np.array(Image.open(OUT / "env" / "buildings.png").convert("RGBA"))
+    lamp = hexrgb(P["lamp"]) if isinstance(P["lamp"], str) else tuple(P["lamp"][:3])
+    win = (b_arr[..., 0] == lamp[0]) & (b_arr[..., 1] == lamp[1]) & (b_arr[..., 2] == lamp[2]) & (b_arr[..., 3] > 0)
+    lit = np.zeros_like(b_arr)
+    lit[win] = (255, 232, 160, 255)
+    save_png(lit, OUT / "env" / "buildings_lit.png")
+    record("game/assets/gen/env/buildings_lit.png", f"{BW}x{BH}", f"{len(brects)} window masks",
+           "derived from the emissive window voxels (gen_env.py)", "lit windows on port buildings at night")
+
     save_png(foam_frames(), OUT / "env" / "foam.png")
     record("game/assets/gen/env/foam.png", "48x6", "4 frames 12x6", "procedural", "hull waterline foam")
 

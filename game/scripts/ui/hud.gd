@@ -33,6 +33,8 @@ const NAV := [
 ## Gap kept between HUD panels and the edge of the visible area.
 const M := 2.0
 const GAP := 2.0
+const RES_ICONS := {"gold": "gold", "food": "food", "supplies": "supplies", "materials": "materials",
+	"stamina": "stamina", "ledger": "ui_chest"}
 
 var top: PanelContainer
 var res_box: HBoxContainer
@@ -72,6 +74,10 @@ var _top_wrapped := false
 var _layout_queued := false
 var _obj_text := ""
 var _where_text := ""
+## Destination shown in the status strip while the ship is under way: the
+## state may already hold what waits at the far end (a battle, a site),
+## but the player is still watching the crossing.
+var sailing_to := ""
 var _deck_text := ""
 var _hint_text := ""
 ## Left edge of a window docked on the right (in HUD units), or INF. The
@@ -82,6 +88,11 @@ var chips_bottom := 40.0
 var bottom_reserved := 30.0
 ## Top of the right-hand bottom cluster (view controls and context action).
 var right_cluster_top := 300.0
+## Last shown resource amounts and the chip that shows each one, for the
+## "+27" / "-2" change notes under the strip.
+var _res_last := {}
+var _res_chips := {}
+var _float_root: Control
 
 
 func _init() -> void:
@@ -179,6 +190,11 @@ func _init() -> void:
 	toast_box = UIK.vbox([], 2)
 	toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_managed(toast_box)
+	# --- resource change notes (free-floating under the strip)
+	_float_root = Control.new()
+	_float_root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_float_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_float_root)
 
 
 func _managed(c: Control) -> void:
@@ -416,11 +432,16 @@ func refresh(world_mode: String) -> void:
 	UIK.clear(status_box)
 	var inv: Dictionary = s.inventory
 	var lay := Game.layout()
-	res_box.add_child(UIK.stat("gold", I18n.fmt_num(inv.gold), "GoldLabel", I18n.t("status.gold")))
+	_res_chips.clear()
+	_res_chips["gold"] = UIK.stat("gold", I18n.fmt_num(inv.gold), "GoldLabel", I18n.t("status.gold"))
+	res_box.add_child(_res_chips["gold"])
 	var food_cap := Rules.food_capacity(s, lay)
-	res_box.add_child(UIK.stat("food", "%s/%s" % [I18n.fmt_num(inv.food), I18n.fmt_num(food_cap)], "BadLabel" if int(inv.food) <= 2 else "", I18n.t("status.food")))
-	res_box.add_child(UIK.stat("supplies", I18n.fmt_num(inv.supplies), "", I18n.t("status.supplies")))
-	res_box.add_child(UIK.stat("materials", I18n.fmt_num(inv.materials), "", I18n.t("status.materials")))
+	_res_chips["food"] = UIK.stat("food", "%s/%s" % [I18n.fmt_num(inv.food), I18n.fmt_num(food_cap)], "BadLabel" if int(inv.food) <= 2 else "", I18n.t("status.food"))
+	res_box.add_child(_res_chips["food"])
+	_res_chips["supplies"] = UIK.stat("supplies", I18n.fmt_num(inv.supplies), "", I18n.t("status.supplies"))
+	res_box.add_child(_res_chips["supplies"])
+	_res_chips["materials"] = UIK.stat("materials", I18n.fmt_num(inv.materials), "", I18n.t("status.materials"))
+	res_box.add_child(_res_chips["materials"])
 	var sta := UIK.hbox([UIK.icon("stamina")], 2)
 	sta.tooltip_text = I18n.t("home.stamina_rule")
 	sta.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -430,13 +451,20 @@ func refresh(world_mode: String) -> void:
 	sta.add_child(bar)
 	sta.add_child(UIK.label("%d/%d" % [int(s.ship.stamina), smax], "DimLabel"))
 	res_box.add_child(sta)
+	_res_chips["stamina"] = sta
 	var led: Dictionary = inv.ledger
 	if int(led.gold) > 0 or int(led.materials) > 0:
-		res_box.add_child(UIK.stat("ui_chest", "%s · %s" % [I18n.fmt_num(led.gold), I18n.fmt_num(led.materials)], "WarnLabel",
-			I18n.t("status.ledger") + " — " + I18n.t("status.ledger_hint")))
+		_res_chips["ledger"] = UIK.stat("ui_chest", "%s · %s" % [I18n.fmt_num(led.gold), I18n.fmt_num(led.materials)], "WarnLabel",
+			I18n.t("status.ledger") + " — " + I18n.t("status.ledger_hint"))
+		res_box.add_child(_res_chips["ledger"])
+	_note_resource_changes({"gold": int(inv.gold), "food": int(inv.food), "supplies": int(inv.supplies),
+		"materials": int(inv.materials), "stamina": int(s.ship.stamina), "ledger": int(led.gold) + int(led.materials)})
 	var hour := int(s.envelope.gameClock) % 24
-	status_box.add_child(UIK.stat("day" if hour >= 6 and hour < 19 else "night", Fmt.clock_text(s.envelope.gameClock), "DimLabel"))
-	_where_text = Fmt.where_text(s)
+	var sky := Weather.now(s) if bool(Settings.get_value("weather")) else "clear"
+	var sky_icon := ("day" if hour >= 6 and hour < 19 else "night") if sky == "clear" else "sky_" + sky
+	status_box.add_child(UIK.stat(sky_icon, Fmt.clock_text(s.envelope.gameClock), "DimLabel",
+		I18n.t("sky.tip", {"sky": "sky." + sky})))
+	_where_text = Fmt.where_text(s) if sailing_to == "" else I18n.t("where.at_sea", {"location": "loc.%s.name" % sailing_to})
 	_where_label = UIK.label(_where_text, "")
 	_where_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	status_box.add_child(_where_label)
@@ -472,6 +500,63 @@ func refresh(world_mode: String) -> void:
 				ctx_box.add_child(UIK.button(I18n.t("home.emergency_return"), func(): context_action.emit("return"), "ui_home", "", true, I18n.t("home.emergency_hint")))
 	_viewp.visible = world_mode == "port" or world_mode == "at_sea" or world_mode == "site"
 	_queue_layout()
+
+
+## Forgets the last shown amounts (new game, load), so the first refresh of
+## another voyage does not report the difference as income, and any
+## crossing that was under way.
+func forget_resources() -> void:
+	_res_last.clear()
+	sailing_to = ""
+
+
+## Compares the amounts with the last refresh and floats a signed note
+## under each chip that changed, with a short flash of the chip itself.
+func _note_resource_changes(now: Dictionary) -> void:
+	var changes := {}
+	if not _res_last.is_empty():
+		for k in now:
+			var d := int(now[k]) - int(_res_last.get(k, now[k]))
+			if d != 0:
+				changes[k] = d
+	_res_last = now
+	if not changes.is_empty() and visible and is_inside_tree():
+		_show_resource_notes(changes)
+
+
+func _show_resource_notes(changes: Dictionary) -> void:
+	# The strip was just rebuilt: let its containers place the chips first.
+	await get_tree().process_frame
+	if not is_inside_tree():
+		return
+	var quiet := bool(Settings.get_value("reduceMotion"))
+	for k in changes:
+		var chip: Control = _res_chips.get(k)
+		if chip == null or not is_instance_valid(chip) or not chip.is_visible_in_tree():
+			continue
+		var d := int(changes[k])
+		var l := UIK.label(("+%d" if d > 0 else "%d") % d, "GoodLabel" if d > 0 else "BadLabel")
+		var note := UIK.panel(UIK.hbox([UIK.icon(String(RES_ICONS.get(k, "ui_info"))), l], 2), "TipPanel")
+		note.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_float_root.add_child(note)
+		note.reset_size()
+		# Under the objective chip when that sits below this stat, so the
+		# note never covers the objective text.
+		var at := chip.global_position - global_position
+		var y := top_bar_bottom + GAP
+		if obj_panel.visible and at.x < obj_panel.position.x + obj_panel.size.x:
+			y = chips_bottom + GAP
+		note.position = Vector2(clampf(at.x + (chip.size.x - note.size.x) * 0.5, M, maxf(M, size.x - M - note.size.x)), y).round()
+		var tw := note.create_tween()
+		tw.set_parallel(true)
+		if not quiet:
+			note.position.y -= 4.0
+			tw.tween_property(note, "position:y", note.position.y + 4.0, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(note, "modulate:a", 0.0, 0.45).set_delay(1.5)
+		tw.chain().tween_callback(note.queue_free)
+		if not quiet:
+			chip.modulate = Color(1.6, 1.6, 1.3) if d > 0 else Color(1.5, 0.9, 0.9)
+			chip.create_tween().tween_property(chip, "modulate", Color.WHITE, 0.45)
 
 
 ## Location-type icon, falling back to the generic island marker.

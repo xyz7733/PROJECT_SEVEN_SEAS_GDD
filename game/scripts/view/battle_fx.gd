@@ -77,10 +77,16 @@ class Swing extends Fx:
 					var w := sin(PI * float(i) / n)
 					outer.append((Vector2(cos(q), sin(q) * 0.8) * 14.0 * s).round())
 					inner.append((Vector2(cos(q), sin(q) * 0.8) * (14.0 - 4.5 * w) * s - dir * 2.0 * w).round())
-				inner.reverse()
-				var poly := outer + inner
-				if poly.size() >= 3 and reveal > 0.05:
-					draw_colored_polygon(poly, c)
+				# Drawn as a strip of triangles: the crescent tapers to a point
+				# at both ends, so after pixel rounding its outline repeats
+				# vertices and cannot be triangulated as one polygon.
+				if reveal > 0.05:
+					var cols := PackedColorArray([c, c, c])
+					for i in n:
+						for tri in [[outer[i], outer[i + 1], inner[i]], [outer[i + 1], inner[i + 1], inner[i]]]:
+							var ar: float = absf((tri[1] - tri[0]).cross(tri[2] - tri[0]))
+							if ar >= 0.5:
+								draw_primitive(PackedVector2Array(tri), cols, PackedVector2Array())
 					draw_polyline(outer, dk, 1.0)
 			"thrust":
 				var len := 22.0 * s

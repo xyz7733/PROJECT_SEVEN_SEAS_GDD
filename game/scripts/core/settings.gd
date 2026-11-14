@@ -5,7 +5,7 @@ signal changed
 
 const PATH := "user://settings.cfg"
 const DEFAULTS := {"locale": "", "textScale": 1.0, "reduceMotion": false, "pauseAtEncounterStart": false, "battleSpeed": 1,
-	"masterVolume": 0.8, "musicVolume": 0.6, "ambienceVolume": 0.7, "sfxVolume": 0.8, "showRoofs": true,
+	"masterVolume": 0.8, "musicVolume": 0.6, "ambienceVolume": 0.7, "sfxVolume": 0.8, "showRoofs": true, "weather": true,
 	"guide": true, "guideDone": []}
 
 var values: Dictionary = DEFAULTS.duplicate()

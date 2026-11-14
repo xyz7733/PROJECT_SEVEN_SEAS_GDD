@@ -40,6 +40,7 @@ var _region: Dictionary = {}
 var _tilesets: Dictionary = {}
 var _fx_frames: Dictionary = {}
 var _boxes: Dictionary = {}
+var _title_meta: Dictionary = {}
 
 
 func _init() -> void:
@@ -139,6 +140,16 @@ func icon(name: String) -> Texture2D:
 
 func has_icon(name: String) -> bool:
 	return ui.icons.has(name)
+
+
+## A piece of the title emblem atlas (wheel, pennant), or null.
+func title_tex(name: String) -> AtlasTexture:
+	if _title_meta.is_empty():
+		_title_meta = U.load_json(GEN + "ui/title.json")
+	var d = _title_meta.get(name)
+	if d == null:
+		return null
+	return region(GEN + "ui/title.png", rect_of(d.rect))
 
 
 func ui_tex(name: String) -> AtlasTexture:
@@ -448,6 +459,11 @@ func tileset(rid: String) -> TileSet:
 	return ts
 
 
+## The terrain atlas texture of a region's tile set (ground, sides, water).
+func terrain_atlas(rid: String) -> Texture2D:
+	return (tileset(rid).get_source(0) as TileSetAtlasSource).texture
+
+
 func ground_index(name: String) -> int:
 	return max(0, env.ground.find(name))
 
@@ -518,6 +534,15 @@ func building(rid: String, name: String) -> Dictionary:
 	if d == null:
 		return {}
 	return {"tex": region(GEN + "env/buildings.png", rect_of(d.rect)), "anchor": Vector2(float(d.anchor[0]), float(d.anchor[1]))}
+
+
+## The lit-window overlay of a port building (same rect as the building in
+## buildings_lit.png), or null.
+func building_lit(rid: String, name: String) -> Texture2D:
+	var d = env.buildings.get(rid + ":" + name)
+	if d == null or not ResourceLoader.exists(GEN + "env/buildings_lit.png"):
+		return null
+	return region(GEN + "env/buildings_lit.png", rect_of(d.rect))
 
 
 func chart_icon(name: String) -> Texture2D:

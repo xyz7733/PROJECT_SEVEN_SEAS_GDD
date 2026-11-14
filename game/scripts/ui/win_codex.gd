@@ -30,9 +30,9 @@ func build(b: VBoxContainer) -> void:
 	var s := st()
 	if tab == "":
 		tab = "locations"
-	b.add_child(UIK.label(I18n.t("codex.captain", {"title": s.captain.titleKey, "n": s.captain.trialsWon.size()}), "DimLabel"))
+	b.add_child(UIK.label(I18n.t("codex.captain", {"title": s.captain.titleKey, "n": s.captain.trialsWon.size()}), "DimLabel", true))
 	var prog := Rules.codex_progress(s)
-	var strip := UIK.hbox([], 6)
+	var strip := UIK.flow(6)
 	for id in TABS:
 		var pair: Array = prog[id]
 		var v := UIK.vbox([], 0)
@@ -79,11 +79,13 @@ func _locations(b: VBoxContainer) -> void:
 	for r in C.REGIONS:
 		var unlocked := Rules.region_unlocked(s, r.id)
 		var v := UIK.vbox([], 1)
-		v.add_child(UIK.hbox([UIK.label(I18n.t("region.%s.name" % r.id), "GoldLabel"),
-			UIK.label(I18n.t("arc.%s.title" % r.id) if unlocked else I18n.t("codex.region_locked"), "DimLabel" if unlocked else "WarnLabel")], 6))
+		var heading := UIK.flow(6)
+		heading.add_child(UIK.label(I18n.t("region.%s.name" % r.id), "GoldLabel"))
+		heading.add_child(UIK.label(I18n.t("arc.%s.title" % r.id) if unlocked else I18n.t("codex.region_locked"), "DimLabel" if unlocked else "WarnLabel"))
+		v.add_child(heading)
 		if unlocked:
-			v.add_child(UIK.para(I18n.t("region.%s.desc" % r.id), "DimLabel", 440))
-			var kv := UIK.grid(4, 4)
+			v.add_child(UIK.para(I18n.t("region.%s.desc" % r.id), "DimLabel", 60))
+			var kv := UIK.grid(2, 4)
 			var pairs := [
 				[I18n.t("map.specialty_label"), I18n.t("spec.%s.name" % r.specialtyId)],
 				[I18n.t("codex.hazard"), I18n.t("hazard.%s.name" % r.hazard) if r.get("hazard") else I18n.t("codex.none_value")],
@@ -95,11 +97,13 @@ func _locations(b: VBoxContainer) -> void:
 				pairs.append([I18n.t("legend.title"), I18n.t("codex.trial_won") if s.captain.legendsWon.has(r.id) else I18n.t("legend.restriction." + C.world.LEGENDS[r.id].restriction)])
 			for p in pairs:
 				kv.add_child(UIK.label(p[0], "DimLabel"))
-				kv.add_child(UIK.label(p[1], "", false, 120))
+				var value := UIK.label(p[1], "", true, 100)
+				value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				kv.add_child(value)
 			v.add_child(kv)
 			var ms := int(s.captain.mainStep.get(r.id, 0))
 			for i in mini(ms + 1, 5):
-				v.add_child(UIK.label("%d. %s" % [i + 1, I18n.t("arc.%s.%d" % [r.id, i])], "DimLabel", true, 440))
+				v.add_child(UIK.label("%d. %s" % [i + 1, I18n.t("arc.%s.%d" % [r.id, i])], "DimLabel", true))
 		var fl := UIK.flow(6)
 		for id in r.locs:
 			var k := Rules.knowledge(s, id)
@@ -122,21 +126,22 @@ func _enemies(b: VBoxContainer) -> void:
 		if ids.is_empty():
 			continue
 		var p := Bestiary.progress(s, String(r.id))
-		var head := UIK.hbox([UIK.label(I18n.t("codex.bestiary_region", {"region": I18n.t("region.%s.name" % r.id),
-			"seen": int(p.seen), "total": int(p.total), "defeated": int(p.defeated)}), "GoldLabel")], 5)
-		head.add_child(UIK.spacer(4, 0))
+		var head := UIK.vbox([UIK.label(I18n.t("codex.bestiary_region", {"region": I18n.t("region.%s.name" % r.id),
+			"seen": int(p.seen), "total": int(p.total), "defeated": int(p.defeated)}), "GoldLabel", true)], 3)
+		var rewards := UIK.flow(4)
 		for tier in [50, 100]:
 			var key := "%s:%d" % [r.id, tier]
 			if s.captain.bestiaryRewards.has(key):
-				head.add_child(UIK.label(I18n.t("codex.collection_claimed"), "DimLabel"))
+				rewards.add_child(UIK.label(I18n.t("codex.collection_claimed"), "DimLabel"))
 			else:
 				var can: bool = Bestiary.claimable(s, String(r.id)).has(tier)
 				var btn := UIK.button(I18n.t("codex.bestiary_claim_%d" % tier),
 					func(): act(Actions.claim_bestiary_reward(Game.state, String(r.id), tier)), "ui_relic", "FlatButton",
 					can, "" if can else I18n.t("err.not_ready"))
-				head.add_child(btn)
+				rewards.add_child(btn)
+		head.add_child(rewards)
 		b.add_child(UIK.panel(head, "FlatPanel"))
-		var g := UIK.grid(3, 4)
+		var g := UIK.responsive_grid(3, 4)
 		for id in ids:
 			g.add_child(_enemy_card(s, String(id)))
 		b.add_child(g)
@@ -146,10 +151,11 @@ func _enemy_card(s: Dictionary, id: String) -> Control:
 	var c = s.codex.enemies.get(id)
 	var e = World.enemy(id)
 	if c == null or e == null:
-		var unknown := UIK.hbox([UIK.icon("ui_quest"), UIK.label(I18n.t("codex.unknown_enemy"), "DimLabel")], 3)
+		var unknown := UIK.hbox([UIK.icon("ui_quest"), UIK.label(I18n.t("codex.unknown_enemy"), "DimLabel", true, 100)], 3)
 		unknown.custom_minimum_size = Vector2(146, 34)
 		return UIK.panel(unknown, "FlatPanel")
 	var lines := UIK.vbox([], 0)
+	lines.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	lines.add_child(UIK.label(I18n.t("enemy.%s.name" % id), "GoldLabel", true, 100))
 	lines.add_child(UIK.label(I18n.t("archetype." + String(e.archetype)), "DimLabel", true, 100))
 	lines.add_child(UIK.label(I18n.t("codex.kills", {"n": int(c.get("kills", c.get("defeated", 0)))}), "DimLabel"))
@@ -171,8 +177,8 @@ func _enemy_card(s: Dictionary, id: String) -> Control:
 # --------------------------------------------------------------- classes
 func _classes(b: VBoxContainer) -> void:
 	var s := st()
-	b.add_child(UIK.para(I18n.t("codex.classes_hint"), "DimLabel", 440))
-	var g := UIK.grid(2, 4)
+	b.add_child(UIK.para(I18n.t("codex.classes_hint"), "DimLabel", 60))
+	var g := UIK.responsive_grid(2, 4)
 	for base in C.data.BASE_CLASS_IDS:
 		var cls: Dictionary = C.CLASSES[base]
 		var ids := [base]
@@ -181,7 +187,7 @@ func _classes(b: VBoxContainer) -> void:
 		v.custom_minimum_size.x = 222
 		for id in ids:
 			var known: bool = s.codex.classes.has(id)
-			v.add_child(UIK.label(I18n.t("class.%s.name" % id) if known else I18n.t("codex.unknown_class"), ("GoldLabel" if id == base else "") if known else "DimLabel"))
+			v.add_child(UIK.label(I18n.t("class.%s.name" % id) if known else I18n.t("codex.unknown_class"), ("GoldLabel" if id == base else "") if known else "DimLabel", true))
 			if known:
 				v.add_child(UIK.label(I18n.t("class.%s.desc" % id), "DimLabel", true, 214))
 		g.add_child(UIK.panel(v, "FlatPanel"))
@@ -192,28 +198,24 @@ func _classes(b: VBoxContainer) -> void:
 func _pets(b: VBoxContainer) -> void:
 	var s := st()
 	b.add_child(UIK.header(I18n.t("codex.hatch_log"), "ui_egg"))
-	b.add_child(UIK.para(I18n.t("codex.hatch_hint"), "DimLabel", 440))
+	b.add_child(UIK.para(I18n.t("codex.hatch_hint"), "DimLabel", 60))
 	if s.codex.hatchLog.is_empty():
 		b.add_child(UIK.label(I18n.t("codex.no_hatches"), "DimLabel"))
 	else:
-		var g := UIK.grid(3, 3)
-		for h in [I18n.t("codex.family"), I18n.t("codex.order"), I18n.t("codex.result")]:
-			g.add_child(UIK.label(h, "GoldLabel"))
 		for x in s.codex.hatchLog:
-			g.add_child(UIK.label(I18n.t("petfam.%s.name" % x.familyId)))
-			var seq := UIK.hbox([], 2)
+			var v := UIK.vbox([], 2)
+			v.add_child(UIK.label(I18n.t("petfam.%s.name" % x.familyId) + " · " + I18n.t("pet.%s.name" % x.speciesId) + (" · " + I18n.t("pets.prime") if x.prime else ""), "GoldLabel", true))
+			var seq := UIK.flow(3)
 			for c in x.colors:
 				var d := ColorRect.new()
 				d.color = Fmt.color_of(String(c))
 				d.custom_minimum_size = Vector2(7, 7)
 				d.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-				seq.add_child(d)
-			seq.add_child(UIK.label(" → ".join(x.colors.map(func(c): return I18n.t("color." + c))), "DimLabel"))
-			g.add_child(seq)
-			g.add_child(UIK.label(I18n.t("pet.%s.name" % x.speciesId) + (" · " + I18n.t("pets.prime") if x.prime else "")))
-		b.add_child(g)
+				seq.add_child(UIK.hbox([d, UIK.label(I18n.t("color." + c), "DimLabel")], 2))
+			v.add_child(seq)
+			b.add_child(UIK.panel(v, "FlatPanel"))
 	b.add_child(UIK.header(I18n.t("codex.tab_pets"), "ui_pets"))
-	var fg := UIK.grid(2, 4)
+	var fg := UIK.responsive_grid(2, 4)
 	for f in C.PET_FAMILIES:
 		var v := UIK.vbox([UIK.label(I18n.t("petfam.%s.name" % f.id), "GoldLabel"),
 			UIK.label(I18n.t("region.%s.name" % f.regionId) + " · " + I18n.t("petability." + String(f.ability)), "DimLabel", true, 170)], 0)
@@ -235,12 +237,14 @@ func _items(b: VBoxContainer) -> void:
 	b.add_child(UIK.header(I18n.t("codex.items_seen"), "ui_chest"))
 	if s.codex.items.is_empty():
 		b.add_child(UIK.label(I18n.t("codex.none"), "DimLabel"))
-	var g := UIK.grid(2, 3)
+	var g := UIK.responsive_grid(2, 3)
 	for id in s.codex.items:
 		if not C.ITEMS.has(id):
 			continue
-		var row := UIK.hbox([UIK.icon(Fmt.item_icon(id)), UIK.vbox([UIK.label(I18n.item_name(id, null)),
-			UIK.label(I18n.t("slot." + String(C.ITEMS[id].slot)) + (" · " + I18n.t("codex.recipe_known") if recipes.has(id) else ""), "DimLabel")], 0)], 3)
+		var text := UIK.vbox([UIK.label(I18n.item_name(id, null), "", true),
+			UIK.label(I18n.t("slot." + String(C.ITEMS[id].slot)) + (" · " + I18n.t("codex.recipe_known") if recipes.has(id) else ""), "DimLabel", true)], 0)
+		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var row := UIK.hbox([UIK.icon(Fmt.item_icon(id)), text], 3)
 		row.custom_minimum_size.x = 222
 		g.add_child(row)
 	b.add_child(g)
@@ -252,12 +256,14 @@ func _items(b: VBoxContainer) -> void:
 		if it == null or not it.get("recipe"):
 			continue
 		var rc: Dictionary = it.recipe
-		b.add_child(UIK.hbox([UIK.icon(Fmt.item_icon(id)), UIK.label(I18n.item_name(id, null)),
-			UIK.label(I18n.t("codex.recipe_cost", {"n": rc.materials, "item": "spec.%s.name" % rc.specialty[0], "k": rc.specialty[1]}), "DimLabel")], 4))
+		var recipe_text := UIK.vbox([UIK.label(I18n.item_name(id, null), "", true),
+			UIK.label(I18n.t("codex.recipe_cost", {"n": rc.materials, "item": "spec.%s.name" % rc.specialty[0], "k": rc.specialty[1]}), "DimLabel", true)], 1)
+		recipe_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.add_child(UIK.hbox([UIK.icon(Fmt.item_icon(id)), recipe_text], 4))
 	var bps: Array = s.inventory.blueprints.map(func(x): return I18n.t("blueprint." + x))
 	var uniq: Array = s.inventory.uniques.map(func(u): return I18n.item_name(u, null))
-	b.add_child(UIK.label(I18n.t("codex.blueprints") + ": " + (", ".join(bps) if bps.size() else "—"), "DimLabel", true, 440))
-	b.add_child(UIK.label(I18n.t("codex.uniques") + ": " + (", ".join(uniq) if uniq.size() else "—"), "DimLabel", true, 440))
+	b.add_child(UIK.label(I18n.t("codex.blueprints") + ": " + (", ".join(bps) if bps.size() else "—"), "DimLabel", true))
+	b.add_child(UIK.label(I18n.t("codex.uniques") + ": " + (", ".join(uniq) if uniq.size() else "—"), "DimLabel", true))
 
 
 # ----------------------------------------------------------------- clues
@@ -266,7 +272,9 @@ func _clues(b: VBoxContainer) -> void:
 	if s.codex.clues.is_empty():
 		b.add_child(UIK.label(I18n.t("codex.no_clues"), "DimLabel"))
 	for c in s.codex.clues:
-		b.add_child(UIK.hbox([UIK.icon("ui_quest"), UIK.label(I18n.t(c), "", true, 420)], 3))
+		var text := UIK.label(I18n.t(c), "", true)
+		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.add_child(UIK.hbox([UIK.icon("ui_quest"), text], 3))
 
 
 # ------------------------------------------------------------- collections
@@ -277,7 +285,7 @@ func _collections(b: VBoxContainer) -> void:
 		{"n": int(comp.owned), "max": int(comp.total)}), "GoldLabel")], 3))
 	b.add_child(UIK.label(I18n.t("codex.collection_shards", {"n": int(s.inventory.get("curioShards", 0))}), "DimLabel"))
 	b.add_child(UIK.header(I18n.t("codex.collection_sets"), "ui_relic"))
-	var grid := UIK.grid(2, 4)
+	var grid := UIK.responsive_grid(2, 4)
 	for sid in C.COLLECTION_SETS:
 		grid.add_child(_collection_set_card(s, String(sid)))
 	b.add_child(grid)
@@ -324,7 +332,10 @@ func _chart_row(s: Dictionary, cid: String) -> Control:
 	var owned = s.inventory.collectibles.get(cid)
 	var used: bool = owned is Dictionary and bool(owned.get("used", false))
 	var loc_id := String(rec.get("locationId", ""))
-	var row := UIK.hbox([UIK.icon(Collections.icon(cid)), UIK.label(I18n.t(Collections.name_key(cid)), "", true, 150)], 4)
+	var row := UIK.vbox([], 3)
+	var title := UIK.label(I18n.t(Collections.name_key(cid)), "", true, 100)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(UIK.hbox([UIK.icon(Collections.icon(cid)), title], 4))
 	if used:
 		row.add_child(UIK.label(I18n.t("codex.collection_chart_used"), "DimLabel"))
 		return UIK.panel(row, "FlatPanel")

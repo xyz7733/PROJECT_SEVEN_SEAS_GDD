@@ -65,6 +65,7 @@ func _init() -> void:
 	_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_flash)
 	resized.connect(_layout)
+	panel.resized.connect(_place)
 
 
 func _ready() -> void:
@@ -73,7 +74,8 @@ func _ready() -> void:
 
 
 ## Builds the report for a preview summary. `insets` is the space the HUD
-## keeps at the top and bottom, in this control's units.
+## keeps at the top and bottom, in this control's units (the panel starts
+## under the top strip; see _layout for the bottom).
 func setup(summary: Dictionary, insets: Vector2) -> BattleReport:
 	sm = summary
 	_insets = insets
@@ -87,16 +89,38 @@ func panel_width() -> float:
 
 
 func _layout() -> void:
-	var scr := size
-	if scr.x <= 0.0:
-		scr = get_viewport_rect().size
+	var scr := _screen()
 	var w := minf(WIDTH, scr.x - 8.0)
-	panel.position = Vector2(scr.x - w - 4.0, _insets.x + 3.0)
-	panel.size = Vector2(w, maxf(80.0, scr.y - _insets.x - _insets.y - 6.0))
-	panel.custom_minimum_size = panel.size
+	# From under the HUD's top strip to the foot of the screen. The report is
+	# modal and the battle controls are hidden while it is open, so it may
+	# cover the bottom bar's right end; it must never run off the screen.
+	var h := maxf(80.0, scr.y - (_insets.x + 3.0) - 4.0)
+	# Rows and the footer wrap inside the planned width. Without this a long
+	# button caption beside the footer note made the panel wider than WIDTH,
+	# and it ran off the right edge of the screen.
+	var inner := w - panel.get_theme_stylebox("panel").get_minimum_size().x
+	UIK.fit_paragraphs(_body, inner - _scroll.get_v_scroll_bar().get_combined_minimum_size().x)
+	UIK.fit_paragraphs(_foot, inner)
+	# The scroll area expands to whatever the footer leaves.
+	panel.custom_minimum_size = Vector2(w, h)
+	panel.size = Vector2(w, h)
+	_place()
+
+
+## Docks the panel by its real size: content that still needs more than the
+## planned width grows the panel to the left, never past the screen.
+func _place() -> void:
+	if not is_inside_tree():
+		return
+	var scr := _screen()
+	panel.position = Vector2(maxf(2.0, scr.x - panel.size.x - 4.0),
+		maxf(2.0, minf(_insets.x + 3.0, scr.y - panel.size.y - 2.0)))
 	_flash.position = panel.position
 	_flash.size = panel.size
-	_scroll.custom_minimum_size.y = maxf(40.0, panel.size.y - _foot.get_combined_minimum_size().y - 22.0)
+
+
+func _screen() -> Vector2:
+	return size if size.x > 0.0 else get_viewport_rect().size
 
 
 # ================================================================== build
@@ -406,6 +430,7 @@ func show_committed(final: Dictionary) -> void:
 	_foot.add_child(UIK.icon("ui_check"))
 	_foot.add_child(done)
 	_foot.add_child(UIK.button(I18n.t("battle.continue"), _close, "", "PrimaryButton"))
+	_layout()
 	var tw := create_tween()
 	for i in _stamps.size():
 		var st: TextureRect = _stamps[i]

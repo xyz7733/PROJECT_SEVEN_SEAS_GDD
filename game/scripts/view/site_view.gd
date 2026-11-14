@@ -67,6 +67,7 @@ var land_band: TileMapLayer
 var land_ground: TileMapLayer
 var coast: Coast
 var _foam: Node2D
+var _blend: Node2D
 var stage: Node2D
 var marks: Node2D
 var canvas_mod: CanvasModulate
@@ -113,6 +114,9 @@ var _sea_cover := Rect2()
 var _underlay: Polygon2D
 var _boat_front: RowBoat
 var _berth := Vector2.ZERO
+## Ambient life (gulls, glints, cloud shadows, butterflies and fireflies).
+var ambience: Ambience
+var _meadow: Array = []
 
 
 func _init() -> void:
@@ -142,6 +146,8 @@ func _init() -> void:
 	stage = Node2D.new()
 	stage.y_sort_enabled = true
 	add_child(stage)
+	ambience = Ambience.new()
+	add_child(ambience)
 	cam = Camera2D.new()
 	cam.zoom = Vector2(2, 2)
 	add_child(cam)
@@ -320,6 +326,10 @@ func _build_terrain() -> void:
 		_foam.queue_free()
 	_foam = coast.make_foam()
 	add_child(_foam)
+	if _blend:
+		_blend.queue_free()
+	_blend = coast.make_blend(Art.terrain_atlas(rid))
+	add_child(_blend)
 	# The camera may pan over all of the land, not just the rooms.
 	var lr := coast.land_rect()
 	var px := Rect2(Art.iso(lr.position.x, lr.position.y), Vector2.ZERO)
@@ -328,6 +338,7 @@ func _build_terrain() -> void:
 	_bounds = _focus.merge(px.grow(24.0))
 	_sea_cover = Rect2()
 	_fill_sea()
+	_meadow.clear()
 	_place_props()
 	_prop("flag", _nodes[LANDING] + Vector2(-10, -18), false)
 	_prop("barrels", _nodes[LANDING] + Vector2(14, -14), false)
@@ -344,6 +355,16 @@ func _build_terrain() -> void:
 	if night:
 		tint *= Color(0.62, 0.66, 0.92)
 	canvas_mod.color = tint
+	# Ambient life: open air over islands, wrecks and arenas; the caves and
+	# hidden places keep only their still water and their fireflies.
+	var enclosed := kind == "dungeon" or kind == "secret"
+	ambience.reset()
+	ambience.night = night or enclosed
+	ambience.gull_target = 0 if enclosed else 2
+	ambience.cloud_alpha = 0.0 if enclosed else 0.1
+	ambience.glint_density = 0.5 if enclosed else 1.0
+	ambience.fish_every = Vector2(0, 0) if enclosed else Vector2(6.0, 14.0)
+	ambience.meadow = _meadow.duplicate()
 	if kind == "dungeon" or kind == "secret" or night:
 		for id in _nodes:
 			_light(_nodes[id] + Vector2(0, -20), Color(1.0, 0.78, 0.48) if kind != "secret" else Color(0.7, 0.82, 1.0), 0.8)
@@ -704,6 +725,8 @@ func _place_props() -> void:
 			continue
 		_prop(name, at, true, coast.lift(c))
 		placed += 1
+		if l == Coast.HIGH and (name == "bush" or name == "herb" or name == "tuft" or name == "mushroom") and h % 2 == 0:
+			_meadow.append(at + Vector2(0, -coast.lift(c)))
 	for r in coast.rocks:
 		var rp: Vector2 = r[0]
 		_prop(String(r[1]), _px(rp), true, -1.0)

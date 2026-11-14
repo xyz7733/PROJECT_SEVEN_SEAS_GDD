@@ -23,6 +23,9 @@ const LEVEL_PX := 48.0
 const LADDER_FOOT_U := 0.25
 const LADDER_TOP_U := -0.31
 const ZOOMS := [0.5, 1.0, 2.0]
+## How fast the sea streams past the hull while under way (px/s, toward the
+## stern: the bow points to +x in ship cells, down-right on screen).
+const SAIL_DRIFT := Vector2(-16, -8) * 3.4
 ## How far past the hull bounds the camera centre may be panned.
 const CAM_MARGIN := 160.0
 const MARK_SCALE := Vector2(2, 2)
@@ -140,7 +143,12 @@ var _t := 0.0
 var _sail_t := -1.0
 var _sail_len := 2.6
 var _sea_shift := Vector2.ZERO
-var _wake: AnimatedSprite2D
+## Title backdrop: the ship stays under way (sails set, sea streaming past).
+var cruising := false
+var _sail_fx: SailFx
+## Rocks and stacks passing by while under way: [{node, p}].
+var _passing: Array = []
+var _pass_t := 0.0
 var _rng := RandomNumberGenerator.new()
 var _bounds := Rect2()
 var _hour := 12
@@ -160,6 +168,12 @@ var _port: Dictionary = {}
 ## Viewport area not covered by HUD panels, in viewport pixels (set by
 ## main from the HUD insets); used to fit the current level into view.
 var free_screen := Rect2()
+## Ambient life (gulls, glints, cloud shadows, fireflies, the beacon).
+var ambience: Ambience
+## Lit-window overlays of the port buildings, shown after dark.
+var _windows: Array = []
+## Greenery spots for butterflies and fireflies, collected while dressing.
+var _meadow: Array = []
 
 
 func _init() -> void:
@@ -214,6 +228,8 @@ func _init() -> void:
 	_ghost = Node2D.new()
 	_ghost.modulate = Color(1, 1, 1, 0.62)
 	overlay.add_child(_ghost)
+	ambience = Ambience.new()
+	add_child(ambience)
 	cam = Camera2D.new()
 	cam.zoom = Vector2(0.5, 0.5)
 	add_child(cam)
@@ -251,6 +267,7 @@ func bind(state: Dictionary, ctx: String, is_live := true) -> void:
 	st = state
 	live = is_live
 	context = ctx
+	cruising = ctx == "title"
 	var loc = C.location(String(st.world.currentLocationId))
 	rid = String(loc.regionId) if loc != null else "dawnwater"
 	_sig = ""
@@ -544,15 +561,11 @@ func _build_ship() -> void:
 	for k in poly.size():
 		poly[k] += Vector2(0, 6)
 	shadow_poly.polygon = poly
-	_wake = AnimatedSprite2D.new()
-	_wake.sprite_frames = Art.fx_frames("wake")
-	_wake.animation = "loop"
-	_wake.play()
-	_wake.flip_h = true
-	_wake.scale = Vector2(1.5, 1.5)
-	if port_pts.size() > 0:
-		_wake.position = (port_pts[0] + star_pts[0]) * 0.5 + Vector2(-30, 0)
-	foam_root.add_child(_wake)
+	_sail_fx = SailFx.new()
+	_sail_fx.port_pts = port_pts
+	_sail_fx.star_pts = star_pts
+	_sail_fx.drift = SAIL_DRIFT
+	foam_root.add_child(_sail_fx)
 	# Stairs, hatches and ladders
 	var landings := {}
 	for si in st.ship.stairs.size():
@@ -768,6 +781,8 @@ func _build_world() -> void:
 		_coast_foam = null
 	coast = null
 	_port = {}
+	_windows.clear()
+	_meadow.clear()
 	var ts := Art.tileset(rid)
 	for layer in [sea, land_sides, land_low, land_band, land_ground]:
 		layer.tile_set = ts
@@ -776,7 +791,6 @@ func _build_world() -> void:
 		Art.align_layer(layer)
 	land_low.position += Vector2(0, -float(Coast.LIFT[Coast.LOW]))
 	land_ground.position += Vector2(0, -float(Coast.LIFT[Coast.HIGH]))
-	var t := _tile_span()
 	if context == "port":
 		_port = _plan_port()
 		coast = _make_port_coast(_port)
@@ -792,6 +806,9 @@ func _build_world() -> void:
 	for pt in [Vector2(cover.end.x, cover.position.y), Vector2(cover.position.x, cover.end.y), cover.end]:
 		span = span.expand(Art.uniso(pt))
 	_build_sea_floor(cover)
+	_sea_shift = Vector2.ZERO
+	_sea_origin = sea.position
+	_clear_passing()
 	for gx in range(floori(span.position.x) - 1, ceili(span.end.x) + 2):
 		for gy in range(floori(span.position.y) - 1, ceili(span.end.y) + 2):
 			if not cover.has_point(Art.iso(gx, gy)):
@@ -802,11 +819,93 @@ func _build_world() -> void:
 					continue
 				atlas = Art.water_tile(coast.water_name(Vector2i(gx, gy)))
 			else:
-				var far: bool = gx < t.x0 - 10 or gx > t.x1 + 10 or gy < t.y0 - 8 or gy > t.y1 + 8
-				atlas = Vector2i(4, 0) if far else Vector2i(0, 0)
+				# Open ocean: one deep tone. Whitecaps, glints and cloud
+				# shadows give it its variety (see Ambience).
+				atlas = Art.water_tile("deep")
 			sea.set_cell(Art.layer_cell(info, gx, gy), 0, atlas)
 	if coast != null:
 		_build_port(_port)
+	_setup_ambience()
+
+
+## Moves the sea toward the stern while under way. The layer slides and
+## wraps every four cells; the water tiles repeat per cell, so the wrap
+## cannot be seen and the sea streams past for as long as the ship sails.
+func _advance_sea(delta: float) -> void:
+	_sea_shift += SAIL_DRIFT * delta
+	if _sea_shift.x <= -64.0:
+		_sea_shift += Vector2(64, 32)
+	sea.position = _sea_origin + _sea_shift.round()
+
+
+func _under_way() -> bool:
+	return cruising or _sail_t >= 0.0
+
+
+func _clear_passing() -> void:
+	for e in _passing:
+		if is_instance_valid(e.node):
+			e.node.queue_free()
+	_passing.clear()
+	_pass_t = 0.0
+
+
+## A rock or sea stack that slides past on one side of the hull's lane.
+## `ahead` is how far along the heading it starts (px from the ship's centre).
+func _spawn_passing(ahead: float) -> void:
+	var names := ["sea_rock", "sea_rock_s", "sea_stack", "sea_rock"]
+	var pr := Art.prop(names[_rng.randi() % names.size()], rid)
+	if pr.is_empty():
+		return
+	var b: Dictionary = _hull.bounds
+	var centre := siso((float(b.minGx) + float(b.maxGx)) * 0.5, (float(b.minGy) + float(b.maxGy)) * 0.5)
+	var beam := float(int(b.maxGy) - int(b.minGy)) * 14.3
+	var side := -1.0 if _rng.randf() < 0.5 else 1.0
+	var at := centre + Vector2(0.8944, 0.4472) * ahead + Vector2(-0.4472, 0.8944) * side * (beam + _rng.randf_range(70.0, 300.0))
+	var s := _world_sprite(pr.tex, pr.anchor, at.round())
+	s.flip_h = _rng.randf() < 0.5
+	_passing.append({"node": s, "p": at})
+
+
+func _tick_passing(delta: float) -> void:
+	if not _under_way() or coast != null:
+		if not _passing.is_empty():
+			_clear_passing()
+		return
+	var b: Dictionary = _hull.bounds
+	var centre := siso((float(b.minGx) + float(b.maxGx)) * 0.5, (float(b.minGy) + float(b.maxGy)) * 0.5)
+	_pass_t -= delta
+	if _pass_t <= 0.0:
+		_pass_t = _rng.randf_range(3.5, 8.0)
+		var vp := get_viewport_rect().size / cam.zoom.x
+		_spawn_passing(vp.length() * 0.5 + 80.0)
+	for i in range(_passing.size() - 1, -1, -1):
+		var e: Dictionary = _passing[i]
+		e.p += SAIL_DRIFT * delta
+		(e.node as Node2D).position = (e.p as Vector2).round()
+		if ((e.p as Vector2) - centre).dot(Vector2(0.8944, 0.4472)) < -1100.0:
+			(e.node as Node2D).queue_free()
+			_passing.remove_at(i)
+
+
+## Ambient life to suit the place: a busy harbour sky and a bay with fish
+## in port, whitecaps and a lone gull on the open sea.
+func _setup_ambience() -> void:
+	ambience.reset()
+	ambience.meadow = _meadow.duplicate()
+	ambience.beacons = []
+	ambience.drift = Vector2.ZERO
+	if context == "port":
+		ambience.gull_target = 3
+		ambience.whitecap_density = 0.0
+		ambience.fish_every = Vector2(6.0, 14.0)
+		if _port.has("lighthouse") and not Art.prop("lighthouse").is_empty():
+			var lhp: Vector2 = _port.lighthouse
+			ambience.beacons = [Art.iso(lhp.x, lhp.y) + Vector2(0, -8 - 62)]
+	else:
+		ambience.gull_target = 2 if context == "title" else 1
+		ambience.whitecap_density = 0.8
+		ambience.fish_every = Vector2(7.0, 16.0)
 
 
 func _world_sprite(tex: Texture2D, anchor: Vector2, at: Vector2, parent: Node2D = null) -> Sprite2D:
@@ -1052,6 +1151,7 @@ func _build_port(plan: Dictionary) -> void:
 		var bd := Art.building(rid, kind)
 		var at := Art.iso(int(f[1]), int(f[2])) + lift
 		var s := _world_sprite(bd.tex, bd.anchor, at)
+		_lit_windows(s, kind, bd.anchor)
 		_buildings.append({"node": s, "kind": kind, "rect": Rect2(at - bd.anchor, bd.tex.get_size())})
 		fronts.append([int(f[1]), int(f[2]), bd.tex.get_size().x / 36.0])
 	var hb := Art.building(rid, "house")
@@ -1061,7 +1161,10 @@ func _build_port(plan: Dictionary) -> void:
 		var hy: int = h[1]
 		var hs := _world_sprite(hb.tex, hb.anchor, Art.iso(hx, hy) + lift)
 		hs.flip_h = rng.randf() < 0.45
-		hs.modulate = Color(1, 1, 1).darkened(rng.randf_range(0.0, 0.12)).lerp(REGION_TINT.get(rid, Color.WHITE), rng.randf_range(0.0, 0.18))
+		hs.self_modulate = Color(1, 1, 1).darkened(rng.randf_range(0.0, 0.12)).lerp(REGION_TINT.get(rid, Color.WHITE), rng.randf_range(0.0, 0.18))
+		# Most homes have someone in after dark; a few stay dark.
+		if rng.randf() < 0.8:
+			_lit_windows(hs, "house", hb.anchor)
 		homes.append([hx, hy, hs])
 		if rng.randf() < 0.4:
 			_chimney_smoke(Art.iso(hx, hy) + lift, -hb.anchor + Vector2(hb.tex.get_size().x * (0.3 if hs.flip_h else 0.7), 8))
@@ -1189,6 +1292,23 @@ func _build_port(plan: Dictionary) -> void:
 		a.set_meta("timer", rng.randf_range(0.5, 4.0))
 
 
+## Adds the lit-window overlay of a building as a child of its sprite, so it
+## is sorted and hidden exactly like the building. _apply_daylight fades it
+## in after dark and cancels the night tint on it.
+func _lit_windows(building: Sprite2D, kind: String, anchor: Vector2) -> void:
+	var lit := Art.building_lit(rid, kind)
+	if lit == null:
+		return
+	var w := Sprite2D.new()
+	w.centered = false
+	w.texture = lit
+	w.offset = -anchor
+	w.flip_h = building.flip_h
+	w.visible = false
+	building.add_child(w)
+	_windows.append(w)
+
+
 ## True when a tall prop at cell c would stand in front of (hide) forced
 ## land: a building plot, street, lane or the quay.
 func _shades_town(c: Vector2i) -> bool:
@@ -1269,6 +1389,8 @@ func _port_greenery(plan: Dictionary) -> void:
 			continue
 		var at := Art.iso(c.x, c.y) + Vector2(float(h % 7) - 3.0, float((h / 7) % 5) - 2.0 - coast.lift(c))
 		_world_sprite(pr.tex, pr.anchor, at)
+		if l == Coast.HIGH and (nm == "bush" or nm == "herb" or nm == "tuft" or nm == "mushroom") and h % 3 == 0:
+			_meadow.append(at)
 	for r in coast.rocks:
 		var rp: Vector2 = r[0]
 		var pr2 := Art.prop(String(r[1]), rid)
@@ -1751,6 +1873,7 @@ func _sync_crew() -> void:
 			a.key = String(m.id)
 			a.set_meta("look", _look_sig(m))
 			a.arrived.connect(_on_arrived.bind(m.id))
+			a.surface_moved.connect(_apply_actor_surface.bind(a))
 			sort.add_child(a)
 			_actors[m.id] = a
 			var start := _random_cell()
@@ -1790,6 +1913,7 @@ func _sync_pets() -> void:
 			a.setup_creature(info)
 			a.set_meta("key", key)
 			a.set_meta("timer", _rng.randf_range(0.2, 2.0))
+			a.surface_moved.connect(_apply_actor_surface.bind(a))
 			sort.add_child(a)
 			_pets[p.id] = a
 			var c := _random_cell()
@@ -2162,6 +2286,17 @@ func _apply_daylight() -> void:
 		if is_instance_valid(l.node):
 			l.node.energy = e
 			l["on"] = e > 0.2
+	# Lit windows: shown from dusk, at full strength at night, with the night
+	# tint divided back out so they stay warm and bright.
+	var lit_a := clampf((e - 0.3) / 0.5, 0.0, 1.0)
+	var undo := Color(1.0 / maxf(c.r * world_tint.r, 0.2), 1.0 / maxf(c.g * world_tint.g, 0.2), 1.0 / maxf(c.b * world_tint.b, 0.2), lit_a)
+	for w in _windows:
+		if is_instance_valid(w):
+			w.visible = lit_a > 0.0
+			w.modulate = undo
+	ambience.night = _hour >= 20 or _hour < 6
+	ambience.cloud_alpha = 0.0 if below else 0.1
+	ambience.glint_density = 0.0 if below else 1.0
 	_apply_light_visibility()
 
 
@@ -2178,7 +2313,7 @@ func _apply_light_visibility() -> void:
 func _apply_visibility() -> void:
 	if st.is_empty():
 		return
-	var set_sails := context != "port" and context != "title" or _sail_t >= 0.0
+	var set_sails := context != "port" or _sail_t >= 0.0
 	var show_rig := bool(Settings.get_value("showRoofs"))
 	for n in _statics:
 		if not is_instance_valid(n):
@@ -2217,16 +2352,24 @@ func _apply_visibility() -> void:
 func _apply_actor_visibility() -> void:
 	for group in [_actors, _pets]:
 		for id in group:
-			var a: Actor = group[id]
-			var lv := _lift_view(a.lift)
-			var was: int = a.get_meta("lv", lv)
-			a.set_meta("lv", lv)
-			var vis := lv == view_level
-			if vis and not a.visible and was != lv:
-				a.fade_in(0.15)
-			a.visible = vis
-			if vis:
-				a.depth_bias = deck_depth_y(a.position, lv) - a.position.y
+			_apply_actor_surface(group[id])
+
+
+## The parent view processes before its Actor children. Refresh again when
+## an actor finishes a movement step, so its floor key and ladder visibility
+## describe the same contact point that will actually be rendered. Keeping
+## the previous frame's bias can put a walking actor behind the floor of the
+## cell it has just entered; lift changes can likewise expose the wrong deck.
+func _apply_actor_surface(a: Actor) -> void:
+	var lv := _lift_view(a.lift)
+	var was: int = a.get_meta("lv", lv)
+	a.set_meta("lv", lv)
+	var vis := lv == view_level
+	if vis and not a.visible and was != lv:
+		a.fade_in(0.15)
+	a.visible = vis
+	if vis:
+		a.depth_bias = deck_depth_y(a.position, lv) - a.position.y
 
 
 func _apply_rig() -> void:
@@ -2326,16 +2469,16 @@ func _process(delta: float) -> void:
 		ship_root.position.y = round(sin(_t * 1.4) * 1.5)
 	else:
 		ship_root.position.y = round(sin(_t * 0.9) * 0.6)
-	_wake.visible = context == "sailing" or _sail_t >= 0.0
+	var moving := _under_way() and coast == null
+	_sail_fx.active = moving
+	ambience.drift = SAIL_DRIFT if moving else Vector2.ZERO
+	if moving:
+		_advance_sea(delta)
+	_tick_passing(delta)
 	if _sail_t >= 0.0:
 		_sail_t += delta
-		_sea_shift += Vector2(-16, -8) * delta * 2.4
-		if _sea_shift.x < -128:
-			_sea_shift = Vector2.ZERO
-		sea.position = _sea_base() + _sea_shift.round()
 		if _sail_t >= _sail_len:
 			_sail_t = -1.0
-			sea.position = _sea_base()
 			_apply_visibility()
 			sailing_done.emit()
 	for id in _brains:
@@ -2360,9 +2503,12 @@ func _sea_base() -> Vector2:
 
 ## Plays a short "under way" sequence: sails set, wake, moving sea.
 func start_sailing(secs := 2.6) -> void:
-	_sea_origin = sea.position
 	_sail_len = secs
 	_sail_t = 0.0
+	# A couple of rocks are already in sight when the ship gets under way.
+	if coast == null and _passing.is_empty():
+		_spawn_passing(_rng.randf_range(120.0, 260.0))
+		_spawn_passing(_rng.randf_range(-60.0, 80.0))
 	_apply_visibility()
 
 

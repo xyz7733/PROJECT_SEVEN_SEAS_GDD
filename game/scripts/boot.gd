@@ -42,6 +42,8 @@ func _ready() -> void:
 	for code in I18n.SUPPORTED:
 		var b := UIK.button(I18n.language_name(code), _choose.bind(code), "",
 			"PrimaryButton" if code == guess else "")
+		# Unlike in-game shortcuts, the first-launch picker supports keyboard navigation.
+		b.focus_mode = Control.FOCUS_ALL
 		b.custom_minimum_size.y = 22
 		v.add_child(b)
 		if code == guess:

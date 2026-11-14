@@ -106,6 +106,18 @@ static func grid(cols: int, sep := 3) -> GridContainer:
 	return g
 
 
+## Start with one column so a scroll body's minimum width stays bounded
+## before its first layout. The grid measures card minima after theming.
+static func responsive_grid(max_cols := 2, sep := 3) -> GridContainer:
+	var g := preload("res://scripts/ui/responsive_grid.gd").new()
+	g.max_columns = max_cols
+	g.columns = 1
+	g.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	g.add_theme_constant_override("h_separation", sep)
+	g.add_theme_constant_override("v_separation", sep)
+	return g
+
+
 static func flow(sep := 3) -> HFlowContainer:
 	var f := HFlowContainer.new()
 	f.add_theme_constant_override("h_separation", sep)
@@ -175,6 +187,73 @@ static func scroll(child: Control, min_h := 120) -> ScrollContainer:
 	child.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	s.add_child(child)
 	return s
+
+
+## Wrapping text asks for a comfortable minimum width, which can be more
+## than a small panel (large UI scale, narrow screens) has to give. Such
+## paragraphs under `n` are narrowed to `width` so they wrap instead of
+## widening the panel. Vertical stacks pass their width on; a row passes on
+## what its fixed children leave to its one flexible child; a two-column
+## grid is read as a "key: value" table whose values wrap.
+static func fit_paragraphs(n: Control, width: float) -> void:
+	if width < 60.0:
+		return
+	if n is Label:
+		var l := n as Label
+		if l.autowrap_mode != TextServer.AUTOWRAP_OFF and l.custom_minimum_size.x > width:
+			l.custom_minimum_size.x = width
+		return
+	var kids: Array[Control] = []
+	for c in n.get_children():
+		if c is Control and (c as Control).visible:
+			kids.append(c)
+	if n is PanelContainer:
+		width -= (n as PanelContainer).get_theme_stylebox("panel").get_minimum_size().x
+	elif n is HBoxContainer:
+		var flex := _flexible_child(kids)
+		if flex == null:
+			return
+		width -= float(n.get_theme_constant("separation")) * (kids.size() - 1)
+		for c in kids:
+			if c != flex:
+				width -= c.get_combined_minimum_size().x
+		kids = [flex]
+	elif n is GridContainer:
+		var cols := (n as GridContainer).columns
+		if cols == 2:
+			# "key: value" table: the keys keep their width, the values wrap.
+			var key_w := 0.0
+			var values: Array[Control] = []
+			for i in kids.size():
+				if i % 2 == 0:
+					key_w = maxf(key_w, kids[i].get_combined_minimum_size().x)
+				else:
+					values.append(kids[i])
+			width -= key_w + float(n.get_theme_constant("h_separation"))
+			kids = values
+		elif cols != 1:
+			return
+	elif not (n is VBoxContainer or n is MarginContainer):
+		return
+	for c in kids:
+		fit_paragraphs(c, width)
+
+
+## The one child of a row that takes the spare width: the only expanding
+## child, or failing that the only wrapping label.
+static func _flexible_child(kids: Array[Control]) -> Control:
+	var expanding: Array[Control] = []
+	var wrapping: Array[Control] = []
+	for c in kids:
+		if c.size_flags_horizontal & Control.SIZE_EXPAND:
+			expanding.append(c)
+		if c is Label and (c as Label).autowrap_mode != TextServer.AUTOWRAP_OFF:
+			wrapping.append(c)
+	if expanding.size() == 1:
+		return expanding[0]
+	if expanding.is_empty() and wrapping.size() == 1:
+		return wrapping[0]
+	return null
 
 
 static func clear(n: Node) -> void:
