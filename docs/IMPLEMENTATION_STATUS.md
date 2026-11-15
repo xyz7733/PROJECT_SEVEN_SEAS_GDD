@@ -1,19 +1,19 @@
 # Project Seven Seas — Implementation Status
 
 - **Game title:** Project Seven Seas
-- **Source of truth:** `PROJECT_SEVEN_SEAS_GDD.md` (v1.0, with the multi-deck and audio amendments
-  in §6.5–6.8 and §13.5), `VISUAL_REWORK_BRIEF.md` and `NATIVE_POLISH_REQUEST.md`
+- **Source of truth:** [PROJECT_SEVEN_SEAS_GDD.md](design/PROJECT_SEVEN_SEAS_GDD.md) (v1.0, with the multi-deck and audio amendments
+  in §6.5–6.8 and §13.5), [VISUAL_REWORK_BRIEF.md](design/VISUAL_REWORK_BRIEF.md) and [NATIVE_POLISH_REQUEST.md](design/NATIVE_POLISH_REQUEST.md)
 - **Engine:** Godot 4.7.2 stable, GDScript, GL Compatibility renderer, 640×360 base viewport
   with expanding canvas scaling; default window 1280×720
 - **Languages:** English (`en`) and Simplified Chinese (`zh_CN`)
 - **Current delivery:** **2.1.0 · crew-01** (November 15, 2026): six personal attributes for every
   sailor (Might, Vigor, Agility, Focus, Will, Seamanship), training points and retraining, a new
   Crew → Attributes tab and attribute strips across the crew, tavern, recruit and Inspector views,
-  and save schema 6 with migration. Download the [Windows ZIP](build/ProjectSevenSeas-crew-01.zip).
+  and save schema 6 with migration. Download the [Windows ZIP](../build/ProjectSevenSeas-crew-01.zip).
   World and catalogue are unchanged from **2.0.1 · world-art-02** (November 14, 2026).
-- **Current evidence:** [Crew 01 release notes](docs/CREW_01.md) and
-  [Windows handoff](docs/WINDOWS_HANDOFF.json); world-art-02 evidence stays in its
-  [release notes](docs/WORLD_ART_02.md) and [validation manifest](docs/WORLD_ART_02_VALIDATION.json).
+- **Current evidence:** [Crew 01 release notes](CREW_01.md) and
+  [Windows handoff](WINDOWS_HANDOFF.json); world-art-02 evidence stays in its
+  [release notes](WORLD_ART_02.md) and [validation manifest](WORLD_ART_02_VALIDATION.json).
   Older test counts, hashes and main-campaign results below remain specific to their named
   checkpoints.
 
@@ -78,11 +78,11 @@ their existing rules.
 
 **Validation boundary.** The final source passes **6,975 core checks and 928 layout checks**.
 Package-comparison and targeted fullscreen results are recorded in the
-[validation manifest](docs/WORLD_ART_02_VALIDATION.json). All runs use isolated
+[validation manifest](WORLD_ART_02_VALIDATION.json). All runs use isolated
 player data. Engine Input/UI/API review is distinct from OS-mouse play, and no speaker listening has
 been claimed. The local WASAPI mixer did not advance continuously; deferred playback and bounded
 exit were reviewed alongside Dummy playback, with remaining engine/device limits described in the
-[release notes](docs/WORLD_ART_02.md). This correction pass does not claim a new manual main-campaign run.
+[release notes](WORLD_ART_02.md). This correction pass does not claim a new manual main-campaign run.
 
 ## Historical: ten-sea visual rework (world-art-01)
 
@@ -347,7 +347,7 @@ as a mechanics and data reference. Its test results don't apply to this build.
 
 | Path | Description |
 |---|---|
-| [build/ProjectSevenSeas-world-art-02.zip](build/ProjectSevenSeas-world-art-02.zip) | Current 2.0.1 Windows distribution; extract the EXE, PCK and licenses together |
+| [build/ProjectSevenSeas-world-art-02.zip](../build/ProjectSevenSeas-world-art-02.zip) | Current 2.0.1 Windows distribution; extract the EXE, PCK and licenses together |
 | `build/windows/ProjectSevenSeas.exe` | Windows x86-64 executable: PE32+, GUI subsystem, official 4.7.2 release template |
 | `build/windows/ProjectSevenSeas.pck` | Current resource pack, kept beside the matching EXE and not embedded |
 | `build/windows/licenses/` | Audio licence record and the licence texts for the bundled audio and fonts |
@@ -355,8 +355,8 @@ as a mechanics and data reference. Its test results don't apply to this build.
 | `game/export_presets.cfg` | Export preset "Windows Desktop" |
 | `docs/ASSET_INVENTORY.md` | Inventory of every shipped texture, font and audio file, and the code-drawn scene elements |
 | `docs/AUDIO_LICENSES.md` | Per-file audio sources, creators, original names and licences |
-| [docs/WORLD_ART_02.md](docs/WORLD_ART_02.md) | Current release changes, compatibility notes and known limits |
-| [docs/WORLD_ART_02_VALIDATION.json](docs/WORLD_ART_02_VALIDATION.json) | Final current-release validation evidence; package hashes are recorded in the Windows handoff |
+| [docs/WORLD_ART_02.md](WORLD_ART_02.md) | Current release changes, compatibility notes and known limits |
+| [docs/WORLD_ART_02_VALIDATION.json](WORLD_ART_02_VALIDATION.json) | Final current-release validation evidence; package hashes are recorded in the Windows handoff |
 
 **Historical early-native export hashes (before world-art-01; not current package hashes):**
 
@@ -367,7 +367,7 @@ as a mechanics and data reference. Its test results don't apply to this build.
 
 That historical EXE used the unmodified release template; game content lived in its matching PCK.
 For the current distribution and immutable checkpoint hashes, use
-[Windows handoff](docs/WINDOWS_HANDOFF.json), rather than the historical values above.
+[Windows handoff](WINDOWS_HANDOFF.json), rather than the historical values above.
 
 ### Windows checkpoints
 
@@ -378,8 +378,8 @@ requested Windows checks. `docs/WINDOWS_HANDOFF.json` always describes the newes
 
 | Revision | Contents | Windows status |
 |---|---|---|
-| `world-art-02` · `2.0.1` | Current six-fix release, native landmarks, distinct port/site layouts, complete cabin groups and two-region preparation routes | Current evidence: [validation manifest](docs/WORLD_ART_02_VALIDATION.json), [release notes](docs/WORLD_ART_02.md) and Windows handoff |
-| `world-art-01` (historical) | Ten-sea visual revision with AI-assisted landmark vignettes and regional/cabin sound layers | Ten-trial main campaign and complete catalogue reviewed; six issue groups documented in the [fullscreen review](docs/FULLSCREEN_REVIEW_20261114.md) |
+| `world-art-02` · `2.0.1` | Current six-fix release, native landmarks, distinct port/site layouts, complete cabin groups and two-region preparation routes | Current evidence: [validation manifest](WORLD_ART_02_VALIDATION.json), [release notes](WORLD_ART_02.md) and Windows handoff |
+| `world-art-01` (historical) | Ten-sea visual revision with AI-assisted landmark vignettes and regional/cabin sound layers | Ten-trial main campaign and complete catalogue reviewed; six issue groups documented in the [fullscreen review](FULLSCREEN_REVIEW_20261114.md) |
 | `hud-01` | Sidebar, build window, chart footer and floor selector at every UI size; no `fac` spam | Confirmed by the user |
 | `hud-02` | Fullscreen fill, title at UI 1.25/1.5, rowboat polygon error, crew depth and routes | Downloaded and hash-verified by the user; results pending |
 | `chart-01` | Sea chart redesign (fog, markers, routes, zoom/pan/legend, cost-first panel, footer); everything else byte-identical to hud-02 | Not yet tested |

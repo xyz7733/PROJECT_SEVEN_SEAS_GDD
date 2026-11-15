@@ -5,11 +5,17 @@ An isometric pixel-art seafaring management and expedition game, built natively 
 explore islands and dungeons on foot, and fight automatic battles you can steer with stances, focus
 targets and retreat. Languages: **English** and **Simplified Chinese**.
 
-The game follows `PROJECT_SEVEN_SEAS_GDD.md` (v1.0) and the art direction in `VISUAL_REWORK_BRIEF.md`.
-Current status and known gaps: `IMPLEMENTATION_STATUS.md`.
+The game follows the [game design document](docs/design/PROJECT_SEVEN_SEAS_GDD.md) (v1.0) and the
+[visual rework brief](docs/design/VISUAL_REWORK_BRIEF.md).
+Current status and known gaps: [Implementation Status](docs/IMPLEMENTATION_STATUS.md).
+
+Development: [documentation](docs/README.md), [repository workflow](CONTRIBUTING.md),
+[tool index](tools/README.md), [changelog](CHANGELOG.md).
 
 Current release: **2.1.0 · crew-01**, which gives every sailor six personal attributes.
-Download the [Windows release ZIP](build/ProjectSevenSeas-crew-01.zip).
+Local Windows package: `build/ProjectSevenSeas-crew-01.zip`. Exported builds are
+excluded from Git. Published downloads belong on
+[GitHub Releases](https://github.com/xyz7733/PROJECT_SEVEN_SEAS_GDD/releases).
 
 - **Six attributes:** Might, Vigor, Agility, Focus, Will and Seamanship. 10 is average, and each
   point above or below adds a small, fixed amount to attack; max HP and defence; speed and dodge;
@@ -32,21 +38,32 @@ validation. Everything else is unchanged from the previous release:
 **2.0.1 · world-art-02**, the follow-up to the ten-sea visual rework. The catalogue retains
 **20 ports, 80 exploration sites, 310 rooms and 190 combat-room contexts**, with six review fixes:
 
-- companion attack skills select enemies by default, explicit self/ally skills retain their targets,
-  and Sic 'Em immediately performs a pet skill at the intended 1.6× damage;
-- exploration Fit includes the party, landing, boat and complete landmark inside the HUD safe area;
-- Inspector panels clear the objective strip and show all four stats in two columns;
-- pause and battle notices use reserved areas, while damage numbers merge and avoid actors and the HUD;
-- defeat reports no longer create an empty animation Tween;
-- title, System and window-close exits share bounded audio cleanup, with deferred playback when the mixer stalls.
-
-The ports now use distinct street and coastal layouts; complete cabin groups combine walls, open
-thresholds, floors, furniture and crew activity across all four hulls. Runtime landmarks use the
-project's native voxel/pixel renderer. Four dungeons in Glass Current and Stormbelt add optional
-local preparation routes: calibrate prisms to remove glare and actual decoys, or relight beacons
-for shelter in subsequent local fights. Existing west-room completion records carry these effects;
-no new save fields are required. Other regions and legendary challenges keep their rules.
-
+- companion attack skills select enemies by default, explicit self/ally skills retain their targets,
+
+  and Sic 'Em immediately performs a pet skill at the intended 1.6× damage;
+
+- exploration Fit includes the party, landing, boat and complete landmark inside the HUD safe area;
+
+- Inspector panels clear the objective strip and show all four stats in two columns;
+
+- pause and battle notices use reserved areas, while damage numbers merge and avoid actors and the HUD;
+
+- defeat reports no longer create an empty animation Tween;
+
+- title, System and window-close exits share bounded audio cleanup, with deferred playback when the mixer stalls.
+
+The ports now use distinct street and coastal layouts; complete cabin groups combine walls, open
+
+thresholds, floors, furniture and crew activity across all four hulls. Runtime landmarks use the
+
+project's native voxel/pixel renderer. Four dungeons in Glass Current and Stormbelt add optional
+
+local preparation routes: calibrate prisms to remove glare and actual decoys, or relight beacons
+
+for shelter in subsequent local fights. Existing west-room completion records carry these effects;
+
+no new save fields are required. Other regions and legendary challenges keep their rules.
+
 Read the [World Art 02 release notes](docs/WORLD_ART_02.md) and
 [validation manifest](docs/WORLD_ART_02_VALIDATION.json) for the final evidence, counts and known
 limits. Checks use isolated player data. Engine-driven fullscreen review does not establish OS-mouse
@@ -55,7 +72,7 @@ full-campaign manual playthrough. Earlier checkpoints are recorded under Release
 
 ## Play on Windows
 
-Extract the [crew-01 ZIP](build/ProjectSevenSeas-crew-01.zip), or use the native Windows
+Extract the locally exported `build/ProjectSevenSeas-crew-01.zip`, or use the native Windows
 x86-64 files in `build/windows/`. Keep the EXE, matching PCK and `licenses` folder together:
 
 | File | Purpose |
@@ -114,8 +131,9 @@ collection-book fields. The ledger reports how many rooms were moved.
   plugins, no C#, no add-ons.
 - **Windows:** download Godot 4.7.2 from <https://godotengine.org/download/archive/>, start the editor,
   choose **Import**, and select `game/project.godot`.
-- **Linux:** the repository already contains the official Linux editor in **self-contained mode**
-  (`tools/godot/._sc_`). Its editor settings and export templates live in `tools/godot/editor_data/`.
+- **Linux:** the development workspace uses the official Linux editor in **self-contained mode**
+  (`tools/godot/._sc_`). Engine binaries and templates are local tools excluded from Git; install
+  them on a fresh clone. Editor settings and export templates live in `tools/godot/editor_data/`.
 
   ```
   tools/godot/Godot_v4.7.2-stable_linux.x86_64 --path game --editor
@@ -264,6 +282,11 @@ in English.
 
 ## Licences and originality
 
+This repository is licensed under the **GNU General Public License version 3**
+(SPDX: `GPL-3.0-only`); see [LICENSE](LICENSE). Third-party material and files with
+separate licence notices retain those terms. Preserve their licences and source
+credits when redistributing the game.
+
 Runtime artwork is drawn by the project's voxel and pixel generators in `tools/artgen/`, including
 the regional landmark families and their location compositions. The earlier AI-assisted masters
 remain under `art/source/landmarks/` as concept/source references; they are not included in the
@@ -299,4 +322,4 @@ groups addressed by world-art-02. Those campaign results belong to world-art-01.
 **craft-01-fix1 (historical).** Regional weather, battle staging and shelter fixes passed 2,263 core
 checks and 748 layout checks, with RTX 4070 rendering measurements. These counts and measurements
 remain evidence for that revision. The original records are retained in
-[Implementation Status](IMPLEMENTATION_STATUS.md).
+[Implementation Status](docs/IMPLEMENTATION_STATUS.md).

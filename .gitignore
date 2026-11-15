@@ -13,6 +13,30 @@
 **/__pycache__/
 *.py[cod]
 
+# Local development environments and tool caches
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+node_modules/
+
+# Local secrets and Godot export credentials
+.env
+.env.*
+!.env.example
+export_credentials.cfg
+*.p7s
+
+# Personal editor state
+.idea/
+*.code-workspace
+*.swp
+*.swo
+
 # OS junk
 Thumbs.db
 Desktop.ini

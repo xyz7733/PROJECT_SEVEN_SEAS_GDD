@@ -1,0 +1,4 @@
+# Asset generators; repository checks and Windows validation use the standard library.
+# Versions verified in the development environment.
+numpy==2.5.3
+Pillow==11.3.0

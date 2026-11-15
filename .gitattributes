@@ -1,0 +1,39 @@
+# Keep text diffs consistent across Windows and Linux.
+* text=auto eol=lf
+
+*.md text
+*.txt text
+*.json text
+*.csv text
+*.gd text
+*.gdshader text
+*.tscn text
+*.tres text
+*.godot text
+*.cfg text
+*.uid text
+*.import text
+*.py text
+*.js text
+*.sh text
+*.ps1 text
+*.yml text
+*.yaml text
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Runtime assets and source references must never receive newline conversion.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.ogg binary
+*.wav binary
+*.mp3 binary
+*.otf binary
+*.ttf binary
+*.woff2 binary
+*.translation binary
+*.zip binary
+*.exe binary
+*.pck binary

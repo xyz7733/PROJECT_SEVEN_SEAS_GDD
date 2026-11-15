@@ -21,7 +21,7 @@ The port and island were viewed as separate existing gameplay states. A complete
 
 ## Required Next Build
 
-Apply `NATIVE_POLISH_REQUEST.md`, including the user's multi-deck correction: reserve the exposed upper deck for movement and boarding combat, put ordinary facilities inside connected furnished interior levels, enlarge actual ship space relative to crew, and provide clear floor visibility controls. Preserve saves and enforce placement restrictions. Continue the requested handcrafted art and openly licensed audio integration.
+Apply [NATIVE_POLISH_REQUEST.md](design/NATIVE_POLISH_REQUEST.md), including the user's multi-deck correction: reserve the exposed upper deck for movement and boarding combat, put ordinary facilities inside connected furnished interior levels, enlarge actual ship space relative to crew, and provide clear floor visibility controls. Preserve saves and enforce placement restrictions. Continue the requested handcrafted art and openly licensed audio integration.
 
 ## Evidence
 
