@@ -733,6 +733,7 @@ static func resolve_skill(sim: Dictionary, u: Dictionary, def: Dictionary, skill
 	if fx.get("plunder") and targets.size():
 		sim.plunder = int(sim.plunder) + U.jround(2.0 + 1.5 * float(targets[0].level))
 	if fx.get("pet") and u.pet != null:
+		pet_act(sim, u, float(fx.pet))
 		u.pet.timer = 0.0
 
 
@@ -775,14 +776,22 @@ static func basic_attack(sim: Dictionary, u: Dictionary) -> void:
 
 
 ## A companion pet acts on its own timer.
-static func pet_act(sim: Dictionary, u: Dictionary) -> void:
+static func pet_act(sim: Dictionary, u: Dictionary, strength: float = 1.0) -> void:
+	if u.get("pet") == null or not bool(u.get("alive", false)):
+		return
 	var p: Dictionary = u.pet
 	var ab: Dictionary = C.data.PET_ABILITIES[p.ability]
+	var target := String(ab.get("target", "enemy"))
 	var fx: Dictionary = ab.get("fx", {})
-	var mult := float(p.mult)
+	var mult := float(p.mult) * strength
 	var base: float = u.atk * mult
+	var tgt: Variant = null
+	if target != "owner" and target != "allies":
+		tgt = pick_enemy_target(sim, u, null, true)
+		if tgt == null:
+			return
 	push_log(sim, {"type": "pet", "src": u.uid, "ability": p.ability})
-	if ab.target == "owner":
+	if target == "owner":
 		if ab.get("heal"):
 			heal(sim, u, lowest(living(sim.allies)), float(ab.heal) * base)
 		if ab.get("shield"):
@@ -790,15 +799,12 @@ static func pet_act(sim: Dictionary, u: Dictionary) -> void:
 		if fx.get("taunt"):
 			u.st.taunt = max(float(u.st.taunt), float(fx.taunt))
 		return
-	if ab.target == "allies":
+	if target == "allies":
 		for a in living(sim.allies):
 			if ab.get("heal"):
 				heal(sim, u, a, float(ab.heal) * base, {"quiet": true})
 			if fx.get("meter"):
 				a.meter = min(99.0, float(a.meter) + float(fx.meter) * min(2.0, mult))
-		return
-	var tgt = pick_enemy_target(sim, u, null, true)
-	if tgt == null:
 		return
 	if ab.get("power"):
 		deal_damage(sim, u, tgt, float(ab.power) * mult, {"noDodge": true, "skill": "pet_" + p.ability})

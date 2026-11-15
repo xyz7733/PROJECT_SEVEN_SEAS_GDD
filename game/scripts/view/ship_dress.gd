@@ -62,6 +62,12 @@ const POOLS := {
 ## Compartment kinds (orlop and hold): the far wall and alcove cells of each
 ## compartment between two frames draw from one of these.
 const ROOMS := {
+	"lower": [
+		["shot_rack", "powder", "workbench", "water_butt"],
+		["hammock", "reading_bench", "chests", "medicine_cabinet"],
+		["galley_dresser", "water_butt", "shelves", "chests"],
+		["chart_desk", "reading_bench", "lockers", "chests"],
+	],
 	"orlop": [
 		["lockers", "shelves", "barrels", "crates", "lockers"],
 		["sails", "sails", "cable", "rope_coil", "lumber"],
@@ -75,8 +81,24 @@ const ROOMS := {
 		["sacks", "coop", "sacks", "barrels"],
 	],
 }
+## Each compartment has one palette and one purpose. Adjacent single-cell
+## pieces form an atomic room assembly, retaining per-cell depth sorting.
+const ROOM_FLOOR := {
+	"lower": ["work", "cabin", "mess", "cabin"],
+	"orlop": ["pantry", "work", "cabin", "work"],
+	"hold": ["pantry", "work", "pantry", "pantry"],
+}
+const ROOM_PAIRS := {
+	"lower": [["workbench", "shot_rack"], ["hammock", "reading_bench"],
+		["galley_dresser", "water_butt"], ["chart_desk", "reading_bench"]],
+	"orlop": [["lockers", "shelves"], ["sails", "cable"],
+		["hammock", "chests"], ["workbench", "lumber"]],
+	"hold": [["crates_tall", "sacks"], ["cask", "barrels"],
+		["net_cargo", "crates"], ["sacks", "coop"]],
+}
 ## At most one of these per level.
-const ONCE := ["workbench", "water_butt", "coop", "pump", "cable", "shelves"]
+const ONCE := ["workbench", "water_butt", "coop", "pump", "cable", "shelves",
+	"chart_desk", "reading_bench", "galley_dresser", "medicine_cabinet"]
 ## Pieces with no per-level count limit.
 const UNCAPPED := ["gun", "partition", "partition_end", "pillar", "mess_table"]
 ## Share of each role's cells that may be dressed, per level theme.
@@ -107,7 +129,7 @@ static func _hash(s: String) -> int:
 ## Rows (from the far wall) that partitions reach into.
 static func _depth(theme: String, h: int) -> int:
 	if theme == "lower":
-		return 0
+		return 1 if h >= 5 else 0
 	if theme == "hold":
 		return 2
 	return 2 if h <= 6 else 3
@@ -203,7 +225,7 @@ static func layout(dk: Dictionary, free: Dictionary, portals: Dictionary, goals:
 			trunk_x = int(fx[0])
 			break
 	var st := {"dressed": {}, "used": {}, "count": {}, "lit": [], "items": [],
-		"cap_each": maxi(2, int(ceil(float(free.size()) / 24.0)))}
+		"cap_each": maxi(2, int(ceil(float(free.size()) / 24.0))), "rooms": [], "room_floor": {}}
 	var dressed: Dictionary = st.dressed
 	var items: Array = st.items
 	# 1. Structure: partitions from the far wall at each frame (orlop, hold)
@@ -211,6 +233,7 @@ static func layout(dk: Dictionary, free: Dictionary, portals: Dictionary, goals:
 	var frames := _frames(free, blocked, w, salt)
 	var depth := _depth(theme, h)
 	var spine := (h - 1) * 0.5
+	_cabin_rooms(theme, w, h, frames, free, blocked, portals, st, salt)
 	for fx in frames:
 		var placed := []
 		for y in depth:
@@ -226,7 +249,7 @@ static func layout(dk: Dictionary, free: Dictionary, portals: Dictionary, goals:
 			items.append({"x": pc.x, "y": pc.y, "name": nm, "rot": 0})
 		if not placed.is_empty():
 			st.lit.append(placed[-1])
-		if theme != "lower" and _hash("%s:s:%d" % [salt, fx]) % 2 == 0:
+		if _hash("%s:s:%d" % [salt, fx]) % 2 == 0:
 			continue
 		var rows := []
 		for y in range(maxi(1, depth), h - 1):
@@ -244,6 +267,9 @@ static func layout(dk: Dictionary, free: Dictionary, portals: Dictionary, goals:
 				continue
 			_put(st, c, "pillar", 0)
 			break
+	# Authored two-cell room groups come before loose dressing. A failed
+	# group is omitted as a whole, including when a player refit needs space.
+	_room_groups(theme, w, h, frames, free, blocked, portals, st, salt)
 	# 2. Walls: far wall, compartments, stern, bays, near row.
 	var cands := []
 	var role_cells := {}
@@ -333,12 +359,110 @@ static func layout(dk: Dictionary, free: Dictionary, portals: Dictionary, goals:
 		floors.append({"x": c.x, "y": c.y, "set": fset, "key": str(mask)})
 	var kinds: Array = PATCHES[theme]
 	for c in free:
-		if routes.has(c) or dressed.has(c) or portals.has(c):
+		if routes.has(c) or portals.has(c):
+			continue
+		if st.room_floor.has(c):
+			floors.append({"x": c.x, "y": c.y, "set": "patch", "key": st.room_floor[c]})
+			continue
+		# Continuous coloured floor zones connect furniture into rooms. They
+		# are flush decorative overlays, including beneath the dressed pieces.
+		if c.y < mini(h - 1, maxi(2, depth + 1)):
+			var room_i := _room_index(theme, _zone(c.x, frames), salt)
+			floors.append({"x": c.x, "y": c.y, "set": "patch", "key": ROOM_FLOOR[theme][room_i]})
+			continue
+		if dressed.has(c):
 			continue
 		var hv := _hash("%s:p:%d:%d" % [salt, c.x, c.y])
 		if hv % 100 < (24 if c.y < depth else 16):
 			floors.append({"x": c.x, "y": c.y, "set": "patch", "key": kinds[(hv >> 7) % kinds.size()]})
-	return {"items": items, "fences": fences, "floor": floors, "routes": routes}
+	return {"items": items, "fences": fences, "floor": floors, "routes": routes, "rooms": st.rooms}
+
+
+## A complete three-by-three cabin: a furnished back wall, a side wall
+## with a lit door post, and a short front return beside an open threshold.
+## The two walkable interior cells and threshold stay free of later props.
+## Commit the whole module only when each solid cell preserves navigation;
+## player facilities, work access and every ladder take precedence.
+static func _cabin_rooms(theme: String, w: int, h: int, frames: Array, free: Dictionary,
+		blocked: Dictionary, portals: Dictionary, st: Dictionary, salt: String) -> void:
+	if h < 4 or w < 5:
+		return
+	var limit := 2 if w >= 18 else 1
+	for x in range(0, w - 2):
+		if st.rooms.size() >= limit:
+			break
+		var origin := Vector2i(x, 0)
+		var cells := []
+		var available := true
+		for dy in 3:
+			for dx in 3:
+				var c := origin + Vector2i(dx, dy)
+				if not free.has(c) or portals.has(c) or st.dressed.has(c):
+					available = false
+				cells.append(c)
+		if not available:
+			continue
+		var index := _room_index(theme, _zone(x, frames), salt)
+		var pair: Array = ROOM_PAIRS[theme][index]
+		if (ONCE.has(pair[0]) and st.used.has(pair[0])) or (ONCE.has(pair[1]) and st.used.has(pair[1])):
+			continue
+		var pieces := [[Vector2i(0, 0), String(pair[0]), 0], [Vector2i(1, 0), String(pair[1]), 0],
+			[Vector2i(2, 0), "partition", 0], [Vector2i(2, 1), "partition_end", 0],
+			[Vector2i(0, 1), "partition_end", 1]]
+		var scratch: Dictionary = st.dressed.duplicate()
+		for piece in pieces:
+			var c: Vector2i = origin + piece[0]
+			if blocked.has(c) or not _keeps_connected(c, free, scratch, portals):
+				available = false
+				break
+			scratch[c] = true
+		if not available:
+			continue
+		for piece in pieces:
+			_put(st, origin + piece[0], String(piece[1]), int(piece[2]))
+		for cell in cells:
+			blocked[cell] = true
+			st.room_floor[cell] = ROOM_FLOOR[theme][index]
+		st.rooms.append({"entry": origin + Vector2i(1, 2), "inside": origin + Vector2i(1, 1),
+			"focus": origin + Vector2i(1, 0), "activity": String(pair[0]), "cells": cells})
+
+
+static func _room_index(theme: String, zone: int, salt: String) -> int:
+	# Sequential purposes make rooms read as a deliberate plan, rather than
+	# allowing several adjacent compartments to choose the same furniture.
+	return (zone + _hash(salt + ":room-order") % ROOMS[theme].size()) % ROOMS[theme].size()
+
+
+static func _room_groups(theme: String, w: int, h: int, frames: Array, free: Dictionary,
+		blocked: Dictionary, portals: Dictionary, st: Dictionary, salt: String) -> void:
+	for zone in range(frames.size() + 1):
+		var index := _room_index(theme, zone, salt)
+		var pair: Array = ROOM_PAIRS[theme][index]
+		var placed := false
+		for y in range(0, mini(h - 1, 2)):
+			if placed:
+				break
+			for x in range(0, w - 1):
+				var a := Vector2i(x, y)
+				var b := a + Vector2i(1, 0)
+				if _zone(x, frames) != zone or _zone(x + 1, frames) != zone:
+					continue
+				var scratch: Dictionary = st.dressed.duplicate()
+				var okay := true
+				for c in [a, b]:
+					if not free.has(c) or blocked.has(c) or scratch.has(c) \
+							or not _keeps_connected(c, free, scratch, portals):
+						okay = false
+						break
+					scratch[c] = true
+				if not okay:
+					continue
+				if (ONCE.has(pair[0]) and st.used.has(pair[0])) or (ONCE.has(pair[1]) and st.used.has(pair[1])):
+					continue
+				_put(st, a, String(pair[0]), 0)
+				_put(st, b, String(pair[1]), 0)
+				placed = true
+				break
 
 
 static func _put(st: Dictionary, c: Vector2i, item: String, rot: int) -> void:
@@ -354,13 +478,13 @@ static func _put(st: Dictionary, c: Vector2i, item: String, rot: int) -> void:
 static func _pool(theme: String, role: String, zone: int, salt: String) -> Array:
 	if (role == "back" or role == "alcove") and ROOMS.has(theme):
 		var rooms: Array = ROOMS[theme]
-		return rooms[_hash("%s:z:%d" % [salt, zone]) % rooms.size()]
+		return rooms[_room_index(theme, zone, salt)]
 	return POOLS[theme].get(role, [])
 
 
 static func _pick(theme: String, role: String, c: Vector2i, pool: Array, st: Dictionary, trunk_x: int, salt: String) -> String:
 	var dressed: Dictionary = st.dressed
-	if theme == "lower" and role == "back" and c.x % 2 == 1:
+	if theme == "lower" and role == "back" and c.x % 4 == 1:
 		return "gun"
 	if theme == "hold" and role == "back" and not st.used.has("pump") and trunk_x >= 0 and absi(c.x - trunk_x) <= 3:
 		return "pump"

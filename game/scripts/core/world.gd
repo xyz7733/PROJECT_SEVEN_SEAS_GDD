@@ -100,18 +100,59 @@ static func _wave_entry(enemy_id: String, level: int, variant: Variant = null, r
 	return entry
 
 
-## Builds an encounter definition for a room (GDD encounter record).
+## Optional preparations use the room progress already stored in old saves.
+## Their benefit belongs only to either authored dungeon of the two sample
+## regions; clearing the same branch elsewhere changes nothing globally.
+static func preparation(state: Dictionary, loc_id: String) -> Dictionary:
+	var loc = C.location(loc_id)
+	if loc == null or String(loc.type) != "dungeon":
+		return {}
+	var reg: Dictionary = C.region(String(loc.regionId))
+	if not [reg.locs[5], reg.locs[6]].has(loc_id):
+		return {}
+	var id := ""
+	var removed: Array = []
+	match String(reg.id):
+		"glass_current":
+			id = "glass_lenses"
+			removed = ["glare", "decoys"]
+		"stormbelt":
+			id = "storm_beacon"
+			removed = ["storm"]
+		_:
+			return {}
+	var rooms: Array = state.get("world", {}).get("locations", {}).get(loc_id, {}).get("rooms", [])
+	var active: bool = rooms.has("west")
+	return {"id": id, "room": "west", "active": active,
+		"removedmods": removed if active else []}
+
+
+## UI previews and new room encounters share this state-aware entry point.
+## Existing/pending encounters keep their stored definition and spec.
+static func encounter_for_state(state: Dictionary, loc_id: String, room_id: String, opts: Dictionary = {}) -> Dictionary:
+	var prep := preparation(state, loc_id)
+	var removed: Array = prep.get("removedmods", []) if not bool(opts.get("legend", false)) else []
+	return _encounter_for(loc_id, room_id, opts, removed)
+
+
+## Stateless catalogue/fixture callers retain the original encounter.
 static func encounter_for(loc_id: String, room_id: String, opts: Dictionary = {}) -> Dictionary:
+	return _encounter_for(loc_id, room_id, opts, [])
+
+
+static func _encounter_for(loc_id: String, room_id: String, opts: Dictionary, removed: Array) -> Dictionary:
 	var loc = C.location(loc_id)
 	var r = C.region(loc.regionId)
 	var rm = C.room(loc_id, room_id)
 	var rand := U.Rng.new(U.hash32("%s:%s:%s" % [loc_id, room_id, str(opts.get("variant", 0))]))
 	var lvl: int = int(loc.level) + (1 if rm and rm.kind == "elite" else 0) + (2 if rm and rm.kind == "boss" else 0)
+	var hazard: Variant = null if removed.has(r.hazard) else r.hazard
+	var mechanic: Variant = null if removed.has(r.mechanic) else r.mechanic
 	var mods := []
-	if r.hazard:
-		mods.append(r.hazard)
-	if r.mechanic:
-		mods.append(r.mechanic)
+	if hazard:
+		mods.append(hazard)
+	if mechanic:
+		mods.append(mechanic)
 	var waves := []
 	var legend: bool = opts.get("legend", false)
 	if rm and rm.kind == "trial":
@@ -149,9 +190,9 @@ static func encounter_for(loc_id: String, room_id: String, opts: Dictionary = {}
 			kind = "boss" if rm.kind == "boss" else ("elite" if rm.kind == "elite" else "battle")
 		var pool: Array = C.world.GROUPS[kind]
 		var group: Array = pool[int(floor(rand.next() * pool.size()))].duplicate()
-		if r.mechanic == "mixed":
+		if mechanic == "mixed":
 			group = ["brute", "shooter", "caster"] if kind == "battle" else ["brute", "shooter", "caster", "healer"]
-		if r.mechanic == "disruptor" and kind != "boss":
+		if mechanic == "disruptor" and kind != "boss":
 			group[group.size() - 1] = "caster"
 		var boss_id: String = Bestiary.region_boss(r.id, int(loc.slot))
 		if boss_id == "" and r.bosses.size():
@@ -161,14 +202,14 @@ static func encounter_for(loc_id: String, room_id: String, opts: Dictionary = {}
 			var eid := boss_id if arch == "boss" else Bestiary.pick_roster(r.id, arch, rand)
 			if eid != "":
 				wave.append(_wave_entry(eid, lvl))
-		if r.mechanic == "decoys":
+		if mechanic == "decoys":
 			wave.push_front(_wave_entry("crystal_decoy", lvl))
-		if r.mechanic == "elite":
+		if mechanic == "elite":
 			var extra := Bestiary.pick_roster(r.id, "skirmisher", rand)
 			if extra != "":
 				wave.append(_wave_entry(extra, lvl - 1))
 		waves = [wave]
-		if r.mechanic == "waves" and (kind == "elite" or kind == "boss"):
+		if mechanic == "waves" and (kind == "elite" or kind == "boss"):
 			var front := []
 			for arch in ["skirmisher", "shooter", "skirmisher"]:
 				var eid := Bestiary.pick_roster(r.id, arch, rand)

@@ -3,7 +3,7 @@
 class_name GS
 extends RefCounted
 
-const SCHEMA_VERSION := 5
+const SCHEMA_VERSION := 6
 ## Oldest save schema that migrate() can still upgrade.
 const MIN_SCHEMA_VERSION := 3
 const SAVE_FORMAT := "p7s-native-save"
@@ -74,6 +74,7 @@ static func make_recruit(seed_value: int, o: Dictionary = {}) -> Dictionary:
 		"aptClass": apt_class, "petAffinity": pet_aff, "eventId": event_id, "event": {"status": "active", "progress": 0},
 		"variance": variance, "level": level, "xp": 0, "classId": class_id, "mastery": mastery, "legacy": [],
 		"equipment": {"weapon": null, "outfit": null, "accessory": null}, "jobFacilityUid": null, "injured": false,
+		"attrs": Attrs.roll(seed_value, origin_id), "train": {},
 	}
 
 
@@ -165,8 +166,9 @@ static func create_new_game(seed_input: int = -1) -> Dictionary:
 ## Upgrades a loaded state from an older schema in place. Schema 3 ships
 ## had management rooms on the exposed deck; schema 4 rebuilds the hull's
 ## stacked levels and moves every ordinary facility into interior space,
-## keeping uids, levels, damage and crew assignments. Returns false if the
-## state cannot be migrated.
+## keeping uids, levels, damage and crew assignments. Schema 5 adds the
+## collection book and schema 6 crew attributes. Returns false if the state
+## cannot be migrated.
 static func migrate(state: Dictionary) -> bool:
 	var v := int(state.envelope.get("schemaVersion", 0))
 	if v < MIN_SCHEMA_VERSION or v > SCHEMA_VERSION:
@@ -187,8 +189,28 @@ static func migrate(state: Dictionary) -> bool:
 		state.envelope.schemaVersion = 4
 	if v == 4:
 		_fill_schema5(state)
+		v = 5
+		state.envelope.schemaVersion = 5
+	if v == 5:
+		_fill_schema6(state)
 		state.envelope.schemaVersion = SCHEMA_VERSION
 	return true
+
+
+## Schema 6 gives every sailor their personal attributes (rolled from the
+## identity seed, so a migrated crew gets exactly what a new hire with the
+## same seed would) and an empty training record. Safe to call twice.
+static func _fill_schema6(state: Dictionary) -> void:
+	if not (state.get("crew") is Array):
+		return
+	for m in state.crew:
+		if not (m is Dictionary):
+			continue
+		var a = m.get("attrs")
+		if not (a is Dictionary) or a.size() != Attrs.IDS.size():
+			m.attrs = Attrs.roll(int(m.get("seed", 0)), String(m.get("originId", "")))
+		if not (m.get("train") is Dictionary):
+			m.train = {}
 
 
 ## Adds the collection book, curio shards and expanded bestiary counters

@@ -9,7 +9,7 @@ extends Node2D
 
 signal hover_changed(text: String)
 
-const ZOOMS := [1.0, 2.0, 3.0]
+const ZOOMS := [0.25, 0.5, 1.0, 2.0, 3.0]
 const LANDING := "_landing"
 const BATTLE_KINDS := ["battle", "elite", "boss", "trial"]
 const KIND_ICON := {"battle": "ui_battle", "elite": "ui_star", "boss": "ui_warn", "trial": "ui_level", "resource": "ui_chest", "event": "ui_quest"}
@@ -52,6 +52,7 @@ const FILE_LANE := [0.0, -2.0, 2.0, -1.0, 1.0]
 
 var _info_panel: PanelContainer
 var _inset_chips := 40.0
+var _inset_bottom := 30.0
 var main: Node
 var st: Dictionary = {}
 var loc_id := ""
@@ -68,6 +69,7 @@ var land_ground: TileMapLayer
 var coast: Coast
 var _foam: Node2D
 var _blend: Node2D
+var _shore_nodes: Array = []
 var stage: Node2D
 var marks: Node2D
 var canvas_mod: CanvasModulate
@@ -95,7 +97,8 @@ var _goal := {}
 var _idle: Array = []
 var _irng := RandomNumberGenerator.new()
 var _t := 0.0
-var _zoom_i := 1
+var _zoom_i := 3
+var _fit_active := false
 var _drag := false
 var _drag_moved := 0.0
 var _bounds := Rect2()
@@ -117,6 +120,11 @@ var _berth := Vector2.ZERO
 ## Ambient life (gulls, glints, cloud shadows, butterflies and fireflies).
 var ambience: Ambience
 var _meadow: Array = []
+## Presentation-only composition. Room identities and links remain in C.
+var _profile: Dictionary = {}
+var _landmark_at := Vector2.ZERO
+var _landmark_foot := Rect2()
+var _scenery_reserved := {}
 
 
 func _init() -> void:
@@ -163,13 +171,18 @@ func _ready() -> void:
 func _on_viewport_resized() -> void:
 	if _sea_info.is_empty():
 		return
+	if _fit_active:
+		fit_view()
+		return
 	if not _sea_cover.encloses(_needed_sea_cover()):
 		_fill_sea()
 	_clamp_cam()
 
 
 func _needed_sea_cover() -> Rect2:
-	return Art.camera_cover(_bounds, get_viewport_rect().size, float(ZOOMS[0]))
+	# Build the extra ocean only when the player actually zooms out. Using
+	# the smallest overview zoom here would prebuild it for every close-up.
+	return Art.camera_cover(_bounds.expand(cam.position), get_viewport_rect().size, cam.zoom.x)
 
 
 ## Sea on every non-land cell the camera can show (a screen-aligned
@@ -188,18 +201,20 @@ func _fill_sea() -> void:
 
 # ================================================================ binding
 func bind(state: Dictionary) -> void:
+	_fit_active = false
 	st = state
 	loc_id = String(st.world.currentLocationId)
 	loc = C.location(loc_id)
 	rid = String(loc.regionId)
 	kind = String(loc.type) if PALETTE.has(String(loc.type)) else "island"
+	_profile = SceneProfiles.location(loc_id)
 	_layout_graph()
 	_build_terrain()
 	_build_rooms()
 	_build_party()
 	_build_ui()
 	refresh()
-	cam.position = _nodes[_here] + Vector2(40, -10)
+	_center_current_room()
 	_clamp_cam()
 	_build_boat()
 	var site = st.voyage.site if st.voyage != null else null
@@ -275,6 +290,13 @@ func _layout_graph() -> void:
 			_nodes[ids[k]] = Vector2(x0 + float(d) * step + jx, y + jy + float(d % 2) * 6.0).round()
 	var first: Vector2 = _nodes[rooms[0].id] if rooms.size() else Vector2.ZERO
 	_nodes[LANDING] = (first + Vector2(-rng.randf_range(100.0, 118.0), rng.randf_range(4.0, 20.0))).round()
+	# The authored compositions replace only display coordinates. Incomplete
+	# development profiles still use the seeded positions for missing nodes.
+	var authored: Dictionary = _profile.get("nodes", {})
+	for id in _nodes:
+		if authored.has(id):
+			_nodes[id] = SceneProfiles.point(authored[id]).round()
+	_prepare_landmark()
 	_link(LANDING, rooms[0].id if rooms.size() else LANDING)
 	for r in rooms:
 		for n in r.next:
@@ -337,23 +359,27 @@ func _build_terrain() -> void:
 		px = px.expand(Art.iso(c.x, c.y))
 	_bounds = _focus.merge(px.grow(24.0))
 	_sea_cover = Rect2()
-	_fill_sea()
 	_meadow.clear()
+	_scenery_reserved.clear()
+	_build_profile_scenery()
+	_fill_sea()
 	_place_props()
+	_build_shore_detail()
 	_prop("flag", _nodes[LANDING] + Vector2(-10, -18), false)
 	_prop("barrels", _nodes[LANDING] + Vector2(14, -14), false)
 	_prop("signpost", _nodes[LANDING] + Vector2(18, 10), false)
 	# Lighting by location type and hour.
 	var hour := int(st.envelope.gameClock) % 24
 	var night := hour < 6 or hour >= 19
-	var tint := Color(1, 1, 1)
+	var region_profile := SceneProfiles.region(rid)
+	var tint := Color.html(String(region_profile.get("light_day", "#fff7e9")))
 	match kind:
 		"dungeon":
-			tint = Color(0.58, 0.56, 0.7)
+			tint = Color(0.72, 0.69, 0.8)
 		"secret":
-			tint = Color(0.78, 0.74, 0.96)
-	if night:
-		tint *= Color(0.62, 0.66, 0.92)
+			tint = tint.lerp(Color(0.8, 0.78, 0.96), 0.55)
+	if night and kind != "dungeon":
+		tint = tint * Color.html(String(region_profile.get("light_night", "#9eaddb")))
 	canvas_mod.color = tint
 	# Ambient life: open air over islands, wrecks and arenas; the caves and
 	# hidden places keep only their still water and their fireflies.
@@ -365,9 +391,83 @@ func _build_terrain() -> void:
 	ambience.glint_density = 0.5 if enclosed else 1.0
 	ambience.fish_every = Vector2(0, 0) if enclosed else Vector2(6.0, 14.0)
 	ambience.meadow = _meadow.duplicate()
+	ambience.apply_region(rid, enclosed)
 	if kind == "dungeon" or kind == "secret" or night:
 		for id in _nodes:
-			_light(_nodes[id] + Vector2(0, -20), Color(1.0, 0.78, 0.48) if kind != "secret" else Color(0.7, 0.82, 1.0), 0.8)
+			_light(_nodes[id] + Vector2(0, -20), Color.html(String(region_profile.get("warm_light", "#ffcc7a"))), 0.75)
+
+
+## Scenic foundations stay outside every party route. Their sprites rise
+## behind their foot, so ordinary y sorting also keeps actors readable.
+func _prepare_landmark() -> void:
+	_landmark_foot = Rect2()
+	if _profile.is_empty() or not _profile.has("landmarkPosition"):
+		return
+	_landmark_at = SceneProfiles.point(_profile.landmarkPosition).round()
+	var size_v := SceneProfiles.point(_profile.get("landmarkFootprint", [100, 36]))
+	var landmark := Art.world_landmark(rid, int(_profile.get("landmarkVariant", 0)))
+	var art_foot: Vector2 = landmark.get("footprint", Vector2(144, 64))
+	size_v = Vector2(maxf(144.0, maxf(art_foot.x, size_v.x)), maxf(64.0, maxf(art_foot.y, size_v.y)))
+	for attempt in 40:
+		var foot := Rect2(_landmark_at - size_v * Vector2(0.5, 0.5), size_v)
+		var clear := true
+		for id in _nodes:
+			if foot.grow(34.0).has_point(_nodes[id]):
+				clear = false
+		for room in _rooms():
+			for next_id in room.next:
+				var a: Vector2 = _nodes[room.id]
+				var b: Vector2 = _nodes[next_id]
+				if _seg_dist(_landmark_at, a, b) < size_v.length() * 0.5 + 30.0:
+					clear = false
+		var rooms := _rooms()
+		if not rooms.is_empty() and _seg_dist(_landmark_at, _nodes[LANDING], _nodes[rooms[0].id]) < size_v.length() * 0.5 + 30.0:
+			clear = false
+		if clear:
+			_landmark_foot = foot
+			return
+		_landmark_at.y -= 16.0
+
+
+func _build_profile_scenery() -> void:
+	if not _landmark_foot.has_area():
+		return
+	var landmark := Art.world_landmark(rid, int(_profile.get("landmarkVariant", 0)))
+	if not landmark.is_empty():
+		var s := Sprite2D.new()
+		s.name = "LocationLandmark"
+		s.centered = false
+		s.texture = landmark.tex
+		s.offset = -landmark.anchor
+		s.position = _landmark_at
+		s.set_meta("composition", _profile.get("compositionId", loc_id))
+		stage.add_child(s)
+		# The explicit Fit action includes the destination's skyline; normal
+		# walking still follows the party at its existing close-up scale.
+		var scenic_rect := Rect2(_landmark_at - landmark.anchor, landmark.tex.get_size())
+		_focus = _focus.merge(scenic_rect.grow(12.0))
+		_bounds = _bounds.merge(scenic_rect.grow(20.0))
+	for piece in _profile.get("setPieces", []):
+		if not (piece is Array) or piece.size() < 4:
+			continue
+		var p := Vector2(float(piece[1]), float(piece[2]))
+		var c := coast.cell_at(p)
+		if coast.level(c) < Coast.HIGH or _walk.has(c) or _landmark_foot.grow(12.0).has_point(p):
+			continue
+		var clear := true
+		for id in _nodes:
+			if p.distance_to(_nodes[id]) < 58.0:
+				clear = false
+		for a in _edges:
+			for b in _edges[a]:
+				if _seg_dist(p, _nodes[a], _nodes[b]) < 30.0:
+					clear = false
+		if not clear:
+			continue
+		if _prop(String(piece[0]), p + Vector2(0, 8), bool(piece[3])) != null:
+			_scenery_reserved[c] = true
+			if String(piece[0]) == "brazier":
+				_light(p + Vector2(0, -18), Color.html(String(SceneProfiles.region(rid).get("warm_light", "#ffcc7a"))), 0.65)
 
 
 ## Continuous cell coordinates of the ground under a world point (the
@@ -435,6 +535,11 @@ func _make_coast() -> Coast:
 		var g := _gp(_nodes[id])
 		lo = Vector2(minf(lo.x, g.x), minf(lo.y, g.y))
 		hi = Vector2(maxf(hi.x, g.x), maxf(hi.y, g.y))
+	if _landmark_foot.has_area():
+		for p in [_landmark_foot.position, _landmark_foot.end]:
+			var g := _gp(p)
+			lo = Vector2(minf(lo.x, g.x), minf(lo.y, g.y))
+			hi = Vector2(maxf(hi.x, g.x), maxf(hi.y, g.y))
 	var rect := Rect2i(Vector2i(floori(lo.x) - 18, floori(lo.y) - 18), Vector2i(ceili(hi.x - lo.x) + 37, ceili(hi.y - lo.y) + 37))
 	cs.setup(rect, U.hash32("coast:" + loc_id))
 	cs.use_region(rid)
@@ -536,6 +641,22 @@ func _make_coast() -> Coast:
 	_gull_stacks = []
 	if loc_id == "gull_rock":
 		_author_gull_rock(cs, centre)
+	# Authored coastline accents precede the protected walk core below.
+	var authored_coast: Dictionary = _profile.get("coast", {})
+	for shape in authored_coast.get("lobes", []):
+		if shape is Array and shape.size() >= 3:
+			var cg := _gp(Vector2(float(shape[0]), float(shape[1])))
+			if _clear_of_lane(cg, float(shape[2])):
+				cs.add_disk(cg, float(shape[2]))
+	for shape in authored_coast.get("cuts", []):
+		if shape is Array and shape.size() >= 3:
+			cs.cut_disk(_gp(Vector2(float(shape[0]), float(shape[1]))), float(shape[2]))
+	if _landmark_foot.has_area():
+		cs.add_disk(_gp(_landmark_at), 4.0)
+		for y in range(cs.rect.position.y, cs.rect.end.y):
+			for x in range(cs.rect.position.x, cs.rect.end.x):
+				if _landmark_foot.grow(8.0).has_point(Art.iso(x, y) - Vector2(0, 8)):
+					cs.force_land(Vector2i(x, y))
 	# the jetty, its flanks and the boat lane
 	var lc := _landing_cell()
 	for k in range(1, 5):
@@ -676,7 +797,10 @@ func _place_props() -> void:
 			break
 		var c := coast.cell_of(i)
 		var l := coast.level(c)
-		if l == Coast.WATER or coast.is_built(c) or _walk.has(c) or coast.paint_names.has(c):
+		if l == Coast.WATER or coast.is_built(c) or _walk.has(c) or coast.paint_names.has(c) or _scenery_reserved.has(c):
+			continue
+		var ground_point := Art.iso(c.x, c.y) + Vector2(0, -coast.lift(c))
+		if _landmark_foot.has_area() and _landmark_foot.grow(24.0).has_point(ground_point):
 			continue
 		var h := Coast.ihash(c.x, c.y, salt) % 1000
 		var at := Art.iso(c.x, c.y) + Vector2(float(h % 7) - 3.0, float((h / 7) % 5) - 2.0)
@@ -759,6 +883,117 @@ func _light(at: Vector2, color: Color, scale_f: float) -> void:
 	add_child(lp)
 
 
+## Two batched scenic meshes soften water-depth steps and add small wet
+## sand tongues at exposed beach edges. This never edits Coast's cells,
+## room pads, walking graph or the protected boat approach.
+func _build_shore_detail() -> void:
+	for node in _shore_nodes:
+		if is_instance_valid(node):
+			node.queue_free()
+	_shore_nodes.clear()
+	if kind == "dungeon":
+		return
+	var region: Dictionary = C.region(rid)
+	var palette: Dictionary = region.get("palette", {})
+	var deep := Color.html(String(palette.get("deep", "#2a6fae")))
+	var sea_color := Color.html(String(palette.get("sea", "#3a8fd0")))
+	var sand := Color.html(String(palette.get("land", "#e9d58f")))
+	var detail := shore_detail_data(coast, deep, sea_color, sand)
+	for entry in [["water", -20], ["shore", -10]]:
+		var key := String(entry[0])
+		var vertices: PackedVector3Array = detail[key + "_vertices"]
+		if vertices.is_empty():
+			continue
+		var arrays := []
+		arrays.resize(Mesh.ARRAY_MAX)
+		arrays[Mesh.ARRAY_VERTEX] = vertices
+		arrays[Mesh.ARRAY_COLOR] = detail[key + "_colors"]
+		arrays[Mesh.ARRAY_INDEX] = detail[key + "_indices"]
+		var mesh := ArrayMesh.new()
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+		var node := MeshInstance2D.new()
+		node.name = "NaturalDepth" if key == "water" else "WetShoreFragments"
+		node.mesh = mesh
+		node.z_index = int(entry[1])
+		add_child(node)
+		_shore_nodes.append(node)
+	for point in detail.rocks:
+		var rock := _prop("sea_rock_s", point, true, -1.0)
+		if rock != null:
+			_shore_nodes.append(rock)
+
+
+static func _shore_protected(cs: Coast, c: Vector2i) -> bool:
+	for y in range(-2, 3):
+		for x in range(-2, 3):
+			if cs.is_forced(c + Vector2i(x, y)):
+				return true
+	return false
+
+
+## Distance to the actual coast drives the water colour at shared tile
+## corners. A slow seeded shelf variation bends long depth boundaries;
+## neighbour interpolation removes the old one-tone-per-diamond jump.
+static func shore_detail_data(cs: Coast, deep: Color, sea_color: Color, sand: Color) -> Dictionary:
+	var out := {"water_vertices": PackedVector3Array(), "water_colors": PackedColorArray(),
+		"water_indices": PackedInt32Array(), "shore_vertices": PackedVector3Array(),
+		"shore_colors": PackedColorArray(), "shore_indices": PackedInt32Array(), "rocks": []}
+	var shelf := FastNoiseLite.new()
+	shelf.seed = cs.seed + 217
+	shelf.frequency = 0.105
+	var shallow := sea_color.lerp(sand, 0.16).lightened(0.12)
+	var fragments := 0
+	for i in cs.lvl.size():
+		var c := cs.cell_of(i)
+		if _shore_protected(cs, c):
+			continue
+		if cs.lvl[i] == Coast.WATER and float(cs.dist[i]) < 8.0:
+			var first: int = out.water_vertices.size()
+			for corner in [Vector2(-0.5, -0.5), Vector2(0.5, -0.5), Vector2(0.5, 0.5), Vector2(-0.5, 0.5)]:
+				var g: Vector2 = Vector2(c) + corner
+				var distance := 0.0
+				for oy in [0, 1]:
+					for ox in [0, 1]:
+						var sample_cell := Vector2i(floori(g.x) + ox, floori(g.y) + oy)
+						var index := cs.idx(sample_cell)
+						distance += minf(8.0, float(cs.dist[index])) if index >= 0 and cs.lvl[index] == Coast.WATER else 0.0
+				distance = distance * 0.25 + shelf.get_noise_2dv(g) * 0.8
+				var depth := smoothstep(0.1, 7.5, distance)
+				var colour := shallow.lerp(sea_color, smoothstep(0.0, 0.5, depth)).lerp(deep, smoothstep(0.28, 1.0, depth))
+				colour.a = 0.76 * (1.0 - smoothstep(6.0, 8.0, distance))
+				var p := Art.iso(g.x, g.y)
+				out.water_vertices.append(Vector3(p.x, p.y, 0))
+				out.water_colors.append(colour)
+			for index in [0, 1, 2, 0, 2, 3]:
+				out.water_indices.append(first + index)
+		elif cs.lvl[i] != Coast.WATER:
+			var h := Coast.ihash(c.x, c.y, cs.seed + 911)
+			for direction in [Vector2i(1, 0), Vector2i(0, 1)]:
+				var water_cell: Vector2i = c + direction
+				if cs.level(water_cell) != Coast.WATER or _shore_protected(cs, water_cell):
+					continue
+				var centre := Art.iso(c.x, c.y)
+				var a := centre + (Vector2(0, 8) if direction.x else Vector2(-16, 0))
+				var b := centre + (Vector2(16, 0) if direction.x else Vector2(0, 8))
+				if cs.lvl[i] == Coast.LOW and fragments < 72 and h % 100 < 58:
+					var normal := Vector2(0.45 if direction.x else -0.45, 0.9)
+					var reach := 2.0 + float(h % 4)
+					var points := [a.lerp(b, 0.12) - Vector2(0, 3), a.lerp(b, 0.2) + normal,
+						a.lerp(b, 0.45) + normal * reach, a.lerp(b, 0.72) + normal * (reach - 1.0),
+						a.lerp(b, 0.92), a.lerp(b, 0.85) - Vector2(0, 3)]
+					var first: int = out.shore_vertices.size()
+					for point in points:
+						var p: Vector2 = point.round()
+						out.shore_vertices.append(Vector3(p.x, p.y, 0))
+						out.shore_colors.append(sand.lerp(sea_color, 0.24))
+					for j in range(1, points.size() - 1):
+						out.shore_indices.append_array(PackedInt32Array([first, first + j, first + j + 1]))
+					fragments += 1
+				elif h % 47 == 0 and out.rocks.size() < 12:
+					out.rocks.append(a.lerp(b, 0.48).round() + Vector2(0, 3))
+	return out
+
+
 # ================================================================== rooms
 func _build_rooms() -> void:
 	for id in _room_vis:
@@ -816,9 +1051,11 @@ func _update_room(id: String) -> void:
 	ring.modulate = Color(1, 1, 1, 0.5 if state == "locked" else 1.0)
 	vis.icon.visible = state != "cleared"
 	vis.icon.modulate = Color(1, 1, 1, 0.45) if state != "open" else Color.WHITE
-	if vis.state == state:
+	var preparation_active := bool(World.preparation(st, loc_id).get("active", false))
+	if vis.state == state and bool(vis.get("preparation_active", false)) == preparation_active:
 		return
 	vis.state = state
+	vis["preparation_active"] = preparation_active
 	for n in vis.obj:
 		if is_instance_valid(n):
 			n.queue_free()
@@ -861,7 +1098,7 @@ func _update_room(id: String) -> void:
 
 
 func _preview_enemies(id: String) -> Array:
-	var def := World.encounter_for(loc_id, id, {})
+	var def := World.encounter_for_state(st, loc_id, id, {})
 	var out := []
 	if def.waves.size():
 		var last: Array = def.waves[def.waves.size() - 1]
@@ -1162,7 +1399,24 @@ func _room_tip(id: String) -> String:
 			lines.append(I18n.t("err.need_explorer"))
 		_:
 			lines.append(I18n.t("site.cost", {"n": rm.cost}))
+	var preparation := _preparation_text(id)
+	if not preparation.is_empty():
+		lines.append(preparation)
 	return "\n".join(lines)
+
+
+## The optional western detour affects this ruin only. The same stateful
+## definition supplies both the visible threat preview and Actions entry.
+func _preparation_text(id: String) -> String:
+	var preparation := World.preparation(st, loc_id)
+	if preparation.is_empty():
+		return ""
+	var room = C.room(loc_id, id)
+	var branch := id == String(preparation.room)
+	if not branch and (room == null or not BATTLE_KINDS.has(String(room.kind))):
+		return ""
+	var status := "active" if bool(preparation.active) else ("branch" if branch else "inactive")
+	return I18n.t("site.prep.%s.%s" % [String(preparation.id), status])
 
 
 ## The moored rowboat is the way back to the ship.
@@ -1207,9 +1461,13 @@ func _click_room(id: String) -> void:
 			d.line("ui_lock", I18n.t("err.need_explorer"), "WarnLabel")
 	if state != "cleared":
 		d.line("stamina", I18n.t("site.cost", {"n": rm.cost}) + "  (" + I18n.t("home.stamina_value", {"n": st.ship.stamina, "max": st.ship.staminaMax}) + ")")
+	var preparation := _preparation_text(id)
+	if not preparation.is_empty():
+		var active := bool(World.preparation(st, loc_id).get("active", false))
+		d.line("ui_check" if active else "ui_info", preparation, "GoodLabel" if active else "DimLabel")
 	if BATTLE_KINDS.has(k) and state != "cleared":
 		var names := []
-		var def := World.encounter_for(loc_id, id, {})
+		var def := World.encounter_for_state(st, loc_id, id, {})
 		for w in def.waves:
 			for e in w:
 				var nm := I18n.t("enemy.%s.name" % e.enemyId)
@@ -1294,10 +1552,13 @@ func _build_ui() -> void:
 
 
 ## Keeps the site title clear of the (UI-scaled) HUD strip and objective.
-func set_hud_insets(_top_bar: float, chips: float, _bottom: float) -> void:
+func set_hud_insets(_top_bar: float, chips: float, bottom: float) -> void:
 	_inset_chips = chips
+	_inset_bottom = bottom
 	if _info_panel != null and is_instance_valid(_info_panel):
 		_info_panel.offset_top = maxf(44.0, chips + 4.0)
+	if _fit_active:
+		fit_view.call_deferred()
 
 
 func _update_ui() -> void:
@@ -1321,6 +1582,7 @@ func _process(delta: float) -> void:
 	if pan != Vector2.ZERO:
 		var f := get_viewport().gui_get_focus_owner()
 		if f == null or not (f is LineEdit):
+			_fit_active = false
 			cam.position += pan * 240.0 * delta / cam.zoom.x
 			_clamp_cam()
 	for id in _room_vis:
@@ -1331,7 +1593,7 @@ func _process(delta: float) -> void:
 			vis.ring.modulate.a = 0.65 + 0.35 * sin(_t * 4.0)
 		if id == _hover:
 			vis.ring.modulate.a = 1.0
-	if busy and _party.size():
+	if busy and _party.size() and not _fit_active:
 		# Keep the walking party in view.
 		cam.position = cam.position.lerp(_party[0].position + Vector2(30, -10), clampf(delta * 2.0, 0.0, 1.0))
 		_clamp_cam()
@@ -1370,39 +1632,127 @@ func _idle_life(delta: float) -> void:
 		s.look = true
 
 
-## Shows the whole site (every room node) in the screen area below the
-## HUD chips, at the largest zoom that fits.
-func fit_view() -> void:
+## Common content envelope: room icons bob up to 54px above their node;
+## party silhouettes, enemy previews and selection rings extend beyond
+## the contact points. The return boat is an interaction, too.
+static func content_rect(nodes: Dictionary, landmark_rect: Rect2, berth: Vector2) -> Rect2:
+	var rect := Rect2()
+	var first := true
+	for point in nodes.values():
+		var node_box := Rect2((point as Vector2) + Vector2(-70, -58), Vector2(148, 106))
+		rect = node_box if first else rect.merge(node_box)
+		first = false
+	if landmark_rect.has_area():
+		rect = landmark_rect if first else rect.merge(landmark_rect)
+		first = false
+	if is_finite(berth.x) and is_finite(berth.y):
+		var boat_box := Rect2(berth + Vector2(-42, -26), Vector2(84, 54))
+		rect = boat_box if first else rect.merge(boat_box)
+	return rect.grow(10.0)
+
+
+## Camera2D is centred on the viewport, not on the HUD-free rectangle.
+## Solve both scale and position in the same coordinate system.
+static func frame_plan(rect: Rect2, viewport: Vector2, safe: Rect2) -> Dictionary:
+	var free := safe.intersection(Rect2(Vector2.ZERO, viewport))
+	if free.size.x < 16.0 or free.size.y < 16.0:
+		free = Rect2(Vector2(4, 4), (viewport - Vector2(8, 8)).max(Vector2(16, 16)))
+	var size_v := rect.size.max(Vector2.ONE)
+	var limit := minf(free.size.x / size_v.x, free.size.y / size_v.y)
+	var zoom := minf(float(ZOOMS[0]), limit)
+	for step in ZOOMS:
+		if float(step) <= limit:
+			zoom = float(step)
+	zoom = maxf(0.0001, zoom)
+	return {"zoom": zoom, "position": rect.get_center() - (free.get_center() - viewport * 0.5) / zoom,
+		"free": free, "content": rect}
+
+
+func _free_view_rect() -> Rect2:
 	var vp := get_viewport_rect().size
-	var top := clampf(_inset_chips + 4.0, 0.0, vp.y * 0.4)
-	var free := Rect2(Vector2(0, top), Vector2(vp.x, maxf(64.0, vp.y - top - 34.0)))
-	var r := _focus.grow(-20.0)
-	var zi := 0
+	var top := _inset_chips + 4.0
+	var bottom := maxf(34.0, _inset_bottom + 4.0)
+	var free := Rect2(Vector2(4, top), Vector2(maxf(16.0, vp.x - 8.0), maxf(16.0, vp.y - top - bottom)))
+	if main != null and main.has_method("_free_screen"):
+		free = main._free_screen().intersection(Rect2(Vector2.ZERO, vp)).grow(-4.0)
+	if _info_panel != null and is_instance_valid(_info_panel) and _info_panel.visible:
+		var title_bottom := _info_panel.get_global_rect().end.y + 4.0
+		var old_bottom := free.end.y
+		free.position.y = maxf(free.position.y, title_bottom)
+		free.size.y = maxf(16.0, old_bottom - free.position.y)
+	return free
+
+
+func _content_rect() -> Rect2:
+	var landmark_rect := Rect2()
+	var landmark := stage.get_node_or_null("LocationLandmark") as Sprite2D
+	if landmark != null:
+		landmark_rect = landmark.transform * landmark.get_rect()
+	var rect := content_rect(_nodes, landmark_rect, _boat_berth())
+	# A Fit clicked during landing also includes the moving party and boat.
+	for actor in _all_ashore():
+		if is_instance_valid(actor) and actor.visible:
+			rect = rect.merge(actor.pick_rect().grow(8.0))
+	if _boat_back != null and is_instance_valid(_boat_back):
+		rect = rect.merge(Rect2(_boat_back.position + Vector2(0, RowBoat.SORT_OFF) - Vector2(42, 26), Vector2(84, 54)))
+	return rect
+
+
+func _center_current_room() -> void:
+	if not _nodes.has(_here):
+		return
+	var free := _free_view_rect()
+	cam.position = (_nodes[_here] as Vector2) + Vector2(0, -6) - (free.get_center() - get_viewport_rect().size * 0.5) / cam.zoom.x
+
+
+## Overview includes complete scenery and interactions, at the largest
+## supported step which fits. A very small viewport can fit below 0.25x.
+func fit_view() -> void:
+	if _nodes.is_empty():
+		return
+	_fit_active = true
+	var plan := frame_plan(_content_rect(), get_viewport_rect().size, _free_view_rect())
+	cam.zoom = Vector2.ONE * float(plan.zoom)
+	cam.position = plan.position
+	_zoom_i = 0
 	for i in ZOOMS.size():
-		var zf: float = ZOOMS[i]
-		if r.size.x * zf <= free.size.x and r.size.y * zf <= free.size.y:
-			zi = i
-	_zoom_i = zi
-	var z: float = ZOOMS[zi]
-	cam.zoom = Vector2.ONE * z
-	cam.position = r.get_center() - (free.get_center() - vp * 0.5) / z
-	_clamp_cam()
+		if float(ZOOMS[i]) <= cam.zoom.x + 0.0001:
+			_zoom_i = i
+	# Do not clamp the solved centre back into the interactive-node bounds:
+	# its offset is precisely what reserves the HUD/title safe area.
+	if not _sea_info.is_empty() and not _sea_cover.encloses(_needed_sea_cover()):
+		_fill_sea()
+	cam.force_update_scroll()
 
 
 func zoom_step(dir: int, at_mouse := true) -> void:
-	var ni := clampi(_zoom_i + dir, 0, ZOOMS.size() - 1)
-	if ni == _zoom_i:
+	var ni := -1
+	if dir > 0:
+		for i in ZOOMS.size():
+			if float(ZOOMS[i]) > cam.zoom.x + 0.0001:
+				ni = i
+				break
+	else:
+		for i in range(ZOOMS.size() - 1, -1, -1):
+			if float(ZOOMS[i]) < cam.zoom.x - 0.0001:
+				ni = i
+				break
+	if ni < 0:
 		return
+	_fit_active = false
 	var before := get_global_mouse_position()
 	_zoom_i = ni
 	cam.zoom = Vector2.ONE * ZOOMS[_zoom_i]
 	if at_mouse:
 		cam.position += before - get_global_mouse_position()
 	_clamp_cam()
+	if not _sea_info.is_empty() and not _sea_cover.encloses(_needed_sea_cover()):
+		_fill_sea()
 
 
 func zoom_label() -> String:
-	return "×%d" % int(ZOOMS[_zoom_i])
+	var zoom := cam.zoom.x
+	return "×%d" % int(roundf(zoom)) if zoom >= 1.0 else "×1/%d" % int(roundf(1.0 / zoom))
 
 
 func _clamp_cam() -> void:
@@ -1440,6 +1790,7 @@ func _unhandled_input(ev: InputEvent) -> void:
 	elif ev is InputEventMouseMotion:
 		var mm := ev as InputEventMouseMotion
 		if _drag:
+			_fit_active = false
 			cam.position -= mm.relative / cam.zoom.x
 			_drag_moved += mm.relative.length()
 			_clamp_cam()

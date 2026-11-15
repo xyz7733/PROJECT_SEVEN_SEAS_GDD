@@ -588,6 +588,70 @@ def i_mess_table(kv, c):
     c.light(lantern(kv, 8, 8, F + 13))
 
 
+def i_chart_desk(kv, c):
+    """Chart-room focus: sloped map desk, drawers, compass and brass lamp."""
+    for x in (2, 12):
+        fbox(kv, x, 3, F, x + 2, 13, F + 8, W["d"])
+    fbox(kv, 1, 2, F + 8, 15, 13, F + 10, W["dd"])
+    fbox(kv, 2, 3, F + 10, 13, 11, F + 11, P["parch"])
+    for x, y in ((4, 5), (5, 6), (6, 6), (8, 8), (9, 7), (10, 6)):
+        fbox(kv, x, y, F + 11, x + 2, y + 1, F + 12, P["teal"])
+    fring(kv, 10, 8, F + 11, F + 12, 1.2, 2.2, P["brass"], GLOSS)
+    fbox(kv, 3, 12, F + 3, 11, 14, F + 7, W["m"])
+    fbox(kv, 6, 14, F + 4, 8, 15, F + 5, P["brass"])
+    c.light(lantern(kv, 13, 3, F + 11))
+
+
+def i_reading_bench(kv, c):
+    """Warm upholstered window-seat with an open book and personal effects."""
+    for x in (2, 12):
+        fbox(kv, x, 2, F, x + 2, 12, F + 5, W["dd"])
+    fbox(kv, 1, 2, F + 5, 15, 12, F + 7, P["navy_d"])
+    fbox(kv, 1, 1, F + 7, 15, 3, F + 16, W["d"])
+    fbox(kv, 2, 3, F + 7, 14, 11, F + 9, P["teal"])
+    fbox(kv, 2, 3, F + 9, 6, 6, F + 10, P["cream"])
+    fbox(kv, 8, 7, F + 9, 14, 10, F + 10, P["paper"])
+    fbox(kv, 10, 7, F + 10, 11, 10, F + 11, P["gold_d"])
+    fbox(kv, 1, 3, F + 7, 2, 12, F + 11, W["l"])
+    fbox(kv, 14, 3, F + 7, 15, 12, F + 11, W["l"])
+
+
+def i_galley_dresser(kv, c):
+    """Cook's dresser, distinct from a cargo shelf: tiled top and copperware."""
+    fbox(kv, 1, 1, F, 15, 7, F + 10, W["m"], SEAM_SIDE)
+    for x in (3, 10):
+        fbox(kv, x, 7, F + 3, x + 3, 8, F + 4, P["brass"])
+    fbox(kv, 0, 1, F + 10, 16, 8, F + 11, P["cream"])
+    for x in range(1, 16, 4):
+        fbox(kv, x, 1, F + 10, x + 1, 8, F + 11, P["teal"])
+    fbox(kv, 1, 0, F + 12, 15, 2, F + 14, W["d"])
+    for x in (3, 7, 11):
+        fbox(kv, x, 1, F + 14, x + 1, 2, F + 21, W["iron"])
+        fcyl(kv, x, 2, F + 15, F + 18, 1.7, P["orange"], GLOSS)
+    barrel(kv, 4, 12, 7, 2.7, wood=W["d"], hoop=W["iron"])
+    fbox(kv, 9, 10, F, 15, 15, F + 4, W["dd"])
+    for x in (10, 12, 14):
+        fball(kv, x, 12, F + 4, 1.6, P["green"])
+
+
+def i_medicine_cabinet(kv, c):
+    """Sea-green medicine drawers and a glass-front bottle cabinet."""
+    fbox(kv, 1, 1, F, 15, 7, F + 9, P["teal"], SEAM_SIDE)
+    for z in (F + 3, F + 7):
+        fbox(kv, 2, 7, z, 14, 8, z + 1, P["cream"])
+        for x in (4, 10):
+            fbox(kv, x, 8, z, x + 2, 9, z + 1, P["brass"])
+    fbox(kv, 1, 0, F + 9, 15, 5, F + 21, P["cream"])
+    fbox(kv, 2, 1, F + 11, 14, 5, F + 19, P["navy_d"])
+    for x in (3, 7, 11):
+        fcyl(kv, x, 3, F + 11, F + 16, 1.0, P["mint"], GLOSS)
+        fbox(kv, x - 1, 2, F + 16, x + 1, 4, F + 17, W["rope"])
+    fbox(kv, 7, 4, F + 10, 8, 6, F + 20, P["cream"])
+    fbox(kv, 10, 10, F, 15, 15, F + 5, P["white"])
+    fbox(kv, 11, 11, F + 5, 14, 14, F + 6, P["red"])
+    fbox(kv, 12, 10, F + 5, 13, 15, F + 6, P["red"])
+
+
 ITEMS = {
     # name: (builder, themes, placement class, chore)
     # placement: "gun" (gun deck ports only), "wall" (against a wall),
@@ -615,10 +679,14 @@ ITEMS = {
     "lumber": (i_lumber, ("hold", "orlop"), "low", True),
     "coop": (i_coop, ("hold",), "bay", True),
     "pump": (i_pump, ("hold",), "wall", True),
-    "partition": (i_partition, ("orlop", "hold"), "frame", False),
-    "partition_end": (i_partition_end, ("orlop", "hold"), "frame", False),
+    "partition": (i_partition, ("lower", "orlop", "hold"), "frame", False),
+    "partition_end": (i_partition_end, ("lower", "orlop", "hold"), "frame", False),
     "pillar": (i_pillar, ("lower", "orlop", "hold"), "post", False),
     "mess_table": (i_mess_table, ("lower",), "mid", True),
+    "chart_desk": (i_chart_desk, ("lower", "orlop"), "wall", True),
+    "reading_bench": (i_reading_bench, ("lower", "orlop"), "wall", False),
+    "galley_dresser": (i_galley_dresser, ("lower", "orlop"), "wall", True),
+    "medicine_cabinet": (i_medicine_cabinet, ("lower", "orlop"), "wall", True),
 }
 
 
@@ -780,9 +848,30 @@ def runner(mask, kind):
 
 
 def patch(kind):
-    rng = np.random.default_rng({"straw": 3, "stain": 5, "scuff": 9, "sand": 11, "boards": 13, "grate": 17}[kind])
+    rng = np.random.default_rng({"straw": 3, "stain": 5, "scuff": 9, "sand": 11, "boards": 13, "grate": 17,
+                                 "cabin": 19, "mess": 23, "work": 29, "pantry": 31}[kind])
 
     def paint(v):
+        if kind in ("cabin", "mess", "work", "pantry"):
+            colours = {
+                "cabin": (hexrgb("#517a7c"), hexrgb("#668b89"), hexrgb("#d7bf83")),
+                "mess": (hexrgb("#d8c6a0"), hexrgb("#bc9568"), hexrgb("#765940")),
+                "work": (hexrgb("#a2927a"), hexrgb("#94836c"), hexrgb("#665743")),
+                "pantry": (hexrgb("#bd9e6a"), hexrgb("#b39360"), hexrgb("#8b704d")),
+            }
+            base, alt, line = colours[kind]
+            for x in range(CELL):
+                for y in range(CELL):
+                    if kind == "mess":
+                        col = base if (x // 4 + y // 4) % 2 == 0 else alt
+                    elif kind == "cabin":
+                        col = line if x in (0, CELL - 1) or y in (0, CELL - 1) else base
+                        if 5 <= x <= 10 and 5 <= y <= 10 and abs(x - 8) + abs(y - 8) == 3:
+                            col = alt
+                    else:
+                        col = line if y % 4 == 3 else (base if (x // 8 + y // 4) % 2 == 0 else alt)
+                    v.put(x, y, F, col, NOSHADOW)
+            return
         if kind == "boards":
             # two replacement boards, paler than the old deck
             for (y0, n) in ((3 + int(rng.integers(0, 3)), 0), (9 + int(rng.integers(0, 3)), 1)):
@@ -861,7 +950,7 @@ def main():
             crop, off = runner(mask, kind)
             pk.add(f"{kind}:{mask}", crop, off=off)
             table[kind][str(mask)] = {"key": f"{kind}:{mask}"}
-    for kind in ("straw", "stain", "scuff", "sand", "boards", "grate"):
+    for kind in ("straw", "stain", "scuff", "sand", "boards", "grate", "cabin", "mess", "work", "pantry"):
         crop, off = patch(kind)
         pk.add(f"patch:{kind}", crop, off=off)
         table["patch"][kind] = {"key": f"patch:{kind}"}
@@ -881,7 +970,7 @@ def main():
     fill(table)
     save_json(table, OUT / "ship" / "dressing.json")
     record((OUT / "ship" / "dressing.png").relative_to(GAME.parent), f"{size[0]}x{size[1]} atlas",
-           f"{len(ITEMS)} items x 2 rotations + shadows, 2 fences, 32 runner/duckboard masks, 6 floor patches",
+           f"{len(ITEMS)} items x 2 rotations + shadows, 2 fences, 32 runner/duckboard masks, 10 floor patches",
            "voxel models (lib/vox.py) at ship scale; shadows derived from a floor-slab render",
            "Interior dressing placed around the routes by scripts/view/ship_dress.gd")
     # preview sheet: each item on a floor diamond with its shadow

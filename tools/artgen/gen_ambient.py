@@ -234,6 +234,91 @@ def butterfly_frames():
     return [a, b]
 
 
+def sea_bird_frames(kind):
+    """Small but different readable wing plans: tern, swift, albatross."""
+    widths = {"tern": 17, "swift": 15, "albatross": 25}
+    w = widths[kind]
+    mid = w // 2
+    out = []
+    for pose in range(4):
+        a = blank(w, 9)
+        body = (236, 234, 215, 255) if kind != "swift" else (63, 67, 87, 255)
+        edge = (96, 112, 131, 255) if kind != "swift" else (39, 44, 65, 255)
+        for x in range(1, mid):
+            distance = mid - x
+            bend = (distance * (2 - pose)) // max(2, mid // 2)
+            y = max(0, min(8, 4 - bend))
+            for sx in (mid - distance, mid + distance):
+                put(a, sx, y, edge if distance >= mid - 2 else body)
+                if distance < mid - 2:
+                    put(a, sx, min(8, y + 1), body)
+        hline(a, mid - 2, mid + 2, 4, body)
+        hline(a, mid - 1, mid + 3, 5, body)
+        put(a, mid + 4, 5, (220, 162, 77, 255))
+        if kind == "tern":
+            put(a, mid + 1, 3, edge)
+            put(a, mid - 3, 5, body)
+            put(a, mid - 4, 6, body)
+        if kind == "swift":
+            put(a, mid - 3, 4, edge)
+            put(a, mid - 4, 3, edge)
+            put(a, mid - 4, 5, edge)
+        out.append(a)
+    return out
+
+
+def coloured_fish_frames(back, belly):
+    out = []
+    for frame in fish_frames():
+        a = frame.copy()
+        a[np.all(a == (86, 132, 176, 255), axis=2)] = back
+        a[np.all(a == (214, 228, 236, 255), axis=2)] = belly
+        out.append(a)
+    return out
+
+
+def moth_frames(glass=False):
+    """Broad triangular moth and narrow clear-wing butterfly, two poses."""
+    out = []
+    for pose in range(2):
+        a = blank(7, 6)
+        wing = (208, 226, 247, 180) if glass else (225, 211, 178, 255)
+        tip = (130, 171, 200, 230) if glass else (122, 104, 143, 255)
+        for side in (-1, 1):
+            for y in range(4):
+                span = (3 - y // 2) if not pose else 1
+                for dx in range(1, span + 1):
+                    put(a, 3 + side * dx, y, wing)
+                put(a, 3 + side * span, y, tip)
+            put(a, 3 + side * (2 if not pose else 1), 1, WHITE)
+        for y in range(1, 5):
+            put(a, 3, y, (70, 68, 91, 255))
+        put(a, 2, 0, tip)
+        put(a, 4, 0, tip)
+        out.append(a)
+    return out
+
+
+def mote_frames(kind):
+    out = []
+    for frame in range(4):
+        a = blank(5, 5)
+        if kind == "moon":
+            points = [(2, 0), (1, 1), (1, 2), (2, 3), (3, 3)]
+            col = (193, 211, 244, 255)
+        elif kind == "prism":
+            points = [(2, 0), (1, 1), (2, 2), (3, 1)]
+            col = (192, 239, 236, 255)
+        else:
+            points = [(2, 1), (1, 2), (2, 2), (3, 2), (2, 3)]
+            col = (250, 218, 143, 255)
+        for i, p in enumerate(points):
+            if frame in (1, 2) or i % 2 == frame % 2:
+                put(a, p[0], p[1], col)
+        out.append(a)
+    return out
+
+
 # ---------------------------------------------------------- cloud shadow
 def cloud_shadow(seed, w, h):
     """A cloud's shadow at world scale: a union of ellipses with a crisp,
@@ -276,6 +361,17 @@ SPRITES = [
     ("ripple", ripple_frames),
     ("spray", spray_frames),
     ("butterfly", butterfly_frames),
+    ("tern", lambda: sea_bird_frames("tern")),
+    ("swift", lambda: sea_bird_frames("swift")),
+    ("albatross", lambda: sea_bird_frames("albatross")),
+    ("fish_amber", lambda: coloured_fish_frames((193, 133, 77, 255), (246, 218, 151, 255))),
+    ("fish_teal", lambda: coloured_fish_frames((58, 137, 137, 255), (191, 231, 202, 255))),
+    ("fish_silver", lambda: coloured_fish_frames((131, 159, 186, 255), (237, 240, 232, 255))),
+    ("moth", moth_frames),
+    ("glasswing", lambda: moth_frames(True)),
+    ("mote_prism", lambda: mote_frames("prism")),
+    ("mote_moon", lambda: mote_frames("moon")),
+    ("mote_gold", lambda: mote_frames("gold")),
     ("cloud_a", lambda: cloud_shadow(3, 320, 160)),
     ("cloud_b", lambda: cloud_shadow(8, 248, 118)),
     ("cloud_c", lambda: cloud_shadow(21, 184, 92)),
@@ -305,10 +401,11 @@ def build():
     upscale_preview(atlas, 2).save(PREVIEW / "env_ambient.png")
     record("game/assets/gen/env/ambient.png", f"{W}x{H}",
            "gull x4 + shadow, glint x5, whitecap x6, fish x8, ripple x4, spray x5, butterfly x2, "
+           "3 regional birds x4, 3 regional fish x8, moth/glasswing x2, 3 motes x4, "
            "3 cloud shadows, window light",
            "pixel canvas (gen_ambient.py)",
            "ambient life in every stage: gulls, sea glints and whitecaps, leaping fish, bow spray, "
-           "butterflies, drifting cloud shadows, lit windows at night")
+           "regional seabirds, fish and insects, sparse local motes, drifting cloud shadows, lit windows at night")
     return meta
 
 

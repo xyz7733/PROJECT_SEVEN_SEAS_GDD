@@ -200,8 +200,14 @@ func _crew(b: VBoxContainer) -> void:
 	var txt := UIK.vbox([UIK.label(Fmt.crew_sub(s, m), "DimLabel"), UIK.label(I18n.t("crew.power", {"n": Rules.power(s, m)}), "GoldLabel")], 1)
 	b.add_child(UIK.hbox([holder, txt], 4))
 	var stats := Rules.member_stats(s, m)
-	b.add_child(UIK.label("%s %d  %s %d  %s %d  %s %d" % [I18n.t("stat.hp_short"), int(stats.hp), I18n.t("stat.atk_short"), int(stats.atk),
-		I18n.t("stat.def_short"), int(stats.def), I18n.t("stat.spd_short"), int(stats.spd)], ""))
+	# Keep each label with its value without making the narrow inspector
+	# scroll sideways in languages with longer stat abbreviations.
+	var stat_grid := UIK.grid(2, 3)
+	for key in ["hp", "atk", "def", "spd"]:
+		var stat := UIK.label("%s %d" % [I18n.t("stat.%s_short" % key), int(stats[key])])
+		stat.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		stat_grid.add_child(stat)
+	b.add_child(stat_grid)
 	var slot := Rules.slot_of(s, m.id)
 	b.add_child(UIK.label(I18n.t("lane." + Rules.lane_of_slot(slot)) if slot >= 0 else I18n.t("crew.reserve"), "DimLabel"))
 	var state_text := I18n.t("view.off_duty")
@@ -216,6 +222,7 @@ func _crew(b: VBoxContainer) -> void:
 		state_text = I18n.t("view.sleeping")
 	b.add_child(UIK.label(state_text, "WarnLabel" if m.injured else ""))
 	b.add_child(UIK.label(I18n.t("crew.traits") + ": " + ", ".join(m.traits.map(func(x): return I18n.t("trait." + x))), "DimLabel", true, 176))
+	b.add_child(UIK.attr_strip(m, 4))
 
 
 func _stair(b: VBoxContainer) -> void:

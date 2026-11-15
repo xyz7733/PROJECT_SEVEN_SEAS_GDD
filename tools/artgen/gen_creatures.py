@@ -101,7 +101,7 @@ def eyes(sc, x, y, p, gap=4, col=EYE, glow=None, big=False):
         else:
             sc.px(ex, y, col, FLAT)
             sc.px(ex, y + 1, col, FLAT)
-            sc.dot(sc.X(0) * 0 + ex + 0.0, y, (255, 255, 255), SHINE) if big else None
+            sc.dot(ex, y, (255, 246, 221), FLAT) if big else None
 
 
 # ----------------------------------------------------------- body plans ----
@@ -620,6 +620,311 @@ EXPANSION_RARES = {
 }
 
 
+# Explicit anatomy and regalia per boss. These additions are designed in the
+# same 32px space as the body plans, and therefore remain compatible with all
+# existing 48px frame rectangles and foot anchors. Rear features are drawn
+# before the body; front features stay away from the facial expression.
+BOSS_IDENTITIES = {
+    "lookout_warden": "beacon_armour", "cellar_king": "salt_crown",
+    "vent_tyrant": "vent_wings", "forge_colossus": "forge_stack",
+    "shrine_tyrant": "shrine_flower", "root_mother": "root_canopy",
+    "vault_sentinel": "crystal_pikes", "refraction_queen": "mirror_fan",
+    "archive_keeper": "folio_guard", "family_patriarch": "crest_mantle",
+    "drowned_keeper": "drowned_lantern", "tempest_wyrm": "storm_fins",
+    "observatory_ghost": "orrery", "labyrinth_dreamer": "dream_mane",
+    "seal_guardian": "broken_seal", "trench_horror": "abyss_jaws",
+    "gut_leviathan": "reef_spines", "colossus_core": "coral_cage",
+    "gate_warden": "gate_wings", "compass_guardian": "compass_halo",
+    "harbor_leviathan": "shipwreck_back", "magma_hydra": "hydra_heads",
+    "spore_matriarch": "spore_crown", "prism_serpent": "prism_fins",
+    "gilded_kraken": "kraken_arms", "thunder_roc": "thunder_pinions",
+    "dream_eater": "eye_orbit", "void_angler": "angler_lure",
+    "world_serpent": "world_tree", "dawn_titan": "sun_dial",
+}
+
+
+def boss_identity(sc, p, pal_, key, rear):
+    identity = BOSS_IDENTITIES.get(key)
+    if identity is None:
+        return
+    b, a, l = pal_["body"], pal_["accent"], pal_["belly"]
+    bone, brass = "#e5d8b7", "#d9ad60"
+    # Wide regalia trail the body's strike by up to two design pixels. This
+    # also keeps their tips inside the established frame during a lunge.
+    x, y = 16 + min(p["lunge"], 1) - p["wind"], p["bob"]
+    if p["down"]:
+        if not rear:
+            # Fallen regalia retain identity without keeping standing horns.
+            sc.line(8, 27, 12, 25, a, LIGHT)
+            sc.px(10, 26, bone, SHINE)
+        return
+
+    if rear:
+        if identity == "beacon_armour":
+            sc.rect(x - 12, 8 + y, x - 8, 24 + y, b)
+            sc.rect(x - 13, 6 + y, x - 7, 9 + y, brass)
+            sc.rect(x - 11, 10 + y, x - 9, 13 + y, a, SHINE)
+            sc.line(x + 9, 10 + y, x + 12, 2 + y, bone, th=2)
+        elif identity == "salt_crown":
+            for dx, h in ((-8, 5), (-2, 8), (5, 6)):
+                sc.poly([(x + dx - 2, 16 + y), (x + dx, 16 - h + y), (x + dx + 2, 16 + y)], bone)
+        elif identity == "vent_wings":
+            for s in (-1, 1):
+                sc.poly([(x + s * 4, 14 + y), (x + s * 13, 3 + y), (x + s * 12, 20 + y),
+                         (x + s * 8, 16 + y)], b)
+                sc.line(x + s * 6, 12 + y, x + s * 11, 6 + y, a, LIGHT)
+        elif identity == "forge_stack":
+            for dx, top in ((-9, 2), (7, 5)):
+                sc.rect(x + dx, top + y, x + dx + 3, 18 + y, b)
+                sc.rect(x + dx - 1, top + y, x + dx + 4, top + 2 + y, l)
+                sc.line(x + dx, top + 1 + y, x + dx + 3, top + 1 + y, a, LIGHT)
+        elif identity in ("shrine_flower", "spore_crown"):
+            for dx, dy in ((-10, 7), (-6, 2), (0, 0), (7, 3), (11, 8)):
+                sc.line(x + dx, 20 + y, x + dx, dy + 6 + y, b, th=2)
+                if identity == "spore_crown":
+                    sc.ell(x + dx, dy + 5 + y, 4, 2.6, l)
+                    sc.px(x + dx - 1, dy + 4 + y, a, LIGHT)
+                else:
+                    sc.poly([(x + dx - 3, dy + 6 + y), (x + dx, dy + y),
+                             (x + dx + 3, dy + 6 + y)], a)
+        elif identity in ("root_canopy", "world_tree"):
+            for s in (-1, 1):
+                sc.line(x + s * 5, 23 + y, x + s * 9, 6 + y, b, th=2)
+                sc.line(x + s * 9, 7 + y, x + s * 13, 3 + y, b, th=2)
+                sc.ell(x + s * 10, 5 + y, 4, 2, a)
+                sc.ell(x + s * 6, 2 + y, 4, 2, a, LIGHT)
+            if identity == "world_tree":
+                sc.ell(x, 1 + y, 4, 2, a)
+        elif identity in ("crystal_pikes", "prism_fins"):
+            for dx, dy in ((-11, 6), (-7, 2), (7, 3), (11, 8)):
+                sc.poly([(x + dx - 2, 22 + y), (x + dx, dy + y), (x + dx + 3, 18 + y)], a)
+                sc.line(x + dx, dy + 2 + y, x + dx + 1, 16 + y, l, SHINE)
+        elif identity == "mirror_fan":
+            for dx, dy in ((-11, 9), (-8, 4), (-3, 1), (4, 2), (10, 7)):
+                sc.line(x, 20 + y, x + dx, dy + 3 + y, brass)
+                sc.poly([(x + dx, dy + y), (x + dx + 3, dy + 3 + y),
+                         (x + dx, dy + 6 + y), (x + dx - 2, dy + 3 + y)], l)
+        elif identity == "folio_guard":
+            sc.rect(x - 13, 7 + y, x - 6, 22 + y, "#744b43")
+            sc.rect(x - 12, 8 + y, x - 7, 21 + y, bone)
+            sc.line(x - 12, 12 + y, x - 7, 12 + y, brass)
+            sc.rect(x + 8, 5 + y, x + 11, 22 + y, "#744b43")
+            sc.line(x + 9, 7 + y, x + 9, 18 + y, brass)
+        elif identity == "crest_mantle":
+            sc.poly([(x - 8, 7 + y), (x + 8, 7 + y), (x + 13, 27 + y), (x - 13, 27 + y)], a)
+            for s in (-1, 1):
+                sc.ell(x + s * 8, 8 + y, 4, 2.5, brass)
+        elif identity == "drowned_lantern":
+            for dx, dy in ((-11, 7), (10, 12)):
+                sc.line(x + dx, 2 + y, x + dx, dy + y, brass)
+                sc.rect(x + dx - 2, dy + y, x + dx + 2, dy + 5 + y, brass)
+                sc.rect(x + dx - 1, dy + 1 + y, x + dx + 1, dy + 4 + y, a, SHINE)
+        elif identity == "storm_fins":
+            for s in (-1, 1):
+                sc.poly([(x, 18 + y), (x + s * 13, 4 + y), (x + s * 10, 15 + y),
+                         (x + s * 14, 14 + y), (x + s * 7, 25 + y)], b)
+                sc.line(x + s * 4, 16 + y, x + s * 10, 9 + y, a, LIGHT)
+        elif identity in ("orrery", "compass_halo", "eye_orbit", "sun_dial"):
+            sc.ell(x, 12 + y, 12, 10, brass if identity != "eye_orbit" else a)
+            sc.ell(x, 12 + y, 10, 8, None)
+            for angle in range(0, 360, 45 if identity != "sun_dial" else 30):
+                t = math.radians(angle)
+                dx, dy = math.cos(t), math.sin(t)
+                sc.line(x + dx * 11, 12 + y + dy * 9, x + dx * 14, 12 + y + dy * 12, a)
+            if identity == "eye_orbit":
+                for dx, dy in ((-12, 10), (9, 2), (10, 22)):
+                    sc.ell(x + dx, dy + y, 2, 1.5, l)
+                    sc.px(x + dx, dy + y, "#443050", FLAT)
+        elif identity == "dream_mane":
+            for s in (-1, 1):
+                for dx, dy in ((6, 8), (9, 12), (8, 18)):
+                    sc.poly([(x + s * 3, 16 + y), (x + s * (dx + 4), dy - 3 + y),
+                             (x + s * dx, dy + 5 + y)], a)
+        elif identity == "broken_seal":
+            for s in (-1, 1):
+                sc.poly([(x + s * 6, 2 + y), (x + s * 12, 8 + y), (x + s * 10, 25 + y),
+                         (x + s * 7, 23 + y), (x + s * 9, 9 + y)], l)
+                sc.px(x + s * 11, 12 + y, a, SHINE)
+        elif identity == "abyss_jaws":
+            for s in (-1, 1):
+                for dx, dy in ((8, 10), (11, 15), (10, 22)):
+                    sc.poly([(x + s * 3, dy + 3 + y), (x + s * (dx + 3), dy - 3 + y),
+                             (x + s * dx, dy + 5 + y)], bone)
+        elif identity in ("reef_spines", "coral_cage"):
+            for s in (-1, 1):
+                sc.line(x + s * 7, 26 + y, x + s * 11, 4 + y, a, th=2)
+                for dy in (8, 14, 20):
+                    sc.line(x + s * 10, dy + y, x + s * 14, dy - 3 + y, a, th=2)
+        elif identity == "gate_wings":
+            for s in (-1, 1):
+                sc.rect(x + s * 11 - 1, 3 + y, x + s * 11 + 1, 25 + y, bone)
+                sc.line(x + s * 7, 3 + y, x + s * 13, 3 + y, brass, th=2)
+                for dy in (10, 16, 22):
+                    sc.line(x + s * 8, dy + y, x + s * 11, dy + y, a)
+        elif identity == "shipwreck_back":
+            sc.line(x - 7, 16 + y, x - 7, 1 + y, "#8f6746", th=2)
+            sc.poly([(x - 6, 2 + y), (x + 3, 4 + y), (x - 6, 10 + y)], bone)
+            sc.line(x - 13, 22 + y, x + 11, 24 + y, "#8f6746", th=2)
+        elif identity == "hydra_heads":
+            for s in (-1, 1):
+                sc.line(x + s * 5, 24 + y, x + s * 9, 10 + y, b, th=3)
+                sc.ell(x + s * 10, 8 + y, 4, 3.5, b)
+                sc.ell(x + s * 11, 10 + y, 3, 1.5, l)
+                sc.px(x + s * 11, 7 + y, a, SHINE)
+                sc.poly([(x + s * 8, 6 + y), (x + s * 10, 1 + y), (x + s * 11, 6 + y)], a)
+        elif identity == "kraken_arms":
+            for s in (-1, 1):
+                for dx, dy in ((9, 10), (13, 17)):
+                    sc.line(x + s * 4, 23 + y, x + s * dx, dy + y, b, th=2)
+                    sc.line(x + s * dx, dy + y, x + s * (dx - 2), dy - 5 + y, b, th=2)
+                    sc.px(x + s * dx, dy - 1 + y, a, LIGHT)
+        elif identity == "thunder_pinions":
+            for s in (-1, 1):
+                for dx, dy in ((10, 4), (13, 9), (14, 15)):
+                    sc.poly([(x + s * 3, 17 + y), (x + s * dx, dy - p["wave"] + y),
+                             (x + s * (dx - 1), dy + 6 + y)], l)
+                    sc.line(x + s * 5, 15 + y, x + s * dx, dy + 1 + y, a)
+        elif identity == "angler_lure":
+            sc.line(x + 2, 12 + y, x + 2, 2 + y, a)
+            sc.line(x + 2, 2 + y, x + 9, 1 + y, a)
+            sc.line(x + 9, 1 + y, x + 12, 5 + y, a)
+            sc.ell(x + 12, 6 + y, 2.5, 2.5, l, SHINE)
+    else:
+        # Material-specific front clusters tie the anatomy to its landmark.
+        if identity in ("beacon_armour", "gate_wings", "crest_mantle"):
+            sc.poly([(x - 3, 16 + y), (x + 3, 16 + y), (x + 2, 23 + y), (x, 25 + y),
+                     (x - 2, 23 + y)], a)
+            sc.line(x, 17 + y, x, 22 + y, bone, LIGHT)
+        elif identity in ("forge_stack", "vent_wings", "hydra_heads"):
+            sc.ell(x, 20 + y, 3.5, 3, a, LIGHT)
+            sc.line(x - 2, 20 + y, x + 1, 18 + y, l, SHINE)
+        elif identity in ("root_canopy", "world_tree", "shrine_flower", "spore_crown"):
+            sc.line(x - 4, 21 + y, x + 4, 17 + y, a)
+            sc.ell(x + 1, 19 + y, 2.5, 1.5, l)
+        elif identity in ("compass_halo", "sun_dial", "orrery"):
+            sc.ell(x, 19 + y, 3.5, 3.5, brass)
+            sc.poly([(x, 15 + y), (x + 1, 20 + y), (x, 22 + y), (x - 1, 18 + y)], l, LIGHT)
+        elif identity == "folio_guard":
+            sc.rect(x - 2, 17 + y, x + 4, 22 + y, bone)
+            sc.line(x + 1, 18 + y, x + 1, 22 + y, brass)
+        elif identity in ("salt_crown", "kraken_arms"):
+            sc.line(x - 4, 19 + y, x + 4, 19 + y, brass, th=2)
+            sc.ell(x, 19 + y, 1.5, 1.5, l, SHINE)
+        elif identity == "broken_seal":
+            sc.poly([(x, 15 + y), (x + 4, 19 + y), (x, 23 + y), (x - 4, 19 + y)], a)
+            sc.line(x - 2, 17 + y, x + 1, 20 + y, l, SHINE)
+        elif identity == "coral_cage":
+            sc.ell(x, 18 + y, 3.5, 4.5, a, SHINE)
+            sc.line(x - 3, 16 + y, x + 2, 21 + y, bone)
+
+
+def creature_markings(sc, p, P, key, plan, rear=False):
+    """A small, coherent material cluster for each regional body family."""
+    if p["down"] or key in BOSS_IDENTITIES:
+        return
+    x, y = 16 + p["lunge"] - p["wind"], p["bob"]
+    a, l = P["accent"], P["belly"]
+    regional_anatomy(sc, p, P, key, plan, rear)
+    if not rear and plan == "jelly":
+        # Crown ridges, rather than more speckles, keep the bell readable.
+        sc.line(x - 4, 10 + y, x - 1, 8 + y, l, LIGHT)
+        sc.px(x + 5, 11 + y, a, SHINE)
+    elif not rear and plan == "ray":
+        sc.line(x - 8, 16 + y, x - 4, 18 + y, a, LIGHT)
+        sc.line(x + 4, 18 + y, x + 8, 16 + y, a, LIGHT)
+    elif not rear and plan == "worm":
+        for dx in (-4, 0, 4):
+            sc.px(x + dx, 20 + y, a, LIGHT)
+    if rear and key in EXPANSION_RARES:
+        # Rare species have visible anatomy, not only a palette treatment.
+        if "moth" in key:
+            for s in (-1, 1):
+                sc.poly([(x, 16 + y), (x + s * 12, 6 + y), (x + s * 10, 21 + y)], l)
+                sc.ell(x + s * 8, 13 + y, 2, 2, a, LIGHT)
+        elif "angler" in key:
+            sc.line(x + 2, 10 + y, x + 6, 4 + y, a)
+            sc.ell(x + 7, 5 + y, 1.5, 1.5, l, SHINE)
+        elif "whale" in key:
+            sc.poly([(x - 8, 17 + y), (x - 14, 9 + y), (x - 11, 21 + y)], l)
+        elif "mossback" in key:
+            sc.ell(x - 3, 11 + y, 5, 2.5, a)
+            sc.ell(x - 6, 9 + y, 2, 1.5, l)
+
+
+REGIONAL_ANATOMY = {
+    **dict.fromkeys(("tide_jelly", "shoal_ray", "brine_worm"), "tide"),
+    **dict.fromkeys(("cinder_jelly", "magma_ray", "ash_worm"), "ember"),
+    **dict.fromkeys(("spore_jelly", "canopy_ray", "mire_worm"), "verdant"),
+    **dict.fromkeys(("prism_jelly", "shard_ray", "glass_worm", "mirror_ray"), "glass"),
+    **dict.fromkeys(("coin_jelly", "gilded_ray", "vault_worm", "golden_crab", "coin_drake"), "crown"),
+    **dict.fromkeys(("storm_jelly", "squall_ray", "thunder_worm", "storm_roc"), "storm"),
+    **dict.fromkeys(("dream_jelly", "moon_ray", "nightmare_worm", "lunar_moth"), "moon"),
+    **dict.fromkeys(("abyss_jelly", "pale_ray", "trench_worm", "pale_angler"), "ashen"),
+    **dict.fromkeys(("leviathan_jelly", "reef_ray", "shell_worm", "island_whale"), "reef"),
+    **dict.fromkeys(("star_jelly", "horizon_ray", "dawn_worm", "aurora_wyrm"), "horizon"),
+}
+
+
+def regional_anatomy(sc, p, pal_, key, plan, rear):
+    theme = REGIONAL_ANATOMY.get(key)
+    if theme is None or plan not in ("jelly", "ray", "worm"):
+        return
+    x = 16 + p["lunge"] - p["wind"]
+    y = p["bob"]
+    a, l, b = pal_["accent"], pal_["belly"], pal_["body"]
+    # A bell crown, the outer wing tips, or the worm's nuchal crest use
+    # the same regional material grammar while retaining separate anatomy.
+    if plan == "ray":
+        centres = [(x - 7, 12 + y), (x + 7, 12 + y)]
+    else:
+        centres = [(x if plan == "jelly" else x - 4, 9 + y)]
+    if rear:
+        for cx, cy in centres:
+            if theme == "tide":
+                sc.poly([(cx - 3, cy + 3), (cx - 2, cy - 3), (cx, cy - 1),
+                         (cx + 2, cy - 4), (cx + 3, cy + 3)], a)
+            elif theme == "ember":
+                sc.poly([(cx - 4, cy + 4), (cx - 2, cy - 1), (cx, cy - 5),
+                         (cx + 1, cy - 1), (cx + 3, cy - 3), (cx + 4, cy + 4)], a)
+                sc.line(cx, cy - 1, cx + 1, cy + 3, l, SHINE)
+            elif theme == "verdant":
+                for s in (-1, 1):
+                    sc.poly([(cx, cy + 3), (cx + s * 5, cy - 2), (cx + s * 4, cy + 3)], a)
+                if plan == "jelly":
+                    sc.ell(cx, cy - 1, 2.5, 2, l)
+            elif theme == "glass":
+                sc.poly([(cx - 3, cy + 4), (cx - 2, cy - 3), (cx, cy - 1),
+                         (cx + 2, cy - 5), (cx + 4, cy + 4)], l)
+                sc.line(cx + 2, cy - 3, cx + 3, cy + 2, a, SHINE)
+            elif theme == "crown":
+                sc.poly([(cx - 4, cy + 4), (cx - 4, cy - 2), (cx - 1, cy),
+                         (cx, cy - 4), (cx + 2, cy), (cx + 4, cy - 2), (cx + 4, cy + 4)], a)
+            elif theme == "storm":
+                for s in (-1, 1):
+                    sc.poly([(cx, cy + 4), (cx + s * 4, cy - 4), (cx + s * 2, cy + 1),
+                             (cx + s * 5, cy), (cx + s * 2, cy + 5)], a)
+            elif theme == "moon":
+                sc.ell(cx, cy, 4.5, 3.5, a)
+                sc.ell(cx + 2, cy - 1, 3.5, 2.5, None)
+            elif theme == "ashen":
+                for s in (-1, 1):
+                    sc.line(cx, cy + 4, cx + s * 4, cy - 1, l)
+                    sc.line(cx + s * 2, cy + 1, cx + s * 4, cy + 1, l)
+            elif theme == "reef":
+                sc.line(cx, cy + 4, cx, cy - 4, a, th=2)
+                sc.line(cx, cy, cx - 3, cy - 2, a)
+                sc.line(cx + 1, cy + 1, cx + 4, cy - 1, a)
+            elif theme == "horizon":
+                sc.poly([(cx, cy - 4), (cx + 1, cy - 1), (cx + 4, cy), (cx + 1, cy + 1),
+                         (cx, cy + 4), (cx - 1, cy + 1), (cx - 4, cy), (cx - 1, cy - 1)], a)
+    elif plan == "jelly":
+        # Keep faces clear: one bright rim seam, no full-screen additive glow.
+        sc.line(x - 6, 16 + y, x - 2, 17 + y, a, LIGHT)
+    elif plan == "ray" and theme in ("moon", "horizon", "glass"):
+        for s in (-1, 1):
+            sc.ell(x + s * 8, 15 + y, 1.5, 1, l, SHINE)
+
+
 def render_rows(table, size, scale, origin):
     strips = {}
     for key, (plan, P, kw) in table.items():
@@ -627,8 +932,15 @@ def render_rows(table, size, scale, origin):
         for i, f in enumerate(FRAMES):
             cv = Canvas(size, size)
             sc = SC(cv, scale, (size - 32 * scale) / 2, size - 32 * scale - (1 if size > 32 else 0))
-            PLANS[plan](sc, pose_of(f), P, **kw)
-            strip[:, i * size:(i + 1) * size] = cv.render()
+            p = pose_of(f)
+            boss_identity(sc, p, P, key, True)
+            creature_markings(sc, p, P, key, plan, True)
+            PLANS[plan](sc, p, P, **kw)
+            creature_markings(sc, p, P, key, plan)
+            boss_identity(sc, p, P, key, False)
+            strip[:, i * size:(i + 1) * size] = cv.render(
+                light=(255, 243, 218), light_amt=0.23,
+                shade_mul=0.81, ol_mul=0.51, ol_mix=0.24)
         strips[key] = strip
     return strips
 
@@ -671,13 +983,18 @@ def draw_pet(sc, p, fam, role, evo):
     b, l, a = fam["body"], fam["belly"], fam["accent"]
     plan = fam["plan"]
     big = 1.18 if evo else 1.0
-    x = 16 + p["lunge"] - p["wind"]
+    # Pets keep a compact attack arc: evolved wings and tails must fit their
+    # existing 24px frame instead of disappearing at the contact pose.
+    x = 16 + min(p["lunge"], 1) - p["wind"] * 0.65
     flying = plan in ("flyer", "ray", "moth")
     y = (18 if flying else 22) + p["bob"] + (0 if p["step"] is None else (-1 if p["step"] % 2 else 0))
     if p["down"]:
         sc.ell(16, 27, 8 * big, 3, b)
         sc.ell(16, 26, 5, 1.2, b, LIGHT)
         eyes(sc, 14, 26, p, gap=4)
+        sc.px(10, 26, ROLE_DECOR[role], FLAT)
+        if evo:
+            sc.poly([(9, 26), (7, 22), (12, 25)], a)
         return
     r = 6.5 * big
     w = p["wave"]
@@ -699,6 +1016,47 @@ def draw_pet(sc, p, fam, role, evo):
             sc.ell(x - 10, y - 3 - w, 2.5 * big, 2.5 * big, a, SHINE)
         if plan == "seal":
             sc.poly([(x - 10, y - 4 - w), (x - 13, y - 1 - w), (x - 9, y)], a)
+    if evo:
+        # Evolved forms gain family anatomy instead of being just an enlarged
+        # baby with a sparkle. These silhouettes stay inside the 24px frame.
+        if plan == "seal":
+            for s in (-1, 1):
+                sc.poly([(x + s * 3, y + 2), (x + s * 12, y - 3), (x + s * 9, y + 5)], a)
+        elif plan == "lizard":
+            for dx, h in ((-7, 4), (-3, 6), (1, 5)):
+                sc.poly([(x + dx - 2, y - 3), (x + dx, y - h - 6), (x + dx + 2, y - 3)], a)
+        elif plan == "sprout":
+            for s in (-1, 1):
+                sc.ell(x + s * 5, y - 8, 4, 2, "#8dc66b")
+                sc.ell(x + s * 7, y - 10, 2, 1.7, a)
+        elif plan == "flyer":
+            for s in (-1, 1):
+                sc.poly([(x, y + 1), (x + s * 12, y + 2), (x + s * 7, y + 7)], l)
+                sc.line(x + s * 3, y + 2, x + s * 8, y + 4, a, LIGHT)
+        elif plan == "cub":
+            for s in (-1, 1):
+                sc.ell(x + s * 6, y - 4, 2, 3, l)
+                sc.ell(x + s * 7, y - 6, 1.5, 1.5, a, LIGHT)
+        elif plan == "ray":
+            for s in (-1, 1):
+                sc.ell(x + s * 10, y, 3, 2.5, l)
+                sc.line(x - 5, y + 3, x - 9, y + 9, a)
+        elif plan == "moth":
+            for s in (-1, 1):
+                sc.ell(x + s * 8, y - 4 + w * 2, 3.5, 4, l)
+                sc.ell(x + s * 8, y - 4 + w * 2, 1.8, 2, a, LIGHT)
+                sc.line(x + s * 5, y + 2, x + s * 9, y + 8, a)
+        elif plan == "pup":
+            for s in (-1, 1):
+                sc.poly([(x + s * 4, y - 5), (x + s * 8, y - 12), (x + s * 7, y - 3)], a)
+                sc.line(x + s * 5, y + 1, x + s * 9, y + 4, l, th=2)
+        elif plan == "turtle":
+            for dx in (-5, 0, 5):
+                sc.poly([(x + dx - 2, y - 3), (x + dx, y - 10), (x + dx + 2, y - 3)], a)
+        elif plan == "fox":
+            for dx, dy in ((-11, -7), (-12, -2), (-10, 3)):
+                sc.line(x - 4, y + 2, x + dx, y + dy, b, th=3)
+                sc.ell(x + dx, y + dy, 2, 2, l, LIGHT)
     # legs
     if plan in ("lizard", "cub", "pup", "fox", "turtle"):
         for i, lx in enumerate((x - 4, x - 1, x + 2, x + 5)):
@@ -766,14 +1124,20 @@ def draw_pet(sc, p, fam, role, evo):
     # role decoration
     dc = ROLE_DECOR[role]
     if role == "companion":
-        sc.line(x - 2, y + 2, x + 4, y + 2, dc, FLAT)
-        sc.px(x + 1, y + 3, "#f0c048", SHINE)
+        sc.line(x - 3, y + 2, x + 4, y + 2, dc, FLAT, th=2)
+        sc.poly([(x - 3, y + 2), (x - 8, y + 3 + w), (x - 7, y + 6 + w), (x - 2, y + 4)], dc)
+        sc.ell(x + 1, y + 4, 1, 1, "#f0c048", SHINE)
     elif role == "helper":
-        sc.rect(x - 5, y, x - 3, y + 2, dc)
-        sc.line(x - 4, y - 1, x + 2, y + 2, mul(hexrgb(dc), 0.7), FLAT)
+        sc.rect(x - 7, y - 1, x - 3, y + 4, dc)
+        sc.line(x - 7, y, x - 3, y, "#d9bc85", LIGHT)
+        sc.px(x - 5, y + 2, "#dbb45c", LIGHT)
+        sc.line(x - 4, y - 2, x + 2, y + 2, mul(hexrgb(dc), 0.7), FLAT)
+        sc.line(x - 6, y - 4, x - 6, y - 1, "#e8d8b0")
     else:
-        sc.line(x - 1, y + 1, x + 5, y + 1, dc)
-        sc.line(x - 1, y + 1, x - 3, y + 4 - w, dc, SHADE)
+        sc.line(x - 2, y + 1, x + 5, y + 1, dc, th=2)
+        sc.line(x - 2, y + 1, x - 4, y + 5 - w, dc, SHADE)
+        sc.rect(x - 7, y + 1, x - 4, y + 4, "#e6d8af")
+        sc.line(x - 7, y + 2, x - 4, y + 2, dc, FLAT)
     if evo:
         sc.px(x - r + 1, y - r + 2, (255, 255, 230), SHINE)
         sc.px(x + r, y - 2, (255, 255, 230), SHINE)
@@ -793,7 +1157,9 @@ def build():
             cv = Canvas(24, 24)
             sc = SC(cv, 0.75, 0, 0)
             draw_pet(sc, pose_of(f), fam, sp["role"], sp["evolved"])
-            strip[:, i * 24:(i + 1) * 24] = cv.render()
+            strip[:, i * 24:(i + 1) * 24] = cv.render(
+                light=(255, 243, 221), light_amt=0.22,
+                shade_mul=0.83, ol_mul=0.52, ol_mix=0.24)
         pet_strips[sid] = strip
     pets, pet_atlas = pack(pet_strips, 24, "pets", per_line=3)
     meta = {

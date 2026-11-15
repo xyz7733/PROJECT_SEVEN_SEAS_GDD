@@ -41,8 +41,8 @@ POSES = {
     "walk3": _pose(bob=-1, legs=((0, 2), (0, 0)), act="walk", wave=1),
     "work0": _pose(near=(2, -3), far=(1, 5), act="work0", mouth="smile"),
     "work1": _pose(bob=1, lean=1, near=(4, 4), far=(2, 5), act="work1", wave=1),
-    "atk0": _pose(lean=-1, near=(-2, -4), far=(2, 4), act="wind", legs=((1, 0), (-1, 0))),
-    "atk1": _pose(lean=2, near=(6, 1), far=(-2, 5), legs=((2, 0), (-2, 0)), act="strike", mouth="open", wave=1),
+    "atk0": _pose(lean=-2, bob=1, near=(-3, -5), far=(1, 4), act="wind", legs=((1, 0), (-1, 0))),
+    "atk1": _pose(lean=2, near=(6, 0), far=(-2, 5), legs=((3, 0), (-2, 1)), act="strike", mouth="open", wave=1),
     "atk2": _pose(lean=1, near=(4, 5), far=(-1, 5), legs=((2, 0), (-2, 0)), act="follow"),
     "hit": _pose(lean=-2, hdx=-1, near=(-3, 2), far=(-3, 3), legs=((-1, 0), (1, 0)), eyes="hurt",
                  mouth="open", act="hit"),
@@ -334,6 +334,8 @@ def draw_outfit(cv, g, s):
         cv.hline(tx + 1, tx + 6, ty + 3, k, SHADE)
         cv.px(tx + 3, ty + 4, M, LIGHT)
 
+    draw_profession(cv, g, s)
+
     # front arm and pauldrons
     if back:
         arm(cv, g.sh_far, g.hand_far, S, G)
@@ -343,6 +345,148 @@ def draw_outfit(cv, g, s):
         for (sx, sy) in (g.sh_far, g.sh_near):
             cv.rect(sx - 1, sy - 1, sx + 1, sy, pm)
             cv.px(sx - 1, sy - 1, pm, LIGHT)
+
+
+# Accessories occupy a few deliberate clusters, rather than scattering a
+# different noise pattern over every shirt. They move with the existing rig.
+PROFESSION_KITS = {
+    "guard": ("shield", 0), "guardian": ("shield", 1), "bulwark": ("shield", 2),
+    "duelist": ("duel", 0), "blade_dancer": ("duel", 1), "challenger": ("duel", 2),
+    "spearfighter": ("spear", 0), "harpooner": ("spear", 1), "dragoon": ("spear", 2),
+    "gunner": ("powder", 0), "sharpshooter": ("powder", 1), "skirmisher": ("powder", 2),
+    "brawler": ("fist", 0), "breaker": ("fist", 1), "grappler": ("fist", 2),
+    "medic": ("medical", 0), "surgeon": ("medical", 1), "lifekeeper": ("medical", 2),
+    "cook": ("galley", 0), "provisioner": ("galley", 1), "feastmaster": ("galley", 2),
+    "navigator": ("chart", 0), "pathfinder": ("chart", 1), "tide_reader": ("chart", 2),
+    "tinkerer": ("craft", 0), "engineer": ("craft", 1), "trapper": ("craft", 2),
+    "beastkeeper": ("beast", 0), "beastwarden": ("beast", 1), "wildspeaker": ("beast", 2),
+    "mystic": ("arcane", 0), "stormcaller": ("arcane", 1), "hexbreaker": ("arcane", 2),
+    "quartermaster": ("officer", 0), "purser": ("officer", 1), "standard_bearer": ("officer", 2),
+}
+
+
+def draw_profession(cv, g, s):
+    identity = s.get("identity", "")
+    tx, ty = g.tx, g.ty
+    a, metal = s.get("A", GOLD), s.get("M", STEEL)
+    if identity not in PROFESSION_KITS:
+        # Named captains have individual badges, also visible from the back.
+        signature = s.get("signature")
+        if signature:
+            cx, cy = tx + (3 if g.p["back"] else 2), ty + 3
+            if signature in ("sun", "prism", "pearl"):
+                cv.poly([(cx, cy - 2), (cx + 2, cy), (cx, cy + 2), (cx - 2, cy)], a, LIGHT)
+            elif signature in ("leaf", "wing"):
+                cv.line(cx - 1, cy + 2, cx + 2, cy - 2, a, FLAT)
+                cv.hline(cx - 1, cx + 1, cy, a, LIGHT)
+            elif signature in ("moon", "lantern"):
+                cv.rect(cx - 1, cy - 1, cx + 1, cy + 1, a)
+                cv.px(cx, cy, WHITE, SHINE)
+            else:
+                cv.hline(cx - 1, cx + 1, cy, a, LIGHT)
+                cv.vline(cx, cy - 1, cy + 2, a, FLAT)
+        return
+    family, rank = PROFESSION_KITS[identity]
+    back = g.p["back"]
+    if family == "shield":
+        # Riveted shoulder plates distinguish guard, winged guardian and
+        # the closed, slab-sided bulwark even without a held shield.
+        cv.rect(tx - 2, ty, tx, ty + 2, metal)
+        cv.hline(tx - 2, tx, ty, metal, LIGHT)
+        if rank == 1:
+            cv.poly([(tx - 2, ty + 1), (tx - 4, ty - 2), (tx - 1, ty - 1)], WHITE)
+        if rank == 2:
+            cv.rect(tx - 2, ty, tx + 1, ty + 3, metal)
+            cv.vline(tx - 1, ty + 1, ty + 3, a, FLAT)
+    elif family == "duel":
+        cv.line(tx + 1, ty, tx + 3, ty + 3, WHITE, LIGHT)
+        cv.px(tx + 2, ty + 2, a, LIGHT)
+        if rank:
+            cv.line(tx - 1, ty + 6, tx - 3, ty + 9 + g.p["wave"], a, SHADE)
+        if rank == 2:
+            cv.rect(tx - 1, ty - 1, tx + 1, ty, GOLD, LIGHT)
+    elif family == "spear":
+        cv.rect(tx - 1, ty + 5, tx + 1, ty + 8, LEATHER)
+        cv.px(tx, ty + 5, metal, LIGHT)
+        if rank == 1:
+            cv.line(tx + 1, ty + 1, tx + 6, ty + 6, "#dfc68b", FLAT)
+        if rank == 2:
+            cv.rect(tx - 2, ty - 1, tx + 1, ty, metal)
+            cv.px(tx - 3, ty - 2, WHITE, LIGHT)
+    elif family == "powder":
+        cv.line(tx, ty + 1, tx + 7, ty + 6, LEATHER_D, th=2)
+        for dx in (1, 3, 5):
+            cv.vline(tx + dx, ty + 1 + dx // 2, ty + 2 + dx // 2, GOLD if rank == 1 else STEEL, LIGHT)
+        cv.rect(tx - 2, ty + 6, tx, ty + 8, LEATHER)
+        if rank == 2:
+            cv.hline(tx - 2, tx, ty + 6, a, LIGHT)
+    elif family == "fist":
+        cv.hline(tx - 1, tx + 1, ty + 1, WHITE, LIGHT)
+        cv.hline(tx + 6, tx + 8, ty + 1, WHITE, LIGHT)
+        if rank == 1:
+            cv.rect(tx - 2, ty + 2, tx, ty + 4, "#aa7044")
+        elif rank == 2:
+            cv.rect(tx + 2, ty + 5, tx + 5, ty + 6, GOLD)
+            cv.px(tx + 3, ty + 5, WHITE, SHINE)
+    elif family == "medical":
+        cv.rect(tx - 2, ty + 5, tx + 1, ty + 8, "#f2e8d0")
+        cv.hline(tx - 1, tx, ty + 6, "#bd4e57", FLAT)
+        cv.vline(tx, ty + 5, ty + 7, "#bd4e57", FLAT)
+        if rank == 1:
+            cv.line(tx + 1, ty + 1, tx + 6, ty + 5, STEEL_D, FLAT)
+        if rank == 2:
+            cv.poly([(tx, ty), (tx + 4, ty + 3), (tx + 8, ty), (tx + 4, ty + 1)], GOLD)
+    elif family == "galley":
+        cv.rect(tx - 2, ty + 5, tx, ty + 9, "#f2e8d0")
+        cv.hline(tx - 2, tx, ty + 7, a, FLAT)
+        if rank == 1:
+            cv.rect(tx - 3, ty + 1, tx - 1, ty + 5, "#c49a65")
+            cv.px(tx - 2, ty + 1, "#efe0ad", LIGHT)
+        if rank == 2:
+            cv.px(tx + 2, ty + 2, GOLD, SHINE)
+            cv.px(tx + 5, ty + 2, GOLD, SHINE)
+    elif family == "chart":
+        cv.rect(tx - 2, ty + 3, tx, ty + 8, "#e8d9ae")
+        cv.hline(tx - 2, tx, ty + 3, "#faf0d0", LIGHT)
+        cv.hline(tx - 2, tx, ty + 7, LEATHER, FLAT)
+        if rank == 1:
+            cv.line(tx + 1, ty, tx + 7, ty + 5, LEATHER, FLAT)
+        if rank == 2:
+            cv.ellipse(tx + 4, ty + 3, 1.5, 1.5, a)
+            cv.px(tx + 4, ty + 2, WHITE, SHINE)
+    elif family == "craft":
+        cv.rect(tx - 2, ty + 6, tx + 1, ty + 8, LEATHER)
+        cv.vline(tx - 1, ty + 3, ty + 6, STEEL)
+        cv.hline(tx - 2, tx, ty + 3, STEEL, LIGHT)
+        if rank == 1:
+            cv.rect(tx + 4, ty + 2, tx + 6, ty + 4, "#c4a574")
+        if rank == 2:
+            cv.ellipse(tx - 1, ty + 2, 2, 2, LEATHER_D)
+            cv.px(tx - 1, ty + 2, GOLD, LIGHT)
+    elif family == "beast":
+        cv.rect(tx - 2, ty + 4, tx + 1, ty + 7, "#a7794b")
+        cv.hline(tx - 2, tx + 1, ty + 4, "#d7bd83", LIGHT)
+        if rank == 1:
+            cv.poly([(tx - 2, ty), (tx - 3, ty - 2), (tx + 1, ty - 1)], "#e2d3af")
+        if rank == 2:
+            cv.px(tx - 1, ty, "#e4adba", LIGHT)
+            cv.px(tx + 1, ty + 1, "#94c15f", LIGHT)
+    elif family == "arcane":
+        cv.poly([(tx - 1, ty), (tx + 4, ty + 3), (tx + 8, ty), (tx + 4, ty + 1)], a)
+        cv.px(tx + 4, ty + 3, WHITE, SHINE)
+        if rank == 1:
+            cv.line(tx - 1, ty + 4, tx + 1, ty + 5, GOLD, LIGHT)
+        if rank == 2:
+            cv.rect(tx - 2, ty + 5, tx + 1, ty + 8, "#795584")
+            cv.hline(tx - 1, tx, ty + 6, "#eee4cb", LIGHT)
+    elif family == "officer":
+        cv.rect(tx - 1, ty - 1, tx + 1, ty, GOLD)
+        cv.rect(tx + 6, ty - 1, tx + 8, ty, GOLD)
+        cv.px(tx + 2, ty + 3, a, LIGHT)
+        if rank == 1:
+            cv.line(tx + 5, ty + 5, tx + 7, ty + 7, GOLD, FLAT)
+        if rank == 2 and back:
+            cv.poly([(tx + 2, ty + 3), (tx + 4, ty + 1), (tx + 6, ty + 3), (tx + 4, ty + 5)], WHITE)
 
 
 # ----------------------------------------------------------------- skin ----
@@ -371,12 +515,14 @@ def draw_head(cv, g, skin):
         return
     cv.rect(hx + 2, hy + 6, hx + 2, hy + 7, skin, SHADE)  # ear
     e1, e2, ey = hx + 5, hx + 9, hy + 6
-    blush = mix(C(skin), (240, 120, 120), 0.45)
+    blush = mix(C(skin), (222, 123, 116), 0.28)
     eyes = p["eyes"]
     if eyes == "open":
         for ex in (e1, e2):
-            cv.px(ex, ey, EYE, FLAT)
-            cv.px(ex, ey + 1, IRIS, FLAT)
+            cv.rect(ex, ey, ex + 1, ey + 1, EYE, FLAT)
+            cv.px(ex, ey, "#fff2da", FLAT)
+            cv.px(ex + 1, ey + 1, IRIS, FLAT)
+        cv.px(hx + 8, hy + 8, mix(C(skin), (255, 240, 207), 0.3), FLAT)
     elif eyes == "closed":
         for ex in (e1, e2):
             cv.px(ex, ey + 1, EYE, FLAT)
@@ -1206,11 +1352,29 @@ def _rivals(world):
     by_region = {}
     for rid, r in world["RIVALS"].items():
         by_region[r["regionId"]] = rid
+    # Each rival has a costume silhouette as well as a regional colour.
+    # Tuple: coat shape, hat, equipment, badge. The existing layered rig and
+    # generated identity stay unchanged, including equipment replacement.
+    styles = [
+        ("coat", "feather", ("belt", "scarf"), "wing"),
+        ("overall", "goggle_cap", ("tools", "scarf"), "anvil"),
+        ("jacket", "explorer", ("pack", "pouch"), "leaf"),
+        ("robe", "circlet", ("cape", "emblem"), "prism"),
+        ("coat", "tricorn", ("cape", "belt", "hem"), "crown"),
+        ("coat", "souwester", ("fur", "belt"), "anchor"),
+        ("robe", "turban", ("scarf", "emblem"), "moon"),
+        ("armor", "horned", ("cape", "belt"), "lantern"),
+        ("vest", "beast", ("fur", "sash"), "pearl"),
+        ("coat", "captain", ("cape", "emblem", "hem"), "sun"),
+    ]
     for i, (reg, col, acc, w, hair, hcol) in enumerate(RIVAL_SET):
         rid = by_region.get(reg, "rival_" + reg)
-        NPC_LOOKS[rid] = _npc("coat", col, acc, acc, "#2e2a34", "#2a2020", "captain", (mul(hexrgb(col), 0.55), acc, acc), w,
-                              acc=acc, hair=hair, hcol=hcol, G=WHITE, extra=("belt", "hem") + (("cape",) if i % 2 else ()),
-                              K=mul(hexrgb(col), 0.7), skin=["s1", "s3", "s2", "s1", "s4", "s2", "s5", "s3", "s4", "s2"][i])
+        shape, hat, equipment, signature = styles[i]
+        NPC_LOOKS[rid] = _npc(shape, col, acc, acc, "#343442", "#443127", hat,
+                              (mul(hexrgb(col), 0.64), acc, acc), w,
+                              acc=acc, hair=hair, hcol=hcol, G=WHITE, extra=equipment,
+                              signature=signature, M="#c8ad78", W="#efe1bd",
+                              K=mul(hexrgb(col), 0.74), skin=["s1", "s3", "s2", "s1", "s4", "s2", "s5", "s3", "s4", "s2"][i])
 
 
 # ----------------------------------------------------------- rendering ----
@@ -1221,7 +1385,10 @@ def render_layer(draw, **render_kw):
     for i, f in enumerate(FRAMES):
         cv = Canvas(FW, FH)
         draw(cv, GEOS[f])
-        strip[:, i * FW:(i + 1) * FW] = cv.render(**render_kw)
+        defaults = dict(light=(255, 242, 215), light_amt=0.2,
+                        shade_mul=0.82, ol_mul=0.5, ol_mix=0.25)
+        defaults.update(render_kw)
+        strip[:, i * FW:(i + 1) * FW] = cv.render(**defaults)
     return strip
 
 
@@ -1263,6 +1430,7 @@ def build():
 
     def add_look(key, L):
         o = dict(L["o"])
+        o["identity"] = key
         outfits.add(key, render_layer(lambda cv, g: draw_outfit(cv, g, o)))
         hat = L["hat"]
         if hat[0] != "none":

@@ -329,6 +329,8 @@ static func add_member_xp(d: Dictionary, m: Dictionary, xp: float) -> void:
 		m.xp = int(m.xp) - Rules.xp_to_next(int(m.level))
 		m.level = int(m.level) + 1
 		note(d, "log.level_up", {"crew": m.id, "level": m.level})
+		if int(m.level) % Attrs.LEVELS_PER_POINT == 0:
+			note(d, "log.train_point", {"crew": m.id})
 	if int(m.level) >= cap:
 		m.xp = 0
 
@@ -912,6 +914,39 @@ static func change_class(state: Dictionary, crew_id: String, class_id: String) -
 			note(d, "log.unequipped", {"crew": m.id, "item": item_name_key(w.itemId)})
 		d.codex.classes[class_id] = true
 		note(d, "log.respec", {"crew": m.id, "from": "class." + from_id + ".name", "to": "class." + class_id + ".name"})
+		return done())
+
+
+## Spends one of the sailor's training points on an attribute.
+static func train_attr(state: Dictionary, crew_id: String, attr: String) -> Dictionary:
+	return run(state, "crew.train", func(d):
+		var bad = require_calm(d)
+		if bad: return bad
+		var m = Rules.member(d, crew_id)
+		if m == null: return fail("err.unknown")
+		var block := Attrs.train_block(m, attr)
+		if block != "": return fail(block)
+		if not (m.get("train") is Dictionary):
+			m.train = {}
+		m.train[attr] = int(m.train.get(attr, 0)) + 1
+		return done())
+
+
+## Refunds every training point the sailor has spent, for a fee. Needs a
+## port or a Class Hall, like changing class.
+static func retrain(state: Dictionary, crew_id: String) -> Dictionary:
+	return run(state, "crew.retrain", func(d):
+		var bad = require_calm(d)
+		if bad: return bad
+		if not Rules.at_port(d) and not Rules.fac_level(d, "class_hall"): return fail("err.need_class_hall")
+		var m = Rules.member(d, crew_id)
+		if m == null: return fail("err.unknown")
+		if Attrs.points_spent(m) <= 0: return fail("err.nothing_to_retrain")
+		var c = pay(d, Attrs.retrain_cost(m))
+		if c: return c
+		var n := Attrs.points_spent(m)
+		m.train = {}
+		note(d, "log.retrained", {"crew": m.id, "n": n})
 		return done())
 
 
@@ -1715,7 +1750,7 @@ static func enter_room(state: Dictionary, room_id: String, opts: Dictionary = {}
 		d.voyage.site.current = room_id
 		if BATTLE_ROOMS.has(rm.kind):
 			var variant := GS.next_int(d, 1, 999) if repeat else 0
-			var def := World.encounter_for(loc_id, room_id, {"variant": variant})
+			var def := World.encounter_for_state(d, loc_id, room_id, {"variant": variant})
 			start_encounter(d, def, {"type": "trial" if rm.kind == "trial" else "room", "locationId": loc_id, "roomId": room_id, "repeat": repeat})
 			return done({"encounter": true}, "save.reason_trial" if rm.kind == "trial" else null)
 		var rewards := World.room_rewards(loc_id, room_id, true)
@@ -1733,7 +1768,7 @@ static func start_legend(state: Dictionary) -> Dictionary:
 		if not d.captain.postgame: return fail("err.postgame_only")
 		if loc.type != "arena" or not C.world.LEGENDS.has(loc.regionId): return fail("err.no_legend")
 		if d.voyage == null or d.voyage.site == null: return fail("err.not_at_site")
-		var def := World.encounter_for(loc_id, "trial", {"legend": true})
+		var def := World.encounter_for_state(d, loc_id, "trial", {"legend": true})
 		if int(d.ship.stamina) < int(def.staminaCost): return fail("err.no_stamina", {"need": def.staminaCost, "have": d.ship.stamina})
 		d.ship.stamina = int(d.ship.stamina) - int(def.staminaCost)
 		start_encounter(d, def, {"type": "legend", "locationId": loc_id, "roomId": "trial"})

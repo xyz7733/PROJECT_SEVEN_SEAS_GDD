@@ -1,0 +1,1215 @@
+{
+  "version": 1,
+  "origin": "Generated with the built-in image_gen tool for Project Seven Seas, 2026-11-14",
+  "model": "Not exposed by the built-in tool; no specific backend model asserted",
+  "transparent_background": true,
+  "references": "Original text briefs. User reference screenshots informed art direction only; none were sampled or shipped.",
+  "production": "All ten generated originals are preserved as concept references only. Runtime landmarks are bespoke native voxel/pixel models in tools/artgen/gen_landmarks.py, rendered with the same hard-edged material/outline/occlusion pipeline as houses and ships. One hundred location vignettes combine these native models with original native prop/building kit pieces. No AI raster pixels are packed into the runtime atlas. Rebuilds never call image generation.",
+  "promptSets": {
+    "dawn": "Create one ORIGINAL game-ready isometric pixel-art environmental landmark cutout for Project Seven Seas. Subject: a charming ruined coastal lookout tower in a warm lively fishing archipelago, cream limestone and weathered honey wood, broken circular beacon lantern room, curved outside stair, blue and vermilion pennants, a tiny warm lamp and two fishing-net bundles. Genuine finely crafted pixel art, strict 2:1 isometric orthographic projection matching 32x16 ground tiles, front faces to bottom left and bottom right, light from upper left. Distinct large readable silhouette, hand-placed clustered pixels, 4 tone ramps per material, low noise, no smooth paint, no photorealism, no depth of field. Single tower and small coherent stone footing only, no island or ocean or backdrop. Full object uncut, balanced bottom-center foot contact, generous transparent margin. No people, no text, no labels, no watermark, no interface. Designed to remain readable reduced to about 150x150 game pixels.",
+    "A": "Original game-ready environmental landmark cutout, warm lively finely crafted pixel-art seafaring management game. Strict 2:1 isometric orthographic, upper-left sunlight, front faces down-left and down-right. Single distinctive landmark with small coherent footing, full silhouette uncut, no ocean, no island, no backdrop. Chunky clean pixel clusters and 4-tone material ramps; readable at 150x150 pixels. No people, text, labels, watermark or interface. Transparent background, generous transparent margin, bottom-center contact. Match charming cream stone/honey wood/brass style but with region-specific materials. ",
+    "B": "ORIGINAL game-ready environmental landmark cutout for a warm lively finely crafted PIXEL ART seafaring management game. Strict 2:1 isometric orthographic, upper-left light, front faces down-left/down-right. Chunky clean pixel clusters, limited 4-tone ramps, designed to be readable at only150x150 native game pixels. One complete small building monument with small coherent footing, centered, entire object visible, transparent background and margins. NO landscape, backdrop, ocean, people, text, labels, watermark, UI. Honey wood, ivory stone and aged brass where appropriate, coordinated charming nautical aesthetic. Subject: ",
+    "C": "ORIGINAL game-ready environmental landmark cutout, warm lively finely crafted PIXEL ART seafaring management game. Strict2:1 isometric orthographic, upper-left lighting. Chunky clean pixel clusters, limited4tone ramps, large readable silhouette designed to be reduced to150x150 game pixels. One full monument on a small coherent footing, centered and uncut with transparent margins. No island, ocean, background, people, text, labels, watermark or interface. Coordinated ivory stone, honey wood and aged brass nautical craft with regional material differences. Subject: "
+  },
+  "assets": {
+    "dawnwater": {
+      "file": "dawnwater.png",
+      "promptSet": "dawn",
+      "subject": "",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "emberreach": {
+      "file": "emberreach.png",
+      "promptSet": "A",
+      "subject": "A compact volcanic forge monument: black basalt arch surrounding an orange lava furnace vent, oxidized copper ducts, a tall squat chimney, tiny orange canvas awning, stacked ore and a warm hanging lantern; strong stepped rock silhouette.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "verdant_maw": {
+      "file": "verdant_maw.png",
+      "promptSet": "A",
+      "subject": "A small ancient shrine gateway held in huge twisting tree roots, moss-covered stone arch, wood stilt gallery, woven palm roofing, hanging flower baskets, emerald broad leaves, tiny warm amber lanterns; elegant asymmetrical root silhouette.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "glass_current": {
+      "file": "glass_current.png",
+      "promptSet": "A",
+      "subject": "A crystalline nautical observatory pavilion: ivory limestone base, large faceted turquoise crystal spire, a glass prism canopy held in brass rings, two slim white arches, a tiny hanging amber lamp and scattered small quartz points; crisp readable facets.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "crown_shoals": {
+      "file": "crown_shoals.png",
+      "promptSet": "B",
+      "subject": "a grand but compact harbor charter archive, honey limestone double arcade, indigo tile roof, little bell tower, scroll racks under an open awning, navy-and-cream striped cloth banner, silk balcony and two warm lamps, heraldic crown carving without lettering.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "stormbelt": {
+      "file": "stormbelt.png",
+      "promptSet": "B",
+      "subject": "a battered coastal beacon, thick dark granite breakwater pedestal, squat leaning lighthouse, low slate roof, heavy rope braces and winch, torn yellow storm pennant, brilliant warm amber lantern behind thick windows, sheltered doorway and dripping copper gutters.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "moonwake": {
+      "file": "moonwake.png",
+      "promptSet": "B",
+      "subject": "an abandoned moon observatory, indigo pointed roof with an opened dome, beautiful brass telescope aimed diagonally upward, crescent ornaments, circular engraved star floor, carved dark timber gallery, hanging amber lanterns, restrained violet-blue luminous motes.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "ashen_trench": {
+      "file": "ashen_trench.png",
+      "promptSet": "C",
+      "subject": "an archaeological ancient sea-seal gateway: dark charcoal stone broken circular arch, giant engraved bronze seal with concentric rings, reclaimed copper scaffolding and timber survey platform, small warm red-copper miners' lanterns, a few sealed ceramic relic jars and sparse ash; inviting warm lit explorer camp detail.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "leviathan_ring": {
+      "file": "leviathan_ring.png",
+      "promptSet": "C",
+      "subject": "a monumental hollow leviathan ribcage arch formed from pale ancient sea bones, wrapped around a glowing turquoise coral core in a little shell-roof pavilion, sculpted white seashell steps, honey timber railing, pearl lamps and coral-pink accents; charming inhabited marine sanctuary, no flesh or gore.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    },
+    "grand_horizon": {
+      "file": "grand_horizon.png",
+      "promptSet": "C",
+      "subject": "a magnificent compact Horizon Conclave monument: ivory limestone double arch with golden sun pennants, brass armillary sphere and giant concentric navigation compass, small copper-gold dome, symmetrical stepped plinth with navy enamel, warm golden sunlight and two welcoming amber lamps, celebratory yet readable.",
+      "usage": "preserved concept reference, excluded from runtime atlas"
+    }
+  },
+  "packed": {
+    "dawnwater": {
+      "sha256": "03c1a47e4a7eedcf35a724d5c32129276664cf0cc55290737d4163a1b34b527f",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        123
+      ],
+      "anchor": [
+        52,
+        120
+      ]
+    },
+    "emberreach": {
+      "sha256": "86178202194255c992e955fefb45fa362e2e3e0da8449571fa14e92342566f70",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        123
+      ],
+      "anchor": [
+        52,
+        120
+      ]
+    },
+    "verdant_maw": {
+      "sha256": "50ab3506d2ed8aea0d02aa31c4b89f18f685018a7f44feafb48e43a5ffc75a9f",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        114
+      ],
+      "anchor": [
+        52,
+        111
+      ]
+    },
+    "glass_current": {
+      "sha256": "c852d81d434cd4e9d5e517ef0c503e4a7f30b99e28a6819fa157453c61a5778d",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        118
+      ],
+      "anchor": [
+        52,
+        115
+      ]
+    },
+    "crown_shoals": {
+      "sha256": "f5ad9e6d08bbf11a13c229d9a0cd1dc0e5488e8a8f3e811084538ff44db287f0",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        108,
+        120
+      ],
+      "anchor": [
+        54,
+        117
+      ]
+    },
+    "stormbelt": {
+      "sha256": "f27a938927f97bf88ad02293c6ae9e9ba8c5851d603b8bb1c6fe871d21a6ff4d",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        130
+      ],
+      "anchor": [
+        52,
+        127
+      ]
+    },
+    "moonwake": {
+      "sha256": "13b617508009477502ee31df9cbca66a8d695b421a635dfd8557c41446b81677",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        108,
+        110
+      ],
+      "anchor": [
+        54,
+        107
+      ]
+    },
+    "ashen_trench": {
+      "sha256": "c5af2ab85b2984920ae166946aede97186f4c50e185b5bba04b8d1b0b8a5d6b1",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        111
+      ],
+      "anchor": [
+        52,
+        108
+      ]
+    },
+    "leviathan_ring": {
+      "sha256": "5e96b6cc9b46f5addfd58a0b6c6cb2dfa8c947c7d09f9290d0d7e652bbe3c32a",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        107
+      ],
+      "anchor": [
+        52,
+        104
+      ]
+    },
+    "grand_horizon": {
+      "sha256": "50651885bb60cfabbd6ea630ed2fb1a91d10190238600bae34354dbe49a39d41",
+      "sourceRole": "AI concept reference only; no source pixels shipped",
+      "runtimeMethod": "bespoke native voxel render",
+      "nativeSize": [
+        104,
+        113
+      ],
+      "anchor": [
+        52,
+        110
+      ]
+    }
+  },
+  "compiledVariants": {
+    "dawnwater:0": {
+      "locationId": "brightquay",
+      "motif": "working_harbor_beacon",
+      "sources": [
+        "native-voxel-landmark:dawnwater",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "e3bb23a1b1af540e78de02cc06828dd2cfe3ee5009e96b229a4af28ee64a66f4"
+    },
+    "dawnwater:1": {
+      "locationId": "saltmarsh_landing",
+      "motif": "saltleaf_net_sheds",
+      "sources": [
+        "buildings:dawnwater:market",
+        "props:rack",
+        "props:sacks"
+      ],
+      "sha256": "c68f4c6e66b799600f6e1e5c00f52e19310a49bdea5a40e823d62a0e6c02f7b0"
+    },
+    "dawnwater:2": {
+      "locationId": "gull_rock",
+      "motif": "three_stacks_watch",
+      "sources": [
+        "props:dawnwater:sea_stack",
+        "props:dawnwater:sea_stack",
+        "props:flag"
+      ],
+      "sha256": "788014c21f5d51550d8f5ce5386586d405b5bed53c220ba434e8491c235f4328"
+    },
+    "dawnwater:3": {
+      "locationId": "lantern_isle",
+      "motif": "lantern_keeper_garden",
+      "sources": [
+        "buildings:dawnwater:house",
+        "props:lamp",
+        "props:dawnwater:herb"
+      ],
+      "sha256": "6deb9985bb18979d771df55daaaf18b48d38b94f523b6b7ddc8fc670c928fba1"
+    },
+    "dawnwater:4": {
+      "locationId": "coral_steps",
+      "motif": "coral_stair_fan",
+      "sources": [
+        "props:dawnwater:coral",
+        "props:dawnwater:rock_big",
+        "props:dawnwater:coral"
+      ],
+      "sha256": "aae4a2f22cc0d72e770e967c399d23bc133fee9881064ed8c86aa2381d7e64a4"
+    },
+    "dawnwater:5": {
+      "locationId": "old_lookout",
+      "motif": "broken_lantern_tower",
+      "sources": [
+        "native-voxel-landmark:dawnwater",
+        "props:dawnwater:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "7a5b543cf002e6ef0fe3e17b75ceb86cbb42155321aa28718966847ffb08dfba"
+    },
+    "dawnwater:6": {
+      "locationId": "brine_cellars",
+      "motif": "crowned_salt_casks",
+      "sources": [
+        "props:dawnwater:ruin_arch",
+        "props:barrels",
+        "props:sacks",
+        "props:chest"
+      ],
+      "sha256": "2a4e1da7d14962a535b19537028d4d88bc939ff61c0469d8b2e5a8d51b25dc4d"
+    },
+    "dawnwater:7": {
+      "locationId": "driftplank_wreck",
+      "motif": "broken_trade_mast",
+      "sources": [
+        "props:wreck_hull",
+        "props:mast_fallen",
+        "props:crate"
+      ],
+      "sha256": "9d3be07731069238d4227de9fef1c066f4843fd4f7a35b76aaef9709d2aa314a"
+    },
+    "dawnwater:8": {
+      "locationId": "dawn_trial_ring",
+      "motif": "harbor_charter_dais",
+      "sources": [
+        "props:dawnwater:standard",
+        "props:dawnwater:standard",
+        "props:dawnwater:statue",
+        "props:lamp"
+      ],
+      "sha256": "d8c03ed7bc09b2762aeb5ebeffef5838396968e2fd9e1fccbce1b4a612d4bfff"
+    },
+    "dawnwater:9": {
+      "locationId": "tidefin_grotto",
+      "motif": "tidefin_spring",
+      "sources": [
+        "props:dawnwater:rock_big",
+        "props:dawnwater:reeds",
+        "props:nest"
+      ],
+      "sha256": "cd1ba17360864d704d72a7fa6f08dc59e734b3e2962df4c730f7ca9be7c5ea15"
+    },
+    "emberreach:0": {
+      "locationId": "cinderport",
+      "motif": "copper_furnace_wharf",
+      "sources": [
+        "native-voxel-landmark:emberreach",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "863ff1f99e95883dbbcf6bdd374852e913dd6ca6e38b40442102136008f95c64"
+    },
+    "emberreach:1": {
+      "locationId": "ashfall_harbor",
+      "motif": "ash_roof_relief_store",
+      "sources": [
+        "buildings:emberreach:workshop",
+        "props:sacks",
+        "props:brazier"
+      ],
+      "sha256": "e529cef048df0a9904a0e6663bdecf79db82aa9ab98228e24d60844ad96b5550"
+    },
+    "emberreach:2": {
+      "locationId": "basalt_isle",
+      "motif": "split_basalt_crown",
+      "sources": [
+        "props:emberreach:rock_big",
+        "props:emberreach:stalagmite",
+        "props:emberreach:ore"
+      ],
+      "sha256": "4b33183d521f718d7be0a1460add87a4b5da6c00ad66e915c15419d3c015c357"
+    },
+    "emberreach:3": {
+      "locationId": "smolder_key",
+      "motif": "smoking_copper_vents",
+      "sources": [
+        "props:emberreach:obelisk",
+        "props:brazier",
+        "props:emberreach:ore"
+      ],
+      "sha256": "ace1537c91cf87fb406b5243eb8928e2b520b3abff68d9b6b5719025d926ad48"
+    },
+    "emberreach:4": {
+      "locationId": "obsidian_atoll",
+      "motif": "obsidian_mirror_pool",
+      "sources": [
+        "props:emberreach:crystal",
+        "props:emberreach:sea_rock",
+        "props:emberreach:ore"
+      ],
+      "sha256": "1b844bd4f54322c3101795930d677bd6dc9adc8262cf9805764996ede103e039"
+    },
+    "emberreach:5": {
+      "locationId": "magma_vents",
+      "motif": "great_copper_vent",
+      "sources": [
+        "native-voxel-landmark:emberreach",
+        "props:emberreach:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "547233982236ef250184cf9e00bea5fa31d8205e757acccfc22d852b1a9f2b1c"
+    },
+    "emberreach:6": {
+      "locationId": "forge_depths",
+      "motif": "hanging_foundry_crucible",
+      "sources": [
+        "buildings:emberreach:workshop",
+        "props:brazier",
+        "props:barrels"
+      ],
+      "sha256": "f31702a5b33428be5448bd92f451f4812f9057759eee1983e99d03c13f72fa7f"
+    },
+    "emberreach:7": {
+      "locationId": "scorched_galleon",
+      "motif": "charred_galleon_ribs",
+      "sources": [
+        "props:ribs",
+        "props:mast_fallen",
+        "props:campfire"
+      ],
+      "sha256": "32fde5f7305aec03a03a2bc5132fca513a32cab15318d3ff263b2d147b2dd41f"
+    },
+    "emberreach:8": {
+      "locationId": "ember_crucible",
+      "motif": "brazen_trial_crucible",
+      "sources": [
+        "props:brazier",
+        "props:emberreach:gate",
+        "props:brazier"
+      ],
+      "sha256": "0e4a70dfb2d597df8cffd6dc7dcd64d164f32046990260a026cfb21d189b67fe"
+    },
+    "emberreach:9": {
+      "locationId": "cinderback_nest",
+      "motif": "warm_basalt_nest",
+      "sources": [
+        "props:emberreach:rock_big",
+        "props:nest",
+        "props:emberreach:ore"
+      ],
+      "sha256": "cb4f7731f1f852d27f174e3718a3d6ea1d099eb8097324c373109ab695673d12"
+    },
+    "verdant_maw:0": {
+      "locationId": "rootharbor",
+      "motif": "giant_root_market",
+      "sources": [
+        "native-voxel-landmark:verdant_maw",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "4036e700f29b027f5f0b0bec5651aa54807be337c1cb9a6e5979d3b8572a384c"
+    },
+    "verdant_maw:1": {
+      "locationId": "fernwater_post",
+      "motif": "fern_canopy_boardwalk",
+      "sources": [
+        "buildings:verdant_maw:market",
+        "props:verdant_maw:tree_b",
+        "props:verdant_maw:reeds"
+      ],
+      "sha256": "8470f5e26e1019fc52423cfea64724d501cdda22da40f2bb651d340224bffa67"
+    },
+    "verdant_maw:2": {
+      "locationId": "tanglewood_isle",
+      "motif": "braided_root_arch",
+      "sources": [
+        "props:verdant_maw:ruin_arch",
+        "props:verdant_maw:tree_b",
+        "props:verdant_maw:herb"
+      ],
+      "sha256": "c1bfe7ddf4ccefc94dbe6055e7415484be3f3f53ad17f07dd515dfecfcee99e7"
+    },
+    "verdant_maw:3": {
+      "locationId": "orchid_cay",
+      "motif": "orchid_water_garden",
+      "sources": [
+        "props:verdant_maw:mushroom",
+        "props:verdant_maw:herb",
+        "props:verdant_maw:bush"
+      ],
+      "sha256": "d3be6b1fcffda4e4453b8f68b1dff2b71abd51455c7474bcdd5af09016231d77"
+    },
+    "verdant_maw:4": {
+      "locationId": "maw_shore",
+      "motif": "root_jaw_overlook",
+      "sources": [
+        "props:verdant_maw:dead_tree",
+        "props:verdant_maw:ruin_arch",
+        "props:verdant_maw:bones"
+      ],
+      "sha256": "e878296f3c2566d1ab362096338c444a29d36ea3f0f37692c9aae807aeefe762"
+    },
+    "verdant_maw:5": {
+      "locationId": "overgrown_shrine",
+      "motif": "root_embraced_shrine",
+      "sources": [
+        "native-voxel-landmark:verdant_maw",
+        "props:verdant_maw:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "1521a80142418e539f5192df1814e28c6220c6d16b57a9c7bb3462b7b3fd465b"
+    },
+    "verdant_maw:6": {
+      "locationId": "thornroot_caves",
+      "motif": "thornroot_water_chamber",
+      "sources": [
+        "props:verdant_maw:stalagmite",
+        "props:verdant_maw:tree_b",
+        "props:verdant_maw:mushroom"
+      ],
+      "sha256": "f42378d1353cd73d729b761fdefcf83b1f0e1afc2ec771fbfe57ffafb314ddd3"
+    },
+    "verdant_maw:7": {
+      "locationId": "vine_wreck",
+      "motif": "vine_bound_rudder",
+      "sources": [
+        "props:wreck_hull",
+        "props:verdant_maw:tree_b",
+        "props:verdant_maw:bush"
+      ],
+      "sha256": "f260a8381024495f4451969ccddc4ec8b9823ff18aac6d271f9fe943c3adb36e"
+    },
+    "verdant_maw:8": {
+      "locationId": "verdant_arena",
+      "motif": "living_root_dais",
+      "sources": [
+        "props:verdant_maw:gate",
+        "props:verdant_maw:herb",
+        "props:verdant_maw:mushroom"
+      ],
+      "sha256": "e968eb60dd8aea3aafc39e403728475295fe0de67f2779476138b993f7e94bca"
+    },
+    "verdant_maw:9": {
+      "locationId": "moss_hollow",
+      "motif": "mossling_hollow_tree",
+      "sources": [
+        "props:verdant_maw:tree_b",
+        "props:lair_nest",
+        "props:verdant_maw:mushroom"
+      ],
+      "sha256": "d2ded122e6134f050765027b75569626f1f2d5bc1ba94f01722ddbcedb2fc27f"
+    },
+    "glass_current:0": {
+      "locationId": "prismhaven",
+      "motif": "white_prism_lantern",
+      "sources": [
+        "native-voxel-landmark:glass_current",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "5cd3b433b816e0557f24a22b87cf6325a79e9d74a5909ac9ef2aec8609683494"
+    },
+    "glass_current:1": {
+      "locationId": "mirrorbay",
+      "motif": "glass_windbell_pier",
+      "sources": [
+        "buildings:glass_current:market",
+        "props:glass_current:crystal",
+        "props:lamp"
+      ],
+      "sha256": "0ba6d5c10254f4b1d9c02fc255409c5faa83d3a0615c32b36753380272e1b674"
+    },
+    "glass_current:2": {
+      "locationId": "shard_reef",
+      "motif": "shattered_prism_reef",
+      "sources": [
+        "props:glass_current:crystal",
+        "props:glass_current:crystal",
+        "props:glass_current:ore"
+      ],
+      "sha256": "8e9840e35db7fb20a7dadd82a347aea561bd81d90f49f5222c9858dbd8ad1ac9"
+    },
+    "glass_current:3": {
+      "locationId": "lens_isle",
+      "motif": "great_glass_lens",
+      "sources": [
+        "props:glass_current:gate",
+        "props:glass_current:crystal",
+        "props:lamp"
+      ],
+      "sha256": "dab5d972a11ba57cb15023b004f79995d7201473b003e69a571fe3a2763b923f"
+    },
+    "glass_current:4": {
+      "locationId": "quartz_spire",
+      "motif": "split_quartz_spire",
+      "sources": [
+        "props:glass_current:crystal",
+        "props:glass_current:pillar_broken",
+        "props:glass_current:ore"
+      ],
+      "sha256": "3aa7c0e9b0462460c2af3970a8422059df3178f9e91c3f8dada40cbab4e97d14"
+    },
+    "glass_current:5": {
+      "locationId": "crystal_vault",
+      "motif": "prism_vault_dome",
+      "sources": [
+        "native-voxel-landmark:glass_current",
+        "props:glass_current:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "83299384375a12507cd4b5da4eca0812515d7cee463c75a1f710f0570f0701b4"
+    },
+    "glass_current:6": {
+      "locationId": "refraction_maze",
+      "motif": "angled_mirror_gate",
+      "sources": [
+        "props:glass_current:gate",
+        "props:glass_current:ruin_arch",
+        "props:glass_current:crystal"
+      ],
+      "sha256": "87e69ca9c9641290aa31c8f26160fe19c3e8ae9ec0d43ac69f8c268048ce85d8"
+    },
+    "glass_current:7": {
+      "locationId": "glassbound_hulk",
+      "motif": "crystal_locked_ribs",
+      "sources": [
+        "props:ribs",
+        "props:glass_current:crystal",
+        "props:mast_fallen"
+      ],
+      "sha256": "09860f9739b77a9d58ea5e4e2c381b7ea13e78b3ece06ab47e341a441d1fd7f2"
+    },
+    "glass_current:8": {
+      "locationId": "prism_court",
+      "motif": "faceted_trial_canopy",
+      "sources": [
+        "props:glass_current:pillar",
+        "props:glass_current:obelisk",
+        "props:glass_current:pillar"
+      ],
+      "sha256": "b5a42c315cf5e7edc1357566bfabe7240045e5577c997b44da8e24788088ccc3"
+    },
+    "glass_current:9": {
+      "locationId": "glasswing_lagoon",
+      "motif": "glasswing_reed_arbor",
+      "sources": [
+        "props:glass_current:reeds",
+        "props:glass_current:crystal",
+        "props:nest"
+      ],
+      "sha256": "ea7b0f539d73e95c9526c3be89ca6e3e60c3a5fd06cd76a827dedfa43d7bbc92"
+    },
+    "crown_shoals:0": {
+      "locationId": "crownport",
+      "motif": "chartered_harbor_arcade",
+      "sources": [
+        "native-voxel-landmark:crown_shoals",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "2c41b04a518a0d3404665867ae7073b9da2d81a36ffc3e48d4d06290257535f8"
+    },
+    "crown_shoals:1": {
+      "locationId": "silkmarket",
+      "motif": "striped_silk_market",
+      "sources": [
+        "buildings:crown_shoals:market",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "d7035c19513ba6d0c72c39c0aac18f3ae273f4effe9ff658017887a235678fa1"
+    },
+    "crown_shoals:2": {
+      "locationId": "gilded_cay",
+      "motif": "gilded_courtyard",
+      "sources": [
+        "props:crown_shoals:statue",
+        "props:crown_shoals:pillar_broken",
+        "props:crown_shoals:herb"
+      ],
+      "sha256": "ee0f5827cb9e5d28ffb047061244ecd270af7334943f0bc7158731f1fa6b2636"
+    },
+    "crown_shoals:3": {
+      "locationId": "heron_isle",
+      "motif": "heron_reed_pavilion",
+      "sources": [
+        "buildings:crown_shoals:house",
+        "props:crown_shoals:reeds",
+        "props:lamp"
+      ],
+      "sha256": "efb3571fba9d68343ff06242496931ef95557d960080c5515190e9036b91cb99"
+    },
+    "crown_shoals:4": {
+      "locationId": "regent_bank",
+      "motif": "regent_sea_stair",
+      "sources": [
+        "props:crown_shoals:pillar",
+        "props:crown_shoals:ruin_arch",
+        "props:crown_shoals:statue"
+      ],
+      "sha256": "529d5edff0bd7294b1f98e55a926a6cb4380ea809fc17290ebd9c5361c354f01"
+    },
+    "crown_shoals:5": {
+      "locationId": "charter_archive",
+      "motif": "charter_seal_library",
+      "sources": [
+        "native-voxel-landmark:crown_shoals",
+        "props:crown_shoals:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "d19c5314b9cf57c19af277d3be3eb2c3d0605b56b80eb545a7f913013f57a151"
+    },
+    "crown_shoals:6": {
+      "locationId": "old_family_crypt",
+      "motif": "ancestral_stone_gallery",
+      "sources": [
+        "props:crown_shoals:ruin_arch",
+        "props:crown_shoals:statue",
+        "props:chest"
+      ],
+      "sha256": "a7e61fac2272242bbc915b52a97d9f762f8298a03511b2ca4277b27dddfb71e0"
+    },
+    "crown_shoals:7": {
+      "locationId": "treasury_wreck",
+      "motif": "gilded_treasury_stern",
+      "sources": [
+        "props:wreck_hull",
+        "props:chest",
+        "props:gold"
+      ],
+      "sha256": "3d2c367bc75576aef4dd277bb45938060c51508055ded727bfde06d6c524272b"
+    },
+    "crown_shoals:8": {
+      "locationId": "crown_tourney",
+      "motif": "silk_banner_tourney",
+      "sources": [
+        "props:crown_shoals:standard",
+        "props:crown_shoals:statue",
+        "props:crown_shoals:standard"
+      ],
+      "sha256": "c0fb366c9a6261c482b8d18f3270db3bb85d2a72ace64035269c46ff281bfdf3"
+    },
+    "crown_shoals:9": {
+      "locationId": "pearl_grotto",
+      "motif": "pearl_shell_fountain",
+      "sources": [
+        "props:crown_shoals:statue",
+        "props:crown_shoals:herb",
+        "props:crown_shoals:crystal"
+      ],
+      "sha256": "451c02960f2d2a88796ee8c225505b6a619425052547aa2bcc808ed33ccd1fc6"
+    },
+    "stormbelt:0": {
+      "locationId": "gale_harbor",
+      "motif": "storm_chain_harbor",
+      "sources": [
+        "native-voxel-landmark:stormbelt",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "760d2f4da487d34330ad9e7773590b652fd727e1400a8b02225d50ab495a3801"
+    },
+    "stormbelt:1": {
+      "locationId": "beacon_rest",
+      "motif": "yellow_window_refuge",
+      "sources": [
+        "buildings:stormbelt:tavern",
+        "props:lamp",
+        "props:barrels"
+      ],
+      "sha256": "ec74a2fc5e90b3019672d6613444cd64c10e038232d53adcd0000642027cf4fc"
+    },
+    "stormbelt:2": {
+      "locationId": "thunder_rock",
+      "motif": "thunder_split_monolith",
+      "sources": [
+        "props:stormbelt:stalagmite",
+        "props:stormbelt:sea_stack",
+        "props:stormbelt:rock"
+      ],
+      "sha256": "443878786a4e34a55295bf923a4cb7ef5098dd67ed40404c1102382ee495b581"
+    },
+    "stormbelt:3": {
+      "locationId": "squall_isle",
+      "motif": "wind_bent_signal_mast",
+      "sources": [
+        "props:mast_fallen",
+        "props:flag",
+        "props:rack"
+      ],
+      "sha256": "1ec00338d3d6d7c1bc6c34ea37b9a98bfa93f1153e358becd3ef179fded552a0"
+    },
+    "stormbelt:4": {
+      "locationId": "lightning_reach",
+      "motif": "lightning_copper_array",
+      "sources": [
+        "props:stormbelt:obelisk",
+        "props:stormbelt:pillar_broken",
+        "props:lamp"
+      ],
+      "sha256": "f40794b05500ab7dd392b013427b0bc32e346569d53fb59e79afddb4285d4170"
+    },
+    "stormbelt:5": {
+      "locationId": "drowned_beacon",
+      "motif": "tilted_beacon_lens",
+      "sources": [
+        "native-voxel-landmark:stormbelt",
+        "props:stormbelt:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "6cf4da34bd311ccac613cc0710c003e42ee3b8a6151a15e44467d5bb9e87a347"
+    },
+    "stormbelt:6": {
+      "locationId": "tempest_caverns",
+      "motif": "flooded_storm_chamber",
+      "sources": [
+        "props:stormbelt:ruin_arch",
+        "props:stormbelt:stalagmite",
+        "props:barrels"
+      ],
+      "sha256": "bbfa097d5038eae9a4e4ee50b4fbc76308e793b74b84d7af8acc1f726ce89252"
+    },
+    "stormbelt:7": {
+      "locationId": "stormwrack_hulk",
+      "motif": "storm_torn_crows_nest",
+      "sources": [
+        "props:wreck_hull",
+        "props:mast_fallen",
+        "props:flag"
+      ],
+      "sha256": "e5f95a1f5ea50044481c85ac49d18199120eced2e77c544913c6f877ac01e411"
+    },
+    "stormbelt:8": {
+      "locationId": "eye_of_storm",
+      "motif": "sheltered_eye_standards",
+      "sources": [
+        "props:stormbelt:standard",
+        "props:stormbelt:barrier",
+        "props:brazier"
+      ],
+      "sha256": "11ed85d5982ab7611060971ed00fb4fba99500e6911805e32891eb05a7ef3dbf"
+    },
+    "stormbelt:9": {
+      "locationId": "cloudray_aerie",
+      "motif": "cloudray_wind_arch",
+      "sources": [
+        "props:stormbelt:ruin_arch",
+        "props:lair_nest",
+        "props:stormbelt:reeds"
+      ],
+      "sha256": "8342a625c807736438e0f87b87be8a4592ef84157623fc4d395d4f16e3d94797"
+    },
+    "moonwake:0": {
+      "locationId": "lanternport",
+      "motif": "moon_lantern_balconies",
+      "sources": [
+        "native-voxel-landmark:moonwake",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "4eb3609f8b8667e94509ce4fe29a890389f261aaa16adc4ce5f8baea528dc7bc"
+    },
+    "moonwake:1": {
+      "locationId": "dusk_mooring",
+      "motif": "dusk_tea_pier",
+      "sources": [
+        "buildings:moonwake:tavern",
+        "props:lamp",
+        "props:moonwake:herb"
+      ],
+      "sha256": "05f49b5f697153d507f68914da5f9751d21427bd62c114d8ae2ed33b183cd131"
+    },
+    "moonwake:2": {
+      "locationId": "nightbloom_isle",
+      "motif": "nightbloom_lantern_arbor",
+      "sources": [
+        "props:moonwake:tree_b",
+        "props:lamp",
+        "props:moonwake:herb"
+      ],
+      "sha256": "0d952e35462f1f83c06eb4a7809ecd93a417e2ef9af5af47db84f29e73e2c923"
+    },
+    "moonwake:3": {
+      "locationId": "echo_atoll",
+      "motif": "echo_bell_crescent",
+      "sources": [
+        "props:moonwake:gate",
+        "props:lamp",
+        "props:moonwake:rock_big"
+      ],
+      "sha256": "b29b9ce452a075f9be9ffac8f806e240cf7f7ce27596446eb0f1eddaf26d1112"
+    },
+    "moonwake:4": {
+      "locationId": "starfall_key",
+      "motif": "starfall_glass_crater",
+      "sources": [
+        "props:moonwake:crystal",
+        "props:moonwake:rock_big",
+        "props:moonwake:ore"
+      ],
+      "sha256": "6f4dc705e2d58b097f8076617f354882999b6177a8874790268d58a4bfe827f7"
+    },
+    "moonwake:5": {
+      "locationId": "forgotten_observatory",
+      "motif": "open_dome_telescope",
+      "sources": [
+        "native-voxel-landmark:moonwake",
+        "props:moonwake:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "590c52285af6695294c5b548a310c03c75d72adf0281271d9d98c9f2128d51ae"
+    },
+    "moonwake:6": {
+      "locationId": "dream_labyrinth",
+      "motif": "moon_phase_door_gallery",
+      "sources": [
+        "props:moonwake:gate",
+        "props:moonwake:pillar",
+        "props:lamp"
+      ],
+      "sha256": "7917c8fd3331ed74e57ba2804fa9ad27cf00bba50dec671eeac5cb47ad2445cf"
+    },
+    "moonwake:7": {
+      "locationId": "moonlit_wreck",
+      "motif": "lantern_reflected_stern",
+      "sources": [
+        "props:wreck_hull",
+        "props:lamp",
+        "props:mast_fallen"
+      ],
+      "sha256": "46007d594ca5236e7f2c28f6fb90c5098dd081bf32516984c33eab00d7cea0b6"
+    },
+    "moonwake:8": {
+      "locationId": "moonwake_stage",
+      "motif": "moonrise_curtain_dais",
+      "sources": [
+        "props:moonwake:standard",
+        "props:moonwake:gate",
+        "props:moonwake:standard"
+      ],
+      "sha256": "d26b1a83b78243951bdabff6bac7c003143da8d9ddbb17cd0f44ae72f5f2a1a8"
+    },
+    "moonwake:9": {
+      "locationId": "dreammoth_glade",
+      "motif": "dreammoth_silk_lanterns",
+      "sources": [
+        "props:moonwake:tree_b",
+        "props:moonwake:mushroom",
+        "props:lamp",
+        "props:nest"
+      ],
+      "sha256": "27473ef165e5681f4474eda774e6eb72b2d0d2071633f4ad381342e429893a8a"
+    },
+    "ashen_trench:0": {
+      "locationId": "ashport",
+      "motif": "copper_mine_lanterns",
+      "sources": [
+        "native-voxel-landmark:ashen_trench",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "fc4c7ef63317ef082b4ee248447a2a7a469404492eeefb18d5247b5923067480"
+    },
+    "ashen_trench:1": {
+      "locationId": "relic_dock",
+      "motif": "relic_divers_scaffold",
+      "sources": [
+        "buildings:ashen_trench:workshop",
+        "props:rack",
+        "props:lamp"
+      ],
+      "sha256": "bf31b98b3c8d3c36e3cb230cc4e294418345f1a97cec149f85d2c44c3faa7a2f"
+    },
+    "ashen_trench:2": {
+      "locationId": "cinder_shelf",
+      "motif": "cinder_terrace_cairns",
+      "sources": [
+        "props:ashen_trench:rock_big",
+        "props:ashen_trench:pillar_broken",
+        "props:ashen_trench:bones"
+      ],
+      "sha256": "2ef68466e74a277bfee2a81f714cd85e6db70b1574514a5cb6cb71f05f50de87"
+    },
+    "ashen_trench:3": {
+      "locationId": "sunken_spires",
+      "motif": "half_buried_spire_gate",
+      "sources": [
+        "props:ashen_trench:ruin_arch",
+        "props:ashen_trench:stalagmite",
+        "props:ashen_trench:rock_big"
+      ],
+      "sha256": "9b3163ac0fe8ab6e58d95c9a69c13320f5d14a8f28531317de0b08d72e730fcf"
+    },
+    "ashen_trench:4": {
+      "locationId": "abyss_ledge",
+      "motif": "abyss_chain_bridge",
+      "sources": [
+        "props:ashen_trench:barrier",
+        "props:ashen_trench:pillar",
+        "props:lamp"
+      ],
+      "sha256": "8e9a9b9d0360b4e83f768cb44edcef674745b33e3e2a38419b234cfa25c4cd7f"
+    },
+    "ashen_trench:5": {
+      "locationId": "sealed_ruins",
+      "motif": "great_ring_seal",
+      "sources": [
+        "native-voxel-landmark:ashen_trench",
+        "props:ashen_trench:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "7f9c417784c46674b10358214665fc05426da687b9364276e599f312f2a09ca2"
+    },
+    "ashen_trench:6": {
+      "locationId": "trench_sanctum",
+      "motif": "abyssal_survey_altar",
+      "sources": [
+        "props:ashen_trench:obelisk",
+        "props:rack",
+        "props:lamp"
+      ],
+      "sha256": "689900af585fa77fbd09fba88a006f911bd257b21207302fc88ed0f83b5357fd"
+    },
+    "ashen_trench:7": {
+      "locationId": "relic_hunter_wreck",
+      "motif": "survey_crane_wreck",
+      "sources": [
+        "props:wreck_hull",
+        "props:rack",
+        "props:crate"
+      ],
+      "sha256": "171adb45849a924a59a56bbfd86e8998973cd3075429e1e333f4a18ccafdbc51"
+    },
+    "ashen_trench:8": {
+      "locationId": "ashen_seal_arena",
+      "motif": "copper_ring_of_wards",
+      "sources": [
+        "props:ashen_trench:gate",
+        "props:brazier",
+        "props:ashen_trench:obelisk"
+      ],
+      "sha256": "309ebf9c7476874543fbf94226a5602dd5c8a99c8286b766019846aab650af11"
+    },
+    "ashen_trench:9": {
+      "locationId": "gloomjaw_den",
+      "motif": "gloomjaw_warm_vent",
+      "sources": [
+        "props:ashen_trench:stalagmite",
+        "props:lair_nest",
+        "props:brazier"
+      ],
+      "sha256": "10256d5d84e658bbf0caeccfd7208e519039a305c50dfba45655e42810e95ef1"
+    },
+    "leviathan_ring:0": {
+      "locationId": "ringhold",
+      "motif": "great_rib_harbor_arch",
+      "sources": [
+        "native-voxel-landmark:leviathan_ring",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "0314ba1f085864d89aca4e3b52f4de9159da3319415c2d1a7b03fddf63dd4c91"
+    },
+    "leviathan_ring:1": {
+      "locationId": "migration_post",
+      "motif": "migration_watch_pavilion",
+      "sources": [
+        "buildings:leviathan_ring:house",
+        "props:leviathan_ring:bones",
+        "props:flag"
+      ],
+      "sha256": "871fde5a2103799cc998665a638acdce6a38ba4797ba3649a9119c561f0d3aef"
+    },
+    "leviathan_ring:2": {
+      "locationId": "shell_isle",
+      "motif": "shell_spiral_overlook",
+      "sources": [
+        "props:leviathan_ring:bones",
+        "props:leviathan_ring:sea_stack",
+        "props:leviathan_ring:coral"
+      ],
+      "sha256": "ed6d6f8fb4ac57903c8d6e8aa104b13a23ba7fd263bb96309143c3a5a208aecb"
+    },
+    "leviathan_ring:3": {
+      "locationId": "bone_reef",
+      "motif": "titan_rib_causeway",
+      "sources": [
+        "props:ribs",
+        "props:leviathan_ring:bones",
+        "props:leviathan_ring:coral"
+      ],
+      "sha256": "5095c0af067eb5ab46445549f9473f61856d3170adaf4a568bf04535412d3205"
+    },
+    "leviathan_ring:4": {
+      "locationId": "titan_atoll",
+      "motif": "leviathan_jaw_lagoon",
+      "sources": [
+        "props:bone_pile",
+        "props:ribs",
+        "props:leviathan_ring:coral"
+      ],
+      "sha256": "c33f0cd69f72bcd56b692c16c675a6569144d252063f36c145189472f1ee2109"
+    },
+    "leviathan_ring:5": {
+      "locationId": "leviathan_gut",
+      "motif": "great_rib_vault",
+      "sources": [
+        "native-voxel-landmark:leviathan_ring",
+        "props:leviathan_ring:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "014fe25b5a161eb19a0bc1677762bf5b0af4336d98856e9f5e2c4009aab0ded6"
+    },
+    "leviathan_ring:6": {
+      "locationId": "coral_colossus",
+      "motif": "coral_heart_chamber",
+      "sources": [
+        "props:leviathan_ring:ruin_arch",
+        "props:leviathan_ring:coral",
+        "props:leviathan_ring:crystal"
+      ],
+      "sha256": "5ae3709c52c7b77f78de79c63c04f1059684bd104f1e82f29bb5a355fa51135a"
+    },
+    "leviathan_ring:7": {
+      "locationId": "behemoth_wreck",
+      "motif": "behemoth_broken_figurehead",
+      "sources": [
+        "props:wreck_hull",
+        "props:leviathan_ring:bones",
+        "props:leviathan_ring:coral"
+      ],
+      "sha256": "a2eb1388c7d7cc427b5a3bedf3d36b061950abf5553f12fba0c47a6d920fa350"
+    },
+    "leviathan_ring:8": {
+      "locationId": "ring_arena",
+      "motif": "pearl_lit_rib_dais",
+      "sources": [
+        "props:ribs",
+        "props:lamp",
+        "props:lamp"
+      ],
+      "sha256": "8d08f74ef02e6b47e6e2c42b2363d7fd6c5d3b6786e180eab5f0618ff460ec91"
+    },
+    "leviathan_ring:9": {
+      "locationId": "shellwarden_shoal",
+      "motif": "shellwarden_coral_cradle",
+      "sources": [
+        "props:leviathan_ring:coral",
+        "props:lair_nest",
+        "props:leviathan_ring:coral"
+      ],
+      "sha256": "ff79bf6e11317ca462823f434481b65edd9a26df452a5b79f98d18df6d2266eb"
+    },
+    "grand_horizon:0": {
+      "locationId": "horizon_gate",
+      "motif": "sunwheel_harbor_gate",
+      "sources": [
+        "native-voxel-landmark:grand_horizon",
+        "props:barrels",
+        "props:flag"
+      ],
+      "sha256": "c13097e9984f99e204affe68d47b2a415bc1025ddeef92f8d0a59d8c2ce1b602"
+    },
+    "grand_horizon:1": {
+      "locationId": "conclave_harbor",
+      "motif": "captains_banner_colonnade",
+      "sources": [
+        "buildings:grand_horizon:navigation",
+        "props:grand_horizon:standard",
+        "props:grand_horizon:statue"
+      ],
+      "sha256": "88c789cecf65bed76730dfe295f172a8da3614a3e9ce77e1f36b3494892dd9b1"
+    },
+    "grand_horizon:2": {
+      "locationId": "sunrise_isle",
+      "motif": "sunrise_memorial_terrace",
+      "sources": [
+        "props:grand_horizon:statue",
+        "props:grand_horizon:pillar_broken",
+        "props:grand_horizon:herb"
+      ],
+      "sha256": "70c029ac613f7681cedcef04d9b369ea08e4b841f017ed87d788b4df9e5f02e0"
+    },
+    "grand_horizon:3": {
+      "locationId": "zenith_cay",
+      "motif": "zenith_celestial_arch",
+      "sources": [
+        "props:grand_horizon:ruin_arch",
+        "props:grand_horizon:obelisk",
+        "props:grand_horizon:crystal"
+      ],
+      "sha256": "a18dd9bf7ce091e11c1d13145fc287812a063bb02f81d10dc4ef03b3d38b1ddd"
+    },
+    "grand_horizon:4": {
+      "locationId": "dawnstar_reef",
+      "motif": "dawnstar_compass_reef",
+      "sources": [
+        "props:grand_horizon:crystal",
+        "props:grand_horizon:statue",
+        "props:grand_horizon:sea_rock"
+      ],
+      "sha256": "b83ffb72465400e916e84f9afceb6ad240b1d95d4a2ae8128956b774421ce7f6"
+    },
+    "grand_horizon:5": {
+      "locationId": "ancient_gatehouse",
+      "motif": "ancient_horizon_gate",
+      "sources": [
+        "native-voxel-landmark:grand_horizon",
+        "props:grand_horizon:rock_big",
+        "props:brazier"
+      ],
+      "sha256": "a6f38c0c4096374686d6135ee4184ef9d552cbde2b10520bff1e9819d1aaa41e"
+    },
+    "grand_horizon:6": {
+      "locationId": "compass_vault",
+      "motif": "brass_armillary_compass",
+      "sources": [
+        "props:grand_horizon:obelisk",
+        "props:grand_horizon:pillar",
+        "props:grand_horizon:crystal"
+      ],
+      "sha256": "9f953862e9e5f8001a0087290a75c63ed21e9314292231143ebcd6333062712e"
+    },
+    "grand_horizon:7": {
+      "locationId": "rival_flagship_wreck",
+      "motif": "rival_gilded_transom",
+      "sources": [
+        "props:wreck_hull",
+        "props:grand_horizon:standard",
+        "props:chest"
+      ],
+      "sha256": "962cf37cbf5d3e71cb36f3b73a69aae4d14d85d4cfef25e970b66f68973e862e"
+    },
+    "grand_horizon:8": {
+      "locationId": "horizon_arena",
+      "motif": "conclave_sunwheel_throne",
+      "sources": [
+        "props:grand_horizon:statue",
+        "props:grand_horizon:standard",
+        "props:grand_horizon:standard",
+        "props:gold"
+      ],
+      "sha256": "1875d84610150bf8c83f1a25c4b7bfa7631e6a8829165b6a0ba364682c49e734"
+    },
+    "grand_horizon:9": {
+      "locationId": "starwake_haven",
+      "motif": "starwake_celestial_cradle",
+      "sources": [
+        "props:grand_horizon:crystal",
+        "props:lair_nest",
+        "props:lamp"
+      ],
+      "sha256": "011a1ccad288861245b50c15242718aa89881d77df859fc48ee8adf48b521a8d"
+    }
+  },
+  "runtimeRasterOrigin": "original code-authored native voxel and pixel art"
+}

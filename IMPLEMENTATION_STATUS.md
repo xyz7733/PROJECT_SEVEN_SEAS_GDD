@@ -6,11 +6,126 @@
 - **Engine:** Godot 4.7.2 stable, GDScript, GL Compatibility renderer, 640×360 base viewport
   with expanding canvas scaling; default window 1280×720
 - **Languages:** English (`en`) and Simplified Chinese (`zh_CN`)
-- **Status:** The current revision is **craft-01-fix1** (November 14, 2026), following craft-01.
-  Windows Godot passes **2,263 core checks and 748 UI layout checks**, with no script errors or
-  leak warnings. The checks and an automated RTX 4070 rendering probe use isolated preferences and saves.
-  The original craft-01 checkpoint remains intact. Human motion review, mouse-driven play,
-  speaker listening and campaign balance still need review.
+- **Current delivery:** **2.1.0 · crew-01** (November 15, 2026): six personal attributes for every
+  sailor (Might, Vigor, Agility, Focus, Will, Seamanship), training points and retraining, a new
+  Crew → Attributes tab and attribute strips across the crew, tavern, recruit and Inspector views,
+  and save schema 6 with migration. Download the [Windows ZIP](build/ProjectSevenSeas-crew-01.zip).
+  World and catalogue are unchanged from **2.0.1 · world-art-02** (November 14, 2026).
+- **Current evidence:** [Crew 01 release notes](docs/CREW_01.md) and
+  [Windows handoff](docs/WINDOWS_HANDOFF.json); world-art-02 evidence stays in its
+  [release notes](docs/WORLD_ART_02.md) and [validation manifest](docs/WORLD_ART_02_VALIDATION.json).
+  Older test counts, hashes and main-campaign results below remain specific to their named
+  checkpoints.
+
+## Crew attributes (crew-01)
+
+- **Attributes:** `game/scripts/core/crew_attrs.gd` (`Attrs`). 10 is neutral; each point away from
+  10 adds a fixed modifier through `Rules.member_stats()` after collections and before equipment
+  (Might ATK 1.2%; Vigor HP 1.5% and DEF 0.8%; Agility SPD 0.1 and dodge 0.4% above 10 only;
+  Focus crit 0.5% and control 1.5%; Will healing 1.5% and cooldown 0.6%; Seamanship job 3%).
+  Values are clamped to 1–30; crit and dodge never go below zero.
+- **Rolling:** six × 6 plus 22 points dealt by weighted draw (origin leanings ×2.2, one talent ×2,
+  one weakness ×0.35, taper above 10, single base cap 16) from a separate stream seeded by the
+  identity seed, so every other part of a recruit roll is unchanged. Each trait shifts two or three
+  attributes by a net +1. Base classes name two key attributes; branches use their root class.
+- **Training:** one point per 4 levels (15 at level 60), actions `crew.train` and `crew.retrain`
+  (outside encounters and events; retraining needs a port or Class Hall and costs 30 + 6 × level
+  gold). A level-up that earns a point logs it; the roster shows unspent points.
+- **Interface:** Crew → Attributes tab (hexagon chart, rows with + buttons, points and retrain,
+  net effects, class keys, trait shifts), with a compact arrangement when the window is narrow;
+  attribute strips with tooltips in Details, tavern cards, the battle-report recruit offer and the
+  Inspector. Six new generated icons; 59 new strings per language.
+- **Saves:** schema 6; schema 3–5 saves migrate by rolling each existing sailor's attributes from
+  their stored seed and origin and adding an empty training record (idempotent).
+- **Validation:** **7,226 core checks and 940 layout checks** pass on the source, including the new
+  `test_attrs.gd` suite, a hand-written schema-5 save and the Attributes tab at all three UI sizes in
+  both languages. Existing combat and balance tests pass unchanged. No manual campaign playthrough
+  was made for this release.
+
+## Review fixes and scene revision (world-art-02)
+
+- **R1 — Companion skills:** a missing target means an enemy for attack skills; explicit ally and
+  self effects retain their targeting semantics, deterministic replay and settlement. Sic 'Em
+  immediately performs the intended 1.6× pet skill and then resets its natural action timer.
+- **R2 — Exploration Fit:** frame the room nodes, crew, landing, return boat and complete landmark
+  clear of the HUD and site title, with wider overview zoom levels for large sites.
+- **R3 — Inspector:** dock below the objective strip and use two columns for HP, ATK, DEF and SPD.
+- **R4 — Battle readability:** put pause and full-field notices in reserved areas; merge rapid
+  same-unit numbers, cap visible floaters and avoid actor sprites, HP bars, other labels and HUD.
+- **R5 — Defeat settlement:** create reward animation only when there are reward stamps; preserve
+  the Continue button and victory animation.
+- **R6 — Audio exit:** defer playback while the mixer is stalled, retain the latest soundscape,
+  discard stale effects and share bounded cleanup across title Quit, System Quit and window close.
+
+**Locations and runtime art.** The 20 ports now use 18 spatial layout families, with service and
+resident paths following the streets. Fifty island/dungeon layouts have revised room/landmark
+relationships. All ten landmark families now use the same native voxel renderer as the ship and
+buildings; the previous AI masters remain concept/source references outside the distributed pack.
+The coastline treatment preserves protected room, path and boarding areas and existing elevation rules.
+
+**Cabins.** Complete modules combine lit side walls, an open threshold, coordinated floors,
+grouped furniture and reachable crew activity spots. Default layouts contain 2/3/6/6 modules across
+the four hulls. Player facilities, stairs and work entrances take precedence; crowded refits omit
+decorative modules instead of blocking navigation.
+
+**Two-region route samples.** Four dungeons in Glass Current and Stormbelt offer an optional west
+combat preparation route, an east resource route or direct progression. West combat costs 10 stamina;
+the east resource visit costs 6. Calibrating Glass Current prisms removes glare and actual decoys
+from later local fights; relighting Stormbelt beacons provides shelter. Existing west-room completion
+records carry preparation state, including on old saves. An already generated pending encounter keeps
+its original definition. The remaining regions, main quest templates and legendary challenges retain
+their existing rules.
+
+**Validation boundary.** The final source passes **6,975 core checks and 928 layout checks**.
+Package-comparison and targeted fullscreen results are recorded in the
+[validation manifest](docs/WORLD_ART_02_VALIDATION.json). All runs use isolated
+player data. Engine Input/UI/API review is distinct from OS-mouse play, and no speaker listening has
+been claimed. The local WASAPI mixer did not advance continuously; deferred playback and bounded
+exit were reviewed alongside Dummy playback, with remaining engine/device limits described in the
+[release notes](docs/WORLD_ART_02.md). This correction pass does not claim a new manual main-campaign run.
+
+## Historical: ten-sea visual rework (world-art-01)
+
+The following world-art-01 record describes the earlier package and its review findings. Its AI
+landmark integration, packed-resource counts and unresolved issues are historical; the current
+world-art-02 changes and evidence are summarized above.
+
+The source work applies a warm, inhabited pixel-art direction across the complete campaign:
+regional architecture and location compositions; new regional landmarks; refined hulls, facilities,
+interior groups, classes, rival captains, monsters, bosses and pets; a navy/brass/cream UI and chart;
+regional ambient life; and eleven original synthesized regional/cabin sound layers.
+
+`SceneProfiles` supplies ten regional profiles, 100 location profiles and 190 combat-room profiles.
+The landmark atlas supplies 100 location-specific vignettes from ten preserved AI masters and
+authored native kits; each location and battle selects its corresponding variant. All 80 site
+foundations statically clear room pads and routes at their actual 144-by-64-pixel footprint.
+Existing room IDs, links, rule ownership, reward transactions and save schema remain the integration
+boundary. The coverage manifest records structural coverage separately from runtime acceptance.
+
+Detailed source changes, exact content counts, mixed code-authored/AI-assisted art provenance,
+static evidence and outstanding review are in `docs/WORLD_ART_01.md` and
+`docs/WORLD_ART_COVERAGE.json`. The regional audio sources and CC0 records are in
+`docs/AUDIO_LICENSES.md`.
+
+**Build evidence:** the complete `build_all.py` run finished in approximately 33 seconds and
+produced 33 inventory rows. All ten AI-assisted landmark masters were prepared with 64 colours each,
+then composed with native kits into 100 transparent 144-by-150-pixel vignettes integrated through
+`Art.world_landmark()`. Godot Windows `--editor --import --quit` and `--export-release` completed;
+`import.log` and `export.log` under `build/validation/world-art-01/` contain no `SCRIPT ERROR` or
+`ERROR:` entries. `build/validation/world-art-01/pack-audit.json` records 382 packed resources,
+382 matching file digests and all 14 required resources: scene profiles, landmark PNG/metadata and
+11 sound loops. Artifact hashes and the immutable delivery checkpoint are recorded separately.
+
+**Runtime review:** the exact exported PCK was exercised on Windows Godot 4.7.2, RTX 4070 Laptop
+GPU, OpenGL, 2560×1600 fullscreen. A normal-rules save chain completed all ten main trials;
+fixtures rendered 100 locations, 190 battle contexts and 14 hull views. Controls and 186 bilingual
+window/tab/scale cases, bounded real-time fights, exposed night/weather and frame pacing were
+recorded. Offensive pet skills, exploration Fit, Inspector layout, pause-banner occlusion,
+defeat-report Tween construction and Dummy/WASAPI shutdown resource cleanup need work.
+The release EXE/PCK were not changed. This uses Godot Input and normal API callbacks, not an
+OS-mouse manual playthrough or speaker listening. Full evidence, corrected driver assumptions and
+remaining acceptance limits are in `docs/FULLSCREEN_REVIEW_20261114.md`. Earlier 2,263/748 check
+counts are not reused as world-art-01 results.
 
 ## Craft follow-up (craft-01-fix1)
 
@@ -232,23 +347,27 @@ as a mechanics and data reference. Its test results don't apply to this build.
 
 | Path | Description |
 |---|---|
-| `build/windows/ProjectSevenSeas.exe` | Windows x86-64 executable: PE32+, GUI subsystem, official 4.7.2 release template (109 MB) |
-| `build/windows/ProjectSevenSeas.pck` | Resource pack, kept beside the exe and not embedded (32 MB, of which about 21 MB is audio) |
+| [build/ProjectSevenSeas-world-art-02.zip](build/ProjectSevenSeas-world-art-02.zip) | Current 2.0.1 Windows distribution; extract the EXE, PCK and licenses together |
+| `build/windows/ProjectSevenSeas.exe` | Windows x86-64 executable: PE32+, GUI subsystem, official 4.7.2 release template |
+| `build/windows/ProjectSevenSeas.pck` | Current resource pack, kept beside the matching EXE and not embedded |
 | `build/windows/licenses/` | Audio licence record and the licence texts for the bundled audio and fonts |
 | `game/project.godot` | The Godot project |
 | `game/export_presets.cfg` | Export preset "Windows Desktop" |
 | `docs/ASSET_INVENTORY.md` | Inventory of every shipped texture, font and audio file, and the code-drawn scene elements |
 | `docs/AUDIO_LICENSES.md` | Per-file audio sources, creators, original names and licences |
+| [docs/WORLD_ART_02.md](docs/WORLD_ART_02.md) | Current release changes, compatibility notes and known limits |
+| [docs/WORLD_ART_02_VALIDATION.json](docs/WORLD_ART_02_VALIDATION.json) | Final current-release validation evidence; package hashes are recorded in the Windows handoff |
 
-SHA-256 of the exported files:
+**Historical early-native export hashes (before world-art-01; not current package hashes):**
 
 ```
 1edeef2171ef1dc274f2175bf90de4da4658731983edb3a855415a4d9dabfb4b  ProjectSevenSeas.exe
 13ff5d591979c6cbbd5d30860b2013aa705d82ae46a738da614650ce0faac422  ProjectSevenSeas.pck
 ```
 
-The exe hash hasn't changed since the previous build because the exe is the unmodified release
-template. All game content lives in the pck.
+That historical EXE used the unmodified release template; game content lived in its matching PCK.
+For the current distribution and immutable checkpoint hashes, use
+[Windows handoff](docs/WINDOWS_HANDOFF.json), rather than the historical values above.
 
 ### Windows checkpoints
 
@@ -259,6 +378,8 @@ requested Windows checks. `docs/WINDOWS_HANDOFF.json` always describes the newes
 
 | Revision | Contents | Windows status |
 |---|---|---|
+| `world-art-02` · `2.0.1` | Current six-fix release, native landmarks, distinct port/site layouts, complete cabin groups and two-region preparation routes | Current evidence: [validation manifest](docs/WORLD_ART_02_VALIDATION.json), [release notes](docs/WORLD_ART_02.md) and Windows handoff |
+| `world-art-01` (historical) | Ten-sea visual revision with AI-assisted landmark vignettes and regional/cabin sound layers | Ten-trial main campaign and complete catalogue reviewed; six issue groups documented in the [fullscreen review](docs/FULLSCREEN_REVIEW_20261114.md) |
 | `hud-01` | Sidebar, build window, chart footer and floor selector at every UI size; no `fac` spam | Confirmed by the user |
 | `hud-02` | Fullscreen fill, title at UI 1.25/1.5, rowboat polygon error, crew depth and routes | Downloaded and hash-verified by the user; results pending |
 | `chart-01` | Sea chart redesign (fog, markers, routes, zoom/pan/legend, cost-first panel, footer); everything else byte-identical to hud-02 | Not yet tested |

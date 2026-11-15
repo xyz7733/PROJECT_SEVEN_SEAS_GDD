@@ -65,6 +65,12 @@ var curtain: Curtain
 
 
 func _ready() -> void:
+	# The window close button follows the same bounded audio cleanup as
+	# title/System Quit. The root and Audio persist across Main restarts.
+	get_tree().auto_accept_quit = false
+	var root_window := get_tree().root
+	if not root_window.close_requested.is_connected(Audio.quit_cleanly):
+		root_window.close_requested.connect(Audio.quit_cleanly)
 	if Settings.has_locale():
 		I18n.set_locale(String(Settings.get_value("locale")))
 	world = Node2D.new()
@@ -178,7 +184,7 @@ func _build_title(newest: Variant) -> void:
 	v.add_child(emblem)
 	var title_lbl := UIK.label(I18n.t("app.title"), "TitleLabel")
 	title_lbl.add_theme_font_size_override("font_size", 24)
-	title_lbl.add_theme_color_override("font_color", Art.GOLD)
+	title_lbl.add_theme_color_override("font_color", Art.INK)
 	title_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(title_lbl)
 	var sub := UIK.label(I18n.t("title.strongest"), "DimLabel", true, 120)
@@ -199,7 +205,7 @@ func _build_title(newest: Variant) -> void:
 	for b in [UIK.button(I18n.t("title.load"), _title_load, "ui_load"),
 			UIK.button(I18n.t("title.settings"), func(): open_window("system", "settings"), "ui_system"),
 			UIK.button(I18n.t("title.language", {"lang": I18n.language_name(I18n.locale())}), func(): open_window("system", "settings"), "ui_globe", "FlatButton"),
-			UIK.button(I18n.t("title.quit"), func(): get_tree().quit(), "ui_close", "FlatButton")]:
+			UIK.button(I18n.t("title.quit"), func(): Audio.quit_cleanly(), "ui_close", "FlatButton")]:
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.clip_text = true
 		grid.add_child(b)
@@ -211,8 +217,10 @@ func _build_title(newest: Variant) -> void:
 	var foot := UIK.label(I18n.t("title.footer") + "  ·  " + rev, "DimLabel")
 	foot.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	title_root.add_child(foot)
-	var tag := UIK.label(I18n.t("app.tagline"), "", true, 120)
+	var tag := UIK.label(I18n.t("title.tagline"), "DimLabel", true, 120)
 	var tp := UIK.panel(tag, "TipPanel")
+	# A short secondary line leaves the ship and its silhouette prominent.
+	tp.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	tp.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	title_root.add_child(tp)
 	_title = {"panel": panel, "scroll": scroll, "body": v, "grid": grid, "wrapped": wrapped,
@@ -320,7 +328,7 @@ func _layout_title() -> void:
 	var room := scr.x - (left + pw) - 2.0 * m
 	tp.visible = room >= 140.0
 	if tp.visible:
-		var tw := minf(260.0, room)
+		var tw := minf(176.0, room)
 		tag.custom_minimum_size.x = tw - tpad.x
 		var th := ceilf(tag.get_theme_font("font").get_multiline_string_size(tag.text, HORIZONTAL_ALIGNMENT_LEFT, tw - tpad.x, tag.get_theme_font_size("font_size")).y) + tpad.y
 		tp.position = Vector2(scr.x - m - tw, m)

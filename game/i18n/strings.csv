@@ -100,6 +100,58 @@ archetype.shooter,Shooter,射手
 archetype.skirmisher,Skirmisher,游击者
 archetype.swarm,Swarm,虫群
 archetype.warden,Warden,守卫
+attr.agility.desc,Quick feet and quicker hands.,脚步轻快，出手更快。
+attr.agility.name,Agility,敏捷
+attr.agility.short,AGI,敏
+attr.band.fair,Fair,一般
+attr.band.good,Good,良好
+attr.band.great,Great,出众
+attr.band.heroic,Heroic,传奇
+attr.band.poor,Poor,薄弱
+attr.breakdown,Base {base} · Traits {traits} · Training {train},基础 {base} · 性格 {traits} · 训练 {train}
+attr.class_keys,{cls} relies on {a} and {b}.,{cls}倚重{a}与{b}。
+attr.effects,Effect on stats,对能力的影响
+attr.focus.desc,A steady eye for weak spots and timing.,盯准破绽，拿捏时机。
+attr.focus.name,Focus,专注
+attr.focus.short,FOC,专
+attr.from_traits,From traits,来自性格
+attr.hint,"Attributes are set at birth by origin and talent, and traits nudge them. 10 is average. Every {n} levels a sailor earns a training point.",属性由出身与天资决定，性格会略作增减。10 为平均水平。每升 {n} 级获得一个训练点。
+attr.key_for,Key attribute for {cls},{cls}的关键属性
+attr.might.desc,Strength behind every blow.,每一击背后的力气。
+attr.might.name,Might,力量
+attr.might.short,MGT,力
+attr.neutral,Everything sits at 10: no bonuses or penalties.,所有属性都是 10：没有加成，也没有减益。
+attr.per_point,Each point above or below 10:,每高于或低于 10 一点：
+attr.points,Training points: {n},训练点：{n}
+attr.points_all,All training points earned.,训练点已全部获得。
+attr.points_next,Next point at Lv {lv}.,Lv {lv} 获得下一点。
+attr.retrain,Retrain,重新训练
+attr.retrain_body,All {n} spent training points come back to be placed again.,已分配的 {n} 个训练点全部返还，可以重新分配。
+attr.retrain_confirm,Retrain {name}?,让{name}重新训练？
+attr.retrain_rule,Retraining refunds every training point. Needs a port or a Class Hall.,重新训练会返还全部训练点。需要在港口或船上有职业大厅。
+attr.seamanship.desc,"Know-how for ropes, galleys and every job aboard.",缆绳、灶台与船上各项活计的门道。
+attr.seamanship.name,Seamanship,航海
+attr.seamanship.short,SEA,航
+attr.train,Train {attr} (+1),训练{attr}（+1）
+attr.trait_line,{trait}: {list},{trait}：{list}
+attr.unspent,{n} training points to spend,有 {n} 个训练点可分配
+attr.vigor.desc,Stamina and toughness to take a beating.,耐力与筋骨，扛得住打。
+attr.vigor.name,Vigor,体魄
+attr.vigor.short,VIG,体
+attr.will.desc,Inner fire that mends wounds and drives skills.,内心之火，既能疗伤，也催动技能。
+attr.will.name,Will,意志
+attr.will.short,WIL,志
+attrfx.atkPct,ATK {v},攻击 {v}
+attrfx.cdr,Skill cooldowns {v},技能冷却 {v}
+attrfx.controlPct,Control effects {v},控制效果 {v}
+attrfx.crit,Crit chance {v},暴击率 {v}
+attrfx.defPct,DEF {v},防御 {v}
+attrfx.dodge,Dodge {v},闪避 {v}
+attrfx.dodge_above,(above 10 only),（仅高于 10 时）
+attrfx.healPct,Healing {v},治疗量 {v}
+attrfx.hpPct,Max HP {v},最大生命 {v}
+attrfx.jobPct,Ship job efficiency {v},船上工作效率 {v}
+attrfx.spd,SPD {v},速度 {v}
 battle.allies,Your crew,我方船员
 battle.basic_attack,Attack,攻击
 battle.boarding,Boarding battle,接舷战
@@ -577,6 +629,7 @@ contract.supply,Deliver {need} supplies to {port}.,向 {port} 运送 {need} 份�
 contract.supply.title,Supply run,补给运送
 crew.affinity,Pet affinity,宠物亲和
 crew.aptitudes,Aptitudes,天赋
+crew.attrs,Attributes,属性
 crew.branch_of,branch of {base},{base} 的分支
 crew.change_class,Change class,转职
 crew.choose_item,Choose an item…,选择物品……
@@ -822,6 +875,8 @@ err.already_claimed,That reward has already been claimed.,该奖励已经领取�
 err.already_docked,You are already docked.,你已经停靠在港口了。
 err.already_evolved,Already evolved.,已经进化过了。
 err.already_hired,Already hired.,已经招募过了。
+err.attr_max,That attribute is already at its maximum.,该属性已达上限。
+err.bad_attr,Unknown attribute.,未知属性。
 err.bad_cell,Not a valid cell.,无效的格子。
 err.board_level,Needs quest board level {level}.,需要任务板 {level} 级。
 err.build_limit,Build limit reached.,已达到建造上限。
@@ -886,6 +941,7 @@ err.no_specialty,Needs {need} {item}.,需要 {need} 个{item}。
 err.no_stair_slot,Stairs go on a deck edge right beside a higher deck.,楼梯只能放在紧邻较高甲板的甲板边缘。
 err.no_stamina,Needs {need} stamina (you have {have}).,需要 {need} 体力（现有 {have}）。
 err.no_supplies,Needs {need} supplies.,需要 {need} 补给。
+err.no_train_points,No training points to spend.,没有可分配的训练点。
 err.not_at_site,You are not at that location.,你不在那个地点。
 err.not_injured,Not injured.,没有受伤。
 err.not_mastered,Master the class first.,请先精通这个职业。
@@ -895,6 +951,7 @@ err.not_revealed,That location is not charted yet.,这个地点尚未标记在�
 err.not_sold,That item is not sold here.,此处不出售该物品。
 err.nothing_to_deliver,Nothing to deliver.,没有可交付的东西。
 err.nothing_to_repair,Nothing needs repair.,没有需要维修的地方。
+err.nothing_to_retrain,No training points have been spent yet.,还没有分配过训练点。
 err.out_of_bounds,Outside the deck.,超出甲板范围。
 err.over_capacity,More crew than berths.,船员超出床位。
 err.pet_full,No room for more pets.,没有空间容纳更多宠物。
@@ -1362,12 +1419,14 @@ log.recruited,{crew} joined the crew.,{crew} 加入了船队。
 log.region_unlocked,New sea opened: {region}.,新的海域开放了：{region}。
 log.repaired,Ship repaired.,船只已修复。
 log.respec,{crew} changed class from {from} to {to}.,{crew} 从{from}转职为{to}。
+log.retrained,{crew} retrained {n} attribute points.,{crew}重新分配了 {n} 个属性点。
 log.retreated,The crew retreated.,船员撤退了。
 log.revealed,Charted {location}.,在海图上标记了 {location}。
 log.set_claim,Collection set complete: {set},收集套装完成：{set}
 log.ship_refit,The shipwrights moved {n} rooms off the exposed deck into the hull below.,船匠把 {n} 个房间从露天甲板搬进了下方船舱。
 log.side_done,Completed: {quest}.,已完成：{quest}。
 log.supply_overflow,{n} supplies did not fit in the hold.,有 {n} 份补给放不进货舱。
+log.train_point,{crew} earned a training point.,{crew}获得了一个训练点。
 log.treated,{crew} was treated.,{crew} 接受了治疗。
 log.trial_won,Captain trial won in {region} against {rival}.,在{region}的船长试炼中战胜了 {rival}。
 log.unequipped,{item} returned to the hold from {crew}.,{item}已从 {crew} 身上退回货舱。

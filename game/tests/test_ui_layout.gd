@@ -4,11 +4,12 @@ extends Node
 
 const CODEX := preload("res://scripts/ui/win_codex.gd")
 const PORT := preload("res://scripts/ui/win_port.gd")
+const INSPECTOR := preload("res://scripts/ui/win_inspect.gd")
 ## Every other window tab: its content must fit the window's width, so the
 ## player never has to scroll sideways to read a card or reach a button.
 const FIT := [
 	[preload("res://scripts/ui/win_ship.gd"), ["build", "layout", "hulls", "services"]],
-	[preload("res://scripts/ui/win_crew.gd"), ["formation", "detail", "equipment", "skills", "classes"]],
+	[preload("res://scripts/ui/win_crew.gd"), ["formation", "detail", "attrs", "equipment", "skills", "classes"]],
 	[preload("res://scripts/ui/win_pets.gd"), ["hatch", "roster"]],
 	[PORT, ["invest", "tavern", "workshop", "board", "services"]],
 	[preload("res://scripts/ui/win_log.gd"), ["overview", "log"]],
@@ -46,6 +47,7 @@ func _ready() -> void:
 							script.resource_path.get_file().get_basename(), tab, locale, ui_scale])
 				if logical.y == 360.0:
 					await _check_report(t, host, "battle report %s %.2f" % [locale, ui_scale])
+				await _check_inspector(t, host, "inspector %s %.2f %s" % [locale, ui_scale, logical])
 				host.free()
 	await _check_grid_resize(t)
 	Game.state = previous_state
@@ -100,6 +102,61 @@ func _check_fit(t: TestKit, host: Control, script: Script, tab: String, context:
 		print("OVERFLOW ", context, " needs=", needed, " available=", available)
 	t.ok(needed <= available + 0.5, context + " needs no horizontal scroll")
 	win.free()
+
+
+## The inspector must leave the objective readable and fit every stat in
+## its fixed-width column, even when large UI sizes need vertical scrolling.
+func _check_inspector(t: TestKit, host: Control, context: String) -> void:
+	var previous_insets := Vector3(GameWindow.inset_top, GameWindow.inset_bottom, GameWindow.inset_bottom_right)
+	var previous_hud_insets := GameWindow.hud_insets
+	GameWindow.hud_insets = true
+	var hud := Hud.new()
+	host.add_child(hud)
+	hud.refresh("port")
+	for i in 6:
+		await get_tree().process_frame
+	var win := INSPECTOR.new()
+	host.add_child(win)
+	win.show_selection("crew", Game.state.crew[0].id)
+	for i in 6:
+		await get_tree().process_frame
+	t.ok(hud.obj_panel.visible, context + " exercises a visible objective")
+	t.ok(not win.get_rect().intersects(hud.obj_panel.get_rect()), context + " leaves the objective clear")
+	t.ok(win.position.y >= hud.obj_panel.get_rect().end.y + Hud.GAP - 0.5,
+		context + " starts below the objective")
+	t.ok(win.get_rect().end.y <= host.size.y + 0.5, context + " ends on screen")
+	var scroll: ScrollContainer = win._scroll
+	var horizontal := scroll.get_h_scroll_bar()
+	t.ok(horizontal.max_value <= horizontal.page + 1.0, context + " needs no horizontal scroll")
+	var bounds := scroll.get_global_rect()
+	if scroll.get_v_scroll_bar().visible:
+		bounds.size.x -= scroll.get_v_scroll_bar().size.x
+	var stats := Rules.member_stats(Game.state, Game.state.crew[0])
+	var labels := win.body.find_children("*", "Label", true, false)
+	for key in ["hp", "atk", "def", "spd"]:
+		var text := "%s %d" % [I18n.t("stat.%s_short" % key), int(stats[key])]
+		var matches := labels.filter(func(label): return label.text == text)
+		t.eq(matches.size(), 1, context + " shows " + text)
+		if matches.size() == 1:
+			var label: Label = matches[0]
+			var rect := label.get_global_rect()
+			t.ok(rect.position.x >= bounds.position.x - 0.5 and rect.end.x <= bounds.end.x + 0.5
+				and label.get_combined_minimum_size().x <= label.size.x + 0.5,
+				context + " fits " + text)
+	# Battles hide the objective; the shared window inset must release its
+	# space while keeping the independently measured stage insets intact.
+	hud.refresh("battle")
+	for i in 6:
+		await get_tree().process_frame
+	win._layout()
+	t.ok(not hud.obj_panel.visible, context + " hides the objective in battle")
+	t.near(win.position.y, hud.top_bar_bottom + Hud.GAP, context + " releases hidden objective space", 0.5)
+	win.free()
+	hud.free()
+	GameWindow.inset_top = previous_insets.x
+	GameWindow.inset_bottom = previous_insets.y
+	GameWindow.inset_bottom_right = previous_insets.z
+	GameWindow.hud_insets = previous_hud_insets
 
 
 ## The battle report docks on the right edge. Neither its rows nor its

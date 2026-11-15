@@ -64,9 +64,21 @@ INK = (58, 44, 42)
 LAND = mix(PAPER, (196, 170, 120), 0.14)
 SAND = mix(PAPER, (214, 184, 120), 0.45)
 VIGNETTE = {
-    "dawnwater": "ship", "emberreach": "whale", "verdant_maw": "kelp", "glass_current": "crystal",
-    "crown_shoals": "gulls", "stormbelt": "storm", "moonwake": "moon", "ashen_trench": "whirl",
-    "leviathan_ring": "serpent", "grand_horizon": "sun",
+    "dawnwater": "lookout", "emberreach": "forge", "verdant_maw": "root_shrine", "glass_current": "crystal",
+    "crown_shoals": "archive", "stormbelt": "storm_beacon", "moonwake": "observatory", "ashen_trench": "seal",
+    "leviathan_ring": "bone_arch", "grand_horizon": "armillary",
+}
+CHART_ARCHITECTURE = {
+    "dawnwater": ((83, 130, 149), (236, 221, 178)),
+    "emberreach": ((188, 116, 76), (105, 87, 82)),
+    "verdant_maw": ((105, 138, 86), (195, 174, 122)),
+    "glass_current": ((147, 198, 203), (225, 229, 216)),
+    "crown_shoals": ((68, 91, 128), (216, 186, 133)),
+    "stormbelt": ((80, 105, 116), (159, 168, 158)),
+    "moonwake": ((82, 79, 118), (164, 172, 194)),
+    "ashen_trench": ((163, 117, 90), (107, 102, 108)),
+    "leviathan_ring": ((120, 166, 149), (215, 211, 180)),
+    "grand_horizon": ((193, 165, 104), (238, 229, 200)),
 }
 TYPE_R = {"port": 1.0, "island": 1.0, "dungeon": 0.9, "wreck": 0.78, "arena": 0.86, "secret": 0.62}
 BAYER4 = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32)
@@ -203,6 +215,60 @@ def isle_radius(pts, lid, ri, x, y, typ):
 
 # ------------------------------------------------------------ ASCII art ----
 ART = {
+    "lookout": [
+        "......XX.......", ".....XooX......", "....XXXXXX.....",
+        ".....XooX......", ".....XooX......", ".....XooX......",
+        "....XXooXX.....", "...XXooooXX....", "..XXXXXXXXXX...",
+        "....X....X.....", "..XX..XX..XX...",
+    ],
+    "forge": [
+        "....XX.........", "....XX..X......", "....XX.XX......",
+        "..XXXXXXXXXX...", "..XooooooooX...", "..XoXXXXXXoX...",
+        "..XoXooooXoX...", "..XoXoXXoXoX...", "..XXXXXXXXXX...",
+        "....XX..XX.....", "...XXXXXXXX....",
+    ],
+    "root_shrine": [
+        "..X.........X..", "...X..X....X...", "....X.X...X....",
+        "....XXXXXXX....", "...XoooooooX...", "...XoXXXXXoX...",
+        "..XXoX...XoXX..", ".X.XoX...XoX.X.", "X..XXXX.XXXX..X",
+        "..XX.......XX..", ".X...........X.",
+    ],
+    "archive": [
+        ".......X.......", "......XXX......", ".....XoooX.....",
+        "...XXXXXXXXX...", "..XoooooooooX..", "..XXXXXXXXXXX..",
+        "...X.X.X.X.X...", "...X.X.X.X.X...", "...X.X.X.X.X...",
+        "..XXXXXXXXXXX..", ".XXXXXXXXXXXXX.",
+    ],
+    "storm_beacon": [
+        "...XXX.........", "..XoooX...X....", ".XoooooX.XX....",
+        "..XXXXX...XX...", "....X....XX....", "...XXX....X....",
+        "...XoX.........", "...XoX.........", "..XXoXX........",
+        ".XXXXXXX.......", "X..X..X..X..X..",
+    ],
+    "observatory": [
+        ".......X.......", "......XXX......", "....XXoooXX....",
+        "...XoooooooX...", "..XooooooXXX...", "..XXXXXXXXXXX..",
+        "..XoXoooooXoX..", "..XoXoooooXoX..", "..XoXoooooXoX..",
+        "..XXXXXXXXXXX..", ".XXXXXXXXXXXXX.",
+    ],
+    "seal": [
+        ".....XXXXX.....", "...XX.....XX...", "..X...XXX...X..",
+        ".X..XX...XX..X.", "X..X...X...X..X", "X.X...XXX...X.X",
+        "X..X...X...X..X", ".X..XX...XX..X.", "..X...XXX...X..",
+        "...XX.....XX...", ".....XXXXX.....",
+    ],
+    "bone_arch": [
+        ".....XXXXX.....", "...XX..X..XX...", "..X....X....X..",
+        ".X..X..X..X..X.", ".X..X..X..X..X.", "X...X..X..X...X",
+        "X...X..X..X...X", "X...X..X..X...X", "XX.XX.XXX.XX.XX",
+        "..X..X...X..X..", ".X..X.....X..X.",
+    ],
+    "armillary": [
+        "......XXX......", "....XX.X.XX....", "...X..XXX..X...",
+        "..X..X.X.X..X..", ".XXXXXXXXXXXXX.", "..X..X.X.X..X..",
+        "...X..XXX..X...", "....XX.X.XX....", "......XXX......",
+        "......XXX......", "....XXXXXXX....",
+    ],
     "ship": [
         "........X.........",
         "........XX........",
@@ -616,6 +682,7 @@ def draw_river(img, land, di, rng, tones, reg):
 def isle_sprite(L, ox, oy, pal, tones, R, nn, seed):
     rng = np.random.default_rng(seed)
     typ = L["type"]
+    rid = L["regionId"]
     S = int(math.ceil(min(R * 1.7, nn * 0.46))) + 7
     size = 2 * S + 1
     yy, xx = np.mgrid[0:size, 0:size]
@@ -633,6 +700,20 @@ def isle_sprite(L, ox, oy, pal, tones, R, nn, seed):
     rot = rng.uniform(0, np.pi)
     ell = elong / np.sqrt((elong * np.cos(ang - rot)) ** 2 + np.sin(ang - rot) ** 2)
     shape_r = R * (1 + wav) * ell
+    # Each sea's geology has a visible contour language. The chart retains
+    # discovery rules and marker positions, while its silhouettes now echo
+    # the basalt shelves, reef rings and wind-cut crags in the world art.
+    if rid == "glass_current":
+        face = np.cos(np.pi / 6) / np.cos((ang - rot + np.pi / 6) % (np.pi / 3) - np.pi / 6)
+        shape_r = R * face * ell * (1 + wav * 0.35)
+    elif rid == "stormbelt":
+        shape_r *= 0.83 + 0.24 * np.cos(ang - rot) ** 2
+    elif rid == "emberreach":
+        shape_r *= 0.94 + 0.06 * np.cos(6 * ang)
+    elif rid == "verdant_maw":
+        shape_r *= 1 + 0.09 * np.sin(3 * ang + rot)
+    elif rid == "leviathan_ring":
+        shape_r *= 1 + 0.10 * np.cos(5 * ang + rot)
     land = rad <= shape_r
     lagoon = np.zeros_like(land)
     if typ == "arena":
@@ -662,6 +743,10 @@ def isle_sprite(L, ox, oy, pal, tones, R, nn, seed):
             reach = R * rng.uniform(1.25, 1.45)
             land |= (along >= 0) & (along <= reach) & (across <= 1.6 + 1.6 * (1 - along / reach))
     land = clean(land)
+    if rid == "moonwake" and typ in ("island", "secret"):
+        cut_a = to_mid + 0.45
+        land &= np.hypot(dx - math.cos(cut_a) * R * 0.70, dy - math.sin(cut_a) * R * 0.70) > R * 0.50
+        land = clean(land)
     # islets (not for wrecks), kept clear of neighbouring islands
     islets = np.zeros_like(land)
     if typ != "wreck":
@@ -735,6 +820,8 @@ def isle_sprite(L, ox, oy, pal, tones, R, nn, seed):
             img[y, x, :3] = c
             img[y, x, 3] = 255
 
+    roof_c, wall_c = CHART_ARCHITECTURE[rid]
+
     inl = list(zip(*np.nonzero(inland)))
     if typ == "port":
         hx, hy = math.cos(to_mid), math.sin(to_mid)
@@ -754,13 +841,19 @@ def isle_sprite(L, ox, oy, pal, tones, R, nn, seed):
             if not (inland[min(size - 1, y + 1), x] and inland[y, min(size - 1, x + 1)] and inland[min(size - 1, y + 1), min(size - 1, x + 1)]):
                 continue
             placed.append((y, x))
-            put(x, y, (200, 70, 56)); put(x + 1, y, (170, 54, 46))
-            put(x, y + 1, (240, 228, 200)); put(x + 1, y + 1, (206, 192, 166))
+            put(x, y, roof_c); put(x + 1, y, mul(roof_c, 0.83))
+            put(x, y + 1, wall_c); put(x + 1, y + 1, mul(wall_c, 0.83))
+            if rid in ("grand_horizon", "crown_shoals", "leviathan_ring"):
+                put(x, y - 1, mix(roof_c, PAPER, 0.3))
+            elif rid in ("emberreach", "ashen_trench"):
+                put(x + 1, y - 2, wall_c); put(x + 1, y - 1, wall_c)
+            elif rid == "verdant_maw":
+                put(x, y + 2, mul(wall_c, 0.55)); put(x + 1, y + 2, mul(wall_c, 0.55))
         # lighthouse on the outermost coast pixel towards the open water
         coast = list(zip(*np.nonzero(allland & (hgt == 1))))
         if coast:
             y, x = max(coast, key=lambda q: (q[1] - S) * hx + (q[0] - S) * hy - 0.6 * abs(-(q[1] - S) * hy + (q[0] - S) * hx))
-            put(x, y - 1, (246, 242, 232)); put(x, y, (200, 70, 56)); put(x, y - 2, (248, 210, 90))
+            put(x, y - 1, wall_c); put(x, y, roof_c); put(x, y - 2, (248, 210, 90))
     elif typ in ("island", "secret"):
         n_tree = int(rng.integers(3, 8)) if typ == "island" else 2
         rng.shuffle(inl)
@@ -772,8 +865,16 @@ def isle_sprite(L, ox, oy, pal, tones, R, nn, seed):
                 continue
             placed.append((y, x))
             dk = mul(hexrgb(pal["grass"]), 0.55)
-            put(x, y, dk); put(x + 1, y, dk); put(x, y + 1, dk); put(x + 1, y + 1, mul(dk, 0.8))
-            put(x, y, mix(hexrgb(pal["grass"]), (255, 255, 220), 0.1))
+            if rid in ("glass_current", "emberreach", "ashen_trench"):
+                # Spires, vents and broken stone instead of ubiquitous
+                # little green woods in every sea.
+                put(x, y - 1, mix(roof_c, PAPER, 0.25))
+                put(x, y, roof_c); put(x, y + 1, mul(roof_c, 0.65)); put(x + 1, y + 1, mul(roof_c, 0.7))
+            elif rid == "leviathan_ring":
+                put(x - 1, y, roof_c); put(x, y + 1, wall_c); put(x + 1, y, roof_c); put(x, y - 1, wall_c)
+            else:
+                put(x, y, dk); put(x + 1, y, dk); put(x, y + 1, dk); put(x + 1, y + 1, mul(dk, 0.8))
+                put(x, y, mix(hexrgb(pal["grass"]), (255, 255, 220), 0.1))
         if typ == "secret":
             # grotto arch and two sparkles
             cy, cx = max(inl, key=lambda q: hgt[q]) if inl else (S, S)
@@ -788,6 +889,34 @@ def isle_sprite(L, ox, oy, pal, tones, R, nn, seed):
             for ox_ in range(-1, 2):
                 put(cx + ox_, cy + oy_, (54, 44, 50))
         put(cx, cy - 2, (54, 44, 50)); put(cx - 1, cy - 1, (96, 88, 90)); put(cx, cy + 1, (24, 18, 22))
+        # A small region-specific landmark on the discovered island. It
+        # keeps the room icon legible while linking map and playable scene.
+        if rid in ("dawnwater", "stormbelt"):
+            for k in range(4):
+                put(cx, cy - 2 - k, wall_c)
+            put(cx - 1, cy - 5, roof_c); put(cx + 1, cy - 5, roof_c)
+            put(cx, cy - 4, (248, 210, 90))
+        elif rid in ("grand_horizon", "crown_shoals", "moonwake"):
+            for ix in range(-2, 3):
+                put(cx + ix, cy - 2, roof_c)
+            put(cx - 1, cy - 3, roof_c); put(cx + 1, cy - 3, roof_c)
+            put(cx, cy - 4, mix(roof_c, PAPER, 0.3))
+        elif rid == "verdant_maw":
+            for ix in (-2, 2):
+                put(cx + ix, cy - 1, mul(grass, 0.65)); put(cx + ix, cy - 2, grass)
+            put(cx, cy - 3, grass)
+        elif rid == "glass_current":
+            for k in range(4):
+                put(cx + 1, cy - 2 - k, mix(roof_c, PAPER, 0.2))
+            put(cx + 2, cy - 3, roof_c)
+        elif rid == "leviathan_ring":
+            for ix in (-2, 2):
+                for k in range(3):
+                    put(cx + ix, cy - k, wall_c)
+            for ix in range(-1, 2):
+                put(cx + ix, cy - 3, wall_c)
+        else:
+            put(cx - 1, cy - 3, wall_c); put(cx + 1, cy - 4, roof_c)
     elif typ == "wreck":
         # broken hull lying on the reef, mast and a torn sail
         a = to_mid + math.pi * 0.5

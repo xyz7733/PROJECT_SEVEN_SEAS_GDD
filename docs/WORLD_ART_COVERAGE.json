@@ -1,0 +1,4823 @@
+{
+  "revision": "world-art-01",
+  "kind": "static_presentation_coverage",
+  "source": "game/data/scene_profiles.json",
+  "gameplaySource": "game/data/world.json",
+  "profileVersion": 1,
+  "meaning": "A profile entry establishes structural catalogue coverage; it is not evidence of rendering, mouse interaction, motion, audio listening or gameplay acceptance.",
+  "counts": {
+    "regions": 10,
+    "locations": 100,
+    "gameplayRooms": 310,
+    "combatContexts": 190,
+    "locationTypes": {
+      "port": 20,
+      "island": 30,
+      "dungeon": 20,
+      "wreck": 10,
+      "arena": 10,
+      "secret": 10
+    }
+  },
+  "verification": {
+    "profileAndWorldIdsMatch": true,
+    "locationAndCombatCountsChecked": true,
+    "godotImport": "passed",
+    "windowsExport": "passed",
+    "runtimeVisualReview": "pending",
+    "humanListeningReview": "pending",
+    "gameplaySuite": "not_run_for_this_revision",
+    "assetGeneration": "completed",
+    "packedFiles": 382,
+    "packedFileDigestsVerified": 382,
+    "requiredResourcesVerified": 14,
+    "packAudit": "build/validation/world-art-01/pack-audit.json",
+    "runtimeStarted": false
+  },
+  "regions": [
+    {
+      "regionId": "dawnwater",
+      "name": "Dawnwater Shallows",
+      "architecture": "painted_fishing_harbor",
+      "landmarkFamily": "broken_lantern_tower",
+      "locationIds": [
+        "brightquay",
+        "saltmarsh_landing",
+        "gull_rock",
+        "lantern_isle",
+        "coral_steps",
+        "old_lookout",
+        "brine_cellars",
+        "driftplank_wreck",
+        "dawn_trial_ring",
+        "tidefin_grotto"
+      ],
+      "battleContextIds": [
+        "gull_rock:landing",
+        "gull_rock:ridge",
+        "gull_rock:heart",
+        "lantern_isle:landing",
+        "lantern_isle:ridge",
+        "lantern_isle:heart",
+        "coral_steps:landing",
+        "coral_steps:ridge",
+        "coral_steps:heart",
+        "old_lookout:gate",
+        "old_lookout:west",
+        "old_lookout:depths",
+        "old_lookout:guardian",
+        "brine_cellars:gate",
+        "brine_cellars:west",
+        "brine_cellars:depths",
+        "brine_cellars:guardian",
+        "driftplank_wreck:cabin",
+        "dawn_trial_ring:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "emberreach",
+      "name": "Emberreach",
+      "architecture": "basalt_copper_foundry",
+      "landmarkFamily": "great_copper_vent",
+      "locationIds": [
+        "cinderport",
+        "ashfall_harbor",
+        "basalt_isle",
+        "smolder_key",
+        "obsidian_atoll",
+        "magma_vents",
+        "forge_depths",
+        "scorched_galleon",
+        "ember_crucible",
+        "cinderback_nest"
+      ],
+      "battleContextIds": [
+        "basalt_isle:landing",
+        "basalt_isle:ridge",
+        "basalt_isle:heart",
+        "smolder_key:landing",
+        "smolder_key:ridge",
+        "smolder_key:heart",
+        "obsidian_atoll:landing",
+        "obsidian_atoll:ridge",
+        "obsidian_atoll:heart",
+        "magma_vents:gate",
+        "magma_vents:west",
+        "magma_vents:depths",
+        "magma_vents:guardian",
+        "forge_depths:gate",
+        "forge_depths:west",
+        "forge_depths:depths",
+        "forge_depths:guardian",
+        "scorched_galleon:cabin",
+        "ember_crucible:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "verdant_maw",
+      "name": "Verdant Maw",
+      "architecture": "root_canopy_settlement",
+      "landmarkFamily": "root_embraced_shrine",
+      "locationIds": [
+        "rootharbor",
+        "fernwater_post",
+        "tanglewood_isle",
+        "orchid_cay",
+        "maw_shore",
+        "overgrown_shrine",
+        "thornroot_caves",
+        "vine_wreck",
+        "verdant_arena",
+        "moss_hollow"
+      ],
+      "battleContextIds": [
+        "tanglewood_isle:landing",
+        "tanglewood_isle:ridge",
+        "tanglewood_isle:heart",
+        "orchid_cay:landing",
+        "orchid_cay:ridge",
+        "orchid_cay:heart",
+        "maw_shore:landing",
+        "maw_shore:ridge",
+        "maw_shore:heart",
+        "overgrown_shrine:gate",
+        "overgrown_shrine:west",
+        "overgrown_shrine:depths",
+        "overgrown_shrine:guardian",
+        "thornroot_caves:gate",
+        "thornroot_caves:west",
+        "thornroot_caves:depths",
+        "thornroot_caves:guardian",
+        "vine_wreck:cabin",
+        "verdant_arena:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "glass_current",
+      "name": "Glass Current",
+      "architecture": "white_stone_prism_arcade",
+      "landmarkFamily": "prism_vault_dome",
+      "locationIds": [
+        "prismhaven",
+        "mirrorbay",
+        "shard_reef",
+        "lens_isle",
+        "quartz_spire",
+        "crystal_vault",
+        "refraction_maze",
+        "glassbound_hulk",
+        "prism_court",
+        "glasswing_lagoon"
+      ],
+      "battleContextIds": [
+        "shard_reef:landing",
+        "shard_reef:ridge",
+        "shard_reef:heart",
+        "lens_isle:landing",
+        "lens_isle:ridge",
+        "lens_isle:heart",
+        "quartz_spire:landing",
+        "quartz_spire:ridge",
+        "quartz_spire:heart",
+        "crystal_vault:gate",
+        "crystal_vault:west",
+        "crystal_vault:depths",
+        "crystal_vault:guardian",
+        "refraction_maze:gate",
+        "refraction_maze:west",
+        "refraction_maze:depths",
+        "refraction_maze:guardian",
+        "glassbound_hulk:cabin",
+        "prism_court:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "crown_shoals",
+      "name": "Crown Shoals",
+      "architecture": "stone_silk_merchant_port",
+      "landmarkFamily": "charter_seal_library",
+      "locationIds": [
+        "crownport",
+        "silkmarket",
+        "gilded_cay",
+        "heron_isle",
+        "regent_bank",
+        "charter_archive",
+        "old_family_crypt",
+        "treasury_wreck",
+        "crown_tourney",
+        "pearl_grotto"
+      ],
+      "battleContextIds": [
+        "gilded_cay:landing",
+        "gilded_cay:ridge",
+        "gilded_cay:heart",
+        "heron_isle:landing",
+        "heron_isle:ridge",
+        "heron_isle:heart",
+        "regent_bank:landing",
+        "regent_bank:ridge",
+        "regent_bank:heart",
+        "charter_archive:gate",
+        "charter_archive:west",
+        "charter_archive:depths",
+        "charter_archive:guardian",
+        "old_family_crypt:gate",
+        "old_family_crypt:west",
+        "old_family_crypt:depths",
+        "old_family_crypt:guardian",
+        "treasury_wreck:cabin",
+        "crown_tourney:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "stormbelt",
+      "name": "Stormbelt",
+      "architecture": "storm_breakwater_refuge",
+      "landmarkFamily": "tilted_beacon_lens",
+      "locationIds": [
+        "gale_harbor",
+        "beacon_rest",
+        "thunder_rock",
+        "squall_isle",
+        "lightning_reach",
+        "drowned_beacon",
+        "tempest_caverns",
+        "stormwrack_hulk",
+        "eye_of_storm",
+        "cloudray_aerie"
+      ],
+      "battleContextIds": [
+        "thunder_rock:landing",
+        "thunder_rock:ridge",
+        "thunder_rock:heart",
+        "squall_isle:landing",
+        "squall_isle:ridge",
+        "squall_isle:heart",
+        "lightning_reach:landing",
+        "lightning_reach:ridge",
+        "lightning_reach:heart",
+        "drowned_beacon:gate",
+        "drowned_beacon:west",
+        "drowned_beacon:depths",
+        "drowned_beacon:guardian",
+        "tempest_caverns:gate",
+        "tempest_caverns:west",
+        "tempest_caverns:depths",
+        "tempest_caverns:guardian",
+        "stormwrack_hulk:cabin",
+        "eye_of_storm:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "moonwake",
+      "name": "Moonwake",
+      "architecture": "moon_lantern_observatory",
+      "landmarkFamily": "open_dome_telescope",
+      "locationIds": [
+        "lanternport",
+        "dusk_mooring",
+        "nightbloom_isle",
+        "echo_atoll",
+        "starfall_key",
+        "forgotten_observatory",
+        "dream_labyrinth",
+        "moonlit_wreck",
+        "moonwake_stage",
+        "dreammoth_glade"
+      ],
+      "battleContextIds": [
+        "nightbloom_isle:landing",
+        "nightbloom_isle:ridge",
+        "nightbloom_isle:heart",
+        "echo_atoll:landing",
+        "echo_atoll:ridge",
+        "echo_atoll:heart",
+        "starfall_key:landing",
+        "starfall_key:ridge",
+        "starfall_key:heart",
+        "forgotten_observatory:gate",
+        "forgotten_observatory:west",
+        "forgotten_observatory:depths",
+        "forgotten_observatory:guardian",
+        "dream_labyrinth:gate",
+        "dream_labyrinth:west",
+        "dream_labyrinth:depths",
+        "dream_labyrinth:guardian",
+        "moonlit_wreck:cabin",
+        "moonwake_stage:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "ashen_trench",
+      "name": "Ashen Trench",
+      "architecture": "relic_excavation_camp",
+      "landmarkFamily": "great_ring_seal",
+      "locationIds": [
+        "ashport",
+        "relic_dock",
+        "cinder_shelf",
+        "sunken_spires",
+        "abyss_ledge",
+        "sealed_ruins",
+        "trench_sanctum",
+        "relic_hunter_wreck",
+        "ashen_seal_arena",
+        "gloomjaw_den"
+      ],
+      "battleContextIds": [
+        "cinder_shelf:landing",
+        "cinder_shelf:ridge",
+        "cinder_shelf:heart",
+        "sunken_spires:landing",
+        "sunken_spires:ridge",
+        "sunken_spires:heart",
+        "abyss_ledge:landing",
+        "abyss_ledge:ridge",
+        "abyss_ledge:heart",
+        "sealed_ruins:gate",
+        "sealed_ruins:west",
+        "sealed_ruins:depths",
+        "sealed_ruins:guardian",
+        "trench_sanctum:gate",
+        "trench_sanctum:west",
+        "trench_sanctum:depths",
+        "trench_sanctum:guardian",
+        "relic_hunter_wreck:cabin",
+        "ashen_seal_arena:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "leviathan_ring",
+      "name": "Leviathan Ring",
+      "architecture": "shell_bone_coral_harbor",
+      "landmarkFamily": "coral_heart_chamber",
+      "locationIds": [
+        "ringhold",
+        "migration_post",
+        "shell_isle",
+        "bone_reef",
+        "titan_atoll",
+        "leviathan_gut",
+        "coral_colossus",
+        "behemoth_wreck",
+        "ring_arena",
+        "shellwarden_shoal"
+      ],
+      "battleContextIds": [
+        "shell_isle:landing",
+        "shell_isle:ridge",
+        "shell_isle:heart",
+        "bone_reef:landing",
+        "bone_reef:ridge",
+        "bone_reef:heart",
+        "titan_atoll:landing",
+        "titan_atoll:ridge",
+        "titan_atoll:heart",
+        "leviathan_gut:gate",
+        "leviathan_gut:west",
+        "leviathan_gut:depths",
+        "leviathan_gut:guardian",
+        "coral_colossus:gate",
+        "coral_colossus:west",
+        "coral_colossus:depths",
+        "coral_colossus:guardian",
+        "behemoth_wreck:cabin",
+        "ring_arena:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "regionId": "grand_horizon",
+      "name": "Grand Horizon",
+      "architecture": "sunwheel_conclave_city",
+      "landmarkFamily": "brass_armillary_compass",
+      "locationIds": [
+        "horizon_gate",
+        "conclave_harbor",
+        "sunrise_isle",
+        "zenith_cay",
+        "dawnstar_reef",
+        "ancient_gatehouse",
+        "compass_vault",
+        "rival_flagship_wreck",
+        "horizon_arena",
+        "starwake_haven"
+      ],
+      "battleContextIds": [
+        "sunrise_isle:landing",
+        "sunrise_isle:ridge",
+        "sunrise_isle:heart",
+        "zenith_cay:landing",
+        "zenith_cay:ridge",
+        "zenith_cay:heart",
+        "dawnstar_reef:landing",
+        "dawnstar_reef:ridge",
+        "dawnstar_reef:heart",
+        "ancient_gatehouse:gate",
+        "ancient_gatehouse:west",
+        "ancient_gatehouse:depths",
+        "ancient_gatehouse:guardian",
+        "compass_vault:gate",
+        "compass_vault:west",
+        "compass_vault:depths",
+        "compass_vault:guardian",
+        "rival_flagship_wreck:cabin",
+        "horizon_arena:trial"
+      ],
+      "runtimeVisualReview": "pending"
+    }
+  ],
+  "locations": [
+    {
+      "locationId": "brightquay",
+      "regionId": "dawnwater",
+      "type": "port",
+      "compositionId": "brightquay:harbor",
+      "landmark": "working_harbor_beacon",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "saltmarsh_landing",
+      "regionId": "dawnwater",
+      "type": "port",
+      "compositionId": "saltmarsh_landing:creek",
+      "landmark": "saltleaf_net_sheds",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "gull_rock",
+      "regionId": "dawnwater",
+      "type": "island",
+      "compositionId": "gull_rock:headland",
+      "landmark": "three_stacks_watch",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "lantern_isle",
+      "regionId": "dawnwater",
+      "type": "island",
+      "compositionId": "lantern_isle:crescent",
+      "landmark": "lantern_keeper_garden",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "coral_steps",
+      "regionId": "dawnwater",
+      "type": "island",
+      "compositionId": "coral_steps:reef",
+      "landmark": "coral_stair_fan",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "old_lookout",
+      "regionId": "dawnwater",
+      "type": "dungeon",
+      "compositionId": "old_lookout:cliff",
+      "landmark": "broken_lantern_tower",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "brine_cellars",
+      "regionId": "dawnwater",
+      "type": "dungeon",
+      "compositionId": "brine_cellars:cellars",
+      "landmark": "crowned_salt_casks",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "driftplank_wreck",
+      "regionId": "dawnwater",
+      "type": "wreck",
+      "compositionId": "driftplank_wreck:wreck_cove",
+      "landmark": "broken_trade_mast",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "dawn_trial_ring",
+      "regionId": "dawnwater",
+      "type": "arena",
+      "compositionId": "dawn_trial_ring:ring",
+      "landmark": "harbor_charter_dais",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "tidefin_grotto",
+      "regionId": "dawnwater",
+      "type": "secret",
+      "compositionId": "tidefin_grotto:lagoon",
+      "landmark": "tidefin_spring",
+      "landmarkAsset": "dawnwater",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "cinderport",
+      "regionId": "emberreach",
+      "type": "port",
+      "compositionId": "cinderport:foundry",
+      "landmark": "copper_furnace_wharf",
+      "landmarkAsset": "emberreach",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "ashfall_harbor",
+      "regionId": "emberreach",
+      "type": "port",
+      "compositionId": "ashfall_harbor:shelter",
+      "landmark": "ash_roof_relief_store",
+      "landmarkAsset": "emberreach",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "basalt_isle",
+      "regionId": "emberreach",
+      "type": "island",
+      "compositionId": "basalt_isle:basalt",
+      "landmark": "split_basalt_crown",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "smolder_key",
+      "regionId": "emberreach",
+      "type": "island",
+      "compositionId": "smolder_key:crescent",
+      "landmark": "smoking_copper_vents",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "obsidian_atoll",
+      "regionId": "emberreach",
+      "type": "island",
+      "compositionId": "obsidian_atoll:atoll",
+      "landmark": "obsidian_mirror_pool",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "magma_vents",
+      "regionId": "emberreach",
+      "type": "dungeon",
+      "compositionId": "magma_vents:fissure",
+      "landmark": "great_copper_vent",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "forge_depths",
+      "regionId": "emberreach",
+      "type": "dungeon",
+      "compositionId": "forge_depths:forge",
+      "landmark": "hanging_foundry_crucible",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "scorched_galleon",
+      "regionId": "emberreach",
+      "type": "wreck",
+      "compositionId": "scorched_galleon:wreck_spit",
+      "landmark": "charred_galleon_ribs",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "ember_crucible",
+      "regionId": "emberreach",
+      "type": "arena",
+      "compositionId": "ember_crucible:crater",
+      "landmark": "brazen_trial_crucible",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "cinderback_nest",
+      "regionId": "emberreach",
+      "type": "secret",
+      "compositionId": "cinderback_nest:hot_spring",
+      "landmark": "warm_basalt_nest",
+      "landmarkAsset": "emberreach",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "rootharbor",
+      "regionId": "verdant_maw",
+      "type": "port",
+      "compositionId": "rootharbor:root_bay",
+      "landmark": "giant_root_market",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "fernwater_post",
+      "regionId": "verdant_maw",
+      "type": "port",
+      "compositionId": "fernwater_post:creek",
+      "landmark": "fern_canopy_boardwalk",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "tanglewood_isle",
+      "regionId": "verdant_maw",
+      "type": "island",
+      "compositionId": "tanglewood_isle:roots",
+      "landmark": "braided_root_arch",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "orchid_cay",
+      "regionId": "verdant_maw",
+      "type": "island",
+      "compositionId": "orchid_cay:garden",
+      "landmark": "orchid_water_garden",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "maw_shore",
+      "regionId": "verdant_maw",
+      "type": "island",
+      "compositionId": "maw_shore:jaws",
+      "landmark": "root_jaw_overlook",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "overgrown_shrine",
+      "regionId": "verdant_maw",
+      "type": "dungeon",
+      "compositionId": "overgrown_shrine:root_hall",
+      "landmark": "root_embraced_shrine",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "thornroot_caves",
+      "regionId": "verdant_maw",
+      "type": "dungeon",
+      "compositionId": "thornroot_caves:root_cavern",
+      "landmark": "thornroot_water_chamber",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "vine_wreck",
+      "regionId": "verdant_maw",
+      "type": "wreck",
+      "compositionId": "vine_wreck:wreck_creek",
+      "landmark": "vine_bound_rudder",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "verdant_arena",
+      "regionId": "verdant_maw",
+      "type": "arena",
+      "compositionId": "verdant_arena:garden_ring",
+      "landmark": "living_root_dais",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "moss_hollow",
+      "regionId": "verdant_maw",
+      "type": "secret",
+      "compositionId": "moss_hollow:hollow",
+      "landmark": "mossling_hollow_tree",
+      "landmarkAsset": "verdant_maw",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "prismhaven",
+      "regionId": "glass_current",
+      "type": "port",
+      "compositionId": "prismhaven:prism_bay",
+      "landmark": "white_prism_lantern",
+      "landmarkAsset": "glass_current",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "mirrorbay",
+      "regionId": "glass_current",
+      "type": "port",
+      "compositionId": "mirrorbay:mirror_inlet",
+      "landmark": "glass_windbell_pier",
+      "landmarkAsset": "glass_current",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "shard_reef",
+      "regionId": "glass_current",
+      "type": "island",
+      "compositionId": "shard_reef:shards",
+      "landmark": "shattered_prism_reef",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "lens_isle",
+      "regionId": "glass_current",
+      "type": "island",
+      "compositionId": "lens_isle:lens",
+      "landmark": "great_glass_lens",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "quartz_spire",
+      "regionId": "glass_current",
+      "type": "island",
+      "compositionId": "quartz_spire:spire",
+      "landmark": "split_quartz_spire",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "crystal_vault",
+      "regionId": "glass_current",
+      "type": "dungeon",
+      "compositionId": "crystal_vault:crystal_hall",
+      "landmark": "prism_vault_dome",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "refraction_maze",
+      "regionId": "glass_current",
+      "type": "dungeon",
+      "compositionId": "refraction_maze:mirror_hall",
+      "landmark": "angled_mirror_gate",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "glassbound_hulk",
+      "regionId": "glass_current",
+      "type": "wreck",
+      "compositionId": "glassbound_hulk:wreck_reef",
+      "landmark": "crystal_locked_ribs",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "prism_court",
+      "regionId": "glass_current",
+      "type": "arena",
+      "compositionId": "prism_court:prism_ring",
+      "landmark": "faceted_trial_canopy",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "glasswing_lagoon",
+      "regionId": "glass_current",
+      "type": "secret",
+      "compositionId": "glasswing_lagoon:lagoon",
+      "landmark": "glasswing_reed_arbor",
+      "landmarkAsset": "glass_current",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "crownport",
+      "regionId": "crown_shoals",
+      "type": "port",
+      "compositionId": "crownport:arcade",
+      "landmark": "chartered_harbor_arcade",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "silkmarket",
+      "regionId": "crown_shoals",
+      "type": "port",
+      "compositionId": "silkmarket:market_cove",
+      "landmark": "striped_silk_market",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "gilded_cay",
+      "regionId": "crown_shoals",
+      "type": "island",
+      "compositionId": "gilded_cay:terrace",
+      "landmark": "gilded_courtyard",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "heron_isle",
+      "regionId": "crown_shoals",
+      "type": "island",
+      "compositionId": "heron_isle:marsh",
+      "landmark": "heron_reed_pavilion",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "regent_bank",
+      "regionId": "crown_shoals",
+      "type": "island",
+      "compositionId": "regent_bank:bank",
+      "landmark": "regent_sea_stair",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "charter_archive",
+      "regionId": "crown_shoals",
+      "type": "dungeon",
+      "compositionId": "charter_archive:archive",
+      "landmark": "charter_seal_library",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "old_family_crypt",
+      "regionId": "crown_shoals",
+      "type": "dungeon",
+      "compositionId": "old_family_crypt:crypt",
+      "landmark": "ancestral_stone_gallery",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "treasury_wreck",
+      "regionId": "crown_shoals",
+      "type": "wreck",
+      "compositionId": "treasury_wreck:wreck_bank",
+      "landmark": "gilded_treasury_stern",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "crown_tourney",
+      "regionId": "crown_shoals",
+      "type": "arena",
+      "compositionId": "crown_tourney:court",
+      "landmark": "silk_banner_tourney",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "pearl_grotto",
+      "regionId": "crown_shoals",
+      "type": "secret",
+      "compositionId": "pearl_grotto:pearl_pool",
+      "landmark": "pearl_shell_fountain",
+      "landmarkAsset": "crown_shoals",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "gale_harbor",
+      "regionId": "stormbelt",
+      "type": "port",
+      "compositionId": "gale_harbor:breakwater",
+      "landmark": "storm_chain_harbor",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "beacon_rest",
+      "regionId": "stormbelt",
+      "type": "port",
+      "compositionId": "beacon_rest:shelter",
+      "landmark": "yellow_window_refuge",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "thunder_rock",
+      "regionId": "stormbelt",
+      "type": "island",
+      "compositionId": "thunder_rock:cliff",
+      "landmark": "thunder_split_monolith",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "squall_isle",
+      "regionId": "stormbelt",
+      "type": "island",
+      "compositionId": "squall_isle:swept_spit",
+      "landmark": "wind_bent_signal_mast",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "lightning_reach",
+      "regionId": "stormbelt",
+      "type": "island",
+      "compositionId": "lightning_reach:headland",
+      "landmark": "lightning_copper_array",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "drowned_beacon",
+      "regionId": "stormbelt",
+      "type": "dungeon",
+      "compositionId": "drowned_beacon:beacon_hall",
+      "landmark": "tilted_beacon_lens",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "tempest_caverns",
+      "regionId": "stormbelt",
+      "type": "dungeon",
+      "compositionId": "tempest_caverns:storm_cave",
+      "landmark": "flooded_storm_chamber",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "stormwrack_hulk",
+      "regionId": "stormbelt",
+      "type": "wreck",
+      "compositionId": "stormwrack_hulk:wreck_cliff",
+      "landmark": "storm_torn_crows_nest",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "eye_of_storm",
+      "regionId": "stormbelt",
+      "type": "arena",
+      "compositionId": "eye_of_storm:storm_ring",
+      "landmark": "sheltered_eye_standards",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "cloudray_aerie",
+      "regionId": "stormbelt",
+      "type": "secret",
+      "compositionId": "cloudray_aerie:aerie",
+      "landmark": "cloudray_wind_arch",
+      "landmarkAsset": "stormbelt",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "lanternport",
+      "regionId": "moonwake",
+      "type": "port",
+      "compositionId": "lanternport:lantern_bay",
+      "landmark": "moon_lantern_balconies",
+      "landmarkAsset": "moonwake",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "dusk_mooring",
+      "regionId": "moonwake",
+      "type": "port",
+      "compositionId": "dusk_mooring:moon_inlet",
+      "landmark": "dusk_tea_pier",
+      "landmarkAsset": "moonwake",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "nightbloom_isle",
+      "regionId": "moonwake",
+      "type": "island",
+      "compositionId": "nightbloom_isle:garden",
+      "landmark": "nightbloom_lantern_arbor",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "echo_atoll",
+      "regionId": "moonwake",
+      "type": "island",
+      "compositionId": "echo_atoll:atoll",
+      "landmark": "echo_bell_crescent",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "starfall_key",
+      "regionId": "moonwake",
+      "type": "island",
+      "compositionId": "starfall_key:meteor",
+      "landmark": "starfall_glass_crater",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "forgotten_observatory",
+      "regionId": "moonwake",
+      "type": "dungeon",
+      "compositionId": "forgotten_observatory:observatory",
+      "landmark": "open_dome_telescope",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "dream_labyrinth",
+      "regionId": "moonwake",
+      "type": "dungeon",
+      "compositionId": "dream_labyrinth:dream_hall",
+      "landmark": "moon_phase_door_gallery",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "moonlit_wreck",
+      "regionId": "moonwake",
+      "type": "wreck",
+      "compositionId": "moonlit_wreck:wreck_crescent",
+      "landmark": "lantern_reflected_stern",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "moonwake_stage",
+      "regionId": "moonwake",
+      "type": "arena",
+      "compositionId": "moonwake_stage:stage",
+      "landmark": "moonrise_curtain_dais",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "dreammoth_glade",
+      "regionId": "moonwake",
+      "type": "secret",
+      "compositionId": "dreammoth_glade:glade",
+      "landmark": "dreammoth_silk_lanterns",
+      "landmarkAsset": "moonwake",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "ashport",
+      "regionId": "ashen_trench",
+      "type": "port",
+      "compositionId": "ashport:excavation_bay",
+      "landmark": "copper_mine_lanterns",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "relic_dock",
+      "regionId": "ashen_trench",
+      "type": "port",
+      "compositionId": "relic_dock:relic_cove",
+      "landmark": "relic_divers_scaffold",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "cinder_shelf",
+      "regionId": "ashen_trench",
+      "type": "island",
+      "compositionId": "cinder_shelf:shelf",
+      "landmark": "cinder_terrace_cairns",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "sunken_spires",
+      "regionId": "ashen_trench",
+      "type": "island",
+      "compositionId": "sunken_spires:spires",
+      "landmark": "half_buried_spire_gate",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "abyss_ledge",
+      "regionId": "ashen_trench",
+      "type": "island",
+      "compositionId": "abyss_ledge:ledge",
+      "landmark": "abyss_chain_bridge",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "sealed_ruins",
+      "regionId": "ashen_trench",
+      "type": "dungeon",
+      "compositionId": "sealed_ruins:seal_hall",
+      "landmark": "great_ring_seal",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "trench_sanctum",
+      "regionId": "ashen_trench",
+      "type": "dungeon",
+      "compositionId": "trench_sanctum:sanctum",
+      "landmark": "abyssal_survey_altar",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "relic_hunter_wreck",
+      "regionId": "ashen_trench",
+      "type": "wreck",
+      "compositionId": "relic_hunter_wreck:wreck_excavation",
+      "landmark": "survey_crane_wreck",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "ashen_seal_arena",
+      "regionId": "ashen_trench",
+      "type": "arena",
+      "compositionId": "ashen_seal_arena:seal_ring",
+      "landmark": "copper_ring_of_wards",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "gloomjaw_den",
+      "regionId": "ashen_trench",
+      "type": "secret",
+      "compositionId": "gloomjaw_den:den",
+      "landmark": "gloomjaw_warm_vent",
+      "landmarkAsset": "ashen_trench",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "ringhold",
+      "regionId": "leviathan_ring",
+      "type": "port",
+      "compositionId": "ringhold:bone_harbor",
+      "landmark": "great_rib_harbor_arch",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "migration_post",
+      "regionId": "leviathan_ring",
+      "type": "port",
+      "compositionId": "migration_post:shell_cove",
+      "landmark": "migration_watch_pavilion",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "shell_isle",
+      "regionId": "leviathan_ring",
+      "type": "island",
+      "compositionId": "shell_isle:shell",
+      "landmark": "shell_spiral_overlook",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "bone_reef",
+      "regionId": "leviathan_ring",
+      "type": "island",
+      "compositionId": "bone_reef:ribs",
+      "landmark": "titan_rib_causeway",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "titan_atoll",
+      "regionId": "leviathan_ring",
+      "type": "island",
+      "compositionId": "titan_atoll:titan_atoll",
+      "landmark": "leviathan_jaw_lagoon",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "leviathan_gut",
+      "regionId": "leviathan_ring",
+      "type": "dungeon",
+      "compositionId": "leviathan_gut:rib_hall",
+      "landmark": "great_rib_vault",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "coral_colossus",
+      "regionId": "leviathan_ring",
+      "type": "dungeon",
+      "compositionId": "coral_colossus:colossus",
+      "landmark": "coral_heart_chamber",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "behemoth_wreck",
+      "regionId": "leviathan_ring",
+      "type": "wreck",
+      "compositionId": "behemoth_wreck:wreck_bones",
+      "landmark": "behemoth_broken_figurehead",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "ring_arena",
+      "regionId": "leviathan_ring",
+      "type": "arena",
+      "compositionId": "ring_arena:bone_ring",
+      "landmark": "pearl_lit_rib_dais",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "shellwarden_shoal",
+      "regionId": "leviathan_ring",
+      "type": "secret",
+      "compositionId": "shellwarden_shoal:shoal",
+      "landmark": "shellwarden_coral_cradle",
+      "landmarkAsset": "leviathan_ring",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "horizon_gate",
+      "regionId": "grand_horizon",
+      "type": "port",
+      "compositionId": "horizon_gate:ceremonial_harbor",
+      "landmark": "sunwheel_harbor_gate",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "conclave_harbor",
+      "regionId": "grand_horizon",
+      "type": "port",
+      "compositionId": "conclave_harbor:conclave_bay",
+      "landmark": "captains_banner_colonnade",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [],
+      "authoredNodeIds": [
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "sunrise_isle",
+      "regionId": "grand_horizon",
+      "type": "island",
+      "compositionId": "sunrise_isle:sunrise",
+      "landmark": "sunrise_memorial_terrace",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "zenith_cay",
+      "regionId": "grand_horizon",
+      "type": "island",
+      "compositionId": "zenith_cay:zenith",
+      "landmark": "zenith_celestial_arch",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "dawnstar_reef",
+      "regionId": "grand_horizon",
+      "type": "island",
+      "compositionId": "dawnstar_reef:star_reef",
+      "landmark": "dawnstar_compass_reef",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow"
+      ],
+      "authoredNodeIds": [
+        "landing",
+        "grove",
+        "ridge",
+        "heart",
+        "hollow",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "ancient_gatehouse",
+      "regionId": "grand_horizon",
+      "type": "dungeon",
+      "compositionId": "ancient_gatehouse:gatehouse",
+      "landmark": "ancient_horizon_gate",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "compass_vault",
+      "regionId": "grand_horizon",
+      "type": "dungeon",
+      "compositionId": "compass_vault:compass_hall",
+      "landmark": "brass_armillary_compass",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault"
+      ],
+      "authoredNodeIds": [
+        "gate",
+        "west",
+        "east",
+        "depths",
+        "guardian",
+        "vault",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "rival_flagship_wreck",
+      "regionId": "grand_horizon",
+      "type": "wreck",
+      "compositionId": "rival_flagship_wreck:wreck_gate",
+      "landmark": "rival_gilded_transom",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "hold",
+        "cabin"
+      ],
+      "authoredNodeIds": [
+        "hold",
+        "cabin",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "horizon_arena",
+      "regionId": "grand_horizon",
+      "type": "arena",
+      "compositionId": "horizon_arena:sun_ring",
+      "landmark": "conclave_sunwheel_throne",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "trial"
+      ],
+      "authoredNodeIds": [
+        "trial",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "locationId": "starwake_haven",
+      "regionId": "grand_horizon",
+      "type": "secret",
+      "compositionId": "starwake_haven:star_lagoon",
+      "landmark": "starwake_celestial_cradle",
+      "landmarkAsset": "grand_horizon",
+      "roomIds": [
+        "sanctum"
+      ],
+      "authoredNodeIds": [
+        "sanctum",
+        "_landing"
+      ],
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    }
+  ],
+  "combatContexts": [
+    {
+      "contextId": "gull_rock:landing",
+      "regionId": "dawnwater",
+      "locationId": "gull_rock",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "gull_rock:landing:headland",
+      "landmark": "three_stacks_watch",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "gull_rock:ridge",
+      "regionId": "dawnwater",
+      "locationId": "gull_rock",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "gull_rock:ridge:headland",
+      "landmark": "three_stacks_watch",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "gull_rock:heart",
+      "regionId": "dawnwater",
+      "locationId": "gull_rock",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "gull_rock:heart:headland",
+      "landmark": "three_stacks_watch",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lantern_isle:landing",
+      "regionId": "dawnwater",
+      "locationId": "lantern_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "lantern_isle:landing:crescent",
+      "landmark": "lantern_keeper_garden",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lantern_isle:ridge",
+      "regionId": "dawnwater",
+      "locationId": "lantern_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "lantern_isle:ridge:crescent",
+      "landmark": "lantern_keeper_garden",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lantern_isle:heart",
+      "regionId": "dawnwater",
+      "locationId": "lantern_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "lantern_isle:heart:crescent",
+      "landmark": "lantern_keeper_garden",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "coral_steps:landing",
+      "regionId": "dawnwater",
+      "locationId": "coral_steps",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "coral_steps:landing:reef",
+      "landmark": "coral_stair_fan",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "coral_steps:ridge",
+      "regionId": "dawnwater",
+      "locationId": "coral_steps",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "coral_steps:ridge:reef",
+      "landmark": "coral_stair_fan",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "coral_steps:heart",
+      "regionId": "dawnwater",
+      "locationId": "coral_steps",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "coral_steps:heart:reef",
+      "landmark": "coral_stair_fan",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_lookout:gate",
+      "regionId": "dawnwater",
+      "locationId": "old_lookout",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "old_lookout:gate:cliff",
+      "landmark": "broken_lantern_tower",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_lookout:west",
+      "regionId": "dawnwater",
+      "locationId": "old_lookout",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "old_lookout:west:cliff",
+      "landmark": "broken_lantern_tower",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_lookout:depths",
+      "regionId": "dawnwater",
+      "locationId": "old_lookout",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "old_lookout:depths:cliff",
+      "landmark": "broken_lantern_tower",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_lookout:guardian",
+      "regionId": "dawnwater",
+      "locationId": "old_lookout",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "old_lookout:guardian:cliff",
+      "landmark": "broken_lantern_tower",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "brine_cellars:gate",
+      "regionId": "dawnwater",
+      "locationId": "brine_cellars",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "brine_cellars:gate:cellars",
+      "landmark": "crowned_salt_casks",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "brine_cellars:west",
+      "regionId": "dawnwater",
+      "locationId": "brine_cellars",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "brine_cellars:west:cellars",
+      "landmark": "crowned_salt_casks",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "brine_cellars:depths",
+      "regionId": "dawnwater",
+      "locationId": "brine_cellars",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "brine_cellars:depths:cellars",
+      "landmark": "crowned_salt_casks",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "brine_cellars:guardian",
+      "regionId": "dawnwater",
+      "locationId": "brine_cellars",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "brine_cellars:guardian:cellars",
+      "landmark": "crowned_salt_casks",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "driftplank_wreck:cabin",
+      "regionId": "dawnwater",
+      "locationId": "driftplank_wreck",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "driftplank_wreck:cabin:wreck_cove",
+      "landmark": "broken_trade_mast",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dawn_trial_ring:trial",
+      "regionId": "dawnwater",
+      "locationId": "dawn_trial_ring",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "dawn_trial_ring:trial:ring",
+      "landmark": "harbor_charter_dais",
+      "landmarkAsset": "dawnwater",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "basalt_isle:landing",
+      "regionId": "emberreach",
+      "locationId": "basalt_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "basalt_isle:landing:basalt",
+      "landmark": "split_basalt_crown",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "basalt_isle:ridge",
+      "regionId": "emberreach",
+      "locationId": "basalt_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "basalt_isle:ridge:basalt",
+      "landmark": "split_basalt_crown",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "basalt_isle:heart",
+      "regionId": "emberreach",
+      "locationId": "basalt_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "basalt_isle:heart:basalt",
+      "landmark": "split_basalt_crown",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "smolder_key:landing",
+      "regionId": "emberreach",
+      "locationId": "smolder_key",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "smolder_key:landing:crescent",
+      "landmark": "smoking_copper_vents",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "smolder_key:ridge",
+      "regionId": "emberreach",
+      "locationId": "smolder_key",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "smolder_key:ridge:crescent",
+      "landmark": "smoking_copper_vents",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "smolder_key:heart",
+      "regionId": "emberreach",
+      "locationId": "smolder_key",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "smolder_key:heart:crescent",
+      "landmark": "smoking_copper_vents",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "obsidian_atoll:landing",
+      "regionId": "emberreach",
+      "locationId": "obsidian_atoll",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "obsidian_atoll:landing:atoll",
+      "landmark": "obsidian_mirror_pool",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "obsidian_atoll:ridge",
+      "regionId": "emberreach",
+      "locationId": "obsidian_atoll",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "obsidian_atoll:ridge:atoll",
+      "landmark": "obsidian_mirror_pool",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "obsidian_atoll:heart",
+      "regionId": "emberreach",
+      "locationId": "obsidian_atoll",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "obsidian_atoll:heart:atoll",
+      "landmark": "obsidian_mirror_pool",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "magma_vents:gate",
+      "regionId": "emberreach",
+      "locationId": "magma_vents",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "magma_vents:gate:fissure",
+      "landmark": "great_copper_vent",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "magma_vents:west",
+      "regionId": "emberreach",
+      "locationId": "magma_vents",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "magma_vents:west:fissure",
+      "landmark": "great_copper_vent",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "magma_vents:depths",
+      "regionId": "emberreach",
+      "locationId": "magma_vents",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "magma_vents:depths:fissure",
+      "landmark": "great_copper_vent",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "magma_vents:guardian",
+      "regionId": "emberreach",
+      "locationId": "magma_vents",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "magma_vents:guardian:fissure",
+      "landmark": "great_copper_vent",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forge_depths:gate",
+      "regionId": "emberreach",
+      "locationId": "forge_depths",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "forge_depths:gate:forge",
+      "landmark": "hanging_foundry_crucible",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forge_depths:west",
+      "regionId": "emberreach",
+      "locationId": "forge_depths",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "forge_depths:west:forge",
+      "landmark": "hanging_foundry_crucible",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forge_depths:depths",
+      "regionId": "emberreach",
+      "locationId": "forge_depths",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "forge_depths:depths:forge",
+      "landmark": "hanging_foundry_crucible",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forge_depths:guardian",
+      "regionId": "emberreach",
+      "locationId": "forge_depths",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "forge_depths:guardian:forge",
+      "landmark": "hanging_foundry_crucible",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "scorched_galleon:cabin",
+      "regionId": "emberreach",
+      "locationId": "scorched_galleon",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "scorched_galleon:cabin:wreck_spit",
+      "landmark": "charred_galleon_ribs",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "ember_crucible:trial",
+      "regionId": "emberreach",
+      "locationId": "ember_crucible",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "ember_crucible:trial:crater",
+      "landmark": "brazen_trial_crucible",
+      "landmarkAsset": "emberreach",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "tanglewood_isle:landing",
+      "regionId": "verdant_maw",
+      "locationId": "tanglewood_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "tanglewood_isle:landing:roots",
+      "landmark": "braided_root_arch",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "tanglewood_isle:ridge",
+      "regionId": "verdant_maw",
+      "locationId": "tanglewood_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "tanglewood_isle:ridge:roots",
+      "landmark": "braided_root_arch",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "tanglewood_isle:heart",
+      "regionId": "verdant_maw",
+      "locationId": "tanglewood_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "tanglewood_isle:heart:roots",
+      "landmark": "braided_root_arch",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "orchid_cay:landing",
+      "regionId": "verdant_maw",
+      "locationId": "orchid_cay",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "orchid_cay:landing:garden",
+      "landmark": "orchid_water_garden",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "orchid_cay:ridge",
+      "regionId": "verdant_maw",
+      "locationId": "orchid_cay",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "orchid_cay:ridge:garden",
+      "landmark": "orchid_water_garden",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "orchid_cay:heart",
+      "regionId": "verdant_maw",
+      "locationId": "orchid_cay",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "orchid_cay:heart:garden",
+      "landmark": "orchid_water_garden",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "maw_shore:landing",
+      "regionId": "verdant_maw",
+      "locationId": "maw_shore",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "maw_shore:landing:jaws",
+      "landmark": "root_jaw_overlook",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "maw_shore:ridge",
+      "regionId": "verdant_maw",
+      "locationId": "maw_shore",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "maw_shore:ridge:jaws",
+      "landmark": "root_jaw_overlook",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "maw_shore:heart",
+      "regionId": "verdant_maw",
+      "locationId": "maw_shore",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "maw_shore:heart:jaws",
+      "landmark": "root_jaw_overlook",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "overgrown_shrine:gate",
+      "regionId": "verdant_maw",
+      "locationId": "overgrown_shrine",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "overgrown_shrine:gate:root_hall",
+      "landmark": "root_embraced_shrine",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "overgrown_shrine:west",
+      "regionId": "verdant_maw",
+      "locationId": "overgrown_shrine",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "overgrown_shrine:west:root_hall",
+      "landmark": "root_embraced_shrine",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "overgrown_shrine:depths",
+      "regionId": "verdant_maw",
+      "locationId": "overgrown_shrine",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "overgrown_shrine:depths:root_hall",
+      "landmark": "root_embraced_shrine",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "overgrown_shrine:guardian",
+      "regionId": "verdant_maw",
+      "locationId": "overgrown_shrine",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "overgrown_shrine:guardian:root_hall",
+      "landmark": "root_embraced_shrine",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "thornroot_caves:gate",
+      "regionId": "verdant_maw",
+      "locationId": "thornroot_caves",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "thornroot_caves:gate:root_cavern",
+      "landmark": "thornroot_water_chamber",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "thornroot_caves:west",
+      "regionId": "verdant_maw",
+      "locationId": "thornroot_caves",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "thornroot_caves:west:root_cavern",
+      "landmark": "thornroot_water_chamber",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "thornroot_caves:depths",
+      "regionId": "verdant_maw",
+      "locationId": "thornroot_caves",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "thornroot_caves:depths:root_cavern",
+      "landmark": "thornroot_water_chamber",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "thornroot_caves:guardian",
+      "regionId": "verdant_maw",
+      "locationId": "thornroot_caves",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "thornroot_caves:guardian:root_cavern",
+      "landmark": "thornroot_water_chamber",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "vine_wreck:cabin",
+      "regionId": "verdant_maw",
+      "locationId": "vine_wreck",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "vine_wreck:cabin:wreck_creek",
+      "landmark": "vine_bound_rudder",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "verdant_arena:trial",
+      "regionId": "verdant_maw",
+      "locationId": "verdant_arena",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "verdant_arena:trial:garden_ring",
+      "landmark": "living_root_dais",
+      "landmarkAsset": "verdant_maw",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "shard_reef:landing",
+      "regionId": "glass_current",
+      "locationId": "shard_reef",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "shard_reef:landing:shards",
+      "landmark": "shattered_prism_reef",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "shard_reef:ridge",
+      "regionId": "glass_current",
+      "locationId": "shard_reef",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "shard_reef:ridge:shards",
+      "landmark": "shattered_prism_reef",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "shard_reef:heart",
+      "regionId": "glass_current",
+      "locationId": "shard_reef",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "shard_reef:heart:shards",
+      "landmark": "shattered_prism_reef",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lens_isle:landing",
+      "regionId": "glass_current",
+      "locationId": "lens_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "lens_isle:landing:lens",
+      "landmark": "great_glass_lens",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lens_isle:ridge",
+      "regionId": "glass_current",
+      "locationId": "lens_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "lens_isle:ridge:lens",
+      "landmark": "great_glass_lens",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lens_isle:heart",
+      "regionId": "glass_current",
+      "locationId": "lens_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "lens_isle:heart:lens",
+      "landmark": "great_glass_lens",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "quartz_spire:landing",
+      "regionId": "glass_current",
+      "locationId": "quartz_spire",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "quartz_spire:landing:spire",
+      "landmark": "split_quartz_spire",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "quartz_spire:ridge",
+      "regionId": "glass_current",
+      "locationId": "quartz_spire",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "quartz_spire:ridge:spire",
+      "landmark": "split_quartz_spire",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "quartz_spire:heart",
+      "regionId": "glass_current",
+      "locationId": "quartz_spire",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "quartz_spire:heart:spire",
+      "landmark": "split_quartz_spire",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "crystal_vault:gate",
+      "regionId": "glass_current",
+      "locationId": "crystal_vault",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "crystal_vault:gate:crystal_hall",
+      "landmark": "prism_vault_dome",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "crystal_vault:west",
+      "regionId": "glass_current",
+      "locationId": "crystal_vault",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "crystal_vault:west:crystal_hall",
+      "landmark": "prism_vault_dome",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "crystal_vault:depths",
+      "regionId": "glass_current",
+      "locationId": "crystal_vault",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "crystal_vault:depths:crystal_hall",
+      "landmark": "prism_vault_dome",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "crystal_vault:guardian",
+      "regionId": "glass_current",
+      "locationId": "crystal_vault",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "crystal_vault:guardian:crystal_hall",
+      "landmark": "prism_vault_dome",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "refraction_maze:gate",
+      "regionId": "glass_current",
+      "locationId": "refraction_maze",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "refraction_maze:gate:mirror_hall",
+      "landmark": "angled_mirror_gate",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "refraction_maze:west",
+      "regionId": "glass_current",
+      "locationId": "refraction_maze",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "refraction_maze:west:mirror_hall",
+      "landmark": "angled_mirror_gate",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "refraction_maze:depths",
+      "regionId": "glass_current",
+      "locationId": "refraction_maze",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "refraction_maze:depths:mirror_hall",
+      "landmark": "angled_mirror_gate",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "refraction_maze:guardian",
+      "regionId": "glass_current",
+      "locationId": "refraction_maze",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "refraction_maze:guardian:mirror_hall",
+      "landmark": "angled_mirror_gate",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "glassbound_hulk:cabin",
+      "regionId": "glass_current",
+      "locationId": "glassbound_hulk",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "glassbound_hulk:cabin:wreck_reef",
+      "landmark": "crystal_locked_ribs",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "prism_court:trial",
+      "regionId": "glass_current",
+      "locationId": "prism_court",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "prism_court:trial:prism_ring",
+      "landmark": "faceted_trial_canopy",
+      "landmarkAsset": "glass_current",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "gilded_cay:landing",
+      "regionId": "crown_shoals",
+      "locationId": "gilded_cay",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "gilded_cay:landing:terrace",
+      "landmark": "gilded_courtyard",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "gilded_cay:ridge",
+      "regionId": "crown_shoals",
+      "locationId": "gilded_cay",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "gilded_cay:ridge:terrace",
+      "landmark": "gilded_courtyard",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "gilded_cay:heart",
+      "regionId": "crown_shoals",
+      "locationId": "gilded_cay",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "gilded_cay:heart:terrace",
+      "landmark": "gilded_courtyard",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "heron_isle:landing",
+      "regionId": "crown_shoals",
+      "locationId": "heron_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "heron_isle:landing:marsh",
+      "landmark": "heron_reed_pavilion",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "heron_isle:ridge",
+      "regionId": "crown_shoals",
+      "locationId": "heron_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "heron_isle:ridge:marsh",
+      "landmark": "heron_reed_pavilion",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "heron_isle:heart",
+      "regionId": "crown_shoals",
+      "locationId": "heron_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "heron_isle:heart:marsh",
+      "landmark": "heron_reed_pavilion",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "regent_bank:landing",
+      "regionId": "crown_shoals",
+      "locationId": "regent_bank",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "regent_bank:landing:bank",
+      "landmark": "regent_sea_stair",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "regent_bank:ridge",
+      "regionId": "crown_shoals",
+      "locationId": "regent_bank",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "regent_bank:ridge:bank",
+      "landmark": "regent_sea_stair",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "regent_bank:heart",
+      "regionId": "crown_shoals",
+      "locationId": "regent_bank",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "regent_bank:heart:bank",
+      "landmark": "regent_sea_stair",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "charter_archive:gate",
+      "regionId": "crown_shoals",
+      "locationId": "charter_archive",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "charter_archive:gate:archive",
+      "landmark": "charter_seal_library",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "charter_archive:west",
+      "regionId": "crown_shoals",
+      "locationId": "charter_archive",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "charter_archive:west:archive",
+      "landmark": "charter_seal_library",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "charter_archive:depths",
+      "regionId": "crown_shoals",
+      "locationId": "charter_archive",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "charter_archive:depths:archive",
+      "landmark": "charter_seal_library",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "charter_archive:guardian",
+      "regionId": "crown_shoals",
+      "locationId": "charter_archive",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "charter_archive:guardian:archive",
+      "landmark": "charter_seal_library",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_family_crypt:gate",
+      "regionId": "crown_shoals",
+      "locationId": "old_family_crypt",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "old_family_crypt:gate:crypt",
+      "landmark": "ancestral_stone_gallery",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_family_crypt:west",
+      "regionId": "crown_shoals",
+      "locationId": "old_family_crypt",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "old_family_crypt:west:crypt",
+      "landmark": "ancestral_stone_gallery",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_family_crypt:depths",
+      "regionId": "crown_shoals",
+      "locationId": "old_family_crypt",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "old_family_crypt:depths:crypt",
+      "landmark": "ancestral_stone_gallery",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "old_family_crypt:guardian",
+      "regionId": "crown_shoals",
+      "locationId": "old_family_crypt",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "old_family_crypt:guardian:crypt",
+      "landmark": "ancestral_stone_gallery",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "treasury_wreck:cabin",
+      "regionId": "crown_shoals",
+      "locationId": "treasury_wreck",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "treasury_wreck:cabin:wreck_bank",
+      "landmark": "gilded_treasury_stern",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "crown_tourney:trial",
+      "regionId": "crown_shoals",
+      "locationId": "crown_tourney",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "crown_tourney:trial:court",
+      "landmark": "silk_banner_tourney",
+      "landmarkAsset": "crown_shoals",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "thunder_rock:landing",
+      "regionId": "stormbelt",
+      "locationId": "thunder_rock",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "thunder_rock:landing:cliff",
+      "landmark": "thunder_split_monolith",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "thunder_rock:ridge",
+      "regionId": "stormbelt",
+      "locationId": "thunder_rock",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "thunder_rock:ridge:cliff",
+      "landmark": "thunder_split_monolith",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "thunder_rock:heart",
+      "regionId": "stormbelt",
+      "locationId": "thunder_rock",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "thunder_rock:heart:cliff",
+      "landmark": "thunder_split_monolith",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "squall_isle:landing",
+      "regionId": "stormbelt",
+      "locationId": "squall_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "squall_isle:landing:swept_spit",
+      "landmark": "wind_bent_signal_mast",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "squall_isle:ridge",
+      "regionId": "stormbelt",
+      "locationId": "squall_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "squall_isle:ridge:swept_spit",
+      "landmark": "wind_bent_signal_mast",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "squall_isle:heart",
+      "regionId": "stormbelt",
+      "locationId": "squall_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "squall_isle:heart:swept_spit",
+      "landmark": "wind_bent_signal_mast",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lightning_reach:landing",
+      "regionId": "stormbelt",
+      "locationId": "lightning_reach",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "lightning_reach:landing:headland",
+      "landmark": "lightning_copper_array",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lightning_reach:ridge",
+      "regionId": "stormbelt",
+      "locationId": "lightning_reach",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "lightning_reach:ridge:headland",
+      "landmark": "lightning_copper_array",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "lightning_reach:heart",
+      "regionId": "stormbelt",
+      "locationId": "lightning_reach",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "lightning_reach:heart:headland",
+      "landmark": "lightning_copper_array",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "drowned_beacon:gate",
+      "regionId": "stormbelt",
+      "locationId": "drowned_beacon",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "drowned_beacon:gate:beacon_hall",
+      "landmark": "tilted_beacon_lens",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "drowned_beacon:west",
+      "regionId": "stormbelt",
+      "locationId": "drowned_beacon",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "drowned_beacon:west:beacon_hall",
+      "landmark": "tilted_beacon_lens",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "drowned_beacon:depths",
+      "regionId": "stormbelt",
+      "locationId": "drowned_beacon",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "drowned_beacon:depths:beacon_hall",
+      "landmark": "tilted_beacon_lens",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "drowned_beacon:guardian",
+      "regionId": "stormbelt",
+      "locationId": "drowned_beacon",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "drowned_beacon:guardian:beacon_hall",
+      "landmark": "tilted_beacon_lens",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "tempest_caverns:gate",
+      "regionId": "stormbelt",
+      "locationId": "tempest_caverns",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "tempest_caverns:gate:storm_cave",
+      "landmark": "flooded_storm_chamber",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "tempest_caverns:west",
+      "regionId": "stormbelt",
+      "locationId": "tempest_caverns",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "tempest_caverns:west:storm_cave",
+      "landmark": "flooded_storm_chamber",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "tempest_caverns:depths",
+      "regionId": "stormbelt",
+      "locationId": "tempest_caverns",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "tempest_caverns:depths:storm_cave",
+      "landmark": "flooded_storm_chamber",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "tempest_caverns:guardian",
+      "regionId": "stormbelt",
+      "locationId": "tempest_caverns",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "tempest_caverns:guardian:storm_cave",
+      "landmark": "flooded_storm_chamber",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "stormwrack_hulk:cabin",
+      "regionId": "stormbelt",
+      "locationId": "stormwrack_hulk",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "stormwrack_hulk:cabin:wreck_cliff",
+      "landmark": "storm_torn_crows_nest",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "eye_of_storm:trial",
+      "regionId": "stormbelt",
+      "locationId": "eye_of_storm",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "eye_of_storm:trial:storm_ring",
+      "landmark": "sheltered_eye_standards",
+      "landmarkAsset": "stormbelt",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "nightbloom_isle:landing",
+      "regionId": "moonwake",
+      "locationId": "nightbloom_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "nightbloom_isle:landing:garden",
+      "landmark": "nightbloom_lantern_arbor",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "nightbloom_isle:ridge",
+      "regionId": "moonwake",
+      "locationId": "nightbloom_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "nightbloom_isle:ridge:garden",
+      "landmark": "nightbloom_lantern_arbor",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "nightbloom_isle:heart",
+      "regionId": "moonwake",
+      "locationId": "nightbloom_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "nightbloom_isle:heart:garden",
+      "landmark": "nightbloom_lantern_arbor",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "echo_atoll:landing",
+      "regionId": "moonwake",
+      "locationId": "echo_atoll",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "echo_atoll:landing:atoll",
+      "landmark": "echo_bell_crescent",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "echo_atoll:ridge",
+      "regionId": "moonwake",
+      "locationId": "echo_atoll",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "echo_atoll:ridge:atoll",
+      "landmark": "echo_bell_crescent",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "echo_atoll:heart",
+      "regionId": "moonwake",
+      "locationId": "echo_atoll",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "echo_atoll:heart:atoll",
+      "landmark": "echo_bell_crescent",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "starfall_key:landing",
+      "regionId": "moonwake",
+      "locationId": "starfall_key",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "starfall_key:landing:meteor",
+      "landmark": "starfall_glass_crater",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "starfall_key:ridge",
+      "regionId": "moonwake",
+      "locationId": "starfall_key",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "starfall_key:ridge:meteor",
+      "landmark": "starfall_glass_crater",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "starfall_key:heart",
+      "regionId": "moonwake",
+      "locationId": "starfall_key",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "starfall_key:heart:meteor",
+      "landmark": "starfall_glass_crater",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forgotten_observatory:gate",
+      "regionId": "moonwake",
+      "locationId": "forgotten_observatory",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "forgotten_observatory:gate:observatory",
+      "landmark": "open_dome_telescope",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forgotten_observatory:west",
+      "regionId": "moonwake",
+      "locationId": "forgotten_observatory",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "forgotten_observatory:west:observatory",
+      "landmark": "open_dome_telescope",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forgotten_observatory:depths",
+      "regionId": "moonwake",
+      "locationId": "forgotten_observatory",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "forgotten_observatory:depths:observatory",
+      "landmark": "open_dome_telescope",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "forgotten_observatory:guardian",
+      "regionId": "moonwake",
+      "locationId": "forgotten_observatory",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "forgotten_observatory:guardian:observatory",
+      "landmark": "open_dome_telescope",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dream_labyrinth:gate",
+      "regionId": "moonwake",
+      "locationId": "dream_labyrinth",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "dream_labyrinth:gate:dream_hall",
+      "landmark": "moon_phase_door_gallery",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dream_labyrinth:west",
+      "regionId": "moonwake",
+      "locationId": "dream_labyrinth",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "dream_labyrinth:west:dream_hall",
+      "landmark": "moon_phase_door_gallery",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dream_labyrinth:depths",
+      "regionId": "moonwake",
+      "locationId": "dream_labyrinth",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "dream_labyrinth:depths:dream_hall",
+      "landmark": "moon_phase_door_gallery",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dream_labyrinth:guardian",
+      "regionId": "moonwake",
+      "locationId": "dream_labyrinth",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "dream_labyrinth:guardian:dream_hall",
+      "landmark": "moon_phase_door_gallery",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "moonlit_wreck:cabin",
+      "regionId": "moonwake",
+      "locationId": "moonlit_wreck",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "moonlit_wreck:cabin:wreck_crescent",
+      "landmark": "lantern_reflected_stern",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "moonwake_stage:trial",
+      "regionId": "moonwake",
+      "locationId": "moonwake_stage",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "moonwake_stage:trial:stage",
+      "landmark": "moonrise_curtain_dais",
+      "landmarkAsset": "moonwake",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "cinder_shelf:landing",
+      "regionId": "ashen_trench",
+      "locationId": "cinder_shelf",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "cinder_shelf:landing:shelf",
+      "landmark": "cinder_terrace_cairns",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "cinder_shelf:ridge",
+      "regionId": "ashen_trench",
+      "locationId": "cinder_shelf",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "cinder_shelf:ridge:shelf",
+      "landmark": "cinder_terrace_cairns",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "cinder_shelf:heart",
+      "regionId": "ashen_trench",
+      "locationId": "cinder_shelf",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "cinder_shelf:heart:shelf",
+      "landmark": "cinder_terrace_cairns",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sunken_spires:landing",
+      "regionId": "ashen_trench",
+      "locationId": "sunken_spires",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "sunken_spires:landing:spires",
+      "landmark": "half_buried_spire_gate",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sunken_spires:ridge",
+      "regionId": "ashen_trench",
+      "locationId": "sunken_spires",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "sunken_spires:ridge:spires",
+      "landmark": "half_buried_spire_gate",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sunken_spires:heart",
+      "regionId": "ashen_trench",
+      "locationId": "sunken_spires",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "sunken_spires:heart:spires",
+      "landmark": "half_buried_spire_gate",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "abyss_ledge:landing",
+      "regionId": "ashen_trench",
+      "locationId": "abyss_ledge",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "abyss_ledge:landing:ledge",
+      "landmark": "abyss_chain_bridge",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "abyss_ledge:ridge",
+      "regionId": "ashen_trench",
+      "locationId": "abyss_ledge",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "abyss_ledge:ridge:ledge",
+      "landmark": "abyss_chain_bridge",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "abyss_ledge:heart",
+      "regionId": "ashen_trench",
+      "locationId": "abyss_ledge",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "abyss_ledge:heart:ledge",
+      "landmark": "abyss_chain_bridge",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sealed_ruins:gate",
+      "regionId": "ashen_trench",
+      "locationId": "sealed_ruins",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "sealed_ruins:gate:seal_hall",
+      "landmark": "great_ring_seal",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sealed_ruins:west",
+      "regionId": "ashen_trench",
+      "locationId": "sealed_ruins",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "sealed_ruins:west:seal_hall",
+      "landmark": "great_ring_seal",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sealed_ruins:depths",
+      "regionId": "ashen_trench",
+      "locationId": "sealed_ruins",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "sealed_ruins:depths:seal_hall",
+      "landmark": "great_ring_seal",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sealed_ruins:guardian",
+      "regionId": "ashen_trench",
+      "locationId": "sealed_ruins",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "sealed_ruins:guardian:seal_hall",
+      "landmark": "great_ring_seal",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "trench_sanctum:gate",
+      "regionId": "ashen_trench",
+      "locationId": "trench_sanctum",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "trench_sanctum:gate:sanctum",
+      "landmark": "abyssal_survey_altar",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "trench_sanctum:west",
+      "regionId": "ashen_trench",
+      "locationId": "trench_sanctum",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "trench_sanctum:west:sanctum",
+      "landmark": "abyssal_survey_altar",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "trench_sanctum:depths",
+      "regionId": "ashen_trench",
+      "locationId": "trench_sanctum",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "trench_sanctum:depths:sanctum",
+      "landmark": "abyssal_survey_altar",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "trench_sanctum:guardian",
+      "regionId": "ashen_trench",
+      "locationId": "trench_sanctum",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "trench_sanctum:guardian:sanctum",
+      "landmark": "abyssal_survey_altar",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "relic_hunter_wreck:cabin",
+      "regionId": "ashen_trench",
+      "locationId": "relic_hunter_wreck",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "relic_hunter_wreck:cabin:wreck_excavation",
+      "landmark": "survey_crane_wreck",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "ashen_seal_arena:trial",
+      "regionId": "ashen_trench",
+      "locationId": "ashen_seal_arena",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "ashen_seal_arena:trial:seal_ring",
+      "landmark": "copper_ring_of_wards",
+      "landmarkAsset": "ashen_trench",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "shell_isle:landing",
+      "regionId": "leviathan_ring",
+      "locationId": "shell_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "shell_isle:landing:shell",
+      "landmark": "shell_spiral_overlook",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "shell_isle:ridge",
+      "regionId": "leviathan_ring",
+      "locationId": "shell_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "shell_isle:ridge:shell",
+      "landmark": "shell_spiral_overlook",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "shell_isle:heart",
+      "regionId": "leviathan_ring",
+      "locationId": "shell_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "shell_isle:heart:shell",
+      "landmark": "shell_spiral_overlook",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "bone_reef:landing",
+      "regionId": "leviathan_ring",
+      "locationId": "bone_reef",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "bone_reef:landing:ribs",
+      "landmark": "titan_rib_causeway",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "bone_reef:ridge",
+      "regionId": "leviathan_ring",
+      "locationId": "bone_reef",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "bone_reef:ridge:ribs",
+      "landmark": "titan_rib_causeway",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "bone_reef:heart",
+      "regionId": "leviathan_ring",
+      "locationId": "bone_reef",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "bone_reef:heart:ribs",
+      "landmark": "titan_rib_causeway",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "titan_atoll:landing",
+      "regionId": "leviathan_ring",
+      "locationId": "titan_atoll",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "titan_atoll:landing:titan_atoll",
+      "landmark": "leviathan_jaw_lagoon",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "titan_atoll:ridge",
+      "regionId": "leviathan_ring",
+      "locationId": "titan_atoll",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "titan_atoll:ridge:titan_atoll",
+      "landmark": "leviathan_jaw_lagoon",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "titan_atoll:heart",
+      "regionId": "leviathan_ring",
+      "locationId": "titan_atoll",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "titan_atoll:heart:titan_atoll",
+      "landmark": "leviathan_jaw_lagoon",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "leviathan_gut:gate",
+      "regionId": "leviathan_ring",
+      "locationId": "leviathan_gut",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "leviathan_gut:gate:rib_hall",
+      "landmark": "great_rib_vault",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "leviathan_gut:west",
+      "regionId": "leviathan_ring",
+      "locationId": "leviathan_gut",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "leviathan_gut:west:rib_hall",
+      "landmark": "great_rib_vault",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "leviathan_gut:depths",
+      "regionId": "leviathan_ring",
+      "locationId": "leviathan_gut",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "leviathan_gut:depths:rib_hall",
+      "landmark": "great_rib_vault",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "leviathan_gut:guardian",
+      "regionId": "leviathan_ring",
+      "locationId": "leviathan_gut",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "leviathan_gut:guardian:rib_hall",
+      "landmark": "great_rib_vault",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "coral_colossus:gate",
+      "regionId": "leviathan_ring",
+      "locationId": "coral_colossus",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "coral_colossus:gate:colossus",
+      "landmark": "coral_heart_chamber",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "coral_colossus:west",
+      "regionId": "leviathan_ring",
+      "locationId": "coral_colossus",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "coral_colossus:west:colossus",
+      "landmark": "coral_heart_chamber",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "coral_colossus:depths",
+      "regionId": "leviathan_ring",
+      "locationId": "coral_colossus",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "coral_colossus:depths:colossus",
+      "landmark": "coral_heart_chamber",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "coral_colossus:guardian",
+      "regionId": "leviathan_ring",
+      "locationId": "coral_colossus",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "coral_colossus:guardian:colossus",
+      "landmark": "coral_heart_chamber",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "behemoth_wreck:cabin",
+      "regionId": "leviathan_ring",
+      "locationId": "behemoth_wreck",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "behemoth_wreck:cabin:wreck_bones",
+      "landmark": "behemoth_broken_figurehead",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "ring_arena:trial",
+      "regionId": "leviathan_ring",
+      "locationId": "ring_arena",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "ring_arena:trial:bone_ring",
+      "landmark": "pearl_lit_rib_dais",
+      "landmarkAsset": "leviathan_ring",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sunrise_isle:landing",
+      "regionId": "grand_horizon",
+      "locationId": "sunrise_isle",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "sunrise_isle:landing:sunrise",
+      "landmark": "sunrise_memorial_terrace",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sunrise_isle:ridge",
+      "regionId": "grand_horizon",
+      "locationId": "sunrise_isle",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "sunrise_isle:ridge:sunrise",
+      "landmark": "sunrise_memorial_terrace",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "sunrise_isle:heart",
+      "regionId": "grand_horizon",
+      "locationId": "sunrise_isle",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "sunrise_isle:heart:sunrise",
+      "landmark": "sunrise_memorial_terrace",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "zenith_cay:landing",
+      "regionId": "grand_horizon",
+      "locationId": "zenith_cay",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "zenith_cay:landing:zenith",
+      "landmark": "zenith_celestial_arch",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "zenith_cay:ridge",
+      "regionId": "grand_horizon",
+      "locationId": "zenith_cay",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "zenith_cay:ridge:zenith",
+      "landmark": "zenith_celestial_arch",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "zenith_cay:heart",
+      "regionId": "grand_horizon",
+      "locationId": "zenith_cay",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "zenith_cay:heart:zenith",
+      "landmark": "zenith_celestial_arch",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dawnstar_reef:landing",
+      "regionId": "grand_horizon",
+      "locationId": "dawnstar_reef",
+      "roomId": "landing",
+      "tier": "battle",
+      "compositionId": "dawnstar_reef:landing:star_reef",
+      "landmark": "dawnstar_compass_reef",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dawnstar_reef:ridge",
+      "regionId": "grand_horizon",
+      "locationId": "dawnstar_reef",
+      "roomId": "ridge",
+      "tier": "battle",
+      "compositionId": "dawnstar_reef:ridge:star_reef",
+      "landmark": "dawnstar_compass_reef",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "dawnstar_reef:heart",
+      "regionId": "grand_horizon",
+      "locationId": "dawnstar_reef",
+      "roomId": "heart",
+      "tier": "elite",
+      "compositionId": "dawnstar_reef:heart:star_reef",
+      "landmark": "dawnstar_compass_reef",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "ancient_gatehouse:gate",
+      "regionId": "grand_horizon",
+      "locationId": "ancient_gatehouse",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "ancient_gatehouse:gate:gatehouse",
+      "landmark": "ancient_horizon_gate",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "ancient_gatehouse:west",
+      "regionId": "grand_horizon",
+      "locationId": "ancient_gatehouse",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "ancient_gatehouse:west:gatehouse",
+      "landmark": "ancient_horizon_gate",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "ancient_gatehouse:depths",
+      "regionId": "grand_horizon",
+      "locationId": "ancient_gatehouse",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "ancient_gatehouse:depths:gatehouse",
+      "landmark": "ancient_horizon_gate",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "ancient_gatehouse:guardian",
+      "regionId": "grand_horizon",
+      "locationId": "ancient_gatehouse",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "ancient_gatehouse:guardian:gatehouse",
+      "landmark": "ancient_horizon_gate",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "compass_vault:gate",
+      "regionId": "grand_horizon",
+      "locationId": "compass_vault",
+      "roomId": "gate",
+      "tier": "battle",
+      "compositionId": "compass_vault:gate:compass_hall",
+      "landmark": "brass_armillary_compass",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "compass_vault:west",
+      "regionId": "grand_horizon",
+      "locationId": "compass_vault",
+      "roomId": "west",
+      "tier": "battle",
+      "compositionId": "compass_vault:west:compass_hall",
+      "landmark": "brass_armillary_compass",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "compass_vault:depths",
+      "regionId": "grand_horizon",
+      "locationId": "compass_vault",
+      "roomId": "depths",
+      "tier": "elite",
+      "compositionId": "compass_vault:depths:compass_hall",
+      "landmark": "brass_armillary_compass",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "compass_vault:guardian",
+      "regionId": "grand_horizon",
+      "locationId": "compass_vault",
+      "roomId": "guardian",
+      "tier": "boss",
+      "compositionId": "compass_vault:guardian:compass_hall",
+      "landmark": "brass_armillary_compass",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "rival_flagship_wreck:cabin",
+      "regionId": "grand_horizon",
+      "locationId": "rival_flagship_wreck",
+      "roomId": "cabin",
+      "tier": "elite",
+      "compositionId": "rival_flagship_wreck:cabin:wreck_gate",
+      "landmark": "rival_gilded_transom",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    },
+    {
+      "contextId": "horizon_arena:trial",
+      "regionId": "grand_horizon",
+      "locationId": "horizon_arena",
+      "roomId": "trial",
+      "tier": "trial",
+      "compositionId": "horizon_arena:trial:sun_ring",
+      "landmark": "conclave_sunwheel_throne",
+      "landmarkAsset": "grand_horizon",
+      "authoredProfilePresent": true,
+      "runtimeVisualReview": "pending"
+    }
+  ]
+}

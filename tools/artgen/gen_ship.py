@@ -44,7 +44,7 @@ CEIL = LV - 2                    # clear height of an interior level (floor slab
 BOW_LEN = 46
 
 WOOD = {
-    "deck": hexrgb("#dba25c"), "deck_dark": hexrgb("#b9803f"),
+    "deck": hexrgb("#d8aa70"), "deck_dark": hexrgb("#b58a56"),
     "hull": hexrgb("#8f5531"), "hull_dark": hexrgb("#6b3b22"), "bottom": hexrgb("#7c3f30"),
     "bottom_dark": hexrgb("#5e2e25"), "boot": hexrgb("#e8dcc0"), "wale": hexrgb("#4f2f1d"),
     "rail": hexrgb("#c3864a"), "cap": hexrgb("#e9b46a"), "post": hexrgb("#a96a38"),
@@ -52,7 +52,7 @@ WOOD = {
     "mast": hexrgb("#b9844d"), "iron": hexrgb("#4f5560"), "gold": hexrgb("#f0c04e"),
     "glass": hexrgb("#ffd98a"), "sky": hexrgb("#a9dcf2"), "sail": hexrgb("#f3ead4"), "sail_shade": hexrgb("#d9cdb0"),
     "rope": hexrgb("#7a5634"), "lamp": hexrgb("#ffe39a"),
-    "floor": hexrgb("#c08d55"), "floor_dark": hexrgb("#9c6c3c"), "panel": hexrgb("#b07c4a"),
+    "floor": hexrgb("#c39b68"), "floor_dark": hexrgb("#a17b50"), "panel": hexrgb("#c69864"),
     "panel_dark": hexrgb("#7f5232"), "rib": hexrgb("#5d3920"), "section": hexrgb("#3d2618"),
     "trim": hexrgb("#d9a560"),
 }
@@ -206,16 +206,16 @@ class ShipModel:
 
 
 # ---------------------------------------------------------------- hull body
-def plank_cols(xs, ys, base, dark, seed=0, width=4, seg=19):
-    """Plank colours for arrays of along-ship x and across-ship y (voxels)."""
+def plank_cols(xs, ys, base, dark, seed=0, width=4, seg=29):
+    """Board-sized colour clusters; the deck stays quiet behind small crew."""
     pj = ys // width
     sg = (xs + 7 * pj) // seg
     k = hash_arr(pj, sg, seed)
     b = np.array(base, np.float32)
     d = np.array(dark, np.float32)
-    c = b + (d - b) * (0.08 + 0.24 * k)[..., None]
+    c = b + (d - b) * (0.12 + 0.16 * k)[..., None]
     joint = ((xs + 7 * pj) % seg) == 0
-    c = np.where(joint[..., None], c * 0.86, c)
+    c = np.where(joint[..., None], c * 0.94, c)
     return c
 
 
@@ -240,11 +240,11 @@ def build_body(m: ShipModel):
     # outer hull colours by height
     zz = np.arange(Z)
     xx = np.arange(X)
-    strake = zz // 3
+    strake = zz // 4
     k = hash_arr(xx[:, None] // 23, strake[None, :], 3)
     hb = np.array(WOOD["hull"], np.float32)
     hd = np.array(WOOD["hull_dark"], np.float32)
-    col_xz = hb + (hd - hb) * (0.12 + 0.3 * k)[..., None]
+    col_xz = hb + (hd - hb) * (0.14 + 0.19 * k)[..., None]
     bot = np.array(WOOD["bottom"], np.float32) + (np.array(WOOD["bottom_dark"], np.float32) - np.array(WOOD["bottom"], np.float32)) * (0.2 + 0.5 * k)[..., None]
     col_xz = np.where((zz < m.WL)[None, :, None], bot, col_xz)
     col_xz[:, m.WL] = WOOD["boot"]
@@ -261,7 +261,7 @@ def build_body(m: ShipModel):
             col_xz[:, z - 1:z + 1] = WOOD["wale"]
     v.solid[...] = E
     v.col[...] = np.clip(col_xz, 0, 255).astype(np.uint8)[:, None, :, :]
-    fl = np.where((zz % 3 == 0), SEAM_SIDE, 0).astype(np.uint16)
+    fl = np.where((zz % 4 == 0), SEAM_SIDE, 0).astype(np.uint16)
     v.flag[...] = fl[None, None, :]
     sec = np.array(WOOD["section"], np.uint8)
     v.col[core] = sec
@@ -290,6 +290,14 @@ def carve_levels(m: ShipModel, v: Vol):
         v.col[bx0:bx1, by0:by1, zs - 2] = WOOD["floor_dark"]
         v.solid[bx0:bx1, by0:by1, zs - 2:zs] = True
 
+        # The floor has a visible edge and a quiet central gangway. These
+        # flush inlays change no geometry and remain readable after refits.
+        # Room-specific mats in ShipDress sit over this continuous base.
+        edge = mix(WOOD["floor_dark"], BAND[m.id], 0.24)
+        for yy in (by0 + 2, by1 - 3):
+            v.col[bx0:bx1, yy:yy + 1, zs - 1] = edge
+            v.flag[bx0:bx1, yy:yy + 1, zs - 1] = 0
+
         wet = zs + 7 <= m.WL + 1          # below the waterline: no portholes, rough planking
 
         def panel(z):
@@ -304,7 +312,7 @@ def carve_levels(m: ShipModel, v: Vol):
                 return WOOD["trim"], 0
             if rz >= CEIL - 2:
                 return WOOD["rib"], 0
-            return WOOD["panel"], SEAM_SIDE if (rz - 8) % 4 == 3 else 0
+            return WOOD["panel"], 0
         for z in range(zs, zs + CEIL):
             pc, pf = panel(z)
             v.col[bx0:bx1, by0 - 2, z] = pc
@@ -501,6 +509,33 @@ def add_hull_details(m: ShipModel, v: Vol):
     by0, by1 = m.by0, m.by1
     yo = by1 + HT - 1                    # near outer face
     main = next(d for d in m.open if d["id"] == "main")
+    # An enamel crest on the near stern gives every hull a recognisable
+    # identity even with its sails furled. It sits on the outer shell and
+    # cannot intrude into walkable deck or interior space.
+    cx = m.vx0(0) + 8
+    zc = m.surf(cx) - 12
+    for dx in range(-6, 7):
+        for dz in range(-7, 7):
+            shield = abs(dx) <= 5 and -5 <= dz <= 5 and abs(dx) <= 6 + min(dz, 0)
+            if shield:
+                rim = abs(dx) >= 4 or dz == 5 or abs(dx) == 6 + min(dz, 0)
+                v.put(cx + dx, yo + 1, zc + dz, WOOD["gold"] if rim else BAND[m.id], GLOSS if rim else 0)
+    if m.id == "starter":
+        for i in range(-3, 4):
+            v.put(cx + i, yo + 2, zc - 1 + (1 if i % 3 == 0 else 0), WOOD["boot"])
+        v.box(cx, yo + 2, zc, cx + 1, yo + 3, zc + 4, WOOD["gold"])
+    elif m.id == "voyager":
+        for i in range(-3, 4):
+            v.put(cx + i, yo + 2, zc + i, WOOD["boot"])
+            v.put(cx + i, yo + 2, zc - i, WOOD["boot"])
+    elif m.id == "adventurer":
+        for i in range(-3, 4):
+            v.put(cx + i, yo + 2, zc + 1 - abs(i), WOOD["boot"])
+            v.put(cx + i, yo + 2, zc + 2 - abs(i), WOOD["boot"])
+    else:
+        v.box(cx - 3, yo + 2, zc - 1, cx + 4, yo + 3, zc + 2, WOOD["gold"])
+        for i in (-3, 0, 3):
+            v.box(cx + i, yo + 2, zc + 1, cx + i + 1, yo + 3, zc + 4, WOOD["gold"])
     # gunports or portholes on the near side, one row per interior level above water
     for li, d in enumerate(m.interior):
         zs = m.zs(d)
@@ -543,6 +578,11 @@ def add_hull_details(m: ShipModel, v: Vol):
             v.box(cx - 3, yo, zc, cx + 3, yo + 1, zc + 1, WOOD["cap"])
             v.box(cx, yo, zc - 3, cx + 1, yo + 1, zc + 4, WOOD["cap"])
             v.box(cx - 5, yo + 1, zc - 5, cx + 5, yo + 2, zc - 4, WOOD["cap"], GLOSS)
+            # A short gallery bracket and the hull's enamel band frame
+            # these windows as a cabin, rather than holes in a plank wall.
+            v.box(cx - 5, yo + 1, zc + 5, cx + 5, yo + 2, zc + 6, BAND[m.id])
+            for dx in (-4, 3):
+                v.box(cx + dx, yo + 1, zc - 8, cx + dx + 1, yo + 2, zc - 4, WOOD["hull_dark"])
             m.lights.append({"pos": m.world(cx, yo + 1, zc), "kind": "window", "view": 0})
     for vx in range(m.stern_x, m.X - 1):
         S, Sn = m.surf(vx), m.surf(vx + 1)
@@ -598,6 +638,11 @@ def add_hull_details(m: ShipModel, v: Vol):
     for dz in range(0, 14):
         w = 1 if dz < 3 or dz > 11 else 3
         v.box(tip - 3 + dz // 3, yc - w, S - 18 + dz, tip + 1 + dz // 3, yc + w, S - 17 + dz, WOOD["gold"], GLOSS)
+    # Swept wings make the little figurehead read as a gilded sea bird.
+    for k in range(6):
+        for side in (-1, 1):
+            yy = yc + side * (3 + k)
+            v.box(tip + 1 - k, yy, S - 10 + k, tip + 4 - k, yy + 1, S - 8 + k, WOOD["gold"], GLOSS)
     # bow deck props: capstan, bell, a crate stack and a rope coil
     b0 = m.bow0
     v.cyl(b0 + 9, yc, S, S + 7, 4.4, WOOD["post"])

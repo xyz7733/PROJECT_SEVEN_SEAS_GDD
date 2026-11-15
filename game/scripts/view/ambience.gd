@@ -43,6 +43,73 @@ var meadow: Array = []
 ## World points of lighthouse lamps.
 var beacons: Array = []
 
+## Region identity is presentation only. The stage still decides whether
+## it is open water, sheltered, or underground before applying this profile.
+const WILDLIFE := {
+	"dawnwater": ["tern", "fish", "butterfly", "salt"],
+	"emberreach": ["swift", "fish_amber", "butterfly", "ember"],
+	"verdant_maw": ["swift", "fish_teal", "butterfly", "pollen"],
+	"glass_current": ["tern", "fish_silver", "glasswing", "prism"],
+	"crown_shoals": ["gull", "fish_amber", "butterfly", "petal"],
+	"stormbelt": ["albatross", "fish_silver", "butterfly", "spray"],
+	"moonwake": ["swift", "fish_silver", "moth", "moon"],
+	"ashen_trench": ["swift", "fish_amber", "moth", "cinder"],
+	"leviathan_ring": ["albatross", "fish_teal", "glasswing", "bubble"],
+	"grand_horizon": ["tern", "fish_amber", "glasswing", "gold"],
+}
+var _region_id := "dawnwater"
+var _enclosed := false
+var _bird_sprite := "gull"
+var _fish_sprite := "fish"
+var _fly_sprite := "butterfly"
+var _motif := "salt"
+var _fly_color := FIREFLY
+var _motes: Array = []
+var _profile_applied := false
+var _stage_defaults: Dictionary = {}
+
+
+## Apply after the stage's own defaults: a port keeps its calm water, a
+## cave never acquires sky life, and an ocean keeps its broad whitecaps.
+func apply_region(region_id: String, enclosed := false) -> void:
+	if _profile_applied and _region_id == region_id and _enclosed == enclosed:
+		return
+	_region_id = region_id
+	_enclosed = enclosed
+	_profile_applied = true
+	if _stage_defaults.is_empty():
+		_stage_defaults = {"whitecaps": whitecap_density, "fish": fish_every, "gulls": gull_target,
+			"cloud": cloud_alpha, "glints": glint_density}
+	var profile: Dictionary = SceneProfiles.region(region_id)
+	var cfg: Dictionary = profile.get("ambience", {})
+	var wildlife: Array = WILDLIFE.get(region_id, WILDLIFE.dawnwater)
+	_bird_sprite = String(wildlife[0])
+	_fish_sprite = String(wildlife[1])
+	_fly_sprite = String(wildlife[2])
+	_motif = String(wildlife[3])
+	_fly_color = Color(String(cfg.get("fly_color", "#c9e77d")))
+	glint_density = clampf(float(cfg.get("glints", _stage_defaults.glints)), 0.0, 1.8)
+	whitecap_density = float(_stage_defaults.whitecaps) * clampf(float(cfg.get("whitecaps", 1.0)), 0.0, 2.0)
+	gull_target = clampi(int(cfg.get("gulls", _stage_defaults.gulls)), 0, 4)
+	cloud_alpha = clampf(float(cfg.get("cloud_alpha", _stage_defaults.cloud)), 0.0, 0.15)
+	var breeze: Array = cfg.get("wind", [9.0, 4.5])
+	if breeze.size() >= 2:
+		wind = Vector2(float(breeze[0]), float(breeze[1]))
+	var original_fish: Vector2 = _stage_defaults.fish
+	fish_every = original_fish
+	var fish: Array = cfg.get("fish_every", [original_fish.x, original_fish.y])
+	if fish.size() >= 2 and original_fish.x > 0.0:
+		fish_every = Vector2(maxf(3.0, float(fish[0])), maxf(4.0, float(fish[1])))
+		fish_every.y = maxf(fish_every.x + 1.0, fish_every.y)
+	if enclosed:
+		gull_target = 0
+		cloud_alpha = 0.0
+		whitecap_density = 0.0
+		fish_every = Vector2.ZERO
+		glint_density = minf(glint_density, 0.25)
+	_motes.clear()
+	_meadow_sig = -1
+
 ## The sky over every stage (see Weather and WeatherLayer): heavier cloud
 ## shadows when overcast, gulls shelter from storms, and butterflies and
 ## fireflies stay hidden in the rain.
@@ -125,12 +192,15 @@ func _sync_glow_layer() -> void:
 
 ## Drops everything so the next frame repopulates (after a scene rebuild).
 func reset() -> void:
+	_profile_applied = false
+	_stage_defaults.clear()
 	_glints.clear()
 	_caps.clear()
 	_fish.clear()
 	_gulls.clear()
 	_clouds.clear()
 	_flies.clear()
+	_motes.clear()
 	_meadow_sig = -1
 	_fish_t = _rng.randf_range(2.0, 6.0)
 
@@ -146,6 +216,7 @@ func _process(delta: float) -> void:
 	_tick_gulls(delta)
 	_tick_clouds(delta)
 	_tick_flies()
+	_tick_motes(delta)
 	_water.queue_redraw()
 	_air.queue_redraw()
 	_glow.queue_redraw()
@@ -232,7 +303,8 @@ func _spawn_gull(g: Dictionary) -> void:
 			from = Vector2(_rng.randf_range(r.position.x, r.end.x), r.end.y)
 	var to := _rand_in(_view.grow(-_view.size.x * 0.2))
 	g.p = from
-	g.v = (to - from).normalized() * _rng.randf_range(34.0, 56.0)
+	var speed := _rng.randf_range(46.0, 66.0) if _bird_sprite == "swift" else _rng.randf_range(30.0, 48.0)
+	g.v = (to - from).normalized() * speed + wind * 0.12
 	g.alt = _rng.randf_range(44.0, 78.0)
 	g.turn = _rng.randf_range(-0.14, 0.14)
 	g.ph = _rng.randf() * 6.0
@@ -311,6 +383,29 @@ func _tick_flies() -> void:
 			"sp": _rng.randf_range(0.6, 1.1)})
 
 
+## A handful of region-specific air details, distributed over the visible
+## land points rather than a full-screen glitter filter. Weather owns rain
+## and ash; these accents withdraw in bad weather and inside shelter.
+func _tick_motes(delta: float) -> void:
+	if _enclosed or meadow.is_empty() or Weather.wet(sky) or sky == "ash":
+		_motes.clear()
+		return
+	var want := mini(9, maxi(2, meadow.size() / 6))
+	if bool(Settings.get_value("reduceMotion")):
+		want = 0
+	while _motes.size() < want:
+		_motes.append({"a": meadow[_rng.randi() % meadow.size()], "t": _rng.randf() * 8.0,
+			"dur": _rng.randf_range(5.0, 9.0), "ph": _rng.randf() * TAU})
+	if _motes.size() > want:
+		_motes.resize(want)
+	for m in _motes:
+		m.t = float(m.t) + delta
+		if float(m.t) >= float(m.dur):
+			m.t = 0.0
+			m.a = meadow[_rng.randi() % meadow.size()]
+			m.ph = _rng.randf() * TAU
+
+
 # ------------------------------------------------------------------- draw
 func _blit(ci: CanvasItem, sname: String, frame: int, at: Vector2, flip := false, mod := Color.WHITE, scale_f := 1.0) -> void:
 	var src := frame_rect(sname, frame)
@@ -332,7 +427,7 @@ func _draw_water() -> void:
 	for c in _caps:
 		_blit(_water, "whitecap", int(float(c.t) * 6.0), c.p, c.flip, Color(1, 1, 1, 0.85))
 	for f in _fish:
-		_blit(_water, "fish", int(f.t), f.p, f.flip)
+		_blit(_water, _fish_sprite, int(f.t), f.p, f.flip)
 
 
 func _draw_air() -> void:
@@ -347,19 +442,42 @@ func _draw_air() -> void:
 		var p: Vector2 = g.p
 		var ph := float(g.ph)
 		# Flap for a moment, then glide on level wings.
-		var cyc := fmod(ph, 3.2)
+		var cyc := fmod(ph, 5.4 if _bird_sprite == "albatross" else 3.2)
 		var fr := 2
-		if cyc < 1.3:
+		if cyc < (0.65 if _bird_sprite == "albatross" else 1.3):
 			fr = GULL_SEQ[int(cyc * 9.0) % GULL_SEQ.size()]
 		var alt := float(g.alt) + sin(ph * 1.7) * 2.0
 		_blit(_air, "gull_shadow", 0, p, false, Color(1, 1, 1, 0.2 * day))
-		_blit(_air, "gull", fr, p + Vector2(0, -alt), (g.v as Vector2).x < 0.0, Color(1, 1, 1, day))
+		_blit(_air, _bird_sprite, fr, p + Vector2(0, -alt), (g.v as Vector2).x < 0.0, Color(1, 1, 1, day))
 	if day > 0.05 and not Weather.wet(sky):
 		for f in _flies:
 			var t := _t * float(f.sp) + float(f.ph)
 			var at: Vector2 = f.a + Vector2(cos(t * 0.9) * float(f.r), sin(t * 1.3) * float(f.r) * 0.5 - 9.0 + sin(t * 5.0) * 1.5)
 			var c: Color = f.c
-			_blit(_air, "butterfly", int(_t * 8.0 + float(f.ph)) % 2, at, cos(t * 0.9) < 0.0, Color(c.r, c.g, c.b, day))
+			var speed := 5.0 if _fly_sprite == "moth" else 8.0
+			_blit(_air, _fly_sprite, int(_t * speed + float(f.ph)) % 2, at, cos(t * 0.9) < 0.0,
+				Color(c.r, c.g, c.b, day).lerp(Color(_fly_color.r, _fly_color.g, _fly_color.b, day), 0.35))
+	for m in _motes:
+		_draw_mote(m)
+
+
+func _draw_mote(m: Dictionary) -> void:
+	var u := clampf(float(m.t) / float(m.dur), 0.0, 1.0)
+	var a := sin(u * PI) * (0.2 if night else 0.45)
+	var ph := float(m.ph)
+	var rising := _motif in ["ember", "cinder", "bubble", "gold"]
+	var at: Vector2 = (m.a + Vector2(sin(u * TAU + ph) * 5.0 + wind.x * u * 0.25,
+		-6.0 + (-15.0 * u if rising else 8.0 * u))).round()
+	var c := Color(_fly_color.r, _fly_color.g, _fly_color.b, a)
+	match _motif:
+		"bubble":
+			_air.draw_rect(Rect2(at, Vector2(2, 2)), c, false)
+		"prism", "moon", "gold":
+			_blit(_air, "mote_" + _motif, int(u * 4.0), at, false, Color(1, 1, 1, a))
+		"petal":
+			_air.draw_line(at, at + Vector2(1, 1), c, 1.0)
+		_:
+			_air.draw_rect(Rect2(at, Vector2.ONE), c)
 
 
 func _draw_glow() -> void:
@@ -371,9 +489,12 @@ func _draw_glow() -> void:
 		var a := _night_k * clampf(0.5 + 0.5 * sin(_t * 2.2 + float(f.ph) * 3.0), 0.0, 1.0)
 		if a <= 0.03:
 			continue
-		_glow.draw_rect(Rect2(at, Vector2.ONE), Color(FIREFLY.r, FIREFLY.g, FIREFLY.b, a))
-		_glow.draw_rect(Rect2(at + Vector2(-1, 0), Vector2(3, 1)), Color(FIREFLY.r, FIREFLY.g, FIREFLY.b, a * 0.3))
-		_glow.draw_rect(Rect2(at + Vector2(0, -1), Vector2(1, 3)), Color(FIREFLY.r, FIREFLY.g, FIREFLY.b, a * 0.3))
+		if _fly_sprite == "moth":
+			_blit(_glow, "moth", int(_t * 5.0 + float(f.ph)) % 2, at, cos(t) < 0.0,
+				Color(_fly_color.r, _fly_color.g, _fly_color.b, a * 0.65))
+		_glow.draw_rect(Rect2(at, Vector2.ONE), Color(_fly_color.r, _fly_color.g, _fly_color.b, a))
+		_glow.draw_rect(Rect2(at + Vector2(-1, 0), Vector2(3, 1)), Color(_fly_color.r, _fly_color.g, _fly_color.b, a * 0.3))
+		_glow.draw_rect(Rect2(at + Vector2(0, -1), Vector2(1, 3)), Color(_fly_color.r, _fly_color.g, _fly_color.b, a * 0.3))
 	for b in beacons:
 		_draw_beam(b as Vector2)
 

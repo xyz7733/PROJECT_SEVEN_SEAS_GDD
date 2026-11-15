@@ -42,6 +42,11 @@ const LOG_SECS := 7.0
 const LOG_W := 230.0
 const LOG_H := 46.0
 const LOG_TYPES := ["skill", "ko", "wave", "windup", "interrupt", "pet", "hazard", "encore", "end", "command", "heal", "stun"]
+## Presentation only: one number of each kind and one callout per unit.
+## A rapid series of impacts shares a total instead of covering its actor.
+const POPUP_LIMIT := 12
+const POPUP_BURST := 0.3
+const NOTICE_H := 20.0
 
 var enc: Dictionary = {}
 var sim: Dictionary = {}
@@ -128,6 +133,8 @@ var _strip_panel: PanelContainer
 var _status_panel: PanelContainer
 var _log_panel: VBoxContainer
 var _float_root: Control
+var _popups: Array[Dictionary] = []
+var _banner_left := 0.0
 var _bar: PanelContainer
 var _spoils_box: HBoxContainer
 var _spoils_icon: TextureRect
@@ -209,6 +216,9 @@ func _init() -> void:
 func _ready() -> void:
 	cam.make_current()
 	get_viewport().size_changed.connect(_on_viewport_resized)
+	# Actor paths and camera tweens finish after this node's _process.
+	# Place UI text once, using the positions that will actually be drawn.
+	RenderingServer.frame_pre_draw.connect(_layout_popups)
 
 
 ## A larger or wider window shows more of the world: add sea tiles if the
@@ -362,6 +372,7 @@ func _build_arena() -> void:
 	ambience.gull_target = 1
 	ambience.whitecap_density = 0.6 if boarding else 0.0
 	ambience.fish_every = Vector2(0, 0)
+	ambience.apply_region(rid, false)
 	if _on_ship:
 		_land = {}
 		_fill_sea()
@@ -373,6 +384,7 @@ func _build_arena() -> void:
 			ambience.gull_target = 0
 			ambience.cloud_alpha = 0.0
 			ambience.glint_density = 0.0
+		ambience.apply_region(rid, scene.underground)
 		return
 	# Fallback without a live ship: two decks lashed together by planks.
 	for gx in range(-16, 17):
@@ -402,9 +414,12 @@ func _build_scene() -> void:
 			foes += 1
 			if Settle.is_human(String(e.get("enemyId", ""))):
 				people += 1
-	var key := "%s:%s:%s" % [str(enc.def.get("locationId", "")), str(enc.def.get("roomId", "")), rid]
+	var location_id := String(enc.def.get("locationId", ""))
+	var room_id := String(enc.def.get("roomId", ""))
+	var key := "%s:%s:%s" % [location_id, room_id, rid]
+	var profile := SceneProfiles.battle(location_id, room_id)
 	scene = ArenaScene.new()
-	scene.build(arena, rid, key, foes > 0 and people * 2 >= foes, String(enc.def.get("kind", "battle")))
+	scene.build(arena, rid, key, foes > 0 and people * 2 >= foes, String(enc.def.get("kind", "battle")), profile)
 	coast = scene.coast
 	coast.paint({"sea": sea, "sides": land_sides, "low": land_low, "band": land_band, "high": land_ground}, _sea_info)
 	if scene.underground:
@@ -417,6 +432,18 @@ func _build_scene() -> void:
 	add_child(coast.make_blend(Art.terrain_atlas(rid)))
 	for pr in scene.props:
 		_scene_prop(String(pr[0]), pr[1], bool(pr[2]))
+	if not profile.is_empty():
+		var landmark := Art.world_landmark(rid, int(profile.get("landmarkVariant", 0)))
+		if not landmark.is_empty():
+			var s := Sprite2D.new()
+			s.name = "BattleLandmark"
+			s.centered = false
+			s.texture = landmark.tex
+			s.offset = -landmark.anchor
+			s.position = scene.landmark_at
+			s.set_meta("composition", profile.get("compositionId", key))
+			stage.add_child(s)
+			_light(scene.landmark_at + Vector2(0, -36), Color.html(String(SceneProfiles.region(rid).get("warm_light", "#ffcc7a"))), 0.7)
 	for l in scene.lights:
 		_light(l[0], l[1], float(l[2]))
 	# Camera centre range: the fight with its entries, the set pieces behind.
@@ -426,7 +453,7 @@ func _build_scene() -> void:
 	_fill_sea()
 	var dark: Color = scene.tint
 	if _night and not scene.underground:
-		dark = dark * Color(0.6, 0.65, 0.9)
+		dark = dark * Color.html(String(SceneProfiles.region(rid).get("light_night", "#9eaddb")))
 	canvas_mod.color = dark
 
 
@@ -747,10 +774,11 @@ func _light(at: Vector2, color: Color, scale_f: float) -> void:
 ## Boarding: lighting on the live ship, or the props of the fallback decks.
 ## (Land battles are dressed by _build_scene.)
 func _dress_arena() -> void:
-	var dark := Color(1, 1, 1)
+	var profile := SceneProfiles.region(rid)
+	var dark := Color.html(String(profile.get("light_day", "#fff7e9")))
 	if _on_ship:
 		if _night:
-			dark = Color(0.55, 0.6, 0.85)
+			dark = Color.html(String(profile.get("light_night", "#8c99c8")))
 	elif boarding:
 		for p in [Vector2(-180, -30), Vector2(-150, 44), Vector2(178, -34), Vector2(150, 46)]:
 			_prop_at("barrels" if p.x < 0 else "crate", p, false)
@@ -762,7 +790,7 @@ func _dress_arena() -> void:
 		_prop_at("lamp", Vector2(60, -60), false)
 		var t := int(Game.state.envelope.gameClock) % 24 if Game.has_game() else 12
 		if t < 6 or t >= 19:
-			dark = Color(0.55, 0.6, 0.85)
+			dark = Color.html(String(profile.get("light_night", "#8c99c8")))
 	canvas_mod.color = dark
 
 
@@ -958,6 +986,11 @@ func _process(delta: float) -> void:
 	_update_actors(delta)
 	_update_dynamic_ui()
 	_update_boss_bar()
+	_update_popups(delta)
+	_banner_left = maxf(0.0, _banner_left - delta)
+	_banner.visible = _banner_left > 0.0 and not report_mode and not _cine_hold
+	_banner.modulate.a = minf(1.0, _banner_left / 0.35)
+	_float_root.visible = not report_mode and not _cine_hold
 	_coin_t = maxf(0.0, _coin_t - delta)
 	if _shake > 0.0:
 		_shake = maxf(0.0, _shake - delta)
@@ -1114,13 +1147,13 @@ func _present(ev: Dictionary) -> void:
 					g.color = col
 					g.rate = _fx_rate()
 					sa.attach_fx(g, Vector2(0, -sa.height() - 15))
-					_float_text(sa.head_point() + Vector2(0, -30), _skill_name(ev.skill), Art.GOLD, 0.9)
+					_unit_text(ev.src, "callout", _skill_name(ev.skill), Art.GOLD, 0.9)
 		"windup":
 			var a2 := _actor(ev.src)
 			if a2 and not _quiet:
 				Audio.play("swing", -2.0, 0.8)
 				a2.bubble("alert", 1.6)
-				_float_text(a2.head_point() + Vector2(0, -6), _skill_name(ev.skill) + "!", Art.WARN, 1.1)
+				_unit_text(ev.src, "callout", _skill_name(ev.skill) + "!", Art.WARN, 1.1)
 				_add_tele(ev)
 		"hit", "miss":
 			if _anim_tick.get(ev.src, -1) != tick:
@@ -1133,7 +1166,7 @@ func _present(ev: Dictionary) -> void:
 				var hr := BattleFx.HealRise.new()
 				hr.rate = _fx_rate()
 				t4.attach_fx(hr)
-				_float_text(t4.head_point(), "+" + str(int(ev.amount)), Art.GOOD, 0.8)
+				_unit_text(ev.tgt, "heal", "", Art.GOOD, 0.8, false, int(ev.amount))
 		"ko":
 			_drop_tele(ev.tgt, false)
 			var t5 := _actor(ev.tgt)
@@ -1157,24 +1190,24 @@ func _present(ev: Dictionary) -> void:
 			var t7 := _actor(ev.tgt)
 			_drop_tele(ev.tgt, true)
 			if t7 and not _quiet:
-				_float_text(t7.head_point() + Vector2(0, -6), I18n.t("battle.interrupted"), Art.GOOD, 1.0)
+				_unit_text(ev.tgt, "callout", I18n.t("battle.interrupted"), Art.GOOD, 1.0)
 		"pet":
 			var pa: Actor = _pets.get(ev.src)
 			if pa and not _quiet:
 				pa.play("attack", true)
 				_fx("sparkle", pa.position + Vector2(0, -8))
-				_float_text(pa.head_point(), I18n.t("petability." + String(ev.ability)), Art.GOOD, 0.9)
+				_unit_text(ev.src, "callout", I18n.t("petability." + String(ev.ability)), Art.GOOD, 0.9, false, 0, true)
 		"dot":
 			var t8 := _actor(ev.tgt)
 			if t8 and not _quiet:
 				_fx("fire", t8.position + Vector2(0, -6))
-				_float_text(t8.head_point(), str(int(ev.amount)), Art.WARN, 0.7)
+				_unit_text(ev.tgt, "damage", "", Art.WARN, 0.7, false, int(ev.amount))
 		"thorns", "trap":
 			var t9 := _actor(ev.tgt)
 			if t9 and not _quiet:
 				Audio.play("block")
 				_fx("sparks", t9.position + Vector2(0, -8))
-				_float_text(t9.head_point(), str(int(ev.amount)), Art.WARN, 0.7)
+				_unit_text(ev.tgt, "damage", "", Art.WARN, 0.7, false, int(ev.amount))
 		"intercept":
 			var s1 := _actor(ev.src)
 			var t10 := _actor(ev.tgt)
@@ -1325,7 +1358,7 @@ func _impact(ev: Dictionary) -> void:
 	if ev.type == "miss":
 		if not _quiet:
 			Audio.play("swing")
-			_float_text(t.head_point(), I18n.t("battle.miss"), Art.INK_DIM, 0.7)
+			_unit_text(ev.tgt, "callout", I18n.t("battle.miss"), Art.INK_DIM, 0.7)
 		return
 	var u = _units.get(ev.tgt)
 	if u != null and (u.alive or _ko_wait.has(ev.tgt)):
@@ -1362,8 +1395,7 @@ func _impact(ev: Dictionary) -> void:
 	t.attach_fx(sp, chest)
 	if int(ev.get("absorbed", 0)) > 0:
 		Audio.play("block", -3.0)
-	var txt := str(int(ev.amount)) + ("!" if crit else "")
-	_float_text(t.head_point(), txt, Art.GOLD if crit else (Art.BAD if su.get("side") == "enemy" else Art.INK), 0.8, crit)
+	_unit_text(ev.tgt, "damage", "", Art.GOLD if crit else (Art.BAD if su.get("side") == "enemy" else Art.INK), 0.8, crit, int(ev.amount))
 	if heavy:
 		_shake_cam(0.2)
 	_knock(t, dir, 3.0 if heavy else 1.5)
@@ -1570,7 +1602,9 @@ func set_report_mode(on: bool, panel_w := 0.0) -> void:
 		if p != null:
 			p.visible = not on
 	if not on:
+		_refresh_controls()
 		return
+	_clear_popups()
 	_end_cine()
 	var focus := Vector2.ZERO
 	var n := 0
@@ -1658,32 +1692,146 @@ func _shake_cam(secs: float) -> void:
 	_hitstop = maxf(_hitstop, 0.07 / float(SPEEDS[speed_i]))
 
 
-## Floating text lives on the UI layer so it stays crisp at any zoom.
-func _float_text(world_pos: Vector2, text: String, color: Color, secs := 0.8, big := false) -> void:
-	if _float_root == null:
+## Keep a single live label for each unit/channel. Only nearby impacts
+## merge; later blows replace the old number, so totals never span a fight.
+## This does not consume, delay or change any simulation event.
+func _unit_text(uid: Variant, channel: String, text: String, color: Color, secs := 0.8, big := false, amount := 0, pet := false) -> void:
+	if _float_root == null or report_mode or _quiet:
 		return
-	var l := Label.new()
-	l.text = text
-	l.add_theme_color_override("font_color", color)
-	l.add_theme_color_override("font_outline_color", Color(0.05, 0.04, 0.06))
-	l.add_theme_constant_override("outline_size", 4)
-	if big:
-		l.add_theme_font_size_override("font_size", 24)
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_float_root.add_child(l)
-	var sp := get_viewport().get_canvas_transform() * world_pos
-	l.reset_size()
-	l.position = (sp - Vector2(l.size.x * 0.5, l.size.y)).round()
-	var tw := l.create_tween()
-	tw.set_parallel(true)
-	if not bool(Settings.get_value("reduceMotion")):
-		# Numbers land with a pop (bigger for critical hits) and settle.
-		l.pivot_offset = Vector2(l.size.x * 0.5, l.size.y)
-		l.scale = Vector2.ONE * (1.6 if big else 1.3)
-		tw.tween_property(l, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_property(l, "position:y", l.position.y - 14.0, secs)
-	tw.tween_property(l, "modulate:a", 0.0, secs).set_delay(secs * 0.5)
-	tw.chain().tween_callback(l.queue_free)
+	var entry: Dictionary = {}
+	for p in _popups:
+		if p.uid == uid and p.channel == channel:
+			entry = p
+			break
+	if entry.is_empty():
+		if _popups.size() >= POPUP_LIMIT:
+			var oldest := 0
+			for i in _popups.size():
+				if float(_popups[i].age) > float(_popups[oldest].age):
+					oldest = i
+			_popups[oldest].label.hide()
+			_popups[oldest].label.queue_free()
+			_popups.remove_at(oldest)
+		var label := UIK.label("")
+		label.visible = false
+		label.clip_text = true
+		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		label.add_theme_color_override("font_outline_color", Color(0.05, 0.04, 0.06))
+		label.add_theme_constant_override("outline_size", 3)
+		_float_root.add_child(label)
+		entry = {"uid": uid, "channel": channel, "label": label, "amount": 0, "crit": false, "age": 0.0, "burst_at": _t}
+		_popups.append(entry)
+	var numeric := channel == "damage" or channel == "heal"
+	var merge := numeric and _t - float(entry.burst_at) <= POPUP_BURST
+	entry.amount = int(entry.amount) + amount if merge else amount
+	entry.crit = (bool(entry.crit) or big) if merge else big
+	if not merge:
+		entry.burst_at = _t
+	entry.age = 0.0
+	entry.secs = secs
+	entry.pet = pet
+	var l: Label = entry.label
+	l.text = (("+" if channel == "heal" else "") + str(entry.amount) + ("!" if entry.crit else "")) if numeric else text
+	l.add_theme_font_size_override("font_size", (16 if entry.crit else 14) if numeric else 12)
+	l.add_theme_color_override("font_color", Art.GOLD if entry.crit else color)
+	var font := l.get_theme_font("font")
+	var font_size := l.get_theme_font_size("font_size")
+	var width := font.get_string_size(l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+	l.size = Vector2(minf(width + 2.0, 124.0), l.get_combined_minimum_size().y)
+	l.modulate.a = 1.0
+
+
+func _clear_popups() -> void:
+	for p in _popups:
+		p.label.queue_free()
+	_popups.clear()
+
+
+func _update_popups(delta: float) -> void:
+	for i in range(_popups.size() - 1, -1, -1):
+		var p: Dictionary = _popups[i]
+		p.age = float(p.age) + delta
+		var a: Actor = _pets.get(p.uid) if p.pet else _actors.get(p.uid)
+		if float(p.age) >= float(p.secs) or not is_instance_valid(a) or not a.visible:
+			p.label.queue_free()
+			_popups.remove_at(i)
+			continue
+		p.label.modulate.a = clampf((float(p.secs) - float(p.age)) / 0.25, 0.0, 1.0)
+
+
+## Labels remain crisp and follow their owner through pans and lunges.
+## Try nearby spaces above the health bars; omit a crowded label rather
+## than draw it across a face, another number, or a HUD control. The full
+## event sequence remains in the deterministic simulation log.
+func _layout_popups() -> void:
+	if _banner == null or _popups.is_empty():
+		return
+	var vp := get_viewport_rect().size
+	var top := _notice_top() + NOTICE_H + 3.0
+	var bottom := maxf(32.0, _hud_bottom + 4.0)
+	if _bar != null:
+		bottom = maxf(bottom, vp.y - _bar.get_global_rect().position.y + 4.0)
+	var safe := Rect2(5.0, top, vp.x - 10.0, maxf(1.0, vp.y - top - bottom))
+	var occupied: Array[Rect2] = []
+	if _log_panel.visible and _log_panel.get_child_count() > 0:
+		occupied.append(_log_panel.get_global_rect())
+	for a in _actors.values() + _pets.values():
+		if is_instance_valid(a) and a.visible:
+			# Picking omits the sprite's outer pixels and does not include a
+			# rig's hit-reaction offset. Use the entire current visual frame.
+			var body: Rect2 = a.rig.get_global_transform_with_canvas() * Rect2(-a._origin, a._frame_size)
+			if a.rig is Sprite2D:
+				body = body.merge(a.rig.get_global_transform_with_canvas() * a.rig.get_rect())
+			for child in a.rig.get_children():
+				if child is Sprite2D and child.visible:
+					body = body.merge(child.get_global_transform_with_canvas() * child.get_rect())
+			occupied.append(body.grow(2.0))
+			# The HP backing is a Control, not a Sprite2D. Its real transform
+			# follows the rig during knocks and lunges too.
+			if a._hp_root != null and a._hp_root.is_visible_in_tree():
+				for child in a._hp_root.get_children():
+					if child is Control and child.is_visible_in_tree():
+						var hp: Rect2 = child.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, child.size)
+						occupied.append(hp.grow(2.0))
+	for p in _popups:
+		var l: Label = p.label
+		var a: Actor = _pets.get(p.uid) if p.pet else _actors.get(p.uid)
+		l.visible = false
+		if not is_instance_valid(a):
+			continue
+		var at: Vector2 = a.rig.get_global_transform_with_canvas() * Vector2(0, -a.height())
+		var rise := 0.0 if bool(Settings.get_value("reduceMotion")) else minf(8.0, float(p.age) * 10.0)
+		var origin := at - Vector2(l.size.x * 0.5, l.size.y + 7.0 * cam.zoom.y + rise)
+		var placed := false
+		for row in 5:
+			for shift in [0.0, -18.0, 18.0, -36.0, 36.0]:
+				var pos := origin + Vector2(shift, -float(row) * (l.size.y + 3.0))
+				pos.x = clampf(pos.x, safe.position.x, maxf(safe.position.x, safe.end.x - l.size.x))
+				var rect := Rect2(pos.round(), l.size)
+				if not safe.encloses(rect):
+					continue
+				var clear := true
+				for block in occupied:
+					if block.intersects(rect.grow(2.0)):
+						clear = false
+						break
+				if clear:
+					l.position = rect.position
+					l.visible = true
+					occupied.append(rect)
+					placed = true
+					break
+			if placed:
+				break
+
+
+func _notice_top() -> float:
+	# Reserve the status row even when it is empty, so notices do not jump
+	# into the field as windups begin and end.
+	var top := _strip_panel.offset_top + 20.0 + 18.0
+	if _boss_uid != null:
+		top = maxf(top, _boss_bar.offset_top + _boss_bar.get_combined_minimum_size().y + 18.0 + 3.0)
+	return top
 
 
 func _show_banner(text: String, color: Color, secs := 1.4) -> void:
@@ -1692,10 +1840,8 @@ func _show_banner(text: String, color: Color, secs := 1.4) -> void:
 	_banner.text = text
 	_banner.add_theme_color_override("font_color", color)
 	_banner.modulate.a = 1.0
-	_banner.visible = not report_mode
-	var tw := _banner.create_tween()
-	tw.tween_interval(secs)
-	tw.tween_property(_banner, "modulate:a", 0.0, 0.4)
+	_banner_left = secs + 0.35
+	_banner.visible = not report_mode and not _cine_hold
 
 
 func _ev_text(ev: Dictionary) -> String:
@@ -1821,27 +1967,19 @@ func _build_ui() -> void:
 	_boss_bar.offset_top = 46
 	_boss_bar.visible = false
 	ui_root.add_child(_boss_bar)
-	# --- banner
+	# --- global notices stay in a bounded HUD lane, away from the actors.
 	_banner = UIK.label("", "TitleLabel")
-	_banner.set_anchors_preset(Control.PRESET_CENTER)
-	_banner.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_banner.grow_vertical = Control.GROW_DIRECTION_BOTH
+	_banner.set_anchors_preset(Control.PRESET_CENTER_TOP)
 	_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_banner.add_theme_font_size_override("font_size", 24)
+	_banner.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_banner.clip_text = true
+	_banner.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_banner.add_theme_font_size_override("font_size", 14)
 	_banner.add_theme_color_override("font_outline_color", Color(0.05, 0.04, 0.06))
-	_banner.add_theme_constant_override("outline_size", 6)
-	_banner.offset_top = -70
+	_banner.add_theme_constant_override("outline_size", 4)
 	_banner.visible = false
 	_banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	ui_root.add_child(_banner)
-	# --- paused notice
-	_paused_panel = UIK.panel(UIK.hbox([UIK.icon("ui_pause"), UIK.label(I18n.t("battle.paused"), "", true, 220)], 4), "TipPanel")
-	_paused_panel.set_anchors_preset(Control.PRESET_CENTER)
-	_paused_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_paused_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
-	_paused_panel.offset_top = 40
-	_paused_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	ui_root.add_child(_paused_panel)
 	# --- battle log (left, above the navigation): outlined lines with no
 	# backing panel, so the fight stays visible behind them.
 	var lp := UIK.vbox([], 0)
@@ -1869,6 +2007,11 @@ func _build_ui() -> void:
 	bar.add_child(row)
 	_pause_btn = UIK.icon_button("ui_pause", I18n.t("battle.pause") + " (Space)", toggle_pause, "SlotButton")
 	row.add_child(_pause_btn)
+	# The pause state belongs with Resume, rather than across the people
+	# the player is inspecting. Keep the full explanation on that button.
+	_paused_panel = UIK.panel(UIK.label(I18n.t("battle.paused_short"), "GoldLabel"), "ChipPanel")
+	_paused_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(_paused_panel)
 	for i in SPEEDS.size():
 		var b := UIK.button("×%d" % int(SPEEDS[i]), set_speed.bind(i), "", "FlatButton", true, I18n.t("battle.speed") + " (%d)" % (i + 1))
 		b.toggle_mode = true
@@ -1881,7 +2024,6 @@ func _build_ui() -> void:
 		row.add_child(b)
 		_speed_btns.append(b)
 	row.add_child(VSeparator.new())
-	row.add_child(UIK.label(I18n.t("battle.stance"), "DimLabel"))
 	for id in C.data.STANCES:
 		var sb := UIK.icon_button("stance_" + String(id), I18n.t("stance.%s.name" % id), _on_stance.bind(String(id)), "SlotButton")
 		sb.toggle_mode = true
@@ -1897,6 +2039,9 @@ func _build_ui() -> void:
 	row.add_child(_prio_opt)
 	row.add_child(VSeparator.new())
 	_focus_label = UIK.label("", "")
+	_focus_label.custom_minimum_size.x = 54
+	_focus_label.clip_text = true
+	_focus_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_focus_label.tooltip_text = I18n.t("battle.focus_click")
 	_focus_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	row.add_child(UIK.icon("ui_eye"))
@@ -1924,6 +2069,7 @@ func set_hud_insets(top_bar: float, _chips: float, bottom: float) -> void:
 		_status_panel.offset_top += _boss_bar.get_combined_minimum_size().y + 1.0
 	_log_panel.offset_bottom = -maxf(32.0, bottom + 4.0)
 	_log_panel.offset_top = _log_panel.offset_bottom
+	_layout_notice()
 
 
 func _refresh_controls() -> void:
@@ -1931,6 +2077,8 @@ func _refresh_controls() -> void:
 		return
 	_pause_btn.icon = Art.icon("ui_play" if paused else "ui_pause")
 	_pause_btn.tooltip_text = (I18n.t("battle.resume") if paused else I18n.t("battle.pause")) + " (Space)"
+	if paused:
+		_pause_btn.tooltip_text += "\n" + I18n.t("battle.paused")
 	for i in _speed_btns.size():
 		_speed_btns[i].set_pressed_no_signal(i == speed_i)
 	for id in _stance_btns:
@@ -1944,7 +2092,7 @@ func _refresh_controls() -> void:
 	_prio_opt.disabled = _ended
 	_retreat_btn.disabled = _ended or float(sim.retreating) > 0.0
 	_skip_btn.disabled = _ended
-	_paused_panel.visible = paused and not _ended and not report_mode
+	_paused_panel.visible = paused and not _ended and not report_mode and not _cine_hold
 
 
 func _update_dynamic_ui() -> void:
@@ -1957,6 +2105,7 @@ func _update_dynamic_ui() -> void:
 	if sim.focus != null:
 		focus_name = _uname(sim.focus)
 	_focus_label.text = focus_name
+	_focus_label.tooltip_text = focus_name + "\n" + I18n.t("battle.focus_click")
 	# The status line only appears for something to act on: a retreat under
 	# way or a foe winding up a big attack. The bar shows the tactics.
 	var line := ""
@@ -1969,6 +2118,16 @@ func _update_dynamic_ui() -> void:
 				break
 	_status_label.text = line
 	_status_panel.visible = line != "" and not report_mode and not _cine_hold
+	_paused_panel.visible = paused and not _ended and not report_mode and not _cine_hold
+	_layout_notice()
+
+
+func _layout_notice() -> void:
+	var w := minf(420.0, get_viewport_rect().size.x - 24.0)
+	_banner.offset_left = -w * 0.5
+	_banner.offset_right = w * 0.5
+	_banner.offset_top = _notice_top()
+	_banner.offset_bottom = _banner.offset_top + NOTICE_H
 
 
 func toggle_pause() -> void:
@@ -2048,9 +2207,8 @@ func _fight_rect() -> Rect2:
 func _fight_view() -> Array:
 	var r := _fight_rect()
 	var vp := get_viewport_rect().size
-	var top := maxf(25.0, _hud_top + 3.0) + 20.0
-	if _boss_uid != null:
-		top += 21.0
+	# Use the same title/boss/status/notice boundary as popup placement.
+	var top := _notice_top() + NOTICE_H + 3.0
 	var bottom := maxf(32.0, _hud_bottom + 4.0)
 	var free := Vector2(vp.x - 8.0, vp.y - top - bottom)
 	var z := float(ZOOMS[0])

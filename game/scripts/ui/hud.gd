@@ -9,7 +9,8 @@
 ## panel's content changes. Narrow layouts (large UI sizes, long Chinese
 ## text) wrap the status strip onto a second row, stack the right-hand view
 ## controls above the navigation bar, trim long labels with an ellipsis (the
-## full text stays in the tooltip) and let the level selector scroll.
+## full text stays in the tooltip). The deck selector is a single compact
+## current-deck button until opened; its list then scrolls inside the safe area.
 class_name Hud
 extends Control
 
@@ -58,6 +59,9 @@ var zoom_label: Label
 var level_panel: PanelContainer
 var level_scroll: ScrollContainer
 var level_box: VBoxContainer
+var _level_body: VBoxContainer
+var _level_toggle: Button
+var _level_expanded := false
 var _deck_up: Button
 var _deck_down: Button
 var _where_label: Label
@@ -153,18 +157,28 @@ func _init() -> void:
 	view_box.add_child(_sails_btn)
 	_fit_btn = UIK.icon_button("ui_fit", I18n.t("view.fit"), func(): view_action.emit("fit"), "FlatButton")
 	view_box.add_child(_fit_btn)
-	# --- right edge: ship level selector (weather deck on top, holds below)
+	# --- right edge: compact deck selector. Keep this panel visible while
+	# collapsed: it remains the first-session guide's discoverable target.
 	level_panel = UIK.panel(null, "HudBar")
 	level_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	level_panel.visible = false
 	_managed(level_panel)
+	_level_body = UIK.vbox([], 2)
+	level_panel.add_child(_level_body)
+	_level_toggle = UIK.button("", _toggle_levels, "ui_deck_down", "FlatButton")
+	_level_toggle.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	_level_toggle.custom_minimum_size = Vector2(96, 20)
+	_level_toggle.clip_text = true
+	_level_toggle.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_level_body.add_child(_level_toggle)
 	level_box = UIK.vbox([], 1)
 	level_scroll = ScrollContainer.new()
 	level_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	level_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 	level_scroll.add_child(level_box)
 	level_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	level_panel.add_child(level_scroll)
+	level_scroll.visible = false
+	_level_body.add_child(level_scroll)
 	# --- contextual primary action (above the view controls)
 	ctx_box = BoxContainer.new()
 	ctx_box.add_theme_constant_override("separation", 3)
@@ -207,6 +221,36 @@ func _ready() -> void:
 	Game.notice.connect(toast)
 	Game.saved.connect(func(_ok): _flash_save())
 	_queue_layout()
+
+
+## Close the list before world clicks are routed, while allowing the click
+## itself through. Escape closes just the list, without opening System.
+func _input(event: InputEvent) -> void:
+	if not _level_expanded or not is_visible_in_tree():
+		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		_set_levels_expanded(false)
+		get_viewport().set_input_as_handled()
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not level_panel.get_global_rect().has_point(get_global_mouse_position()):
+			_set_levels_expanded(false)
+
+
+func _toggle_levels() -> void:
+	_set_levels_expanded(not _level_expanded)
+
+
+func _set_levels_expanded(expanded: bool) -> void:
+	_level_expanded = expanded
+	level_scroll.visible = expanded
+	_level_toggle.icon = Art.icon("ui_deck_up" if expanded else "ui_deck_down")
+	level_panel.reset_size()
+	_queue_layout()
+
+
+func _choose_level(index: int) -> void:
+	_set_levels_expanded(false)
+	view_action.emit("level:%d" % index)
 
 
 func _notification(what: int) -> void:
@@ -362,7 +406,9 @@ func _do_layout() -> void:
 		hr = _lift_clear(hr, blocked + right_rects)
 		hr.position.y = maxf(hr.position.y, chips_bottom + GAP)
 		_place(hint_panel, hr.position)
-	GameWindow.inset_top = top_bar_bottom + GAP
+	# Windows share the objective's safe area, so a docked heading cannot
+	# cover its text. Stage overlays still receive both measured edges.
+	GameWindow.inset_top = chips_bottom + GAP
 	GameWindow.inset_bottom = bottom_reserved
 	GameWindow.inset_bottom_right = vh - right_cluster_top + GAP
 	insets_changed.emit(top_bar_bottom, chips_bottom, bottom_reserved)
@@ -371,7 +417,10 @@ func _do_layout() -> void:
 func _layout_levels(vw: float, avail: float, others: Array) -> void:
 	var lpad := _pad(level_panel)
 	var max_w := clampf(avail * 0.42, 84.0, 168.0)
-	var inner := minf(_level_nat_w, max_w - lpad.x)
+	var header_w := _text_w(_level_toggle, _level_toggle.text) + 24.0
+	var natural_w := maxf(header_w, _level_nat_w) if _level_expanded else header_w
+	var inner := minf(natural_w, max_w - lpad.x)
+	_level_toggle.custom_minimum_size.x = inner
 	var trim := _level_nat_w > inner + 0.5
 	for b in _level_buttons:
 		if not is_instance_valid(b):
@@ -386,20 +435,27 @@ func _layout_levels(vw: float, avail: float, others: Array) -> void:
 	# Clear of the objective chip and the navigation bar when they reach this far.
 	if obj_panel.visible and obj_panel.position.x + obj_panel.size.x > lx - GAP:
 		band_top = chips_bottom + GAP
+	if toast_box.get_child_count() > 0:
+		var toast_rect := Rect2(toast_box.position, toast_box.size)
+		if toast_rect.end.x > lx - GAP:
+			band_top = maxf(band_top, toast_rect.end.y + GAP)
 	for o in others:
 		var r: Rect2 = o
 		if r.end.x > lx - GAP and r.position.y < band_bot:
 			band_bot = minf(band_bot, r.position.y - GAP)
-	var box := level_box.get_combined_minimum_size()
-	var avail_h := maxf(24.0, band_bot - band_top - lpad.y)
-	var sh := minf(box.y, avail_h)
-	var bar_w := 0.0
-	if sh < box.y:
-		bar_w = level_scroll.get_v_scroll_bar().get_combined_minimum_size().x + 1.0
-	level_scroll.custom_minimum_size = Vector2(inner + bar_w, sh)
+	if _level_expanded:
+		var box := level_box.get_combined_minimum_size()
+		var header_h := _level_toggle.get_combined_minimum_size().y + 2.0
+		var avail_h := maxf(24.0, band_bot - band_top - lpad.y - header_h)
+		var sh := minf(box.y, avail_h)
+		var bar_w := 0.0
+		if sh < box.y:
+			bar_w = level_scroll.get_v_scroll_bar().get_combined_minimum_size().x + 1.0
+		level_scroll.custom_minimum_size = Vector2(inner + bar_w, sh)
 	var ls := level_panel.get_combined_minimum_size()
 	var x := maxf(M, right_edge - ls.x)
-	var y := band_top + maxf(0.0, (band_bot - band_top - ls.y) * 0.5)
+	# Dock below the status strip instead of covering the ship's middle.
+	var y := band_top
 	_place(level_panel, Vector2(x, y))
 
 
@@ -474,7 +530,7 @@ func refresh(world_mode: String) -> void:
 	status_box.add_child(_save_icon)
 	# objective
 	var ob := Fmt.objective(s)
-	_obj_text = ob.title + "  ·  " + ob.target if not ob.done else ob.title + " · " + ob.line
+	_obj_text = ob.compact
 	obj_label.text = _obj_text
 	obj_panel.tooltip_text = _obj_text + "\n" + ob.get("why", ob.get("line", "")) + "\n" + ob.get("trial", "")
 	obj_panel.visible = world_mode != "battle"
@@ -588,23 +644,24 @@ func set_view_info(deck_text: String, zoom_text: String, sails_shown: bool, show
 func set_levels(items: Array, current: int, shown: bool) -> void:
 	level_panel.visible = shown and items.size() > 1
 	if not level_panel.visible:
+		_set_levels_expanded(false)
 		return
 	var sig := "%d|%s" % [current, JSON.stringify(items)]
 	if sig == _level_sig:
 		return
 	_level_sig = sig
+	var selected: Dictionary = items[clampi(current, 0, items.size() - 1)]
+	_level_toggle.text = String(selected.title)
+	_level_toggle.tooltip_text = I18n.t("view.level_entry", {"deck": selected.title, "n": int(selected.crew)}) + "\n" + I18n.t("view.levels") + " · " + I18n.t("ship.level_keys")
 	UIK.clear(level_box)
 	_level_buttons.clear()
-	var head := UIK.label(I18n.t("view.levels"), "DimLabel")
-	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	level_box.add_child(head)
-	_level_nat_w = head.get_combined_minimum_size().x
+	_level_nat_w = 96.0
 	for i in items.size():
 		var it: Dictionary = items[i]
 		var k := i
 		var txt := I18n.t("view.level_entry", {"deck": it.title, "n": int(it.crew)})
-		var b := UIK.button(txt, func(): view_action.emit("level:%d" % k),
-			"ui_crew" if i == current else "", "", true, txt + "\n" + String(it.hint) + "\n" + I18n.t("ship.level_keys"))
+		var b := UIK.button(txt, _choose_level.bind(k),
+			"ui_crew" if i == current else "", "FlatButton", true, txt + "\n" + String(it.hint) + "\n" + I18n.t("ship.level_keys"))
 		b.toggle_mode = true
 		b.button_pressed = i == current
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT

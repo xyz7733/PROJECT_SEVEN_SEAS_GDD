@@ -11,14 +11,14 @@ from lib.common import GAME, OUT, PREVIEW, Packer, record, save_json, save_png
 from lib.pix import AUTO, DEEP, FLAT, LIGHT, SHADE, SHINE, Canvas
 from lib.vox import mix, mul
 
-GOLD, GOLD_D, YELLOW = (240, 192, 78), (184, 124, 44), (252, 226, 104)
-WOOD, WOOD_L, WOOD_D = (156, 100, 58), (204, 150, 96), (104, 64, 38)
-IRON, STEEL, DARK = (128, 136, 152), (200, 210, 224), (64, 54, 76)
+GOLD, GOLD_D, YELLOW = (216, 181, 103), (151, 116, 62), (242, 220, 155)
+WOOD, WOOD_L, WOOD_D = (151, 107, 69), (202, 156, 103), (94, 62, 44)
+IRON, STEEL, DARK = (119, 139, 147), (200, 215, 216), (35, 48, 63)
 RED, RED_D, PINK = (220, 72, 64), (150, 40, 48), (242, 126, 160)
 GREEN, GREEN_D, LEAF = (92, 188, 96), (52, 124, 70), (120, 206, 90)
-BLUE, NAVY, CYAN = (78, 142, 222), (46, 70, 130), (104, 220, 236)
+BLUE, NAVY, CYAN = (83, 151, 190), (34, 60, 83), (128, 207, 210)
 PURPLE, LILAC = (158, 104, 216), (204, 170, 250)
-WHITE, CREAM, PAPER = (246, 242, 232), (240, 226, 190), (232, 214, 170)
+WHITE, CREAM, PAPER = (247, 243, 229), (240, 229, 202), (225, 211, 177)
 ORANGE, BROWN, SKIN = (242, 142, 58), (136, 88, 52), (240, 196, 160)
 TEAL = (64, 176, 170)
 
@@ -1295,6 +1295,72 @@ def _(cv):
         cv.px(x, y, c, FLAT)
 
 
+# Crew attributes: appended after the weather icons so every existing
+# icon keeps its atlas cell.
+@icon("at_might")
+def _(cv):
+    # A clenched fist over a red cuff.
+    cv.rect(4, 12, 11, 14, RED_D)
+    cv.rect(4, 12, 11, 12, RED, FLAT)
+    cv.poly([(3, 6), (12, 5), (13, 7), (13, 11), (4, 12), (3, 10)], SKIN)
+    for x in (5, 7, 9, 11):
+        cv.ellipse(x + 0.5, 5.2, 1.2, 1.4, SKIN)
+        cv.px(x + 1, 7, (196, 140, 112), FLAT)
+    cv.poly([(3, 8), (8, 8.5), (8, 10), (3, 10.5)], (226, 176, 140))
+    cv.hline(4, 7, 8, (196, 140, 112), FLAT)
+
+
+@icon("at_vigor")
+def _(cv):
+    # A broad green leaf on a stout stem.
+    cv.poly([(8, 1.5), (13, 5), (13.5, 9), (9, 13), (4, 13), (2.5, 9), (3.5, 5)], GREEN)
+    cv.line(4, 14, 11, 4, GREEN_D, FLAT)
+    for a, b in (((6, 10), (4, 8)), ((7, 9), (10, 10)), ((8, 7), (6, 5)), ((9, 6), (11, 7))):
+        cv.line(a[0], a[1], b[0], b[1], GREEN_D, FLAT)
+    cv.line(3, 15, 5, 13, WOOD, FLAT)
+
+
+@icon("at_agility")
+def _(cv):
+    # A light feather, quill bottom-left.
+    cv.poly([(14.5, 1), (13, 7), (8, 12.5), (4, 13), (4, 9), (9, 3.5)], CYAN)
+    cv.poly([(14.5, 1), (10, 3), (6.5, 8), (9.5, 6)], WHITE, LIGHT)
+    cv.line(2, 14, 13, 2, (70, 120, 150), FLAT)
+    for x, y in ((6, 11), (9, 8), (12, 5)):
+        cv.px(x + 1, y + 1, (96, 170, 186), FLAT)
+
+
+@icon("at_focus")
+def _(cv):
+    # A target with a struck centre.
+    cv.ellipse(8, 8, 6.4, 6.4, RED)
+    cv.ellipse(8, 8, 4.6, 4.6, WHITE)
+    cv.ellipse(8, 8, 2.8, 2.8, RED)
+    cv.rect(7, 7, 8, 8, YELLOW, FLAT)
+
+
+@icon("at_will")
+def _(cv):
+    # An inner flame.
+    cv.poly([(8, 1), (12, 6), (13, 10), (11, 14), (5, 14), (3, 10), (4, 6), (6, 8)], ORANGE)
+    cv.poly([(8, 5), (10.5, 9), (10, 13), (6, 13), (5.5, 10), (7, 8.5)], YELLOW)
+    cv.rect(7, 11, 8, 13, WHITE, FLAT)
+
+
+@icon("at_seamanship")
+def _(cv):
+    # A ship's wheel: spokes run through the rim to round handles.
+    for k in range(8):
+        a = math.radians(k * 45)
+        cv.line(8 + 1.5 * math.cos(a), 8 + 1.5 * math.sin(a), 8 + 6.4 * math.cos(a), 8 + 6.4 * math.sin(a), WOOD_L, FLAT)
+        cv.px(8 + 6.9 * math.cos(a), 8 + 6.9 * math.sin(a), WOOD, FLAT)
+    ring(cv, 8, 8, 4.6, 3.3, WOOD)
+    for k in range(8):
+        a = math.radians(k * 45)
+        cv.px(8 + 2.6 * math.cos(a), 8 + 2.6 * math.sin(a), WOOD_L, FLAT)
+    cv.ellipse(8, 8, 1.5, 1.5, GOLD)
+
+
 # --------------------------------------------------------------- theme ----
 
 def frame_panel(w, h, fill, edge_hi, edge_lo, outer=(16, 14, 24), corner=None, alpha=255, inner_line=None):
@@ -1321,30 +1387,35 @@ def frame_panel(w, h, fill, edge_hi, edge_lo, outer=(16, 14, 24), corner=None, a
 
 def theme_pieces():
     out = {}
-    # Opaque: a see-through window let the HUD chips and the level selector
-    # behind it show through its text.
-    out["panel"] = (frame_panel(24, 24, (22, 28, 44), (150, 108, 62), (88, 58, 36), corner=(236, 190, 90),
-                                alpha=255, inner_line=(40, 48, 70)), 6)
-    out["panel_light"] = (frame_panel(24, 24, (232, 214, 172), (255, 244, 214), (176, 140, 92), outer=(70, 46, 30),
-                                      corner=(170, 120, 60)), 6)
-    out["panel_flat"] = (frame_panel(12, 12, (16, 20, 32), (40, 50, 74), (30, 36, 54), outer=(10, 10, 16), alpha=210), 3)
-    out["tooltip"] = (frame_panel(12, 12, (30, 26, 40), (90, 80, 110), (54, 46, 68), outer=(8, 8, 12), alpha=244), 3)
-    out["hudbar"] = (frame_panel(16, 16, (18, 22, 36), (120, 86, 52), (70, 48, 32), alpha=220), 4)
-    for state, fill, hi, lo in (("normal", (126, 82, 48), (196, 144, 88), (78, 48, 30)),
-                                ("hover", (150, 100, 58), (226, 176, 112), (92, 58, 34)),
-                                ("pressed", (96, 60, 36), (78, 48, 30), (150, 100, 58)),
-                                ("disabled", (70, 66, 72), (100, 96, 104), (50, 46, 54))):
-        out["btn_" + state] = (frame_panel(16, 16, fill, hi, lo, outer=(30, 18, 16)), 4)
-    for state, fill, hi, lo in (("normal", (176, 128, 40), (250, 214, 110), (120, 80, 26)),
-                                ("hover", (200, 150, 54), (255, 232, 140), (136, 92, 30)),
-                                ("pressed", (140, 98, 30), (120, 80, 26), (200, 150, 54))):
-        out["btnp_" + state] = (frame_panel(16, 16, fill, hi, lo, outer=(46, 26, 14)), 4)
-    out["tab_on"] = (frame_panel(16, 16, (40, 48, 72), (150, 108, 62), (40, 48, 72), outer=(16, 14, 24)), 4)
-    out["tab_off"] = (frame_panel(16, 16, (24, 28, 42), (70, 56, 50), (24, 28, 42), outer=(16, 14, 24), alpha=230), 4)
-    out["slot"] = (frame_panel(20, 20, (34, 30, 44), (20, 18, 28), (88, 74, 90), outer=(12, 10, 16)), 4)
-    out["slot_sel"] = (frame_panel(20, 20, (60, 52, 40), (250, 214, 110), (200, 150, 54), outer=(46, 26, 14)), 4)
-    out["chip"] = (frame_panel(10, 10, (44, 40, 60), (80, 74, 100), (32, 28, 44), outer=(10, 10, 16)), 3)
-    out["bar_bg"] = (frame_panel(8, 6, (14, 12, 20), (10, 8, 14), (40, 36, 50), outer=(6, 6, 10)), 2)
+    # A quiet navy instrument case, aged brass only at structural corners,
+    # and cream paper for important actions. Opaque windows keep world text
+    # from bleeding through. Atlas dimensions/margins remain compatible.
+    out["panel"] = (frame_panel(24, 24, (27, 43, 58), (89, 109, 114), (17, 30, 43),
+                                outer=(13, 24, 34), corner=(187, 159, 104),
+                                inner_line=(38, 57, 71)), 6)
+    out["panel_light"] = (frame_panel(24, 24, (233, 222, 194), (251, 244, 223), (180, 159, 117),
+                                      outer=(64, 61, 54), corner=(159, 129, 78)), 6)
+    out["panel_flat"] = (frame_panel(12, 12, (24, 38, 50), (49, 68, 79), (27, 43, 55),
+                                    outer=(17, 29, 40), alpha=245), 3)
+    out["tooltip"] = (frame_panel(12, 12, (26, 42, 55), (115, 126, 120), (32, 49, 61),
+                                 outer=(15, 26, 36), alpha=255), 3)
+    out["hudbar"] = (frame_panel(16, 16, (21, 37, 51), (91, 111, 115), (25, 43, 56),
+                                outer=(14, 27, 39), corner=(153, 134, 93), alpha=244), 4)
+    for state, fill, hi, lo in (("normal", (44, 64, 77), (82, 105, 115), (25, 40, 52)),
+                                ("hover", (62, 87, 99), (166, 169, 140), (34, 54, 67)),
+                                ("pressed", (31, 51, 65), (23, 39, 51), (89, 114, 122)),
+                                ("disabled", (35, 45, 54), (59, 70, 77), (25, 35, 44))):
+        out["btn_" + state] = (frame_panel(16, 16, fill, hi, lo, outer=(15, 28, 39)), 4)
+    for state, fill, hi, lo in (("normal", (191, 166, 108), (239, 223, 175), (132, 107, 65)),
+                                ("hover", (216, 193, 137), (251, 239, 204), (153, 128, 80)),
+                                ("pressed", (160, 137, 88), (115, 95, 61), (214, 191, 137))):
+        out["btnp_" + state] = (frame_panel(16, 16, fill, hi, lo, outer=(58, 54, 45)), 4)
+    out["tab_on"] = (frame_panel(16, 16, (43, 70, 84), (184, 159, 106), (43, 70, 84), outer=(17, 31, 43)), 4)
+    out["tab_off"] = (frame_panel(16, 16, (25, 42, 56), (58, 77, 89), (25, 42, 56), outer=(17, 31, 43)), 4)
+    out["slot"] = (frame_panel(20, 20, (30, 47, 60), (22, 37, 49), (68, 88, 99), outer=(16, 29, 40)), 4)
+    out["slot_sel"] = (frame_panel(20, 20, (53, 72, 76), (221, 198, 142), (161, 141, 93), outer=(31, 43, 47)), 4)
+    out["chip"] = (frame_panel(10, 10, (39, 60, 74), (81, 105, 115), (30, 48, 62), outer=(19, 33, 45)), 3)
+    out["bar_bg"] = (frame_panel(8, 6, (17, 30, 42), (13, 25, 36), (49, 66, 77), outer=(11, 22, 32)), 2)
     for name, c in (("hp", (220, 70, 70)), ("hp_ally", (96, 200, 96)), ("xp", (90, 160, 240)),
                     ("sta", (240, 196, 70)), ("food", (230, 140, 70)), ("hull", (176, 140, 96)), ("mp", (160, 110, 230))):
         a = np.zeros((4, 4, 4), np.uint8)
@@ -1353,20 +1424,20 @@ def theme_pieces():
         a[0, :, :3] = mix(c, (255, 255, 255), 0.4)
         a[-1, :, :3] = mul(c, 0.7)
         out["fill_" + name] = (a, 1)
-    out["line_h"] = (np.array([[[150, 108, 62, 255]] * 4, [[60, 40, 26, 255]] * 4], np.uint8), 1)
+    out["line_h"] = (np.array([[[91, 111, 115, 255]] * 4, [[26, 44, 57, 255]] * 4], np.uint8), 1)
     for name, on in (("check_off", False), ("check_on", True)):
         cv = Canvas(12, 12)
-        cv.rect(1, 1, 10, 10, (40, 36, 52), FLAT)
-        cv.rect(2, 2, 9, 9, (24, 22, 32), FLAT)
+        cv.rect(1, 1, 10, 10, (80, 102, 111), FLAT)
+        cv.rect(2, 2, 9, 9, (25, 42, 55), FLAT)
         if on:
             cv.line(3, 6, 5, 8, GREEN, FLAT, th=2)
             cv.line(5, 8, 8, 3, GREEN, FLAT, th=2)
         out[name] = (cv.render(), 0)
     # scrollbar
-    out["scroll_bg"] = (frame_panel(6, 12, (16, 14, 24), (10, 8, 14), (30, 28, 40), outer=(6, 6, 10)), 2)
-    out["scroll_grab"] = (frame_panel(6, 12, (150, 108, 62), (210, 160, 100), (96, 64, 38), outer=(30, 18, 16)), 2)
+    out["scroll_bg"] = (frame_panel(6, 12, (23, 39, 52), (15, 28, 39), (40, 59, 72), outer=(12, 24, 35)), 2)
+    out["scroll_grab"] = (frame_panel(6, 12, (144, 137, 108), (203, 193, 151), (91, 96, 87), outer=(37, 51, 58)), 2)
     # portrait frame
-    pf = frame_panel(28, 28, (40, 52, 76), (220, 176, 90), (130, 90, 40), outer=(30, 18, 16))
+    pf = frame_panel(28, 28, (45, 69, 85), (194, 170, 114), (99, 105, 96), outer=(24, 39, 50))
     out["portrait"] = (pf, 4)
     # banner ribbon for titles
     rib = np.zeros((14, 32, 4), np.uint8)

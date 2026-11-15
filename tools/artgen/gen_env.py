@@ -70,14 +70,18 @@ def noisy(base, amt=0.07):
 
 def grass_tile(base, seed, flowers=None):
     rng = np.random.default_rng(seed)
-    dark = mix(mul(base, 0.8), (40, 60, 90), 0.08)
-    light = mix(base, (255, 250, 200), 0.18)
-    a = tile_from(lambda x, y, r: mul(base, 1 + (r.random() - 0.5) * 0.08), seed=seed)
-    for _ in range(9):
+    dark = mix(mul(base, 0.86), (40, 60, 90), 0.06)
+    light = mix(base, (255, 250, 200), 0.12)
+    # Quiet turf carries the large colour shape. Three clustered blades,
+    # rather than independent pixel noise, read as vegetation at x1 zoom.
+    a = tile_from(lambda x, y, r: base, seed=seed)
+    for _ in range(3):
         x, y = rng.integers(2, 30), rng.integers(2, 14)
         if DIAMOND[y, x] and DIAMOND[y - 1, x]:
             a[y, x, :3] = dark
             a[y - 1, x, :3] = light
+            if x < 30 and DIAMOND[y, x + 1]:
+                a[y, x + 1, :3] = light
     if flowers:
         for _ in range(2):
             x, y = rng.integers(6, 26), rng.integers(4, 12)
@@ -88,11 +92,14 @@ def grass_tile(base, seed, flowers=None):
 
 def speck_tile(base, seed, specks=8, dark=0.84, light=1.1):
     rng = np.random.default_rng(seed)
-    a = tile_from(lambda x, y, r: mul(base, 1 + (r.random() - 0.5) * 0.06), seed=seed)
-    for _ in range(specks):
+    a = tile_from(lambda x, y, r: base, seed=seed)
+    for _ in range(max(1, specks // 4)):
         x, y = rng.integers(1, 31), rng.integers(1, 15)
         if DIAMOND[y, x]:
-            a[y, x, :3] = mul(base, dark if rng.random() < 0.6 else light)
+            c = mul(base, (1 + dark) / 2 if rng.random() < 0.6 else (1 + light) / 2)
+            a[y, x, :3] = c
+            if x < 30 and DIAMOND[y, x + 1]:
+                a[y, x + 1, :3] = c
     return a
 
 
@@ -134,11 +141,12 @@ def side_tile(top, kind, seed, start=0, rows=9, wet_from=7):
             base = mul(top, 0.78 if L else 0.6)
             depth = y - ((x + 1) // 2 if x < 16 else (32 - x) // 2) - start
             if kind == "rock":
-                c = mul(base, 1 + (rng.random() - 0.5) * 0.1)
-                if (y + (x // 5)) % 4 == 0:
-                    c = mul(c, 0.86)
+                # Broad strata and a few joined cracks; no gravel noise.
+                c = mul(base, 0.96 if depth < 4 else 0.88)
+                if depth == 4 + (x // 11) % 2:
+                    c = mul(c, 0.85)
             elif kind == "sand":
-                c = mul(base, 1 + (rng.random() - 0.5) * 0.06)
+                c = mul(base, 1.02 if depth < 3 else 0.94)
             elif kind == "wood":
                 post = (x % 8) in (3, 4)
                 c = mul(P["wood_d"], 0.95 if L else 0.75) if post else (0, 0, 0)
@@ -163,13 +171,12 @@ def side_tile(top, kind, seed, start=0, rows=9, wet_from=7):
 
 
 def water_frames(sea, deep, shallow=False, seed=0, n=4):
-    rng = np.random.default_rng(seed)
-    base = mix(hexrgb(sea), (255, 255, 255), 0.18) if shallow else hexrgb(sea)
+    base = mix(hexrgb(sea), (222, 248, 238), 0.16) if shallow else hexrgb(sea)
     dk = hexrgb(deep)
-    crest = mix(base, (255, 255, 255), 0.55 if shallow else 0.4)
-    mid = mix(base, (255, 255, 255), 0.22)
-    crests = [(int(rng.integers(4, 26)), int(rng.integers(3, 13)), int(rng.integers(3, 6))) for _ in range(4 if shallow else 3)]
-    dots = [(int(rng.integers(2, 30)), int(rng.integers(2, 14))) for _ in range(6)]
+    # Open sea is a calm colour plane. Glints, foam and whitecaps are
+    # world-space particles, so the tile never stamps white chevrons over
+    # the entire screen. Shallows retain soft animated caustic clusters.
+    open_sea = sea == deep
     frames = []
     for f in range(n):
         a = np.zeros((TH, TW, 4), np.uint8)
@@ -177,19 +184,13 @@ def water_frames(sea, deep, shallow=False, seed=0, n=4):
             for x in range(TW):
                 if not DIAMOND[y, x]:
                     continue
-                band = math.sin((x * 0.5 + y * 1.0) * 0.55 + f * math.pi / 2)
-                c = mix(base, dk, 0.18) if band < -0.55 else base
+                u, v = tile_uv(x, y)
+                wave = math.sin(u * math.tau + f * math.pi / 2) * math.sin(v * math.tau - f * math.pi / 2)
+                c = base if open_sea else mix(base, dk, 0.055 if wave < -0.35 else 0.015)
+                if shallow and wave > 0.72:
+                    c = mix(c, (222, 248, 238), 0.075)
                 a[y, x, :3] = c
                 a[y, x, 3] = 255
-        for (cx, cy, ln) in crests:
-            ox = (f * 2) % 8 - 4
-            for i in range(ln):
-                x, y = cx + ox + i, cy - (1 if i in (1, ln - 2) else 0)
-                if 0 <= x < TW and 0 <= y < TH and DIAMOND[y, x]:
-                    a[y, x, :3] = crest if (i + f) % 3 else mid
-        for i, (dx, dy) in enumerate(dots):
-            if (i + f) % 4 == 0 and DIAMOND[dy, dx]:
-                a[dy, dx, :3] = mid
         frames.append(a)
     return frames
 
@@ -226,9 +227,7 @@ def water_frames2(base, dk, seed, n=4, blobs=0, blob_col=None, specks=None, cres
     """Animated water like water_frames(), from RGB colours, with optional
     still shapes under the surface (reef heads, sand ripples)."""
     rng = np.random.default_rng(seed)
-    crest = mix(base, (255, 255, 255), crest_k)
-    mid = mix(base, (255, 255, 255), 0.2)
-    crests = [(int(rng.integers(4, 26)), int(rng.integers(3, 13)), int(rng.integers(3, 6))) for _ in range(3)]
+    crest = mix(base, (230, 250, 242), crest_k * 0.18)
     under = np.zeros((TH, TW), np.int8)
     for _ in range(blobs):
         bx, by, r = rng.uniform(5, 27), rng.uniform(3, 13), rng.uniform(1.6, 3.0)
@@ -248,22 +247,19 @@ def water_frames2(base, dk, seed, n=4, blobs=0, blob_col=None, specks=None, cres
             for x in range(TW):
                 if not DIAMOND[y, x]:
                     continue
-                band = math.sin((x * 0.5 + y * 1.0) * 0.55 + f * math.pi / 2)
-                c = mix(base, dk, 0.16) if band < -0.55 else base
+                u, v = tile_uv(x, y)
+                band = math.sin(u * math.tau + f * math.pi / 2) * math.sin(v * math.tau - f * math.pi / 2)
+                c = mix(base, dk, 0.065) if band < -0.5 else base
                 if under[y, x] == 1:
                     c = mix(c, blob_col, 0.42)
                     if y > 0 and not under[y - 1, x]:
                         c = mix(c, (255, 255, 255), 0.12)
                 elif under[y, x] == 2:
-                    c = mix(c, specks[1], 0.5)
+                    c = mix(c, specks[1], 0.2)
+                if band > 0.76:
+                    c = mix(c, crest, 0.65)
                 a[y, x, :3] = c
                 a[y, x, 3] = 255
-        for (cx, cy, ln) in crests:
-            ox = (f * 2) % 8 - 4
-            for i in range(ln):
-                x, y = cx + ox + i, cy - (1 if i in (1, ln - 2) else 0)
-                if 0 <= x < TW and 0 <= y < TH and DIAMOND[y, x]:
-                    a[y, x, :3] = crest if (i + f) % 3 else mid
         frames.append(a)
     return frames
 
@@ -1178,52 +1174,228 @@ def house(v, W, D, H, wall, roof, trim, door=True, sign=None, awning=None, extra
         extra(v)
 
 
-def building_table(pal):
-    acc, land = hexrgb(pal["accent"]), hexrgb(pal["land"])
-    roof = mix(acc, (180, 70, 50), 0.45)
-    wall = mix(land, (240, 230, 210), 0.7)
-    trim = P["wood_d"]
+# Regional building kits change structural profiles as well as pigments.
+# Every service has its own floor plan (open market, terrace inn, gantry
+# workshop, public notice shelter, observatory tower and compact dwelling).
+ARCHITECTURE = {
+    "dawnwater": ("gable", "#eee0b6", "#497e94", "#75503c", "#cf6650"),
+    "emberreach": ("basalt", "#655451", "#bd7950", "#342e39", "#e7a259"),
+    "verdant_maw": ("stilt", "#c6b07b", "#698857", "#5a6447", "#d8ae64"),
+    "glass_current": ("crystal", "#e1e5db", "#91cbd1", "#6f91aa", "#cfb6df"),
+    "crown_shoals": ("arcade", "#dbbc83", "#3f5c83", "#917146", "#b45764"),
+    "stormbelt": ("storm", "#a0a9a1", "#546d77", "#4c5359", "#d9b95b"),
+    "moonwake": ("moon", "#a5aec5", "#515178", "#55526b", "#d8b477"),
+    "ashen_trench": ("terrace", "#6c676c", "#a5775b", "#3c3c47", "#bd8667"),
+    "leviathan_ring": ("shell", "#d8d3b3", "#79a99a", "#887e69", "#d99885"),
+    "grand_horizon": ("dome", "#eee5c8", "#c6ab6b", "#b49351", "#629caa"),
+}
 
-    def market_extra(v):
-        for i, c in enumerate((P["red"], P["yellow"], P["green"])):
-            kit.crate(v, 2 + i * 5, 24, 4, 3)
-            v.box(3 + i * 5, 25, F + 3, 5 + i * 5, 27, F + 4, c)
 
-    def tavern_extra(v):
-        kit.barrel(v, 28, 22, h=6, r=2)
-        kit.barrel(v, 28, 26, h=6, r=2)
-        v.box(10, 22, F + 14, 11, 23, F + 18, P["iron"])
-        v.box(9, 23, F + 14, 13, 24, F + 17, P["gold"], GLOSS)
+def architectural_roof(v, x, y, w, d, z, style, roof, trim):
+    """A reproducible regional roof silhouette, contained in its volume."""
+    if style in ("dome", "arcade", "shell"):
+        # Ellipsoidal masonry dome / ribbed shell, not a gable recolour.
+        cx, cy = x + w / 2, y + d / 2
+        height = 7 if style == "dome" else (5 if style == "arcade" else 6)
+        for k in range(height):
+            r = math.sqrt(max(0.05, 1 - (k / height) ** 2))
+            rw, rd = max(1, round(w * r / 2)), max(1, round(d * r / 2))
+            for ix in range(int(cx - rw), int(cx + rw + 1)):
+                for iy in range(int(cy - rd), int(cy + rd + 1)):
+                    if ((ix + 0.5 - cx) / (rw + 0.4)) ** 2 + ((iy + 0.5 - cy) / (rd + 0.4)) ** 2 <= 1:
+                        rib = style == "shell" and (ix - x) % 4 == 0
+                        v.put(ix, iy, z + k, mix(roof, trim, 0.45) if rib else roof)
+        if style == "dome":
+            v.cyl(cx, cy, z + height, z + height + 3, 1, trim)
+    elif style in ("basalt", "terrace"):
+        v.box(x, y, z, x + w, y + d, z + 2, roof)
+        # A flat raised parapet with readable corner caps.
+        for bx, by, bw, bd in ((x, y, w, 1), (x, y + d - 1, w, 1), (x, y, 1, d), (x + w - 1, y, 1, d)):
+            v.box(bx, by, z + 2, bx + bw, by + bd, z + 4, trim)
+        if style == "basalt":
+            for i in range(2, w - 1, 5):
+                v.box(x + i, y, z + 4, x + i + 2, y + 2, z + 5, roof)
+    elif style == "crystal":
+        for k in range(max(3, d // 2 + 1)):
+            inset = min(k, d // 2 - 1)
+            v.box(x + inset // 3, y + inset, z + k, x + w - inset // 3, y + d - inset, z + k + 1,
+                  mix(roof, P["glass"], 0.2 if k % 3 else 0.5), GLOSS)
+        v.box(x + w // 2 - 1, y + d // 2 - 1, z + d // 2, x + w // 2 + 1, y + d // 2 + 1, z + d // 2 + 4, P["glass"], GLOSS)
+    else:
+        height = d // 2 + 1 if style == "gable" else max(4, d // 3)
+        for k in range(height):
+            inset = min(d // 2 - 1, round(k * d / (2 * height)))
+            end = 1 if style in ("moon", "stilt") and k < 2 else 0
+            col = mix(roof, P["straw"], 0.12) if style == "stilt" and k % 3 == 0 else roof
+            v.box(x - end, y + inset, z + k, x + w + end, y + d - inset, z + k + 1, col)
+        v.box(x, y + d // 2 - 1, z + height, x + w, y + d // 2 + 1, z + height + 1, trim)
+        if style == "moon":
+            for bx in (x, x + w - 1):
+                v.box(bx, y, z + 1, bx + 1, y + 2, z + 4, trim)
+        if style == "storm":
+            # Heavy roof battens and a projecting storm hood.
+            for bx in range(x + 2, x + w - 1, 5):
+                v.box(bx, y, z + 1, bx + 1, y + d, z + 2, trim)
 
-    def workshop_extra(v):
-        kit.anvil(v, 25, 23)
-        v.box(18, 2, F + 20, 22, 6, F + 30, P["brick_d"])
 
-    def board_extra(v):
-        v.box(26, 23, F, 27, 24, F + 12, P["wood_d"])
-        v.box(31, 23, F, 32, 24, F + 12, P["wood_d"])
-        v.box(25, 23, F + 6, 33, 24, F + 13, P["wood"])
-        for (x, z, c) in ((26, 9, P["paper"]), (28, 10, P["parch"]), (30, 8, P["paper"]), (27, 7, P["cream"])):
-            v.box(x, 24, F + z, x + 2, 25, F + z + 2, c)
+def regional_building(v, rid, kind):
+    style, wall_h, roof_h, trim_h, cloth_h = ARCHITECTURE[rid]
+    wall, roof, trim, cloth = map(hexrgb, (wall_h, roof_h, trim_h, cloth_h))
+    ground = mix(wall, (114, 102, 94), 0.45)
+    timber = mix(trim, P["wood"], 0.28)
+    # Voxel coordinates fit the existing service sprite scale. Padding is
+    # deliberately shared so anchors remain consistent across services.
+    W, D = 22, 17
+    x, y = 3, 3
+    raised = 4 if style == "stilt" else 2
+    z0 = F + raised
+    v.box(2, 2, F, 29, 28, F + 1, ground)
+    if style == "stilt":
+        for px in (4, 12, 24):
+            for py in (4, 18):
+                v.box(px, py, F, px + 2, py + 2, z0, trim)
+    v.box(x, y, z0 - 1, x + W, y + D, z0, timber)
 
-    def nav_extra(v):
-        v.cyl(16, 10, F + 24, F + 30, 3, P["navy"])
-        v.cyl(16, 10, F + 30, F + 33, 2, P["glass"], GLOSS)
-        kit.telescope(v, 14, 9, F + 31)
+    def shell(sx, sy, w, d, h, open_front=False, roof_style=style):
+        v.box(sx, sy, z0, sx + w, sy + d, z0 + h, wall)
+        # The front is open for workshops; a dark interior and a bench are
+        # visible under the eaves instead of another solid house facade.
+        if open_front:
+            v.clear(sx + 2, sy + 2, z0 + 1, sx + w - 2, sy + d + 1, z0 + h - 2)
+            v.box(sx + 2, sy + 2, z0 + 1, sx + w - 2, sy + 3, z0 + h - 2, mul(wall, 0.58))
+        else:
+            for wx in range(sx + 3, sx + w - 2, 6):
+                v.box(wx - 1, sy + d, z0 + 5, wx + 4, sy + d + 1, z0 + 11, trim)
+                v.box(wx, sy + d + 1, z0 + 6, wx + 3, sy + d + 2, z0 + 10, P["lamp"], EMIT)
+                v.box(wx + 1, sy + d + 1, z0 + 6, wx + 2, sy + d + 2, z0 + 10, trim)
+            for wy in range(sy + 3, sy + d - 2, 6):
+                v.box(sx + w, wy, z0 + 6, sx + w + 1, wy + 3, z0 + 10, P["lamp"], EMIT)
+        for px in (sx, sx + w - 1):
+            v.box(px, sy + d, z0, px + 1, sy + d + 1, z0 + h + 1, trim)
+        v.box(sx, sy + d, z0 + h - 1, sx + w, sy + d + 1, z0 + h, trim)
+        architectural_roof(v, sx - 1, sy - 1, w + 2, d + 2, z0 + h, roof_style, roof, trim)
 
-    return {
-        "market": (lambda v: house(v, 20, 16, 14, wall, roof, trim, sign=P["green"], awning=acc, extra=market_extra),
-                   (36, 32, 32)),
-        "tavern": (lambda v: house(v, 24, 18, 18, mix(wall, P["wood"], 0.5), mix(roof, P["red_d"], 0.3), trim,
-                                   sign=P["gold"], extra=tavern_extra), (36, 32, 40)),
-        "workshop": (lambda v: house(v, 22, 18, 15, mix(wall, P["stone"], 0.5), mix(roof, P["iron"], 0.4), trim,
-                                     sign=P["iron"], extra=workshop_extra), (36, 32, 36)),
-        "quest_board": (lambda v: house(v, 18, 16, 14, wall, mix(roof, P["navy"], 0.3), trim, sign=P["parch"],
-                                        extra=board_extra), (36, 32, 32)),
-        "navigation": (lambda v: house(v, 20, 18, 22, mix(wall, P["white"], 0.4), mix(roof, P["navy"], 0.5), trim,
-                                       sign=P["blue"], extra=nav_extra), (36, 32, 40)),
-        "house": (lambda v: house(v, 16, 14, 12, wall, roof, trim), (24, 24, 28)),
-    }
+    def lantern(px, py, pz):
+        v.box(px, py, pz, px + 2, py + 2, pz + 4, trim)
+        v.box(px, py + 1, pz + 1, px + 2, py + 2, pz + 3, P["lamp"], EMIT)
+
+    if kind == "market":
+        # Two open striped produce stalls with a compact storeroom behind.
+        shell(4, 3, 20, 8, 10)
+        for sx in (3, 16):
+            for px in (sx, sx + 10):
+                v.box(px, 17, z0, px + 1, 18, z0 + 12, trim)
+                v.box(px, 25, z0, px + 1, 26, z0 + 12, trim)
+            for i in range(12):
+                v.box(sx + i, 16, z0 + 12, sx + i + 1, 26, z0 + 13,
+                      cloth if (i // 3) % 2 == 0 else P["cream"])
+            v.box(sx, 21, z0 + 2, sx + 11, 26, z0 + 5, timber)
+            for k, color in enumerate((P["red"], P["yellow"], P["green"])):
+                v.box(sx + k * 3 + 1, 22, z0 + 5, sx + k * 3 + 3, 25, z0 + 6, color)
+        kit.crate(v, 28, 15, 3, 5)
+    elif kind == "tavern":
+        # An inn with a lower terrace, a long lit upstairs gallery and a
+        # projecting balcony. The beer barrels are part of its silhouette.
+        shell(3, 3, 23, 13, 19)
+        v.box(3, 17, z0, 27, 25, z0 + 1, timber)
+        for px in range(4, 27, 4):
+            v.box(px, 24, z0, px + 1, 25, z0 + 5, trim)
+        v.box(3, 24, z0 + 5, 27, 25, z0 + 6, trim)
+        kit.table(v, 6, 19, 6, 4, h=5, top=timber)
+        kit.barrel(v, 22, 21, h=6, r=2, c=timber)
+        kit.barrel(v, 28, 22, h=7, r=2, c=timber)
+        v.box(4, 16, z0 + 13, 25, 20, z0 + 14, trim)
+        for px in range(5, 25, 3):
+            v.box(px, 19, z0 + 14, px + 1, 20, z0 + 18, trim)
+        v.box(4, 19, z0 + 18, 25, 20, z0 + 19, trim)
+        lantern(27, 15, z0 + 9)
+    elif kind == "workshop":
+        shell(3, 3, 21, 17, 14, open_front=True)
+        # Tall freestanding gantry and its hanging chain; readable even
+        # when the forge roof belongs to a very different regional kit.
+        for px in (26, 31):
+            v.box(px, 6, z0, px + 1, 8, z0 + 24, trim)
+        v.box(24, 6, z0 + 23, 33, 8, z0 + 25, trim)
+        v.box(29, 8, z0 + 11, 30, 9, z0 + 23, P["iron"])
+        v.box(28, 8, z0 + 10, 31, 10, z0 + 12, P["iron"])
+        chimney = mix(ground, P["brick_d"], 0.35)
+        v.box(5, 4, z0 + 12, 10, 9, z0 + 27, chimney)
+        v.box(4, 3, z0 + 26, 11, 10, z0 + 28, trim)
+        kit.anvil(v, 16, 23)
+        kit.table(v, 5, 18, 9, 4, h=5, top=timber)
+        v.box(6, 7, z0 + 2, 9, 9, z0 + 5, P["fire"], EMIT)
+        kit.crate(v, 26, 20, 4, 4)
+    elif kind == "quest_board":
+        # Public loggia: a small rear office and a broad notice cabinet,
+        # surrounded by benches rather than a house with a tiny sign.
+        shell(4, 3, 17, 9, 12)
+        for px in (5, 23):
+            v.box(px, 22, z0, px + 2, 24, z0 + 13, trim)
+        v.box(4, 22, z0 + 5, 26, 24, z0 + 14, trim)
+        v.box(6, 24, z0 + 6, 24, 25, z0 + 13, timber)
+        for px, pz, color in ((7, 8, P["paper"]), (12, 7, P["parch"]), (17, 9, P["cream"]), (21, 7, P["paper"])):
+            v.box(px, 25, z0 + pz, px + 3, 26, z0 + pz + 3, color)
+        architectural_roof(v, 3, 20, 24, 7, z0 + 14, style, roof, trim)
+        kit.bench(v, 6, 16, 12, c=timber)
+        lantern(28, 21, z0 + 7)
+    elif kind == "navigation":
+        # An observatory tower: octagonal-ish plan, projecting top deck,
+        # telescope and flag. Its height communicates the service at x1.
+        cx, cy = 15, 13
+        v.cyl(cx, cy, z0, z0 + 25, 7.5, wall)
+        for pz in (z0 + 2, z0 + 13, z0 + 24):
+            v.cyl(cx, cy, pz, pz + 1, 8, trim)
+        v.box(10, 19, z0 + 17, 13, 21, z0 + 22, P["lamp"], EMIT)
+        v.box(21, 11, z0 + 17, 23, 14, z0 + 22, P["lamp"], EMIT)
+        v.box(7, 5, z0 + 25, 24, 22, z0 + 26, trim)
+        # A half-covered observation platform leaves the telescope visible.
+        architectural_roof(v, 6, 4, 18, 10, z0 + 29, style, roof, trim)
+        kit.telescope(v, 16, 16, z0 + 26)
+        v.box(26, 7, z0, 27, 8, z0 + 38, trim)
+        v.box(27, 7, z0 + 33, 32, 8, z0 + 37, cloth)
+        for k in range(4):
+            v.box(11 + k, 21 + k, F, 19 - k, 22 + k, z0 - k, ground)
+    else:
+        shell(5, 4, 17, 14, 12)
+        v.box(11, 18, z0, 16, 20, z0 + 8, trim)
+        v.box(12, 19, z0, 15, 20, z0 + 7, timber)
+        kit.plant(v, 23, 20, pot=cloth, h=5)
+        v.box(6, 20, F, 11, 22, F + 3, ground)
+
+    # Region-specific structural details remain visible on all six types.
+    if style == "stilt":
+        for px in (3, 25):
+            v.box(px, 2, z0, px + 1, 3, z0 + 15, trim)
+            v.box(px - 1, 2, z0 + 13, px + 3, 3, z0 + 14, P["green_d"])
+    elif style == "crystal":
+        crystal(v, 29, 13, P["glass"], h=12, seed=4)
+    elif style in ("arcade", "dome"):
+        for px in (3, 25):
+            v.cyl(px + 1, 26, z0, z0 + 10, 1.3, wall)
+            v.box(px - 1, 24, z0 + 10, px + 3, 28, z0 + 12, trim)
+    elif style == "storm":
+        for k in range(10):
+            v.box(3 + k, 2, z0 + k, 5 + k, 3, z0 + k + 2, trim)
+        lantern(29, 24, z0 + 8)
+    elif style == "moon":
+        for px in (3, 25):
+            lantern(px, 25, z0 + 8)
+    elif style == "terrace":
+        for py in (3, 13):
+            v.box(28, py, z0, 29, py + 1, z0 + 20, timber)
+        for pz in (z0 + 6, z0 + 13, z0 + 20):
+            v.box(27, 2, pz, 31, 16, pz + 1, timber)
+    elif style == "shell":
+        for k in range(7):
+            v.box(27, 12 + k, z0 + k, 29, 14 + k, z0 + k + 2, P["cream"])
+        coral(v, 29, 23, cloth)
+
+
+def building_table(pal, rid="dawnwater"):
+    # pal remains an argument for the public generator contract. Materials
+    # are authored by region to keep architectural identity reproducible.
+    return {kind: (lambda v, k=kind: regional_building(v, rid, k), (36, 32, 52))
+            for kind in ("market", "tavern", "workshop", "quest_board", "navigation", "house")}
 
 
 # ------------------------------------------------------------ foam/fx ----
@@ -1330,7 +1502,7 @@ def build():
     # port buildings
     pk = Packer(1024)
     for rid, R in regions.items():
-        for name, (fn, size) in building_table(R["palette"]).items():
+        for name, (fn, size) in building_table(R["palette"], rid).items():
             v = Vol(*size)
             fn(v)
             # anchor at the front-centre ground point

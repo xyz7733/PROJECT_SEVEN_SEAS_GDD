@@ -5,19 +5,21 @@
 ## the sprite descriptions used by actors.
 extends Node
 
+var _landmark_meta: Dictionary = {}
+
 const GEN := "res://assets/gen/"
 const HALF_W := 16
 const HALF_H := 8
 const LEVEL_PX := 48
 const FONT_PATH := "res://assets/fonts/fusion-pixel-12px-zh_hans.otf"
 
-const INK := Color("#efe3c2")
-const INK_DIM := Color("#b8a888")
-const INK_DARK := Color("#3a2614")
-const GOLD := Color("#f7d154")
-const GOOD := Color("#8ee07a")
-const BAD := Color("#ff7a66")
-const WARN := Color("#ffc25a")
+const INK := Color("#f0e7d2")
+const INK_DIM := Color("#b7c3c0")
+const INK_DARK := Color("#29383e")
+const GOLD := Color("#dfc58b")
+const GOOD := Color("#a7d694")
+const BAD := Color("#ef967c")
+const WARN := Color("#e7bd7c")
 const CAT_COLORS := {"command": Color("#f7d154"), "living": Color("#f29a6a"), "training": Color("#e8645a"),
 	"medical": Color("#7ad8a0"), "production": Color("#d89a4a"), "navigation": Color("#6ab8f0"),
 	"storage": Color("#b8a07a"), "pet": Color("#d890e0"), "social": Color("#f0b0c8"), "defense": Color("#9aa8c0")}
@@ -236,8 +238,8 @@ func _build_theme() -> Theme:
 	th.set_constant("shadow_offset_x", "ShadowLabel", 1)
 	th.set_constant("shadow_offset_y", "ShadowLabel", 1)
 	th.set_type_variation("TitleLabel", "Label")
-	th.set_color("font_color", "TitleLabel", GOLD)
-	th.set_color("font_shadow_color", "TitleLabel", Color(0.1, 0.05, 0.02, 1))
+	th.set_color("font_color", "TitleLabel", INK)
+	th.set_color("font_shadow_color", "TitleLabel", Color("#102332"))
 	th.set_constant("shadow_offset_x", "TitleLabel", 1)
 	th.set_constant("shadow_offset_y", "TitleLabel", 1)
 	th.set_color("default_color", "RichTextLabel", INK)
@@ -257,12 +259,12 @@ func _build_theme() -> Theme:
 	th.set_stylebox("hover_pressed", "Button", box("btn_pressed", 3))
 	th.set_stylebox("disabled", "Button", box("btn_disabled", 3))
 	th.set_stylebox("focus", "Button", empty)
-	th.set_color("font_color", "Button", Color("#f4e8c8"))
-	th.set_color("font_hover_color", "Button", Color("#fff7dc"))
+	th.set_color("font_color", "Button", INK)
+	th.set_color("font_hover_color", "Button", Color("#fff6df"))
 	th.set_color("font_pressed_color", "Button", GOLD)
 	th.set_color("font_hover_pressed_color", "Button", GOLD)
-	th.set_color("font_focus_color", "Button", Color("#f4e8c8"))
-	th.set_color("font_disabled_color", "Button", Color("#7d7468"))
+	th.set_color("font_focus_color", "Button", INK)
+	th.set_color("font_disabled_color", "Button", Color("#7c8c92"))
 	th.set_color("icon_disabled_color", "Button", Color(1, 1, 1, 0.4))
 	th.set_constant("h_separation", "Button", 3)
 	th.set_type_variation("PrimaryButton", "Button")
@@ -271,8 +273,8 @@ func _build_theme() -> Theme:
 	th.set_stylebox("pressed", "PrimaryButton", box("btnp_pressed", 3))
 	th.set_stylebox("hover_pressed", "PrimaryButton", box("btnp_pressed", 3))
 	th.set_color("font_color", "PrimaryButton", INK_DARK)
-	th.set_color("font_hover_color", "PrimaryButton", Color("#1e1208"))
-	th.set_color("font_pressed_color", "PrimaryButton", Color("#1e1208"))
+	th.set_color("font_hover_color", "PrimaryButton", Color("#1e3039"))
+	th.set_color("font_pressed_color", "PrimaryButton", Color("#1e3039"))
 	th.set_color("font_focus_color", "PrimaryButton", INK_DARK)
 	th.set_type_variation("TabButton", "Button")
 	th.set_stylebox("normal", "TabButton", box("tab_off", 3))
@@ -302,14 +304,14 @@ func _build_theme() -> Theme:
 		th.set_stylebox("pressed", t, box("btn_pressed", 3))
 		th.set_stylebox("disabled", t, box("btn_disabled", 3))
 		th.set_stylebox("focus", t, empty)
-		th.set_color("font_color", t, Color("#f4e8c8"))
-		th.set_color("font_disabled_color", t, Color("#7d7468"))
+		th.set_color("font_color", t, INK)
+		th.set_color("font_disabled_color", t, Color("#7c8c92"))
 	th.set_icon("arrow", "OptionButton", icon("ui_down"))
 	th.set_stylebox("panel", "PopupMenu", box("tooltip", 3))
 	th.set_stylebox("hover", "PopupMenu", box("btn_hover", 2))
 	th.set_color("font_color", "PopupMenu", INK)
 	th.set_color("font_hover_color", "PopupMenu", Color("#fff7dc"))
-	th.set_color("font_disabled_color", "PopupMenu", Color("#7d7468"))
+	th.set_color("font_disabled_color", "PopupMenu", Color("#7c8c92"))
 	th.set_constant("v_separation", "PopupMenu", 3)
 	th.set_stylebox("panel", "TooltipPanel", box("tooltip", 4))
 	th.set_color("font_color", "TooltipLabel", INK)
@@ -690,3 +692,19 @@ func pet_key(p: Dictionary) -> String:
 
 func hair_color(hex: String) -> Color:
 	return Color(hex) if hex != "" else Color("#3a2c2a")
+
+
+## Selected regional skyline masters. These are solid backdrop cutouts;
+## callers reserve their footing outside walking and fighting space.
+## Variants follow the region's ten authored locations, sharing selected
+## masters and native kit pieces while keeping each place's silhouette.
+func world_landmark(region_id: String, variant := 0) -> Dictionary:
+	if _landmark_meta.is_empty():
+		_landmark_meta = U.load_json(GEN + "env/landmarks.json")
+	var entries: Dictionary = _landmark_meta.get("landmarks", {})
+	var d: Dictionary = entries.get("%s:%d" % [region_id, variant], entries.get(region_id, {}))
+	if d.is_empty():
+		return {}
+	return {"tex": region(GEN + "env/landmarks.png", rect_of(d.rect)),
+		"anchor": Vector2(float(d.anchor[0]), float(d.anchor[1])),
+		"footprint": Vector2(float(d.footprint[0]), float(d.footprint[1]))}

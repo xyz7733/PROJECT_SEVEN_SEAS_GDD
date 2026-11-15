@@ -16,7 +16,7 @@ class_name Guide
 extends Control
 
 const STEPS := ["levels", "chart", "route", "sail", "site"]
-const CARD_W := 196.0
+const CARD_W := 180.0
 const GAP := 10.0
 const EDGE := 3.0
 const GOLD := Color("e8c040")

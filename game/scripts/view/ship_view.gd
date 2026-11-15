@@ -114,6 +114,7 @@ var _brains: Dictionary = {}
 var _pets: Dictionary = {}
 var _town: Array = []
 var _buildings: Array = []
+var _ambience_profile_key := ""
 var _occ: Dictionary = {}
 var _reach: Dictionary = {}
 ## Stair, ladder and hatch cells by node: {kind, approach, ...}.
@@ -258,7 +259,8 @@ func _needed_sea_cover() -> Rect2:
 	var vp := get_viewport_rect().size
 	vp = Vector2(maxf(vp.x, 640.0), maxf(vp.y, 360.0))
 	var half := vp * 0.5 / float(ZOOMS[0])
-	return _bounds.grow(CAM_MARGIN).grow_individual(half.x + 160.0, half.y + 160.0, half.x + 160.0, half.y + 160.0)
+	var bounds: Rect2 = _bounds.merge(_port.view_bounds) if _port.has("view_bounds") else _bounds
+	return bounds.grow(CAM_MARGIN).grow_individual(half.x + 160.0, half.y + 160.0, half.x + 160.0, half.y + 160.0)
 
 
 # ================================================================ binding
@@ -284,7 +286,7 @@ func refresh() -> void:
 	if sig != _sig:
 		_sig = sig
 		_build_ship()
-	var wsig := "%s|%s|%s" % [context, rid, String(st.ship.hullId)]
+	var wsig := "%s|%s|%s|%s" % [context, rid, String(st.world.currentLocationId), String(st.ship.hullId)]
 	if wsig != _world_built:
 		_world_built = wsig
 		_build_world()
@@ -478,9 +480,15 @@ func _build_ship() -> void:
 	_statics.clear()
 	_rig_nodes.clear()
 	_deck_nodes.clear()
+	var world_lights: Array = []
 	for l in _lights:
-		l.node.queue_free()
-	_lights.clear()
+		if not is_instance_valid(l.node):
+			continue
+		if bool(l.get("world", false)):
+			world_lights.append(l)
+		else:
+			l.node.queue_free()
+	_lights = world_lights
 	for c in foam_root.get_children():
 		c.queue_free()
 	for c in fx_root.get_children():
@@ -766,6 +774,9 @@ func _build_sea_floor(r: Rect2) -> void:
 
 
 func _build_world() -> void:
+	# Port lights belong to world_sort; keep the light registry in sync when
+	# changing ports or rebuilding the berth for a different hull.
+	_lights = _lights.filter(func(l): return is_instance_valid(l.node) and not bool(l.get("world", false)))
 	for layer in [sea, land_sides, land_low, land_band, land_ground]:
 		layer.clear()
 	for n in _buildings:
@@ -906,6 +917,8 @@ func _setup_ambience() -> void:
 		ambience.gull_target = 2 if context == "title" else 1
 		ambience.whitecap_density = 0.8
 		ambience.fish_every = Vector2(7.0, 16.0)
+	ambience.apply_region(rid, false)
+	_ambience_profile_key = rid + ":outdoors"
 
 
 func _world_sprite(tex: Texture2D, anchor: Vector2, at: Vector2, parent: Node2D = null) -> Sprite2D:
@@ -925,7 +938,7 @@ func _world_light(at: Vector2, scale_f: float, color: Color) -> void:
 	lp.color = color
 	lp.position = at
 	world_sort.add_child(lp)
-	_lights.append({"node": lp, "kind": "lamp", "view": -1})
+	_lights.append({"node": lp, "kind": "lamp", "view": -1, "world": true})
 
 
 ## The port's layout in terrain cells, decided before the land is shaped so
@@ -937,16 +950,25 @@ func _world_light(at: Vector2, scale_f: float, color: Color) -> void:
 func _plan_port() -> Dictionary:
 	var t := _tile_span()
 	var loc_id := String(st.world.currentLocationId) if st.has("world") else rid
-	var style := String(PORT_STYLE.get(loc_id, "town"))
+	var profile := SceneProfiles.location(loc_id)
+	var port_profile: Dictionary = profile.get("port", {})
+	var style := String(port_profile.get("style", PORT_STYLE.get(loc_id, "town")))
 	var rng := RandomNumberGenerator.new()
 	rng.seed = U.hash32("port:" + loc_id)
 	var order: Array = BUILDING_KINDS.duplicate()
-	for i in range(order.size() - 1, 0, -1):
-		var j := rng.randi_range(0, i)
-		var tmp = order[i]
-		order[i] = order[j]
-		order[j] = tmp
+	var authored_order: Array = port_profile.get("order", [])
+	if authored_order.size() == BUILDING_KINDS.size():
+		order = authored_order.duplicate()
+	else:
+		for i in range(order.size() - 1, 0, -1):
+			var j := rng.randi_range(0, i)
+			var tmp = order[i]
+			order[i] = order[j]
+			order[j] = tmp
+	var setbacks: Array = port_profile.get("setbacks", [])
+	var positions: Array = port_profile.get("servicePositions", [])
 	var span: int = t.x1 - t.x0
+	var town_span := float(maxi(span, 30))
 	var step: int = maxi(5, span / BUILDING_KINDS.size())
 	var gx: int = t.x0 + 1 + rng.randi_range(0, 2)
 	var plaza := -9999
@@ -958,15 +980,32 @@ func _plan_port() -> Dictionary:
 		if style == "market" and k == 3 and plaza == -9999:
 			plaza = gx + 1
 			gx += 6
-		var gy := -8 - (rng.randi() % 2 if style != "fort" else 0)
-		if kind == "house":
-			gy += 1
+		var gy := int(setbacks[k]) if k < setbacks.size() else -8 - (rng.randi() % 2 if style != "fort" else 0)
+		if k < positions.size():
+			var authored := _port_point(positions[k], t.x0, town_span)
+			gx = roundi(authored.x)
+			gy = clampi(roundi(authored.y), -30, -8)
+		else:
+			gy = clampi(gy, -12, -8)
+			if kind == "house":
+				gy += 1
 		fronts.append([kind, gx, gy])
 		gx += step + rng.randi_range(-1, 1)
-	# Homes in staggered rows that bend with a slow curve; outposts are
-	# sparse, towns dense.
+	# Authored districts replace the old second row of identical houses.
+	# Each band can bend around a basin, terrace or market court.
 	var homes: Array = []
-	if not Art.building(rid, "house").is_empty():
+	var bands: Array = port_profile.get("homeBands", [])
+	if not Art.building(rid, "house").is_empty() and not bands.is_empty():
+		for band in bands:
+			if not (band is Array) or band.size() < 4:
+				continue
+			var bx := float(t.x0) + float(band[0]) * town_span
+			var ex := float(t.x0) + float(band[1]) * town_span
+			var spacing := maxf(4.0, float(band[3]))
+			while bx <= ex + 0.1:
+				homes.append([roundi(bx), roundi(float(band[2]))])
+				bx += spacing
+	elif not Art.building(rid, "house").is_empty():
 		var phase := rng.randf_range(0.0, TAU)
 		var hx: int = t.x0 - 4 + rng.randi_range(0, 2)
 		var row := 0
@@ -978,8 +1017,149 @@ func _plan_port() -> Dictionary:
 				homes.append([hx, hy])
 			hx += 4 + rng.randi_range(0, 2)
 			row += 1
+	# The skyline follows the live hull span, so advanced ships retain the
+	# same composed berth rather than growing into a fixed starter map.
+	var landmark_anchor := _port_point(port_profile.get("landmarkAnchor", [0.5, -17]), t.x0, town_span)
+	var landmark_at := Art.iso(landmark_anchor.x, landmark_anchor.y)
+	landmark_at += SceneProfiles.point(port_profile.get("landmarkOffset", [0, -24]))
+	var landmark_cell := Art.uniso(landmark_at + Vector2(0, 8))
+	var landmark := Art.world_landmark(rid, int(profile.get("landmarkVariant", 0)))
+	var art_foot: Vector2 = landmark.get("footprint", Vector2(144, 64))
+	var profile_foot := SceneProfiles.point(profile.get("landmarkFootprint", [112, 36]))
+	var foot_size := Vector2(maxf(144.0, maxf(art_foot.x, profile_foot.x)), maxf(64.0, maxf(art_foot.y, profile_foot.y)))
+	var landmark_foot := Rect2(landmark_at - foot_size * 0.5, foot_size)
+	var accepted_homes: Array = []
+	var hb := Art.building(rid, "house")
+	for h in homes:
+		var hp := Art.iso(float(h[0]), float(h[1])) - Vector2(0, 8)
+		var hr := Rect2(hp - hb.anchor, hb.tex.get_size())
+		if landmark_foot.grow(20.0).intersects(hr):
+			continue
+		var clear := true
+		for f in fronts:
+			var bd := Art.building(rid, String(f[0]))
+			var fp := Art.iso(float(f[1]), float(f[2])) - Vector2(0, 8)
+			if hr.grow(5.0).intersects(Rect2(fp - bd.anchor, bd.tex.get_size())):
+				clear = false
+		for other in accepted_homes:
+			var op := Art.iso(float(other[0]), float(other[1])) - Vector2(0, 8)
+			if hr.grow(4.0).intersects(Rect2(op - hb.anchor, hb.tex.get_size())):
+				clear = false
+		if clear:
+			accepted_homes.append(h)
+	homes = accepted_homes
+	var plaza_cell := _port_point(port_profile.get("plazaPosition", [0.55, -11]), t.x0, town_span)
+	if port_profile.has("plazaPosition"):
+		plaza = roundi(plaza_cell.x) - 2
+	# A protected pedestrian graph joins each service to the quay and its
+	# authored neighbours. NPCs use these legs rather than crossing buildings.
+	var walks: Array = []
+	for f in fronts:
+		var door := Vector2(float(f[1]), float(f[2]) + 2.5)
+		var quay := Vector2(clampf(door.x, float(t.x0) - 1.0, float(t.x1) + 1.0), -6.0)
+		walks.append([door, Vector2(door.x, -7.0), quay])
+	for pair in port_profile.get("serviceConnections", []):
+		if not (pair is Array) or pair.size() < 2:
+			continue
+		var ai := int(pair[0])
+		var bi := int(pair[1])
+		if ai < 0 or bi < 0 or ai >= fronts.size() or bi >= fronts.size():
+			continue
+		var a: Array = fronts[ai]
+		var b: Array = fronts[bi]
+		walks.append([Vector2(float(a[1]), float(a[2]) + 2.5), Vector2(float(b[1]), float(b[2]) + 2.5)])
+	var view_bounds := Rect2(landmark_at - landmark.get("anchor", Vector2.ZERO), landmark.get("tex").get_size()) if not landmark.is_empty() else landmark_foot
+	for f in fronts:
+		var bd := Art.building(rid, String(f[0]))
+		var at := Art.iso(float(f[1]), float(f[2])) - Vector2(0, 8)
+		view_bounds = view_bounds.merge(Rect2(at - bd.anchor, bd.tex.get_size()))
 	return {"t": t, "loc": loc_id, "style": style, "qa": int(t.x0) - 3, "qb": int(t.x1) + 3, "fronts": fronts,
-		"homes": homes, "plaza": plaza, "seed": U.hash32("coast:" + loc_id)}
+		"homes": homes, "plaza": plaza, "seed": U.hash32("coast:" + loc_id), "profile": profile,
+		"landmark": landmark_at, "landmark_cell": landmark_cell, "landmark_foot": landmark_foot,
+		"plaza_cell": plaza_cell, "walks": walks, "town_span": town_span,
+		"geometry": String(port_profile.get("geometryFamily", "crescent")), "port_profile": port_profile,
+		"view_bounds": view_bounds.grow(32.0)}
+
+
+## Normalized berth column, absolute terrain row. Art profiles contain no
+## live hull dimensions, so the same district survives a ship upgrade.
+func _port_point(value: Array, start: int, span: float) -> Vector2:
+	return Vector2(float(start) + float(value[0]) * span, float(value[1]))
+
+
+## Find public paths on the finished coast, avoiding the physical bases
+## of buildings and the landmark. Decorative plants/clutter reserve these
+## cells later, so pedestrians never cut through a facade or a grove.
+func _plan_port_pedestrians(plan: Dictionary, cs: Coast) -> void:
+	var solid: Array[Rect2] = [plan.landmark_foot.grow(5.0)]
+	for f in plan.fronts:
+		var at := Art.iso(float(f[1]), float(f[2])) - Vector2(0, 8)
+		solid.append(Rect2(at - Vector2(43, 14), Vector2(86, 38)))
+	for home in plan.homes:
+		var at := Art.iso(float(home[0]), float(home[1])) - Vector2(0, 8)
+		solid.append(Rect2(at - Vector2(39, 12), Vector2(78, 34)))
+	var allowed := {}
+	for i in cs.lvl.size():
+		var c := cs.cell_of(i)
+		if cs.level(c) != Coast.HIGH or c.y < -38 or c.y > -3:
+			continue
+		var point := Art.iso(c.x, c.y) - Vector2(0, 8)
+		var clear := true
+		for base in solid:
+			if base.has_point(point):
+				clear = false
+				break
+		if clear:
+			allowed[c] = true
+	var pedestrian := {}
+	for x in range(int(plan.qa) + 1, int(plan.qb)):
+		var c := Vector2i(x, -4)
+		if allowed.has(c):
+			pedestrian[c] = true
+	var access: Array = []
+	for f in plan.fronts:
+		var door := Vector2i(int(f[1]), int(f[2]) + 3)
+		var best := Vector2i(0, 0)
+		var distance := INF
+		for c in allowed:
+			var dd := Vector2(c).distance_squared_to(Vector2(door))
+			if dd < distance:
+				distance = dd
+				best = c
+		var root := Vector2i(clampi(door.x, int(plan.qa) + 1, int(plan.qb) - 1), -4)
+		var path := _port_cell_path(allowed, root, best)
+		if path.is_empty():
+			access.append(null)
+			continue
+		access.append(best)
+		for c in path:
+			pedestrian[c] = true
+	plan["pedestrian"] = pedestrian
+	plan["service_access"] = access
+
+
+func _port_cell_path(allowed: Dictionary, from: Vector2i, to: Vector2i) -> Array:
+	if not allowed.has(from) or not allowed.has(to):
+		return []
+	var prev := {from: from}
+	var queue := [from]
+	var qi := 0
+	while qi < queue.size() and not prev.has(to):
+		var c: Vector2i = queue[qi]
+		qi += 1
+		for offset in Coast.N4:
+			var n := c + offset
+			if allowed.has(n) and not prev.has(n):
+				prev[n] = c
+				queue.append(n)
+	if not prev.has(to):
+		return []
+	var path := [to]
+	var current := to
+	while current != from:
+		current = prev[current]
+		path.push_front(current)
+	return path
 
 
 ## The port's island: large masses behind the town with lobes and a bay on
@@ -1002,33 +1182,10 @@ func _make_port_coast(plan: Dictionary) -> Coast:
 	cs.use_region(rid)
 	cs.deep_from = 99.0
 	cs.beach_bias = 0.2
-	# Masses behind the town, then a broken far shore: ridges of different
-	# depth with bays between them, a long peninsula off one back corner
-	# and islets offshore.
-	var x := float(qa - 6)
-	while x <= float(qb + 4):
-		cs.add_disk(Vector2(x + rng.randf_range(-1.5, 1.5), rng.randf_range(-16.0, -13.0)), rng.randf_range(10.5, 12.5))
-		x += 7.0
-	var ridge := float(qa) - 2.0 + rng.randf_range(0.0, 6.0)
-	while ridge < float(qb):
-		var depth := rng.randf_range(-33.0, -24.0)
-		var rr := rng.randf_range(5.0, 8.0)
-		cs.add_capsule(Vector2(ridge, -18.0), Vector2(ridge + rng.randf_range(-3.0, 3.0), depth), rr)
-		ridge += rr * 2.0 + rng.randf_range(2.0, 7.0)
-	for k in rng.randi_range(2, 3):
-		cs.cut_disk(Vector2(rng.randf_range(float(qa) + 4.0, float(qb) - 4.0), rng.randf_range(-36.0, -30.0)), rng.randf_range(3.5, 5.5))
-	var pen_left := rng.randf() < 0.5
-	var pen_a := Vector2(float(qa) - 6.0, -22.0) if pen_left else Vector2(float(qb) + 4.0, -22.0)
-	var pen_b := pen_a + (Vector2(-rng.randf_range(8.0, 12.0), -rng.randf_range(6.0, 10.0)) if pen_left else Vector2(rng.randf_range(4.0, 8.0), -rng.randf_range(10.0, 14.0)))
-	cs.add_capsule(pen_a, pen_b, rng.randf_range(2.6, 3.4))
-	cs.add_disk(pen_b, rng.randf_range(3.0, 4.0))
-	cs.add_reef(pen_b + (Vector2(-3.5, -1.0) if pen_left else Vector2(1.0, -3.5)), rng.randf_range(2.4, 3.2))
-	for k in 2:
-		var ix := rng.randf_range(float(qa) + 4.0, float(qb) - 4.0)
-		var iy := rng.randf_range(-45.0, -41.0)
-		cs.add_disk(Vector2(ix, iy), rng.randf_range(1.8, 2.8))
-		if rng.randf() < 0.5:
-			cs.add_reef(Vector2(ix + 2.0, iy + 0.5), 2.5)
+	# The town grows around its authored streets, not one rectangular land
+	# carpet. Narrow land bridges and protected public lanes survive the
+	# inlets; the surrounding coves stay open water.
+	_shape_port_district(cs, plan)
 	# Left: cove, rocky arm, reefs and an islet.
 	var cove := Vector2(float(qa) - 7.0 + rng.randf_range(-1.0, 0.5), rng.randf_range(-3.5, -2.5))
 	var cove_r := rng.randf_range(3.4, 4.0)
@@ -1047,6 +1204,13 @@ func _make_port_coast(plan: Dictionary) -> Coast:
 	var cove2 := Vector2(float(qb) + 10.5 + rng.randf_range(-1.0, 1.5), rng.randf_range(-6.0, -4.0))
 	cs.cut_disk(cove2, rng.randf_range(3.4, 4.2))
 	cs.add_disk(Vector2(float(qb) + 12.0 + rng.randf_range(-1.0, 2.0), rng.randf_range(-15.0, -12.0)), rng.randf_range(3.5, 5.0))
+	if plan.has("landmark_cell"):
+		cs.add_disk(plan.landmark_cell, 5.0)
+		var foundation: Rect2 = plan.landmark_foot
+		for gy in range(cs.rect.position.y, cs.rect.end.y):
+			for gx in range(cs.rect.position.x, cs.rect.end.x):
+				if foundation.grow(8.0).has_point(Art.iso(gx, gy) - Vector2(0, 8)):
+					cs.force_land(Vector2i(gx, gy))
 	# The harbour: the ship's water and the quay along it.
 	for gx in range(qa, qb + 1):
 		for gy in range(-2, 12):
@@ -1067,14 +1231,14 @@ func _make_port_coast(plan: Dictionary) -> Coast:
 		_coast_pad(cs, Vector2(float(f[1]), float(f[2])), 1.9)
 	for h in plan.homes:
 		_coast_pad(cs, Vector2(float(h[0]), float(h[1])), 1.6)
-	for i in fronts.size() - 1:
-		var mid := (float(fronts[i][1]) + float(fronts[i + 1][1])) * 0.5 + 0.5
-		_coast_lane(cs, Vector2(mid, -7.0), Vector2(mid + 1.0, -12.0), 0.9, 0.45, ["path"], nz)
+	for walk in plan.walks:
+		for wi in range(1, walk.size()):
+			_coast_lane(cs, walk[wi - 1], walk[wi], 1.5, 0.85, ["path"], nz)
 	if int(plan.plaza) != -9999:
-		var pc := Vector2(float(plan.plaza) + 2.0, -9.5)
-		_coast_pad(cs, pc, 2.4)
-		for px in range(int(plan.plaza) - 1, int(plan.plaza) + 6):
-			for py in range(-12, -7):
+		var pc: Vector2 = plan.plaza_cell
+		_coast_pad(cs, pc, 2.8)
+		for px in range(floori(pc.x - 3.0), ceili(pc.x + 3.0)):
+			for py in range(floori(pc.y - 3.0), ceili(pc.y + 3.0)):
 				var c := Vector2i(px, py)
 				if Vector2(c).distance_to(pc) <= 2.2 + 0.5 * nz.get_noise_2dv(Vector2(c) * 1.3):
 					cs.force_land(c, cobble[U.hash32("pl:%d:%d" % [px, py]) % 3])
@@ -1109,7 +1273,44 @@ func _make_port_coast(plan: Dictionary) -> Coast:
 	plan.pier = [px, top + 1, tip]
 	plan.boats = boats
 	plan.lighthouse = lh
+	_plan_port_pedestrians(plan, cs)
 	return cs
+
+
+func _shape_port_district(cs: Coast, plan: Dictionary) -> void:
+	var pp: Dictionary = plan.port_profile
+	var start := int(plan.t.x0)
+	var span := float(plan.town_span)
+	var family := String(plan.geometry)
+	cs.add_capsule(Vector2(float(plan.qa) - 2.0, -7.0), Vector2(float(plan.qb) + 2.0, -7.0), 4.5)
+	for f in plan.fronts:
+		var at := Vector2(float(f[1]), float(f[2]))
+		cs.add_disk(at, 4.2 if family == "split_quays" or family == "canal" else 5.2)
+	for walk in plan.walks:
+		for i in range(1, walk.size()):
+			cs.add_capsule(walk[i - 1], walk[i], 2.0)
+	for home in plan.homes:
+		cs.add_disk(Vector2(float(home[0]), float(home[1])), 3.2)
+	for lobe in pp.get("coastScallops", []):
+		if lobe is Array and lobe.size() >= 3:
+			cs.add_disk(_port_point(lobe, start, span), float(lobe[2]))
+	for inlet in pp.get("coastInlets", []):
+		if inlet is Array and inlet.size() >= 3:
+			cs.cut_disk(_port_point(inlet, start, span), float(inlet[2]))
+	var centre := float(start) + span * 0.5
+	match family:
+		"canal", "split_quays":
+			cs.cut_capsule(Vector2(centre, -32), Vector2(centre, -12), 1.8)
+		"basin", "crescent":
+			cs.cut_disk(Vector2(centre, -25), 4.2)
+		"terraced", "sheltered", "breakwater":
+			cs.add_capsule(Vector2(float(start) - 2.0, -29), Vector2(float(start) + span + 2.0, -27), 2.2)
+		"radial", "fan", "market_court", "arcades":
+			cs.add_disk(plan.plaza_cell, 5.0)
+	# Piers and homes must be reachable even where a cove cuts between
+	# districts. These raised foundations follow the walk graph below.
+	for home in plan.homes:
+		_coast_lane(cs, Vector2(float(home[0]), float(home[1]) + 1.8), Vector2(float(home[0]), -6.0), 0.9, 0.45, ["path"], FastNoiseLite.new())
 
 
 ## Raised land in a disk (a building plot, a landmark's footing).
@@ -1145,6 +1346,15 @@ func _build_port(plan: Dictionary) -> void:
 	var style := String(plan.style)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = U.hash32("dress:" + String(plan.loc))
+	if plan.has("landmark"):
+		var profile: Dictionary = plan.get("profile", {})
+		var landmark := Art.world_landmark(rid, int(profile.get("landmarkVariant", 0)))
+		if not landmark.is_empty():
+			var skyline := _world_sprite(landmark.tex, landmark.anchor, plan.landmark)
+			skyline.name = "HarborLandmark"
+			skyline.set_meta("composition", profile.get("compositionId", plan.loc))
+			_world_light(plan.landmark + Vector2(0, -36), 0.65,
+				Color.html(String(SceneProfiles.region(rid).get("warm_light", "#ffcc7a"))))
 	var fronts: Array = []   # [gx, gy, half width in tiles] of each public building
 	for f in plan.fronts:
 		var kind := String(f[0])
@@ -1176,8 +1386,9 @@ func _build_port(plan: Dictionary) -> void:
 			var fb: Array = fronts[i + 1]
 			var ya := float(fa[1]) + 0.6
 			var pa := Art.iso(float(fa[0]) + float(fa[2]), ya) + lift + Vector2(0, -30)
-			var pb := Art.iso(float(fb[0]) - float(fb[2]), ya) + lift + Vector2(0, -30)
-			_string_line(pa, pb, flags, "pennant", rng.randi())
+			var pb := Art.iso(float(fb[0]) - float(fb[2]), float(fb[1]) + 0.6) + lift + Vector2(0, -30)
+			if pa.distance_to(pb) < 220.0:
+				_string_line(pa, pb, flags, "pennant", rng.randi())
 	for i in homes.size() - 1:
 		if rng.randf() < 0.3 and int(homes[i + 1][0]) - int(homes[i][0]) <= 6 and int(homes[i + 1][1]) == int(homes[i][1]):
 			var la := Art.iso(float(homes[i][0]) + 1.2, float(homes[i][1]) + 1.0) + lift + Vector2(0, -18)
@@ -1187,6 +1398,7 @@ func _build_port(plan: Dictionary) -> void:
 	var rprops: Array = Art.env.regionProps.get(rid, [])
 	var entry_gx := _entry_gx()
 	var plaza: int = plan.plaza
+	var pc: Vector2 = plan.plaza_cell
 	match style:
 		"market":
 			if plaza != -9999:
@@ -1196,22 +1408,25 @@ func _build_port(plan: Dictionary) -> void:
 						mark = cand
 						break
 				var mp := Art.prop(mark, rid) if mark != "" else Art.prop("lamp")
-				if not mp.is_empty():
-					_world_sprite(mp.tex, mp.anchor, Art.iso(plaza + 2, -9.5) + lift)
+				if not mp.is_empty() and _port_decor_clear(plan, pc, 1.5):
+					_world_sprite(mp.tex, mp.anchor, Art.iso(pc.x, pc.y) + lift)
 				for k in 3:
 					var sc: Color = flags[k % flags.size()]
-					_stall(Art.iso(plaza + 0.2 + k * 1.7, -10.6 + (k % 2) * 2.6) + lift, sc)
+					var stall := pc + Vector2(-2.4 + k * 2.4, -1.8 + (k % 2) * 3.6)
+					if _port_decor_clear(plan, stall, 1.5):
+						_stall(Art.iso(stall.x, stall.y) + lift, sc)
 				for nm in ["sacks", "crate", "barrel"]:
 					var pr := Art.prop(nm)
-					if not pr.is_empty():
-						_world_sprite(pr.tex, pr.anchor, Art.iso(plaza + rng.randf_range(0.5, 4.0), rng.randf_range(-10.8, -8.2)) + lift)
+					var cargo := pc + Vector2(rng.randf_range(-2, 2), rng.randf_range(-1.8, 1.8))
+					if not pr.is_empty() and _port_decor_clear(plan, cargo):
+						_world_sprite(pr.tex, pr.anchor, Art.iso(cargo.x, cargo.y) + lift)
 		"fort":
 			var span: int = qb - qa - 6
 			for k in 4:
 				var cx: int = qa + 5 + k * maxi(5, span / 4)
 				var cn := Art.prop("cannon")
-				if not cn.is_empty() and absi(cx - entry_gx) > 2:
-					_world_sprite(cn.tex, cn.anchor, Art.iso(cx, -4.6) + lift)
+				if not cn.is_empty() and absi(cx - entry_gx) > 2 and _port_decor_clear(plan, Vector2(cx, -6.0)):
+					_world_sprite(cn.tex, cn.anchor, Art.iso(cx, -6.0) + lift)
 				var fl := Art.prop("flag")
 				if not fl.is_empty() and k % 2 == 0 and coast.level(Vector2i(cx + 2, -10)) == Coast.HIGH:
 					_world_sprite(fl.tex, fl.anchor, Art.iso(cx + 2, -9.6) + lift)
@@ -1221,16 +1436,18 @@ func _build_port(plan: Dictionary) -> void:
 		"outpost":
 			for k in 3:
 				var nx := qa + 2 + k * 3
-				if absi(nx - entry_gx) > 2:
+				if absi(nx - entry_gx) > 2 and _port_decor_clear(plan, Vector2(nx, -5.8)):
 					_net_rack(Art.iso(nx, -5.8) + lift)
 			var cf := Art.prop("campfire")
-			if not cf.is_empty():
+			if not cf.is_empty() and _port_decor_clear(plan, Vector2(qb, -9)):
 				_world_sprite(cf.tex, cf.anchor, Art.iso(qb, -9) + lift)
 				_world_light(Art.iso(qb, -9) + lift + Vector2(0, -6), 0.5, LIGHT_COLORS.candle)
 		_:
 			for k in 2:
 				var sc2: Color = flags[(k + 1) % flags.size()]
-				_stall(Art.iso(qb - 9 + k * 2, -7.2) + lift, sc2)
+				var cell := Vector2(qb - 9 + k * 3, -7.2)
+				if _port_decor_clear(plan, cell, 1.5):
+					_stall(Art.iso(cell.x, cell.y) + lift, sc2)
 	# Boats moored at the cove pier (and in the far cove).
 	for b in plan.boats:
 		_moored_boat(Art.iso(b.x, b.y) + Vector2(rng.randi_range(-2, 2), 0))
@@ -1245,6 +1462,8 @@ func _build_port(plan: Dictionary) -> void:
 		if cx > qb - 1:
 			continue
 		var cy := -6 + (k % 2)
+		if not _port_decor_clear(plan, Vector2(cx, cy)):
+			continue
 		var pr3 := Art.prop(clutter[k])
 		if not pr3.is_empty():
 			_world_sprite(pr3.tex, pr3.anchor, Art.iso(cx, cy) + lift)
@@ -1285,11 +1504,21 @@ func _build_port(plan: Dictionary) -> void:
 	for k in 7:
 		var a := Actor.new()
 		a.setup_puppet(Art.npc_look(TOWNSFOLK[(k + U.hash32(rid)) % TOWNSFOLK.size()]))
-		a.position = Art.iso(rng.randi_range(qa + 2, qb - 2), rng.randf_range(-5.4, -3.6))
+		var spawn := Vector2i(rng.randi_range(qa + 2, qb - 2), -4)
+		a.position = Art.iso(spawn.x, spawn.y)
+		a.set_meta("cell", spawn)
 		a.lift = 8
 		world_sort.add_child(a)
 		_town.append(a)
 		a.set_meta("timer", rng.randf_range(0.5, 4.0))
+		a.arrived.connect(_on_town_arrived.bind(a))
+
+
+func _port_decor_clear(plan: Dictionary, point: Vector2, radius := 1.2) -> bool:
+	for cell in plan.get("pedestrian", {}):
+		if Vector2(cell).distance_to(point) < radius:
+			return false
+	return true
 
 
 ## Adds the lit-window overlay of a building as a child of its sprite, so it
@@ -1350,6 +1579,11 @@ func _port_greenery(plan: Dictionary) -> void:
 		var c := coast.cell_of(i)
 		var l := coast.level(c)
 		if l == Coast.WATER or coast.is_forced(c):
+			continue
+		if not _port_decor_clear(plan, Vector2(c), 1.5):
+			continue
+		var footprint: Rect2 = plan.get("landmark_foot", Rect2())
+		if footprint.has_area() and footprint.grow(28.0).has_point(Art.iso(c.x, c.y) + Vector2(0, -coast.lift(c))):
 			continue
 		var h := Coast.ihash(c.x, c.y, salt) % 1000
 		var low_n := 0
@@ -1467,19 +1701,55 @@ func _entry_gx() -> int:
 	return 2 * (int(deck(0).x0) + (int(e[0]) if e != null else 0))
 
 
-## Townsfolk wander the quay (columns qa+1..qb-1, rows -5.5..-3.5).
+## Townsfolk move between the service frontages and the quay. Their work
+## spots stay on the same protected public ground as the old stroll path.
 func _tick_town(delta: float) -> void:
 	if _port.is_empty():
 		return
 	for a in _town:
 		var tm: float = a.get_meta("timer") - delta
 		if tm <= 0.0 and not a.is_walking():
-			var target := Art.iso(_rng.randf_range(float(_port.qa) + 1.0, float(_port.qb) - 1.0), _rng.randf_range(-5.5, -3.5))
-			a.walk_path([[target, 8.0]], 26.0)
+			var target := Vector2i(_rng.randi_range(int(_port.qa) + 1, int(_port.qb) - 1), -4)
+			a.set_meta("activity", "")
+			if _port.fronts.size() and _rng.randf() < 0.6:
+				var index: int = _rng.randi() % _port.fronts.size()
+				var access: Array = _port.get("service_access", [])
+				if index < access.size() and access[index] != null:
+					var front: Array = _port.fronts[index]
+					target = access[index]
+					a.set_meta("activity", String(front[0]))
+					a.set_meta("work_position", Art.iso(float(front[1]), float(front[2])))
+			var from: Vector2i = a.get_meta("cell", Vector2i(roundi(Art.uniso(a.position).x), roundi(Art.uniso(a.position).y)))
+			var path := _port_cell_path(_port.get("pedestrian", {}), from, target)
+			var points := []
+			for cell in path:
+				points.append([Art.iso(cell.x, cell.y), 8.0])
+			if not points.is_empty():
+				a.set_meta("cell", target)
+				a.walk_path(points, 26.0)
 			tm = _rng.randf_range(3.0, 9.0)
 			if _rng.randf() < 0.25:
 				a.bubble(["dots", "coin", "music", "question"][_rng.randi() % 4], 2.0)
 		a.set_meta("timer", tm)
+
+
+func _on_town_arrived(a: Actor) -> void:
+	if not is_instance_valid(a):
+		return
+	var activity := String(a.get_meta("activity", ""))
+	if activity.is_empty():
+		return
+	a.set_meta("activity", "")
+	a.set_meta("timer", _rng.randf_range(3.5, 7.0))
+	a.face(a.get_meta("work_position", a.position + Vector2(1, -0.5)) - a.position)
+	a.play("work")
+	var bubble := "coin"
+	match activity:
+		"workshop": bubble = "dots"
+		"tavern": bubble = "music"
+		"navigation", "quest_board": bubble = "question"
+		"house": bubble = "love"
+	a.bubble(bubble, 1.7)
 
 
 # =========================================================== crew & pets
@@ -1614,6 +1884,18 @@ func _plan_dressing() -> void:
 ## piece that has a chore (guns, pump, bench, cargo...).
 func _plan_chores() -> void:
 	_dress_chores.clear()
+	# Completed cabin modules have a real free interior work/reading spot.
+	# They receive more visits than loose cargo, without changing crew jobs
+	# or granting any production bonus.
+	for d in _dress_plan:
+		for room in _dress_plan[d].get("rooms", []):
+			var c: Vector2i = room.inside
+			var n := Vector3i(int(d), c.x, c.y)
+			var focus: Vector2i = room.focus
+			if _reach.has(n) and not _portals.has(n):
+				var spot := {"node": n, "pos": ground(int(d), focus.x, focus.y), "name": String(room.activity), "room": true}
+				_dress_chores.append(spot)
+				_dress_chores.append(spot)
 	var items: Dictionary = Art.dressing.get("items", {})
 	for key in _dress:
 		var it: Dictionary = _dress[key]
@@ -2121,6 +2403,7 @@ func _think(id: Variant) -> void:
 	elif chore != null:
 		spot = {"face": Vector2(chore.pos) - ground(dest.x, dest.y, dest.z)}
 		br.chore = chore.name
+		br.chore_room = bool(chore.get("room", false))
 	br.node = dest
 	br.goal = want
 	br.goal_fac = target_fac.uid if target_fac != null else null
@@ -2162,9 +2445,12 @@ func _on_arrived(id: Variant) -> void:
 		"chore":
 			# Off-duty hands lend a hand at the stores, guns and bench.
 			br.state = "chore"
-			a.play("work")
+			var quiet := String(br.get("chore", "")) in ["hammock", "reading_bench", "chart_desk"]
+			a.play("idle" if quiet else "work")
 			br.timer = _rng.randf_range(4.0, 8.0)
-			if _rng.randf() < 0.3:
+			if bool(br.get("chore_room", false)):
+				a.bubble("question" if quiet else "dots", 1.8)
+			elif _rng.randf() < 0.3:
 				a.bubble(["dots", "music", "sweat"][_rng.randi() % 3], 1.8)
 		_:
 			br.state = "idle"
@@ -2258,25 +2544,30 @@ func _walk_pet(a: Actor, goal: Vector3i, near_owner: Actor) -> void:
 # ============================================================ day & night
 func _apply_daylight() -> void:
 	_hour = int(st.envelope.gameClock) % 24 if context != "title" else 19
-	var c := Color.WHITE
+	var region_profile := SceneProfiles.region(rid)
+	var day_color := Color.html(String(region_profile.get("light_day", "#fff7e9")))
+	var night_color := Color.html(String(region_profile.get("light_night", "#8392bd")))
+	var c := day_color
 	var e := 0.15
 	if _hour >= 22 or _hour < 5:
-		c = Color(0.46, 0.5, 0.74)
+		c = night_color
 		e = 1.0
 	elif _hour < 7:
 		c = Color(0.86, 0.78, 0.82)
 		e = 0.6
 	elif _hour >= 20:
-		c = Color(0.62, 0.6, 0.84)
+		c = night_color.lerp(day_color, 0.22)
 		e = 0.85
 	elif _hour >= 18:
 		c = Color(1.0, 0.84, 0.72)
 		e = 0.45
 	var below := view_level > 0
 	if below:
-		# Below decks the lanterns are always lit and the light is warmer.
-		c = c.lerp(Color(0.9, 0.8, 0.72), 0.45)
-		e = maxf(e, 0.75)
+		# The cabin keeps its own warm exposure, including at midnight; the
+		# harbour outside still receives the cooler cutaway backdrop tint.
+		c = Color(0.91, 0.85, 0.76).lerp(day_color, 0.15)
+		e = 0.72 if _hour >= 7 and _hour < 18 else 0.88
+	Audio.set_sheltered(below)
 	canvas_mod.color = c
 	var world_tint := Color(0.72, 0.78, 0.9) if below else Color.WHITE
 	for layer in [sea, land_ground, land_band, land_low, land_sides, world_sort, foam_root, _coast_foam]:
@@ -2295,8 +2586,10 @@ func _apply_daylight() -> void:
 			w.visible = lit_a > 0.0
 			w.modulate = undo
 	ambience.night = _hour >= 20 or _hour < 6
-	ambience.cloud_alpha = 0.0 if below else 0.1
-	ambience.glint_density = 0.0 if below else 1.0
+	var ambience_key := rid + (":sheltered" if below else ":outdoors")
+	if ambience_key != _ambience_profile_key:
+		ambience.apply_region(rid, below)
+		_ambience_profile_key = ambience_key
 	_apply_light_visibility()
 
 
@@ -2446,7 +2739,8 @@ func _level_rect(k: int) -> Rect2:
 
 
 func _clamp_cam() -> void:
-	var r := _bounds.grow(CAM_MARGIN)
+	var bounds: Rect2 = _bounds.merge(_port.view_bounds) if _port.has("view_bounds") else _bounds
+	var r := bounds.grow(CAM_MARGIN)
 	cam.position.x = clampf(cam.position.x, r.position.x, r.end.x)
 	cam.position.y = clampf(cam.position.y, r.position.y, r.end.y)
 

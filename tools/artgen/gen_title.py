@@ -21,13 +21,13 @@ sys.path.insert(0, str(HERE))
 from lib.common import OUT, PREVIEW, record, save_json, save_png, upscale_preview  # noqa: E402
 from lib.pix import Canvas, DEEP, LIGHT, SHADE, SHINE  # noqa: E402
 
-GOLD = "#f2c24a"
-GOLD_D = "#b9812e"
+GOLD = "#d8b567"
+GOLD_D = "#97743e"
 WOOD = "#8e5531"
 WOOD_D = "#5e3620"
 RED = "#c8463c"
-NAVY = "#2b4a78"
-NAVY_L = "#4a78b4"
+NAVY = "#223c53"
+NAVY_L = "#537c94"
 CREAM = "#f6ecd0"
 
 
@@ -63,11 +63,18 @@ def wheel():
         for r10 in range(120, 163, 4):
             r = r10 / 10.0
             c.px(cx + math.cos(a) * r, cy + math.sin(a) * r, GOLD, SHINE if r10 < 135 else 0)
-    # hub
-    c.ellipse(cx, cy, 5.2, 5.2, GOLD_D)
-    c.ellipse(cx, cy, 4.0, 4.0, GOLD)
-    c.ellipse(cx, cy, 1.8, 1.8, RED)
-    c.px(cx - 2, cy - 2, GOLD, SHINE)
+    # Enamel medallion: a cream sail and warm wooden hull over teal sea.
+    # This stays legible at native size, unlike lettering inside the emblem.
+    c.ellipse(cx, cy, 10.0, 10.0, GOLD_D)
+    c.ellipse(cx, cy, 8.8, 8.8, NAVY)
+    c.rect(cx - 6, cy + 3, cx + 6, cy + 5, "#477f89")
+    c.line(cx - 6, cy + 3, cx + 5, cy + 3, "#87b7bc")
+    c.line(cx, cy - 7, cx, cy + 2, GOLD)
+    c.poly([(cx - 1, cy - 6), (cx - 1, cy), (cx - 6, cy)], CREAM)
+    c.poly([(cx + 1, cy - 4), (cx + 5, cy), (cx + 1, cy)], "#e4d3a9")
+    c.poly([(cx - 6, cy + 1), (cx + 6, cy + 1), (cx + 3, cy + 4), (cx - 3, cy + 4)], WOOD)
+    c.line(cx - 5, cy + 1, cx + 5, cy + 1, GOLD)
+    c.px(cx + 2, cy - 7, RED, SHINE)
     return c.render()
 
 

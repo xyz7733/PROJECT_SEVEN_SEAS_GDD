@@ -8,37 +8,55 @@ targets and retreat. Languages: **English** and **Simplified Chinese**.
 The game follows `PROJECT_SEVEN_SEAS_GDD.md` (v1.0) and the art direction in `VISUAL_REWORK_BRIEF.md`.
 Current status and known gaps: `IMPLEMENTATION_STATUS.md`.
 
-Current release: **craft-01-fix1**, following craft-01. It gives the game a sense of occasion:
-- battles open on a wide shot of the whole arena and settle on the fight, framed clear of the HUD
-  and the combat log, on ground that wears away naturally instead of in stair-stepped tiles;
-- bosses step forward in a letterboxed intro with their name, a horn and a roar, and keep a health bar
-  under the title strip for the rest of the fight; the last blow of a fight lands in slow motion;
-- weather: overcast skies, rain, fog, storms with lightning and thunder, and ashfall over the volcanic
-  seas. Each region has its own climate, the sky changes every six hours and spells hold for a while.
-  It shows in port, at sea, on islands and in battle, never underground, and can be turned off in
-  System;
-- original rain and storm loops, near and far thunder and the boss horn
-  (`tools/audiogen/gen_weather.py`);
-- no more hard cuts between stages: the old view is swept away in a dithered diagonal (a short
-  crossfade with Reduce Motion).
+Current release: **2.1.0 · crew-01**, which gives every sailor six personal attributes.
+Download the [Windows release ZIP](build/ProjectSevenSeas-crew-01.zip).
 
-The previous release, life-01, added ambient life in every stage, the wake and bow wave, lit windows
-at night and more feedback for actions (see `IMPLEMENTATION_STATUS.md`).
+- **Six attributes:** Might, Vigor, Agility, Focus, Will and Seamanship. 10 is average, and each
+  point above or below adds a small, fixed amount to attack; max HP and defence; speed and dodge;
+  critical chance and control effects; healing and skill cooldowns; or ship-job efficiency.
+- **Born, not ranked:** base values are rolled once from the sailor's identity, leaning toward
+  their origin's strengths, with one random talent and one weakness. There is no rarity ladder:
+  every spread has strong and weak sides, and the sailor's two personality traits nudge it further.
+- **Training:** a sailor earns a training point every 4 levels (15 by level 60) to put into any
+  attribute. Retraining at a port or with a Class Hall refunds every point for 30 + 6 × level gold.
+- **Interface:** a new Crew → Attributes tab with a hexagon chart, per-attribute rows and +
+  buttons, the base/trait/training breakdown, the net effect on stats and the class's two key
+  attributes. A compact attribute strip with tooltips appears in Details, tavern cards, the
+  post-battle recruit offer and the ship Inspector, and the roster marks unspent points.
+- **Saves:** schema 6. Older saves migrate on load; each existing sailor gets the attributes
+  their stored identity produces, plus the training points their level has already earned.
 
-The follow-up fixes weather showing below decks, clears active lightning when entering shelter,
-corrects 18 enemy skill names in both languages and includes the current audio credits in the
-Windows distribution. The original craft-01 checkpoint is retained.
+See the [Crew 01 release notes](docs/CREW_01.md) for the full tables, migration details and
+validation. Everything else is unchanged from the previous release:
 
-Automated Windows rendering now runs on an RTX 4070 Laptop GPU: at 1280×720 with VSync on a 240 Hz
-display, the sampled weather and battle scenes average about 239–241 FPS. Stage construction still
-blocks for 17–75 ms, with a measured battle-entry frame of 128 ms. The source probe and screenshots
-cover weather, shelter, stage changes and ordinary/boss battles; human motion review, mouse-driven
-play, speaker listening and campaign balance remain pending. See `IMPLEMENTATION_STATUS.md` for
-evidence and limits.
+**2.0.1 · world-art-02**, the follow-up to the ten-sea visual rework. The catalogue retains
+**20 ports, 80 exploration sites, 310 rooms and 190 combat-room contexts**, with six review fixes:
+
+- companion attack skills select enemies by default, explicit self/ally skills retain their targets,
+  and Sic 'Em immediately performs a pet skill at the intended 1.6× damage;
+- exploration Fit includes the party, landing, boat and complete landmark inside the HUD safe area;
+- Inspector panels clear the objective strip and show all four stats in two columns;
+- pause and battle notices use reserved areas, while damage numbers merge and avoid actors and the HUD;
+- defeat reports no longer create an empty animation Tween;
+- title, System and window-close exits share bounded audio cleanup, with deferred playback when the mixer stalls.
+
+The ports now use distinct street and coastal layouts; complete cabin groups combine walls, open
+thresholds, floors, furniture and crew activity across all four hulls. Runtime landmarks use the
+project's native voxel/pixel renderer. Four dungeons in Glass Current and Stormbelt add optional
+local preparation routes: calibrate prisms to remove glare and actual decoys, or relight beacons
+for shelter in subsequent local fights. Existing west-room completion records carry these effects;
+no new save fields are required. Other regions and legendary challenges keep their rules.
+
+Read the [World Art 02 release notes](docs/WORLD_ART_02.md) and
+[validation manifest](docs/WORLD_ART_02_VALIDATION.json) for the final evidence, counts and known
+limits. Checks use isolated player data. Engine-driven fullscreen review does not establish OS-mouse
+play or speaker-listening acceptance; the final corrections were targeted regressions, not a new
+full-campaign manual playthrough. Earlier checkpoints are recorded under Release history below.
 
 ## Play on Windows
 
-The native Windows x86-64 build is in `build/windows/`:
+Extract the [crew-01 ZIP](build/ProjectSevenSeas-crew-01.zip), or use the native Windows
+x86-64 files in `build/windows/`. Keep the EXE, matching PCK and `licenses` folder together:
 
 | File | Purpose |
 |---|---|
@@ -210,7 +228,7 @@ Ready-made scenarios are in `tools/shots/scenarios/`:
 | Path | Contents |
 |---|---|
 | `game/` | The Godot project |
-| `game/scripts/core/` | Rules, transactions, combat simulation, world generation, saves, settings, localization, audio, weather rolls (`Game`, `C`, `I18n`, `Settings` and `Audio` autoloads) |
+| `game/scripts/core/` | Rules, transactions, crew attributes, combat simulation, world generation, saves, settings, localization, audio, weather rolls (`Game`, `C`, `I18n`, `Settings` and `Audio` autoloads) |
 | `game/scripts/view/` | In-world stages: `ShipView` (isometric decks, crew, town quay), `SiteView` (island and dungeon exploration), `BattleView` (live battles), `Ambience` (gulls, sea life, cloud shadows, night lights), `SailFx` (wake and bow wave), `WeatherLayer` (rain, fog, ash, lightning), `Curtain` (the sweep between stages), `Actor`, the `Art` atlas loader, input bindings |
 | `game/scripts/ui/` | Compact HUD, game windows (ship builder, inspector, crew, pets, port, chart, codex, log, system), dialogs |
 | `game/scripts/main.gd`, `boot.gd` | Scene flow: title screen, stage switching, sailing transition, sea events, battle reports, hotkeys |
@@ -246,12 +264,39 @@ in English.
 
 ## Licences and originality
 
-All art, names and text are original to this project. The tile, sprite, facility, ship, creature, icon
-and effect atlases are produced by the scripts in `tools/artgen/`; no downloaded, traced or AI-generated
-images are used. Third-party assets:
+Runtime artwork is drawn by the project's voxel and pixel generators in `tools/artgen/`, including
+the regional landmark families and their location compositions. The earlier AI-assisted masters
+remain under `art/source/landmarks/` as concept/source references; they are not included in the
+distributed PCK, and the current runtime atlases do not use their pixels. See
+[World Art 02](docs/WORLD_ART_02.md) and [Asset Inventory](docs/ASSET_INVENTORY.md). Existing asset IDs,
+contact points and animation contracts remain the basis for integration. Third-party assets:
+
 - **Font:** Fusion Pixel (SIL Open Font License 1.1).
 - **Audio:** all CC0 1.0, from Kenney, OpenGameArt (Thimras, beardalaxy, Eldritch Grim) and
-  BigSoundBank. The victory and defeat stingers are original, generated by `tools/audiogen/`.
+  BigSoundBank. The stingers, weather sounds and eleven regional/cabin layers are original, generated
+  by `tools/audiogen/`; original synthesized audio is also released under CC0 1.0.
 
 Each audio file's source and licence is listed in `docs/AUDIO_LICENSES.md`, a copy of which ships in
 `build/windows/licenses/`. Godot Engine is MIT-licensed.
+
+## Release history
+
+**world-art-02 (previous, 2.0.1).** Six review fixes (companion skills, exploration Fit, Inspector,
+battle notices, defeat settlement, audio exit), native landmark artwork, revised port and site layouts,
+furnished cabin groups and two-region preparation routes. Evidence: [release notes](docs/WORLD_ART_02.md),
+[validation manifest](docs/WORLD_ART_02_VALIDATION.json); its checkpoint is kept in
+`build/windows-checkpoints/world-art-02/`.
+
+**world-art-01 (historical).** The first complete ten-sea visual rework introduced regional
+architecture, authored compositions, 100 landmark vignettes assembled from ten AI-assisted masters
+and native scenery, refined ships, interiors, characters and creatures, a navy/brass interface,
+and eleven original regional/cabin sound layers. Its Windows export contained 382 matching
+packed-file digests. The [fullscreen review](docs/FULLSCREEN_REVIEW_20261114.md) completed the ten-trial
+main campaign through normal rules and inspected the presentation catalogue, finding the six issue
+groups addressed by world-art-02. Those campaign results belong to world-art-01. See
+[World Art 01](docs/WORLD_ART_01.md) and its [coverage manifest](docs/WORLD_ART_COVERAGE.json).
+
+**craft-01-fix1 (historical).** Regional weather, battle staging and shelter fixes passed 2,263 core
+checks and 748 layout checks, with RTX 4070 rendering measurements. These counts and measurements
+remain evidence for that revision. The original records are retained in
+[Implementation Status](IMPLEMENTATION_STATUS.md).

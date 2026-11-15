@@ -1,49 +1,36 @@
 {
-  "revision": "craft-01-fix1",
-  "status": "ready_for_manual_playtest",
-  "directory": "build/windows-checkpoints/craft-01-fix1",
-  "exe_sha256": "1edeef2171ef1dc274f2175bf90de4da4658731983edb3a855415a4d9dabfb4b",
-  "pck_sha256": "2bacd8f85c3381caecbc13a562e518df029a921a1ec312f8bf9caf4e73b11436",
+  "revision": "crew-01",
+  "version": "2.1.0",
+  "status": "exported_regression_checked",
+  "directory": "build/windows-checkpoints/crew-01",
+  "zip": "build/ProjectSevenSeas-crew-01.zip",
+  "exe_sha256": "ebec61e0ad6be46f4a2a554d25338de9a271b69abd0283e8b79759c1b690b0c4",
+  "pck_sha256": "f650900856fac71fe3d9b2407fc0a8dfc628f920d55bac527d828a23e3d21c39",
   "engine": "Godot 4.7.2 stable Windows x86-64 editor and release template",
   "verified_here": [
-    "Godot 4.7.2 Windows resource import and script registration",
-    "2,263 core checks passed, including 11 real-scene shelter regressions and imported skill-name translations for all 75 skills in both languages",
-    "748 real-font UI layout checks passed in English/Simplified Chinese at UI 1.0/1.25/1.5",
-    "Source suites and headless exported startup have no script errors or object/RID leak warnings",
-    "Windows release export; 353 packed resources verified against their MD5 directory hashes, tests and translation sources excluded",
-    "Automated source rendering on RTX 4070 Laptop GPU, NVIDIA OpenGL 3.3 / driver 617.42: 16 assertions, 21 frame-interval samples, 8 stage-bind measurements and 16 screenshots; Dummy audio throughout",
-    "Final translated Old Lookout battle rendered and reviewed separately: English UI 1.0 and Simplified Chinese UI 1.5; localized enemy skills visible, logs clean",
-    "Original craft-01 and final fix1 executables both rendered for 180 frames on NVIDIA hardware with isolated fresh profiles; final known-language title starts without script errors but abrupt CLI exit has the audio warning below",
-    "Current audio credits synchronized to the Windows distribution; original craft-01 checkpoint preserved"
+    "Windows import, core source suite 7,226 checks and UI layout suite 940 checks; no script/engine errors",
+    "Release export with version 2.1.0.0 and release-template smoke test passed (tools/validation/validate_windows.py --skip-import --export)",
+    "New test_attrs.gd: deterministic rolls, neutral-10 equivalence, effects, training points, train/retrain actions, level-up notes and recruits",
+    "Save migration 5 -> 6 from a hand-written schema-5 record with a valid state hash; round trip keeps attributes",
+    "Crew Attributes tab fits at UI 1.0/1.25/1.5 in English and Simplified Chinese (layout suite); fails without the narrow layout",
+    "Offscreen Linux screenshots: Attributes tab, Details strip, tavern, battle-report recruit offer and Inspector in EN (UI 1.0) and zh_CN (UI 1.5)",
+    "All 35 pushed source files verified by SHA-256 after transfer and after the Windows import; originals in build/pre-crew-01-source-backup.tar"
   ],
-  "not_verified_here": "Human motion assessment and mouse-driven play (desktop native control pipe unavailable); click-to-skip, finishing-blow timing, fullscreen interaction, larger battles, speaker listening/mixing and full campaign/economy balance. All new runs were silent at user request.",
-  "changes": [
-    "Weather and active lightning now stop immediately when selecting an interior ship deck; returning to the weather deck restores the sky and weather bed",
-    "Corrected 18 enemy-skill name keys in English and Simplified Chinese; content validation checks imported translations directly",
-    "Synchronized Windows audio credits and added a silent, isolated Windows GPU rendering/timing runner",
-    "Battle camera: land battles open on a wide shot of the whole arena and glide to the fight, framed to keep every fighter clear of the title strip, boss bar, action strip and combat log",
-    "Natural ground: borders between worn ground, trails and grass follow a ragged line instead of tile stair steps on islands, in dungeons and in land battle arenas",
-    "Combat log: at most four single lines that fade with age and never run over the front rank",
-    "Bosses and rival captains get an intro: black bars, a camera glide, a war horn over drum hits, the boss rears up with a flash and a name card; click to skip. A boss bar with a trailing damage chip stays under the title strip, and a red ring pulses under each boss",
-    "Finishing blow: the knockout that ends a fight plays in slow motion with a white flash while the camera leans in",
-    "Weather by region: clear, overcast, rain, fog, storm with lightning and distance-delayed thunder, and ashfall, drawn over port, sea, islands and battles but never underground; deterministic from the seed, region and watch, with spells that last; the first morning is always clear. Gulls, butterflies and fireflies react to it, the HUD clock shows the sky, and 'Weather effects' in the System window turns it off. Presentation only: no rule, odds, cost or save change",
-    "Stage changes (title, ship, island, battle) sweep the old frame away in a dithered pixel band in 0.5 s instead of cutting; a 0.25 s crossfade with Reduce motion",
-    "Original synthesized rain and storm loops, near and far thunder and a boss horn (CC0); five sky icons for the HUD",
-    "Screenshot harness gains battles, weather and transitions scenarios and stops all sound before quitting; source revision and latest Windows handoff updated to craft-01"
-  ],
-  "windows_checks": [
-    "On display TL160ADMP11-0, start the game and confirm the title shows revision craft-01-fix1. Check English and Simplified Chinese at UI 1.0/1.25/1.5; preserve normal mouse use on the other display.",
-    "Start a new game: the first morning should be clear with a sun icon on the HUD clock. Advance time and sail through several regions (the Stormbelt for storms, the Moonwake for fog, the Emberreach for ash). Rain, fog drift, lightning and ash should read well in motion, never hide crew or UI, and stop below decks. Thunder should follow a flash after a short delay.",
-    "Turn 'Weather effects' off and on in the System window, and turn on Reduce motion: rain and fog stay, flashes go.",
-    "Move between the title, the ship, an island and a battle: each change should sweep smoothly with no flicker, colour shift or stall; with Reduce motion it should be a short crossfade.",
-    "Fight land battles including a boss (Old Lookout) and a rival captain: the opening glide, the boss intro with horn and name card (also try clicking it away), the boss bar draining, and the slow-motion finishing blow. Check at each battle speed and with Reduce motion.",
-    "Listen to the rain and storm beds, the thunder and the boss horn on speakers next to the music and ambience; report anything too loud, too quiet or tiring.",
-    "Watch the frame rate in port, at sea in a storm and in a large battle: the weather layer and the stage sweep were only ever drawn by a software renderer. Assess longer-term balance; it was not covered by this pass."
-  ],
-  "handoff_doc": "build/windows-checkpoints/craft-01-fix1/HANDOFF.md",
-  "gpu_evidence": "build/validation/gpu-craft/20261114-193924-597377/metrics.json",
   "known_issues": [
-    "At 1280x720 / VSync / 240 Hz, sampled steady scenes average 239-241 FPS. Synchronous stage construction costs 17-75 ms; first land-battle transition includes a 128 ms frame (boss entry 102 ms). These wall-frame timings are not GPU execution timers.",
-    "Exiting the final exported title with active music/ambience under the Dummy audio backend returns code 0 but reports 8 audio playback/sequence instances and 4 audio resources at exit, with no running-script errors. Observed using --quit-after 180; UI Quit also calls SceneTree.quit directly, so this is not established as CLI-only. Normal sound-device shutdown remains untested. Fresh-profile GPU startup, source GPU probe, final localization probes and headless suites exit cleanly. See build/validation/craft-takeover/fixed-release-title/render.log."
-  ]
+    "No manual campaign playthrough for this release; balance checked by simulation and the existing combat/balance tests",
+    "Migrated saves: existing sailors' HP, attack and other stats shift slightly with their new attributes",
+    "Enemies have no attributes; the system applies to the player's crew only",
+    "world-art-02 limits still apply (audio device behaviour, no OS-mouse playthrough, no low-end hardware testing)"
+  ],
+  "review_document": "docs/CREW_01.md",
+  "previous_handoff": {
+    "revision": "world-art-02",
+    "version": "2.0.1",
+    "directory": "build/windows-checkpoints/world-art-02",
+    "exe_sha256": "7ac1e4ab2df708dbbae71ffb8748617d179db7a854ce7e21b8c1990a2d273e45",
+    "pck_sha256": "2abc1794bccf07235571e861578f16875aadc401bc53725df2de75341010597c",
+    "review_document": "docs/WORLD_ART_02.md",
+    "review_evidence": "docs/WORLD_ART_02_VALIDATION.json"
+  },
+  "handoff_doc": "build/windows-checkpoints/crew-01/HANDOFF.md"
 }

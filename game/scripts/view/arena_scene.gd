@@ -48,6 +48,10 @@ var lights: Array = []
 var underground := false
 ## CanvasModulate colour before the time of day.
 var tint := Color.WHITE
+## Authored location/room dressing, independent of combat simulation.
+var profile: Dictionary = {}
+var landmark_at := Vector2(80, -128)
+var landmark_foot := Rect2()
 var _rng := RandomNumberGenerator.new()
 var _used := {}
 var _tall: Array = []
@@ -57,9 +61,17 @@ var _small: Array = []
 ## kind: the location type; key: a stable id of the room (the same room
 ## always gets the same arena); people: the foes are people rather than
 ## beasts; tier: "battle", "elite", "boss" or "trial".
-func build(kind_: String, rid_: String, key: String, people: bool, tier: String) -> void:
+func build(kind_: String, rid_: String, key: String, people: bool, tier: String, profile_: Dictionary = {}) -> void:
 	kind = kind_ if KINDS.has(kind_) else "island"
 	rid = rid_
+	profile = profile_
+	landmark_at = SceneProfiles.point(profile.get("landmarkOffset", [80, -128]))
+	var landmark := Art.world_landmark(rid, int(profile.get("landmarkVariant", 0)))
+	var art_foot: Vector2 = landmark.get("footprint", Vector2(144, 64))
+	var profile_foot := SceneProfiles.point(profile.get("landmarkFootprint", [108, 36]))
+	var foot_size := Vector2(maxf(144.0, maxf(art_foot.x, profile_foot.x)), maxf(64.0, maxf(art_foot.y, profile_foot.y)))
+	landmark_at.y = minf(landmark_at.y, FIGHT.position.y - foot_size.y * 0.5 - 20.0)
+	landmark_foot = Rect2(landmark_at - foot_size * 0.5, foot_size)
 	underground = kind == "dungeon"
 	_rng.seed = U.hash32("arena:" + key)
 	var cfg: Dictionary = KINDS[kind]
@@ -70,13 +82,25 @@ func build(kind_: String, rid_: String, key: String, people: bool, tier: String)
 	for k in cfg.style:
 		coast.style[k] = cfg.style[k]
 	_shape_land()
+	if not profile.is_empty():
+		for y in range(coast.rect.position.y, coast.rect.end.y):
+			for x in range(coast.rect.position.x, coast.rect.end.x):
+				if landmark_foot.grow(8.0).has_point(Art.iso(x, y) - Vector2(0, 8)):
+					coast.force_land(Vector2i(x, y))
 	_force_fight(cfg.worn)
 	coast.generate()
+	# Reserve the landmark footing before scattering any ordinary props.
+	# Everything remains behind the combat strip, including wave entries.
+	if not profile.is_empty():
+		for i in coast.lvl.size():
+			var c := coast.cell_of(i)
+			if landmark_foot.grow(8.0).has_point(Art.iso(c.x, c.y) - Vector2(0, 8)):
+				_used[c] = true
 	_pools()
 	var ceremony := tier == "boss" or tier == "trial"
 	match kind:
 		"dungeon":
-			tint = Color(0.5, 0.48, 0.62)
+			tint = Color(0.68, 0.65, 0.77)
 			_hall(ceremony)
 		"wreck":
 			_beached_wreck()
@@ -99,10 +123,24 @@ func build(kind_: String, rid_: String, key: String, people: bool, tier: String)
 			_place("standard", Vector2(196, -80), true)
 	else:
 		_hall_foes(people)
+	_profile_set_pieces()
 	_scatter_back()
 	_scatter_front()
 	_shore()
 	_sea_rocks()
+	if not underground:
+		tint *= Color.html(String(SceneProfiles.region(rid).get("light_day", "#fff7e9")))
+
+
+func _profile_set_pieces() -> void:
+	for piece in profile.get("setPieces", []):
+		if not (piece is Array) or piece.size() < 4:
+			continue
+		var nm := String(piece[0])
+		var at := Vector2(float(piece[1]), float(piece[2]))
+		# put() verifies dry ground, occupancy and the complete fight band.
+		if put(nm, at, bool(piece[3])) and nm == "brazier":
+			light(at + Vector2(0, -18), Color.html(String(SceneProfiles.region(rid).get("warm_light", "#ffcc7a"))), 0.75)
 
 
 # ------------------------------------------------------------- the land
@@ -112,6 +150,8 @@ static func g(p: Vector2) -> Vector2:
 
 func _shape_land() -> void:
 	var c := coast
+	if not profile.is_empty():
+		c.add_disk(g(landmark_at), 4.8)
 	if underground:
 		# A rock platform: the fighting floor and a hall behind it.
 		c.add_capsule(g(Vector2(-330, 2)), g(Vector2(400, 2)), 6.0)

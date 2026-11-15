@@ -46,6 +46,16 @@ class Ctx:
         st = dict(STYLE[self.cat])
         st.update(kw)
         kit.back_walls(v, self.W, self.H, st["wall"], st["wains"], st["trim"], sides=sides)
+        # A room has a low, open threshold and a small colour-coded wall
+        # plaque. Its purpose reads at ship scale without a floating label.
+        for x in range(1, self.W - 1):
+            if abs(x - self.W // 2) > 1:
+                v.put(x, self.H - 1, F, st["trim"], NOSHADOW)
+        for y in range(1, self.H - 1):
+            v.put(self.W - 1, y, F, st["trim"], NOSHADOW)
+        if "y" in sides and self.W >= 8:
+            v.box(self.W - 5, 0, F + 7, self.W - 1, 1, F + 10, st["wains"])
+            v.box(self.W - 4, 1, F + 8, self.W - 2, 2, F + 9, st["trim"], GLOSS)
 
     def light(self, x, y, z, kind="lamp"):
         self.lights.append([x, y, z, kind])

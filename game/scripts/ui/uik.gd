@@ -358,3 +358,21 @@ static func line_edit(text: String, placeholder: String, on_submit: Callable, ma
 	e.text_submitted.connect(func(v): on_submit.call(v))
 	e.focus_exited.connect(func(): if e.text != text: on_submit.call(e.text))
 	return e
+
+
+## Compact row of a sailor's six attributes (icon + value) for cards. Each
+## value is coloured by its band and has the full breakdown as a tooltip.
+static func attr_strip(m: Dictionary, sep := 5) -> HFlowContainer:
+	var f := flow(sep)
+	var tot := Attrs.totals(m)
+	var tips := []
+	for a in Attrs.IDS:
+		var v := int(tot[a])
+		var h := hbox([icon(Attrs.ICONS[a]), label(str(v), Fmt.attr_variation(v))], 1)
+		h.tooltip_text = Fmt.attr_tip(m, a)
+		h.mouse_filter = Control.MOUSE_FILTER_PASS
+		f.add_child(h)
+		tips.append(Fmt.attr_name(a) + " " + str(v))
+	f.tooltip_text = " · ".join(tips)
+	f.mouse_filter = Control.MOUSE_FILTER_PASS
+	return f

@@ -328,6 +328,7 @@ func _build_recruit() -> void:
 		UIK.label(I18n.t("class.%s.name" % m.classId) + " · " + I18n.t("ui.lv", {"n": m.level}), ""),
 		UIK.label(I18n.t("crew.origin") + ": " + I18n.t("origin." + String(m.originId)), "DimLabel", true, int(WIDTH) - 64),
 		UIK.label(I18n.t("crew.traits") + ": " + ", ".join(m.traits.map(func(x): return I18n.t("trait." + x))), "DimLabel", true, int(WIDTH) - 64),
+		UIK.attr_strip(m, 4),
 	], 0)
 	var card := UIK.hbox([UIK.portrait("crew", look, Vector2(28, 36)), info], 5)
 	_body.add_child(UIK.panel(card, "FlatPanel"))
@@ -431,13 +432,14 @@ func show_committed(final: Dictionary) -> void:
 	_foot.add_child(done)
 	_foot.add_child(UIK.button(I18n.t("battle.continue"), _close, "", "PrimaryButton"))
 	_layout()
-	var tw := create_tween()
-	for i in _stamps.size():
-		var st: TextureRect = _stamps[i]
-		st.pivot_offset = Vector2(8, 8)
-		st.scale = Vector2(1.8, 1.8)
-		tw.tween_property(st, "modulate:a", 1.0, 0.05)
-		tw.parallel().tween_property(st, "scale", Vector2.ONE, 0.09)
+	if not _stamps.is_empty():
+		var tw := create_tween()
+		for i in _stamps.size():
+			var st: TextureRect = _stamps[i]
+			st.pivot_offset = Vector2(8, 8)
+			st.scale = Vector2(1.8, 1.8)
+			tw.tween_property(st, "modulate:a", 1.0, 0.05)
+			tw.parallel().tween_property(st, "scale", Vector2.ONE, 0.09)
 	if outcome == "victory":
 		_flash.color.a = 0.0
 		var tf := create_tween()

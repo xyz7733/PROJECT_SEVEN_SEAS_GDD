@@ -530,6 +530,7 @@ static func member_stats(state: Dictionary, m: Dictionary) -> Dictionary:
 	for a in m.aptitudes:
 		U.add_mods(mods, C.data.APTITUDES.get(a))
 	U.add_mods(mods, Collections.mod_map(state))
+	U.add_mods(mods, Attrs.mods_of(m))
 	var props := []
 	var resist := []
 	var hp := float(cls.base.hp) * float(cls.mult.hp) * (1.0 + float(g.hp) * (L - 1.0)) + float(m.variance.hp)
@@ -575,7 +576,7 @@ static func member_stats(state: Dictionary, m: Dictionary) -> Dictionary:
 		hp *= k; atk *= k; def *= k; spd *= k
 	var slot := slot_of(state, m.id)
 	return {"hp": U.jround(hp), "atk": U.jround(atk), "def": U.jround(def), "spd": U.round1(spd),
-		"crit": 0.05 + U.num(mods, "crit"), "dodge": U.num(mods, "dodge"), "range": weapon_range(m.classId, weapon_item),
+		"crit": maxf(0.0, 0.05 + U.num(mods, "crit")), "dodge": maxf(0.0, U.num(mods, "dodge")), "range": weapon_range(m.classId, weapon_item),
 		"lane": lane_of_slot(slot) if slot >= 0 else cls.lane, "props": props, "mods": mods, "resist": resist,
 		"skills": cls.skills.duplicate(), "passives": active_passives(m), "roles": cls.roles}
 

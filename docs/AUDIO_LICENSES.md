@@ -3,7 +3,7 @@
 Every sound in Project Seven Seas falls into one of two groups:
 
 - **Third-party, CC0 1.0 (public domain dedication).** It is listed below with its source page, creator, original filename and the licence wording shown on the page.
-- **Original to this project.** It was synthesised by `tools/audiogen/gen_stingers.py` (the stingers) or `tools/audiogen/gen_weather.py` (the rain and storm beds, thunder and the boss horn) and is released under CC0 1.0 with the project.
+- **Original to this project.** It was synthesised by `tools/audiogen/gen_stingers.py` (the stingers), `tools/audiogen/gen_weather.py` (the rain and storm beds, thunder and the boss horn), or `tools/audiogen/gen_regional.py` (ten regional layers and one cabin layer) and is released under CC0 1.0 with the project.
 
 Selection rules:
 
@@ -36,7 +36,7 @@ All three are authored loops and play with the stream's own loop flag.
 
 ## Ambience (`game/assets/audio/ambience/`)
 
-All of these are from BigSoundBank. Each page states the licence as "CC0 (public domain)". The files were downloaded from `https://bigsoundbank.com/UPLOAD/ogg/<number>.ogg`.
+The following five field recordings are from BigSoundBank. Each page states the licence as "CC0 (public domain)". The files were downloaded from `https://bigsoundbank.com/UPLOAD/ogg/<number>.ogg`. The original weather and regional layers are documented separately below.
 
 | Game file | Title / recordist | Source page | Licence |
 |---|---|---|---|
@@ -67,6 +67,54 @@ These are field recordings, not authored loops. The game loops them by crossfadi
 | `storm_loop.wav` | 10 s of storm: heavier rain in gusts, wind moaning through rigging (three narrow resonances that swell apart) and a low rumble. Same generator. |
 
 Both are exact loops: the noise is periodic over the file, the droplets wrap round the end and every swell completes a whole number of cycles. They play on top of the stage's own bed (sea, port or island) while it rains, crossfaded over 2.5 s when the weather changes, and not underground.
+
+### Original regional and cabin layers (world-art-01, CC0 1.0)
+
+Creator: **Project Seven Seas**. Source: `tools/audiogen/gen_regional.py`, retained in this repository.
+The files are synthesized from fixed-seed shaped noise, whole-cycle swells and wrapped, softly
+attacked resonant events. No recordings, downloaded sounds, third-party samples or AI-generated
+audio are used in these eleven files. The game filename is the original generated filename.
+
+All eleven files are under `game/assets/audio/ambience/regional/`. Each is a **24-second, mono,
+16-bit PCM WAV at 22,050 Hz**, released under **CC0 1.0** by Project Seven Seas. No attribution is
+required. Voluntary attribution: "Regional and cabin ambience — Project Seven Seas, CC0 1.0."
+The CC0 legal code already bundled in `game/assets/audio/licenses/` applies to these original audio
+files as well. There is no external download URL because the source is the local synthesis script.
+
+| Original / game file | Synthesized soundscape | Source | Licence |
+|---|---|---|---|
+| `dawnwater.wav` | Sheltered fishing harbour, gentle surf, rope and wooden dock | `gen_regional.py`, Dawnwater profile | CC0 1.0 |
+| `emberreach.wav` | Distant forge draft, cooling metal and low thermal air | `gen_regional.py`, Emberreach profile | CC0 1.0 |
+| `verdant_maw.wav` | Leaf canopy, soft water drops and distant insect-like calls | `gen_regional.py`, Verdant Maw profile | CC0 1.0 |
+| `glass_current.wav` | Gentle air, suspended glass and crystal resonance | `gen_regional.py`, Glass Current profile | CC0 1.0 |
+| `crown_shoals.wav` | Canvas awnings, distant workshop and harbour bell | `gen_regional.py`, Crown Shoals profile | CC0 1.0 |
+| `stormbelt.wav` | Wind over stone shelter, loose rigging and distant spray | `gen_regional.py`, Stormbelt profile | CC0 1.0 |
+| `moonwake.wav` | Quiet night air, moth-wing rustle and observatory chimes | `gen_regional.py`, Moonwake profile | CC0 1.0 |
+| `ashen_trench.wav` | Low vent draft, settling stone and copper equipment | `gen_regional.py`, Ashen Trench profile | CC0 1.0 |
+| `leviathan_ring.wav` | Warm lagoon wash, coral bubbles and shell resonance | `gen_regional.py`, Leviathan Ring profile | CC0 1.0 |
+| `grand_horizon.wav` | High harbour breeze, ceremonial brass and distant flags | `gen_regional.py`, Grand Horizon profile | CC0 1.0 |
+| `cabin.wav` | Sheltered timber creaks, cloth and restrained work taps | `gen_regional.py`, Cabin profile | CC0 1.0 |
+
+`Audio.scene()` selects a quiet regional layer through the existing Ambience bus. It is attenuated
+in battle and suppressed in dungeon/secret interiors. Ship deck selection changes it to the cabin
+layer below decks and muffles the exterior field-recording bed. It returns to the region outside.
+The layers complement the existing music, stage ambience and weather, rather than replace them.
+
+`regional/manifest.json` records each seed, duration, sample rate, channel count, peak/RMS level and
+boundary-step measurement. Those are numerical checks of generated files. Human listening,
+speaker mixing, loop-seam assessment and shelter transitions remain pending for world-art-01;
+the metadata does not establish an audible pass. Native resource import and Windows release export
+completed; the package audit includes all eleven new loops. Runtime listening remains unverified.
+
+### Artwork provenance is separate
+
+The CC0 declarations in this document concern audio. Most game art is original code-authored voxel
+or pixel artwork generated by `tools/artgen/`. World-art-01 also introduces ten AI-assisted regional
+landmark masters created with OpenAI ImageGen under `art/source/landmarks/`, prepared for a game
+atlas by `tools/artgen/gen_landmarks.py`. Their exact tool model is not asserted. Retained prompts,
+source/preparation metadata and the final atlas inventory identify that contribution separately;
+these images are not covered by the audio's CC0 dedication. See `docs/WORLD_ART_01.md` and
+`docs/ASSET_INVENTORY.md` for artwork provenance and integration status.
 
 ## Sound effects (`game/assets/audio/sfx/`)
 

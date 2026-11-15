@@ -9,9 +9,9 @@ signal closed
 signal laid_out
 
 ## Space the HUD keeps for itself, in UI units: set by Hud._do_layout.
-## Windows stay between the top strip and the bottom bars so neither the
-## navigation nor (for right-docked windows) the context action and view
-## controls are ever covered.
+## Windows stay below the top strip and objective chip, and above the
+## bottom bars so neither the navigation nor (for right-docked windows)
+## the context action and view controls are ever covered.
 static var inset_top := 26.0
 static var inset_bottom := 32.0
 static var inset_bottom_right := 56.0
@@ -171,13 +171,26 @@ func _queue_layout() -> void:
 ## the HUD bars, then places it by its dock. The real size (content can
 ## need more than the preferred size) is clamped too, so the window is
 ## always entirely on screen.
-func _layout() -> void:
+func _host_size() -> Vector2:
 	var vp := Vector2(640, 360)
 	if is_inside_tree():
 		vp = get_viewport_rect().size
 		var host := get_parent() as Control
 		if host != null and host.size.x > 0.0:
 			vp = host.size
+	return vp
+
+
+## Width the body gets once laid out: the preferred width clamped to the
+## free area, minus the panel border and the scrollbar. Builders use it to
+## switch to a compact arrangement on narrow screens and large UI scales.
+func body_width() -> float:
+	var w := minf(window_size().x, maxf(80.0, _host_size().x - 8.0))
+	return w - get_theme_stylebox("panel").get_minimum_size().x - _scroll.get_v_scroll_bar().get_combined_minimum_size().x
+
+
+func _layout() -> void:
+	var vp := _host_size()
 	var top := clampf(inset_top if hud_insets else 4.0, 2.0, vp.y * 0.4)
 	var bottom := clampf((inset_bottom_right if dock() == "right" else inset_bottom) if hud_insets else 4.0, 2.0, vp.y * 0.4)
 	var free := Rect2(Vector2(4, top), Vector2(maxf(80.0, vp.x - 8.0), maxf(80.0, vp.y - top - bottom)))

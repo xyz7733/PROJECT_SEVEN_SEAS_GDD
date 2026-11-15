@@ -182,6 +182,7 @@ static func objective(s: Dictionary) -> Dictionary:
 	var ms := Rules.main_status(s)
 	if ms.done:
 		return {"done": true, "title": I18n.t(s.captain.titleKey), "line": I18n.t("obj.postgame"),
+			"compact": I18n.t(s.captain.titleKey) + " · " + I18n.t("obj.postgame"),
 			"target": I18n.t("obj.legends", {"n": s.captain.legendsWon.size(), "total": C.world.LEGENDS.size()}), "trial": "", "locationId": null}
 	var q: Dictionary = ms.quest
 	var reg: Dictionary = C.region(ms.regionId)
@@ -191,8 +192,11 @@ static func objective(s: Dictionary) -> Dictionary:
 		target += " · " + I18n.t("obj.have", {"have": int(s.inventory.specialties.get(q.itemId, 0)), "need": q.count})
 	var trial_state := "won" if ms.trialWon else ("open" if int(ms.step) >= 4 else "locked")
 	var trial := I18n.t("obj.trial_" + trial_state, {"location": "loc.%s.name" % ms.trialLocationId, "rival": "enemy.%s.name" % reg.rivalId})
+	var title := I18n.t(q.titleKey)
+	var repeats_place: bool = known and q.type != "deliver" and title.contains(loc(q.locationId))
+	var compact := title if repeats_place else title + " · " + target
 	return {"done": false, "region": I18n.t("region.%s.name" % reg.id), "step": I18n.t("obj.step", {"n": int(ms.step) + 1, "total": C.world.MAIN_TEMPLATE.size()}),
-		"arc": I18n.t("arc.%s.title" % reg.id), "title": I18n.t(q.titleKey), "why": I18n.t("arc.%s.%d" % [reg.id, int(ms.step)]),
+		"arc": I18n.t("arc.%s.title" % reg.id), "title": title, "compact": compact, "why": I18n.t("arc.%s.%d" % [reg.id, int(ms.step)]),
 		"target": target, "trial": trial, "locationId": q.locationId if known else null}
 
 
@@ -275,3 +279,101 @@ static func reward_lines(got: Variant) -> Array:
 	if clue != null and String(clue) != "":
 		out.append(["ui_quest", I18n.t("battle.r_clue", {"clue": clue})])
 	return out
+
+
+# ------------------------------------------------------------ attributes
+## Order in which attribute effects are listed.
+const ATTR_FX_ORDER := ["atkPct", "hpPct", "defPct", "spd", "dodge", "crit", "controlPct", "healPct", "cdr", "jobPct"]
+
+
+static func signed_pct1(x: float) -> String:
+	var n := U.round1(absf(x) * 100.0)
+	if n == 0.0:
+		return "0%"
+	return ("+" if x > 0.0 else "−") + I18n.fmt_num(n) + "%"
+
+
+static func signed_dec(x: float) -> String:
+	var n := U.round2(absf(x))
+	if n == 0.0:
+		return "0"
+	return ("+" if x > 0.0 else "−") + I18n.fmt_num(n)
+
+
+## One attribute modifier as [text, helps]. Cooldown reduction reads as a
+## shorter cooldown ("Skill cooldowns −1.2%").
+static func attr_fx(k: String, v: float) -> Array:
+	var shown := -v if k == "cdr" else v
+	var txt := signed_dec(shown) if k == "spd" else signed_pct1(shown)
+	return [I18n.t("attrfx." + k, {"v": txt}), v > 0.0]
+
+
+## Effect lines for a merged attribute modifier map, in display order.
+static func attr_fx_lines(mods: Dictionary) -> Array:
+	var out := []
+	for k in ATTR_FX_ORDER:
+		var v := float(mods.get(k, 0.0))
+		if absf(v) >= 0.0005:
+			out.append(attr_fx(k, v))
+	return out
+
+
+## Per-point description of one attribute ("ATK +1.2%, ...").
+static func attr_per_point(id: String) -> String:
+	var parts := []
+	var fx: Dictionary = Attrs.EFFECTS.get(id, {})
+	for k in ATTR_FX_ORDER:
+		if fx.has(k):
+			var line: String = attr_fx(k, float(fx[k]))[0]
+			if Attrs.ABOVE_ONLY.has(k):
+				line += " " + I18n.t("attrfx.dodge_above")
+			parts.append(line)
+	return ", ".join(parts)
+
+
+static func attr_name(id: String) -> String:
+	return I18n.t("attr.%s.name" % id)
+
+
+## Trait shift as "Vigor +2, Agility −1".
+static func shift_text(sh: Dictionary) -> String:
+	var parts := []
+	for a in Attrs.IDS:
+		var n := int(sh.get(a, 0))
+		if n != 0:
+			parts.append(attr_name(a) + " " + ("+" if n > 0 else "−") + str(absi(n)))
+	return ", ".join(parts)
+
+
+## Tooltip for one attribute of one sailor.
+static func attr_tip(m: Dictionary, id: String) -> String:
+	var b := Attrs.breakdown(m, id)
+	var lines := [attr_name(id) + "  " + str(b.total) + "  ·  " + I18n.t("attr.band." + Attrs.band(int(b.total))),
+		I18n.t("attr.%s.desc" % id),
+		I18n.t("attr.breakdown", {"base": b.base, "traits": signed_int(int(b.traits)), "train": signed_int(int(b.train))})]
+	var fx := Attrs.effect_of(id, int(b.total))
+	var now := []
+	for e in attr_fx_lines(fx):
+		now.append(e[0])
+	if now.size():
+		lines.append(", ".join(now))
+	lines.append(I18n.t("attr.per_point") + " " + attr_per_point(id))
+	if Attrs.class_keys(String(m.get("classId", ""))).has(id):
+		lines.append(I18n.t("attr.key_for", {"cls": "class.%s.name" % m.classId}))
+	return "\n".join(lines)
+
+
+static func signed_int(n: int) -> String:
+	return ("+" if n > 0 else ("−" if n < 0 else "")) + str(absi(n))
+
+
+## Label variation for an attribute value band.
+static func attr_variation(v: int) -> String:
+	match Attrs.band(v):
+		"poor":
+			return "BadLabel"
+		"good":
+			return "GoodLabel"
+		"great", "heroic":
+			return "GoldLabel"
+	return ""

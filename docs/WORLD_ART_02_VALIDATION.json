@@ -1,0 +1,445 @@
+{
+  "revision": "world-art-02",
+  "version": "2.0.1",
+  "passed": true,
+  "artifact_sha256": {
+    "ProjectSevenSeas.exe": "7ac1e4ab2df708dbbae71ffb8748617d179db7a854ce7e21b8c1990a2d273e45",
+    "ProjectSevenSeas.pck": "2abc1794bccf07235571e861578f16875aadc401bc53725df2de75341010597c"
+  },
+  "source": {
+    "directory": "build/validation/world-art-02/20261114-230735-source",
+    "passed": true,
+    "steps": [
+      {
+        "name": "import",
+        "command": [
+          "D:\\WorkSpace\\MyGame\\tools\\godot\\windows\\Godot_v4.7.2-stable_win64_console.exe",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "D:\\WorkSpace\\MyGame\\game",
+          "--editor",
+          "--import",
+          "--quit"
+        ],
+        "exit": 0,
+        "errors": [],
+        "checks": null,
+        "log": "build/validation/world-art-02/20261114-230735-source/import.log"
+      },
+      {
+        "name": "core",
+        "command": [
+          "D:\\WorkSpace\\MyGame\\tools\\godot\\windows\\Godot_v4.7.2-stable_win64_console.exe",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "D:\\WorkSpace\\MyGame\\game",
+          "res://tests/test_main.tscn"
+        ],
+        "exit": 0,
+        "errors": [],
+        "checks": 6975,
+        "log": "build/validation/world-art-02/20261114-230735-source/core.log"
+      },
+      {
+        "name": "layout",
+        "command": [
+          "D:\\WorkSpace\\MyGame\\tools\\godot\\windows\\Godot_v4.7.2-stable_win64_console.exe",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "D:\\WorkSpace\\MyGame\\game",
+          "res://tests/test_ui_layout.tscn"
+        ],
+        "exit": 0,
+        "errors": [],
+        "checks": 928,
+        "log": "build/validation/world-art-02/20261114-230735-source/layout.log"
+      }
+    ]
+  },
+  "export": {
+    "directory": "build/validation/world-art-02/20261114-230813-export",
+    "passed": true,
+    "steps": [
+      {
+        "name": "import",
+        "command": [
+          "D:\\WorkSpace\\MyGame\\tools\\godot\\windows\\Godot_v4.7.2-stable_win64_console.exe",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "D:\\WorkSpace\\MyGame\\game",
+          "--editor",
+          "--import",
+          "--quit"
+        ],
+        "exit": 0,
+        "errors": [],
+        "checks": null,
+        "log": "build/validation/world-art-02/20261114-230813-export/import.log"
+      },
+      {
+        "name": "export",
+        "command": [
+          "D:\\WorkSpace\\MyGame\\tools\\godot\\windows\\Godot_v4.7.2-stable_win64_console.exe",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "D:\\WorkSpace\\MyGame\\game",
+          "--export-release",
+          "Windows Desktop",
+          "D:\\WorkSpace\\MyGame\\build\\windows\\ProjectSevenSeas.exe"
+        ],
+        "exit": 0,
+        "errors": [],
+        "checks": null,
+        "log": "build/validation/world-art-02/20261114-230813-export/export.log"
+      }
+    ]
+  },
+  "pack_audit": {
+    "pack": "build\\windows\\ProjectSevenSeas.pck",
+    "packFormat": 4,
+    "engine": "4.7.2",
+    "files": 382,
+    "fileDigestsVerified": 382,
+    "requiredResourceCount": 14,
+    "currentSourceJsonMatches": 2,
+    "locationLandmarkVariants": 100,
+    "sha256": "2abc1794bccf07235571e861578f16875aadc401bc53725df2de75341010597c",
+    "errors": [],
+    "runtimeStarted": false
+  },
+  "catalogue_candidate_equivalence": {
+    "candidate": "build\\validation\\world-art-02\\candidate-before-window-close\\ProjectSevenSeas.pck",
+    "final": "build\\windows\\ProjectSevenSeas.pck",
+    "candidate_sha256": "9303eb04a70dbc90b06b83da2b78d33f5d36495aa1a532f83e4723fb1a310b33",
+    "final_sha256": "2abc1794bccf07235571e861578f16875aadc401bc53725df2de75341010597c",
+    "changed_files": [
+      "scripts/core/combat.gdc",
+      "scripts/main.gdc",
+      "scripts/view/battle_view.gdc"
+    ],
+    "unexpected_changes": [],
+    "identical_non_main_entries": 376,
+    "allowed_components": [
+      "Main window-close handler",
+      "BattleView popup/body collision layout",
+      "Combat commanded pet action"
+    ],
+    "passed": true,
+    "scope": "All resources outside the listed independently retested components are byte-identical to the visual-catalogue candidate."
+  },
+  "catalogue": {
+    "directory": "build/review/20261114-231337-catalogue",
+    "pck_sha256": "2abc1794bccf07235571e861578f16875aadc401bc53725df2de75341010597c",
+    "checks": 1120,
+    "failed_checks": [],
+    "errors": [],
+    "resource_warnings": [],
+    "process": {
+      "exit_code": 0,
+      "timed_out": false
+    },
+    "completed": true,
+    "screenshots": 477,
+    "device": {
+      "adapter": "NVIDIA GeForce RTX 4070 Laptop GPU",
+      "audio": "Dummy; no speaker listening claimed",
+      "display_server": "Windows",
+      "driver": "opengl3",
+      "engine": "4.7.2-stable (official)",
+      "input": "Game API and Godot Input events; no OS mouse control",
+      "revision": "world-art-02",
+      "screen": 0,
+      "screens": [
+        {
+          "hz": 239.998001098633,
+          "index": 0,
+          "size": "(2560, 1600)"
+        }
+      ],
+      "viewport_size": "(640.0, 400.0)",
+      "window_mode": 3,
+      "window_size": "(2560, 1600)"
+    },
+    "passed": true
+  },
+  "catalogue_uses_final_pack": true,
+  "source_audio_probes": [
+    {
+      "directory": "build/review/20261114-221351-229656-audio-ownership-WASAPI-cabin-quit",
+      "source_sha256": {
+        "game/scripts/core/audio.gd": "ebdb8a64b6f44739a46da75b1040c19eb4523b166b3d366368343ea79f0c29b0",
+        "tools/review/run_audio_cleanup_probe.py": "84a90f857b3ceace7cfc53b9d183f90d3167dbbfe290b8cbdf2f985a0a28bf81",
+        "tools/review/audio_cleanup_probe.gd": "7868ca976809382c9653caa5f08add90f236c2747da689573597a5c911199f3c"
+      },
+      "current_audio_source_matches": true,
+      "heartbeat_cases": [],
+      "errors": [],
+      "scope": "Source audio ownership probe; no main scene or save progress"
+    },
+    {
+      "directory": "build/review/20261114-221353-632165-audio-ownership-Dummy-cabin-regression",
+      "source_sha256": {
+        "game/scripts/core/audio.gd": "ebdb8a64b6f44739a46da75b1040c19eb4523b166b3d366368343ea79f0c29b0",
+        "tools/review/run_audio_cleanup_probe.py": "84a90f857b3ceace7cfc53b9d183f90d3167dbbfe290b8cbdf2f985a0a28bf81",
+        "tools/review/audio_cleanup_probe.gd": "7868ca976809382c9653caa5f08add90f236c2747da689573597a5c911199f3c"
+      },
+      "current_audio_source_matches": true,
+      "heartbeat_cases": [
+        {
+          "case": "first sample is not progress",
+          "pass": true
+        },
+        {
+          "case": "same startup buffer does not enable output",
+          "pass": true
+        },
+        {
+          "case": "stale output stays unavailable",
+          "pass": true
+        },
+        {
+          "case": "unavailable output retains latest intent without allocating playback",
+          "pass": true
+        },
+        {
+          "case": "one recovered buffer is insufficient",
+          "pass": true
+        },
+        {
+          "case": "second recovered buffer enables replay",
+          "pass": true
+        },
+        {
+          "case": "same buffer does not replay again",
+          "pass": true
+        },
+        {
+          "case": "later stall suspends new starts",
+          "pass": true
+        },
+        {
+          "case": "late callbacks cannot restart during Quit",
+          "pass": true
+        },
+        {
+          "case": "stop cancels deferred scene intent",
+          "pass": true
+        },
+        {
+          "case": "real mixer recovery applies latest deferred beds and drops stale SFX",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "scope": "Source audio ownership probe; no main scene or save progress"
+    }
+  ],
+  "final_battle_regression": {
+    "directory": "build/review/20261114-232011-r4_regression",
+    "pck_sha256": "2abc1794bccf07235571e861578f16875aadc401bc53725df2de75341010597c",
+    "checks": 40,
+    "failed_checks": [],
+    "errors": [],
+    "resource_warnings": [],
+    "process": {
+      "exit_code": 0,
+      "timed_out": false
+    },
+    "completed": true,
+    "screenshots": 17,
+    "device": {
+      "adapter": "NVIDIA GeForce RTX 4070 Laptop GPU",
+      "audio": "Dummy; no speaker listening claimed",
+      "display_server": "Windows",
+      "driver": "opengl3",
+      "engine": "4.7.2-stable (official)",
+      "input": "Game API and Godot Input events; no OS mouse control",
+      "revision": "world-art-02",
+      "screen": 0,
+      "screens": [
+        {
+          "hz": 239.998001098633,
+          "index": 0,
+          "size": "(2560, 1600)"
+        }
+      ],
+      "viewport_size": "(640.0, 400.0)",
+      "window_mode": 3,
+      "window_size": "(2560, 1600)"
+    },
+    "passed": true
+  },
+  "final_runtime_matrix": {
+    "revision": "world-art-02",
+    "directory": "build/review/20261114-230928-fix-matrix",
+    "passed": true,
+    "cases": [
+      {
+        "name": "controls",
+        "directory": "build/review/20261114-230928-fix-matrix/controls",
+        "scenario": "controls",
+        "audio": "Dummy",
+        "checks": 236,
+        "failed_checks": [],
+        "runner_exit": 0,
+        "errors": [],
+        "passed": true,
+        "resource_warnings": [],
+        "wasapi_activated": false,
+        "mixer_unavailable_observed": false
+      },
+      {
+        "name": "fixes",
+        "directory": "build/review/20261114-230928-fix-matrix/fixes",
+        "scenario": "fixes_regression",
+        "audio": "Dummy",
+        "checks": 105,
+        "failed_checks": [],
+        "runner_exit": 0,
+        "errors": [],
+        "passed": true,
+        "resource_warnings": [],
+        "wasapi_activated": false,
+        "mixer_unavailable_observed": false
+      },
+      {
+        "name": "quit-dummy",
+        "directory": "build/review/20261114-230928-fix-matrix/quit-dummy",
+        "scenario": "title_quit",
+        "audio": "Dummy",
+        "checks": 3,
+        "failed_checks": [],
+        "runner_exit": 0,
+        "errors": [],
+        "passed": true,
+        "resource_warnings": [],
+        "wasapi_activated": false,
+        "mixer_unavailable_observed": false
+      },
+      {
+        "name": "quit-wasapi",
+        "directory": "build/review/20261114-230928-fix-matrix/quit-wasapi",
+        "scenario": "title_quit",
+        "audio": "default requested",
+        "checks": 3,
+        "failed_checks": [],
+        "runner_exit": 0,
+        "errors": [],
+        "passed": true,
+        "resource_warnings": [],
+        "wasapi_activated": true,
+        "mixer_unavailable_observed": true
+      },
+      {
+        "name": "close-dummy",
+        "directory": "build/review/20261114-230928-fix-matrix/close-dummy",
+        "scenario": "window_close",
+        "audio": "Dummy",
+        "checks": 4,
+        "failed_checks": [],
+        "runner_exit": 0,
+        "errors": [],
+        "passed": true,
+        "resource_warnings": [],
+        "wasapi_activated": false,
+        "mixer_unavailable_observed": false
+      },
+      {
+        "name": "close-wasapi",
+        "directory": "build/review/20261114-230928-fix-matrix/close-wasapi",
+        "scenario": "window_close",
+        "audio": "default requested",
+        "checks": 4,
+        "failed_checks": [],
+        "runner_exit": 0,
+        "errors": [],
+        "passed": true,
+        "resource_warnings": [],
+        "wasapi_activated": true,
+        "mixer_unavailable_observed": true
+      },
+      {
+        "name": "native-wasapi",
+        "directory": "build/review/20261114-230928-fix-matrix/native-wasapi-retry-232112",
+        "scenario": "native-startup",
+        "audio": "default requested",
+        "checks": 0,
+        "failed_checks": [],
+        "runner_exit": 0,
+        "errors": [],
+        "passed": true,
+        "resource_warnings": [],
+        "wasapi_activated": true,
+        "mixer_unavailable_observed": true,
+        "previous_attempts": [
+          {
+            "name": "native-wasapi",
+            "directory": "build/review/20261114-230928-fix-matrix/native-wasapi",
+            "scenario": "native-title",
+            "audio": "default requested",
+            "checks": 0,
+            "failed_checks": [],
+            "runner_exit": 1,
+            "errors": [
+              "ERROR: 5 resources still in use at exit."
+            ],
+            "passed": false,
+            "resource_warnings": [
+              "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            ],
+            "wasapi_activated": false,
+            "mixer_unavailable_observed": false
+          },
+          {
+            "name": "native-wasapi",
+            "directory": "build/review/20261114-230928-fix-matrix/native-wasapi-retry-231249",
+            "scenario": "native-startup",
+            "audio": "default requested",
+            "checks": 0,
+            "failed_checks": [],
+            "runner_exit": 0,
+            "errors": [],
+            "passed": true,
+            "resource_warnings": [],
+            "wasapi_activated": true,
+            "mixer_unavailable_observed": false
+          }
+        ]
+      }
+    ]
+  },
+  "fit_sites": {
+    "total": 80,
+    "nodes_safe": 80,
+    "landmarks_safe": 80
+  },
+  "verified": [
+    "Core source suite: 6,975 checks; UI layout suite: 928 checks; no script/engine errors",
+    "100 location and 190 battle-context GPU fixtures, 14 hull views; 1,120 catalogue checks passed",
+    "All 80 exploration sites fit nodes/landing and complete landmarks within HUD-safe area",
+    "186 bilingual window/tab/scale cases; final Input/management and Inspector checks pass",
+    "Real companion skill damage and source-verified immediate 1.6x Sic Em command, earned-save compatibility, west-route preparation and frozen pending-definition round trip",
+    "Final EN/ZH dense x4 battle: pause/notice/labels avoid HUD, sprites and health bars; real Encore observed",
+    "Dummy/default-WASAPI title Quit and Window.close_requested regression; actual release EXE 120-frame non-movie startup check",
+    "All 382 pack file digests and required resources verified; old world-art-01 checkpoint preserved"
+  ],
+  "remaining_limits": [
+    "No OS-mouse manual playthrough or speaker listening; fixtures and engine Input/API are labelled",
+    "Default WASAPI mixer is stalled in this session: deferral/recovery/cleanup paths verified, not healthy audible output",
+    "If a previously healthy device stops mixing after owning streams, Godot exposes no safe script flush; Quit is bounded but backend references may remain",
+    "MovieWriter --quit-after bypasses normal Quit and forces synchronous Dummy audio: the retained movie probe leaked resources; it is excluded from normal cleanup acceptance",
+    "No new complete campaign clear or all optional builds/quests/achievements; gameplay variety prototypes cover four dungeons in two seas",
+    "No low-end hardware, other resolutions or exhaustive old-save migration acceptance"
+  ],
+  "scope": "Review-driven repairs, exact final-pack GPU catalogue and targeted regressions; historical review remains separate"
+}

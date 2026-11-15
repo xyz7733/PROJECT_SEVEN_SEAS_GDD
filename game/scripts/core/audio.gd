@@ -77,6 +77,18 @@ const WEATHER_FADE := 2.5
 const VOICES := 12
 const AMB_XFADE := 3.0
 const MUSIC_FADE := 1.6
+## A created output device can still stop consuming buffers. Do not hand it
+## playbacks until two distinct mix advances establish that it is running.
+const MIXER_STALE_SECONDS := 0.25
+const SHUTDOWN_TIMEOUT_USEC := 500000
+const REGIONAL_IDS := ["dawnwater", "emberreach", "verdant_maw", "glass_current", "crown_shoals",
+	"stormbelt", "moonwake", "ashen_trench", "leviathan_ring", "grand_horizon"]
+const REGIONAL_MOTIFS := {
+	"harbor_bells": "dawnwater", "furnace_breath": "emberreach", "canopy_drops": "verdant_maw",
+	"glass_chimes": "glass_current", "market_clock": "crown_shoals", "beacon_chain": "stormbelt",
+	"night_windbells": "moonwake", "relic_vent": "ashen_trench", "pearl_tide": "leviathan_ring",
+	"horizon_carillon": "grand_horizon",
+}
 
 var _cache := {}
 var _pool: Array[AudioStreamPlayer] = []
@@ -89,10 +101,31 @@ var _amb: Array[AudioStreamPlayer] = []
 var _amb_id := ""
 var _amb_cur := 0
 var _amb_db := 0.0
+var _amb_base_db := 0.0
 var _wx: Array[AudioStreamPlayer] = []
 var _wx_id := ""
 var _wx_cur := 0
 var _duck_tw: Tween
+## The original regional texture is an independent, quiet Ambience layer.
+## Two players allow interrupted scene changes without an abrupt restart.
+var _regional: Array[AudioStreamPlayer] = []
+var _regional_cur := 0
+var _regional_key := ""
+var _regional_region := "dawnwater"
+var _regional_where := "title"
+var _regional_enclosed := false
+var _sheltered := false
+var _quitting := false
+var _mixer_ready := false
+var _last_mix_usec := -1
+var _mix_heartbeats := 0
+var _output_deferred_reported := false
+var _music_request := ""
+var _amb_request := ""
+var _wx_request := ""
+var _wx_muffle_request := 0.0
+var _regional_enabled := false
+var _playbacks: Array[WeakRef] = []
 
 
 func _ready() -> void:
@@ -109,6 +142,8 @@ func _ready() -> void:
 		_amb.append(_player("Ambience"))
 	for _i in 2:
 		_wx.append(_player("Ambience"))
+	for _i in 2:
+		_regional.append(_player("Ambience"))
 	for _i in VOICES:
 		_pool.append(_player("SFX"))
 	Settings.changed.connect(apply_volumes)
@@ -167,6 +202,11 @@ func _looping(rel: String) -> AudioStream:
 # ------------------------------------------------------------------ music
 ## Crossfades to a music track ("" for silence). Same id is a no-op.
 func music(id: String) -> void:
+	if _quitting:
+		return
+	_music_request = id
+	if not _can_play():
+		return
 	if id == _music_id:
 		return
 	_music_id = id
@@ -177,9 +217,7 @@ func music(id: String) -> void:
 		old = _music_b
 	var nxt: AudioStreamPlayer = _music_b if old == _music_a else _music_a
 	if old != null:
-		var tw := create_tween()
-		tw.tween_property(old, "volume_db", -60.0, MUSIC_FADE)
-		tw.tween_callback(old.stop)
+		_fade(old, -60.0, MUSIC_FADE, true)
 	if id == "" or not MUSIC.has(id):
 		return
 	var s := _looping(String(MUSIC[id]))
@@ -188,9 +226,8 @@ func music(id: String) -> void:
 	nxt.stop()
 	nxt.stream = s
 	nxt.volume_db = -60.0
-	nxt.play()
-	var tw2 := create_tween()
-	tw2.tween_property(nxt, "volume_db", 0.0, MUSIC_FADE)
+	_play_owned(nxt)
+	_fade(nxt, 0.0, MUSIC_FADE, false)
 
 
 func music_id() -> String:
@@ -200,6 +237,8 @@ func music_id() -> String:
 ## Lowers the music for a moment (used under victory/defeat stingers). The
 ## players are tweened rather than the bus, so the user's setting is kept.
 func duck(secs := 3.0, depth_db := -14.0) -> void:
+	if _quitting:
+		return
 	if _duck_tw and _duck_tw.is_valid():
 		_duck_tw.kill()
 	var live: Array[AudioStreamPlayer] = []
@@ -221,6 +260,11 @@ func duck(secs := 3.0, depth_db := -14.0) -> void:
 # --------------------------------------------------------------- ambience
 ## Switches the ambience bed ("" for none) with a fade.
 func ambience(id: String) -> void:
+	if _quitting:
+		return
+	_amb_request = id
+	if not _can_play():
+		return
 	if id == _amb_id:
 		return
 	_amb_id = id
@@ -240,7 +284,8 @@ func ambience(id: String) -> void:
 		return
 	if s is AudioStreamOggVorbis:
 		(s as AudioStreamOggVorbis).loop = false
-	_amb_db = float(AMBIENCE[id][1])
+	_amb_base_db = float(AMBIENCE[id][1])
+	_amb_db = _amb_base_db - (8.0 if _sheltered else 0.0)
 	_amb_cur = (_amb_cur + 1) % 2
 	_start_bed(_amb[_amb_cur], s, randf_range(0.0, maxf(0.0, s.get_length() * 0.5)))
 
@@ -252,13 +297,28 @@ func _start_bed(p: AudioStreamPlayer, s: AudioStream, from: float) -> void:
 	p.stop()
 	p.stream = s
 	p.volume_db = -60.0
-	p.play(from)
+	_play_owned(p, from)
 	var tw := create_tween()
 	tw.tween_property(p, "volume_db", _amb_db, AMB_XFADE)
 	p.set_meta("tw", tw)
 
 
 func _process(_delta: float) -> void:
+	if _quitting:
+		return
+	var mix_age := AudioServer.get_time_since_last_mix()
+	if _observe_mixer(Time.get_ticks_usec(), mix_age):
+		if _output_deferred_reported:
+			print("Audio: output mixing resumed; applying current scene beds.")
+		_output_deferred_reported = false
+		_resume_beds()
+	elif not _mixer_ready and mix_age > MIXER_STALE_SECONDS and not _output_deferred_reported:
+		if _music_request != "" or _amb_request != "" or _regional_enabled:
+			print("Audio: output mixer unavailable; scene beds deferred until mixing resumes.")
+			_output_deferred_reported = true
+	_prune_playbacks()
+	if not _can_play():
+		return
 	if _amb_id == "":
 		return
 	var cur := _amb[_amb_cur]
@@ -279,6 +339,12 @@ func _process(_delta: float) -> void:
 ## crossfade. Same id is a no-op. `muffle_db` lowers it (heard from below
 ## deck or through a cave mouth).
 func weather(id: String, muffle_db := 0.0) -> void:
+	if _quitting:
+		return
+	_wx_request = id
+	_wx_muffle_request = muffle_db
+	if not _can_play():
+		return
 	var key := "%s|%d" % [id, int(muffle_db)]
 	if key == _wx_id:
 		return
@@ -302,7 +368,7 @@ func weather(id: String, muffle_db := 0.0) -> void:
 	nxt.stop()
 	nxt.stream = s
 	nxt.volume_db = -60.0
-	nxt.play(randf_range(0.0, s.get_length()))
+	_play_owned(nxt, randf_range(0.0, s.get_length()))
 	_fade(nxt, float(WEATHER[id][1]) + muffle_db, WEATHER_FADE, false)
 
 
@@ -320,7 +386,10 @@ func _fade(p: AudioStreamPlayer, to_db: float, secs: float, stop_after: bool) ->
 ## Music and ambience for a world context ("title", "port", "at_sea",
 ## "site", "battle") and the location type (island, dungeon, ...).
 ## Exploration has no music on purpose: the ambience carries it.
-func scene(where: String, loc_type := "", boarding := false) -> void:
+func scene(where: String, loc_type := "", boarding := false, region_id := "") -> void:
+	if _quitting:
+		return
+	_regional_enabled = true
 	var cavern := loc_type in ["dungeon", "secret"]
 	match where:
 		"title":
@@ -333,6 +402,163 @@ func scene(where: String, loc_type := "", boarding := false) -> void:
 			context("battle", "sea" if boarding else ("cave" if cavern else ("harbor" if loc_type == "port" else "coast")))
 		_:
 			context("chant", "sea")
+	_regional_where = where
+	_regional_enclosed = cavern and not boarding
+	if where not in ["title", "port", "at_sea"]:
+		_sheltered = false
+	if region_id == "" and Game.has_game():
+		var location = C.location(String(Game.state.world.currentLocationId))
+		if location != null:
+			region_id = String(location.regionId)
+	_regional_region = region_id if region_id in REGIONAL_IDS else "dawnwater"
+	_sync_base_shelter()
+	_sync_regional()
+
+
+## A ship view calls this on deck selection. Outside sounds are replaced
+## by quiet timber and cloth below decks; caves never play ship sounds.
+func set_sheltered(on: bool) -> void:
+	if _quitting:
+		return
+	if _sheltered == on:
+		return
+	_sheltered = on
+	if not _regional.is_empty():
+		_sync_base_shelter()
+		_sync_regional()
+
+
+func _sync_base_shelter() -> void:
+	_amb_db = _amb_base_db - (8.0 if _sheltered else 0.0)
+	if not _amb.is_empty() and _amb[_amb_cur].playing:
+		_fade(_amb[_amb_cur], _amb_db, 1.5, false)
+
+
+func _sync_regional() -> void:
+	if _regional.is_empty() or not _regional_enabled or not _can_play():
+		return
+	var audio_profile: Dictionary = SceneProfiles.region(_regional_region).get("audio", {})
+	var motif := String(audio_profile.get("motif", ""))
+	var identity := String(REGIONAL_MOTIFS.get(motif, _regional_region))
+	var id := "" if _regional_enclosed else ("cabin" if _sheltered else identity)
+	var bed_db := -12.0 if _regional_where == "port" else -15.0
+	if _regional_where == "battle":
+		bed_db -= 6.0
+	if id == "cabin":
+		bed_db = -9.0
+	var key := "%s|%d" % [id, int(bed_db)]
+	if key == _regional_key:
+		return
+	var same := id != "" and _regional_key.begins_with(id + "|")
+	_regional_key = key
+	if same:
+		_fade(_regional[_regional_cur], bed_db, 1.5, false)
+		return
+	for p in _regional:
+		if p.playing:
+			_fade(p, -60.0, 2.5, true)
+	if id == "":
+		return
+	var stream := _looping("ambience/regional/" + id + ".wav")
+	if stream == null:
+		return
+	_regional_cur = (_regional_cur + 1) % 2
+	var next := _regional[_regional_cur]
+	next.stop()
+	next.stream = stream
+	next.volume_db = -60.0
+	_play_owned(next, randf_range(0.0, maxf(0.0, stream.get_length() - 0.01)))
+	_fade(next, bed_db, 2.5, false)
+
+
+## The estimated mix timestamp advances only when the driver consumes another
+## buffer. A fresh timestamp alone could be its single startup buffer.
+func _observe_mixer(now_usec: int, age: float) -> bool:
+	var was_ready := _mixer_ready
+	var mix_usec := now_usec - int(age * 1000000.0)
+	if age < 0.0 or age > MIXER_STALE_SECONDS:
+		_mix_heartbeats = 0
+		_mixer_ready = false
+	elif _last_mix_usec >= 0 and mix_usec > _last_mix_usec + 1000:
+		_mix_heartbeats = mini(2, _mix_heartbeats + 1)
+		_mixer_ready = _mix_heartbeats >= 2
+	_last_mix_usec = maxi(_last_mix_usec, mix_usec)
+	return _mixer_ready and not was_ready
+
+
+func _can_play() -> bool:
+	return not _quitting and _mixer_ready and AudioServer.get_time_since_last_mix() <= MIXER_STALE_SECONDS
+
+
+func _resume_beds() -> void:
+	# Keep only current scene intent; unavailable-output SFX are not replayed.
+	music(_music_request)
+	ambience(_amb_request)
+	weather(_wx_request, _wx_muffle_request)
+	_sync_regional()
+
+
+func _play_owned(player: AudioStreamPlayer, from := 0.0) -> void:
+	player.play(from)
+	if player.has_stream_playback():
+		_playbacks.append(weakref(player.get_stream_playback()))
+
+
+func _prune_playbacks() -> void:
+	for i in range(_playbacks.size() - 1, -1, -1):
+		if _playbacks[i].get_ref() == null:
+			_playbacks.remove_at(i)
+
+
+## Stop every owned playback and pending fade before resources are freed.
+## Also usable by the screenshot harness and by normal application Quit.
+func stop_all() -> void:
+	_music_request = ""
+	_amb_request = ""
+	_wx_request = ""
+	_wx_muffle_request = 0.0
+	_regional_enabled = false
+	_music_id = ""
+	_amb_id = ""
+	_wx_id = ""
+	_regional_key = ""
+	if _duck_tw and _duck_tw.is_valid():
+		_duck_tw.kill()
+	var players: Array[AudioStreamPlayer] = [_music_a, _music_b]
+	players.append_array(_amb)
+	players.append_array(_wx)
+	players.append_array(_regional)
+	players.append_array(_pool)
+	for p in players:
+		if not is_instance_valid(p):
+			continue
+		var tw := (p.get_meta("tw") if p.has_meta("tw") else null) as Tween
+		if tw and tw.is_valid():
+			tw.kill()
+		p.remove_meta("tw")
+		p.stop()
+		p.stream = null
+	_cache.clear()
+
+
+func quit_cleanly() -> void:
+	if _quitting:
+		return
+	_quitting = true
+	stop_all()
+	# Player.stop() drops its own refs immediately, but AudioServer owns each
+	# playback until a mix and main-thread cleanup. Observe release, not frames.
+	# A device that stalls after playback began must not block application Quit.
+	var deadline := Time.get_ticks_usec() + SHUTDOWN_TIMEOUT_USEC
+	_prune_playbacks()
+	while not _playbacks.is_empty() and Time.get_ticks_usec() < deadline:
+		await get_tree().process_frame
+		_prune_playbacks()
+	get_tree().quit()
+
+
+func _exit_tree() -> void:
+	stop_all()
 
 
 ## Sets music and ambience for a scene context in one call.
@@ -357,10 +583,11 @@ func play_for(id: String, secs: float, vol_offset_db := 0.0) -> void:
 	tw.tween_interval(maxf(0.0, secs - 0.8))
 	tw.tween_property(p, "volume_db", -60.0, 0.8)
 	tw.tween_callback(p.stop)
+	p.set_meta("tw", tw)
 
 
 func _start(id: String, vol_offset_db: float, pitch: float) -> AudioStreamPlayer:
-	if not SFX.has(id):
+	if not _can_play() or not SFX.has(id):
 		return null
 	var def: Array = SFX[id]
 	var now := Time.get_ticks_msec()
@@ -385,13 +612,16 @@ func _start(id: String, vol_offset_db: float, pitch: float) -> AudioStreamPlayer
 	_last[id] = now
 	_last_pick[id] = pick
 	var v := _free_voice()
+	var old_fade := (v.get_meta("tw") if v.has_meta("tw") else null) as Tween
+	if old_fade and old_fade.is_valid():
+		old_fade.kill()
 	v.stream = s
 	v.volume_db = float(def[1]) + vol_offset_db
 	var j := float(def[4])
 	v.pitch_scale = pitch * (1.0 + randf_range(-j, j))
 	v.set_meta("id", id)
 	v.set_meta("t", now)
-	v.play()
+	_play_owned(v)
 	return v
 
 
@@ -418,6 +648,7 @@ const TX := {
 	"ship.demolish": "demolish", "ship.unstair": "demolish", "ship.stow": "demolish",
 	"ship.repair": "repair", "ship.upgrade": "repair", "ship.door": "door_open", "ship.hull": "creak",
 	"crew.recruit": "coins", "crew.equip": "metal", "crew.treat": "cloth", "crew.respec": "page", "crew.legacy": "page",
+	"crew.train": "skill", "crew.retrain": "page",
 	"eq.buy": "coins", "eq.craft": "repair", "eq.reinforce": "metal", "eq.salvage": "demolish",
 	"port.buy": "coins", "port.sell": "coins", "port.invest": "coins", "port.contract_done": "coins",
 	"port.quest": "page", "port.contract": "page", "main.deliver": "coins", "port.aid": "coins",

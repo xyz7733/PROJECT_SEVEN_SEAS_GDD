@@ -339,4 +339,4 @@ func _do_new_game() -> void:
 
 
 func _quit() -> void:
-	get_tree().quit()
+	Audio.quit_cleanly()

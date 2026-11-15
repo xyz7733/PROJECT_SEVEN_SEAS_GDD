@@ -30,14 +30,23 @@ P = {k: hexrgb(v) for k, v in {
 # -- floors -----------------------------------------------------------------
 
 def floor_planks(v, W, H, c1=None, c2=None, along="x"):
+    """Quiet board-sized colour clusters, with joints rather than pixel grain.
+
+    Furniture and inhabitants carry the small details. A floor should read as
+    one warm material at normal play zoom, not compete with their silhouettes.
+    """
     c1 = c1 or P["plank"]
     c2 = c2 or P["plank_d"]
     for x in range(W):
         for y in range(H):
             a, b = (y, x) if along == "x" else (x, y)
-            seg = (b + 5 * (a // 3)) // 11
-            c = mix(c1, c2, ((a // 3) * 37 + seg * 11) % 5 / 8)
-            v.put(x, y, 0, c, SEAM if a % 3 == 2 else 0)
+            board = a // 4
+            seg = (b + 7 * board) // 17
+            c = mix(c1, c2, 0.12 + ((board * 7 + seg * 3) % 4) * 0.055)
+            joint = (b + 7 * board) % 17 == 0
+            if joint:
+                c = mul(c, 0.91)
+            v.put(x, y, 0, c, SEAM if a % 4 == 3 else 0)
 
 
 def floor_checker(v, W, H, c1, c2, n=4, border=None):
@@ -98,13 +107,18 @@ def back_walls(v, W, H, wall, wains=None, trim=None, height=13, sides="xy", stri
         for i in rng:
             for z in range(F, F + height):
                 if z < F + 4:
-                    c, fl = wains, (SEAM_L if side == "y" and i % 3 == 0 else (SEAM_R if side == "x" and i % 3 == 0 else 0))
+                    panel = i % 6
+                    c = mul(wains, 0.88) if panel == 0 else wains
+                    fl = SEAM_L if side == "y" and panel == 0 else (SEAM_R if side == "x" and panel == 0 else 0)
                 elif z == F + 4:
                     c, fl = trim, 0
                 else:
                     c = wall
                     if stripes and (i // 2) % 2 == 0:
                         c = stripes
+                    # A quiet plaster field above the framed wooden dado.
+                    if z == F + height - 1:
+                        c = mix(wall, trim, 0.25)
                     fl = 0
                 if side == "y":
                     v.put(i, 0, z, c, fl)
@@ -119,8 +133,10 @@ def back_walls(v, W, H, wall, wains=None, trim=None, height=13, sides="xy", stri
     # front posts close the wall ends
     if "y" in sides:
         v.box(W - 1, 0, F, W, 1, F + height + 1, trim)
+        v.box(0, 0, F + height - 1, W, 1, F + height, mul(trim, 0.86))
     if "x" in sides:
         v.box(0, H - 1, F, 1, H, F + height + 1, trim)
+        v.box(0, 0, F + height - 1, 1, H, F + height, mul(trim, 0.86))
 
 
 def on_wall(v, side, pos, z, w, h, col_fn, depth=1, flags=0):

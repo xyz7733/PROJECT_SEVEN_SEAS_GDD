@@ -292,6 +292,7 @@ func _tavern(b: VBoxContainer, port_id: String) -> void:
 		]
 		for r in kv:
 			v.add_child(UIK.label(r[0] + ": " + r[1], "DimLabel", true, 214))
+		v.add_child(UIK.attr_strip(m, 4))
 		if float(m.mastery.get(m.classId, 0)) >= float(T.qualifyMastery):
 			v.add_child(UIK.label(I18n.t("port.qualified", {"cls": "class.%s.name" % m.classId}), "GoodLabel"))
 		if o.hired:

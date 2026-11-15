@@ -1,7 +1,12 @@
-## Crew window: formation and tactics, sailor details, equipment,
-## skills/legacy passives and the class tree. The roster column on the
+## Crew window: formation and tactics, sailor details, attributes and
+## training, equipment, skills/legacy passives and the class tree. The roster column on the
 ## left selects which sailor the right side shows.
 extends GameWindow
+
+## Roster column width, and the right-column width the attributes tab needs
+## to put its chart beside the rows (112 chart + 6 + about 209 of rows).
+const ROSTER_W := 132.0
+const WIDE_ATTRS_W := 326.0
 
 var sel: Variant = null
 
@@ -21,8 +26,8 @@ func window_size() -> Vector2:
 
 func tabs() -> Array:
 	return [["formation", I18n.t("crew.formation"), "ui_battle"], ["detail", I18n.t("crew.details"), "ui_info"],
-		["equipment", I18n.t("crew.equipment"), "w_blade"], ["skills", I18n.t("crew.skills"), "ui_star"],
-		["classes", I18n.t("crew.classes"), "mastery"]]
+		["attrs", I18n.t("crew.attrs"), "ui_chart"], ["equipment", I18n.t("crew.equipment"), "w_blade"],
+		["skills", I18n.t("crew.skills"), "ui_star"], ["classes", I18n.t("crew.classes"), "mastery"]]
 
 
 func select(id: Variant) -> void:
@@ -46,7 +51,7 @@ func build(b: VBoxContainer) -> void:
 	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	b.add_child(row)
 	var left := UIK.vbox([], 2)
-	left.custom_minimum_size.x = 132
+	left.custom_minimum_size.x = ROSTER_W
 	row.add_child(left)
 	var m = _member()
 	for c in st().crew:
@@ -60,6 +65,8 @@ func build(b: VBoxContainer) -> void:
 	match tab:
 		"detail":
 			_detail(right, m)
+		"attrs":
+			_attrs(right, m)
 		"equipment":
 			_equipment(right, m)
 		"skills":
@@ -86,6 +93,15 @@ func _chip(m: Dictionary, active: bool) -> Control:
 	b.add_child(h)
 	var slot := Rules.slot_of(s, m.id)
 	b.tooltip_text = (I18n.t("lane." + Rules.lane_of_slot(slot)) if slot >= 0 else I18n.t("crew.reserve")) + " · " + I18n.t("crew.power", {"n": Rules.power(s, m)})
+	var free := Attrs.points_free(m)
+	if free > 0:
+		# Unspent training points: a small "+N" in the chip's top-right corner.
+		var badge := UIK.label("+%d" % free, "GoodLabel")
+		badge.position = Vector2(b.custom_minimum_size.x - 22, 0)
+		badge.size = Vector2(20, 14)
+		badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		b.add_child(badge)
+		b.tooltip_text += "\n" + I18n.t("attr.unspent", {"n": free})
 	return b
 
 
@@ -184,6 +200,7 @@ func _detail(b: VBoxContainer, m: Dictionary) -> void:
 	g.add_child(UIK.label(I18n.t("stat.crit") + " " + I18n.pct(float(st_.crit)), "DimLabel"))
 	g.add_child(UIK.label(I18n.t("stat.dodge") + " " + I18n.pct(float(st_.dodge)), "DimLabel"))
 	b.add_child(g)
+	b.add_child(UIK.attr_strip(m))
 	var roles: Array = st_.roles.map(func(r): return I18n.t("role." + r))
 	b.add_child(UIK.label("%s · %s · %s · %s" % [I18n.t("range." + st_.range), I18n.t("lane." + st_.lane), ", ".join(roles), I18n.t("crew.power", {"n": Rules.power(s, m)})], "DimLabel", true, 300))
 	var kv := UIK.grid(2, 4)
@@ -241,6 +258,110 @@ func _dismiss(id: String) -> void:
 	if m == null:
 		return
 	confirm(I18n.t("crew.dismiss_confirm", {"name": I18n.crew_name(m)}), I18n.t("crew.dismiss_body"), func(): act(Actions.dismiss(Game.state, id)))
+
+
+# ------------------------------------------------------------ attributes
+func _attrs(b: VBoxContainer, m: Dictionary) -> void:
+	var s := st()
+	var tot := Attrs.totals(m)
+	var keys := Attrs.class_keys(m.classId)
+	var calm := s.encounter == null and (s.voyage == null or s.voyage.event == null)
+	var free := Attrs.points_free(m)
+	var rows := UIK.vbox([], 1)
+	rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	for a in Attrs.IDS:
+		rows.add_child(_attr_row(m, a, int(tot[a]), keys.has(a), calm and free > 0))
+	# Wide: chart beside the rows, points below. Narrow (large UI scale):
+	# rows on top, then a smaller chart beside the points column.
+	var right_w := body_width() - ROSTER_W - 6.0
+	var compact := right_w < WIDE_ATTRS_W
+	if not compact:
+		b.add_child(UIK.hbox([AttrRadar.make(tot, keys, 112), rows], 6))
+	else:
+		b.add_child(rows)
+	# Training points and retraining.
+	var lv := int(m.level)
+	var earned := Attrs.points_earned(lv)
+	var next_lv := (earned + 1) * Attrs.LEVELS_PER_POINT
+	var pts := UIK.label(I18n.t("attr.points", {"n": free}), "GoodLabel" if free > 0 else "")
+	var nxt := UIK.label(I18n.t("attr.points_next", {"lv": next_lv}) if next_lv <= int(C.TUNING.levelCap) else I18n.t("attr.points_all"), "DimLabel")
+	var spent := Attrs.points_spent(m)
+	var cost := Attrs.retrain_cost(m)
+	var why := ""
+	if not calm:
+		why = I18n.t("err.in_encounter")
+	elif not Rules.at_port(s) and not Rules.fac_level(s, "class_hall"):
+		why = I18n.t("err.need_class_hall")
+	elif spent <= 0:
+		why = I18n.t("err.nothing_to_retrain")
+	elif not Fmt.can_afford(s, cost):
+		why = I18n.t("ship.cannot_afford")
+	var rt := UIK.button(I18n.t("attr.retrain"), _retrain.bind(m.id), "ui_rotate", "FlatButton", why == "",
+		(why + "\n" if why != "" else "") + I18n.t("attr.retrain_rule"))
+	var retrain_box := UIK.hbox([rt, UIK.label(UIK.cost_text(cost), "DimLabel")], 5)
+	if compact:
+		nxt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		nxt.custom_minimum_size.x = maxf(60.0, right_w - 96.0 - 6.0)
+		var col := UIK.vbox([UIK.hbox([UIK.icon("ui_level"), pts], 3), nxt, retrain_box], 2)
+		col.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		b.add_child(UIK.hbox([AttrRadar.make(tot, keys, 96), col], 6))
+	else:
+		var info := UIK.flow(6)
+		info.add_theme_constant_override("v_separation", 0)
+		info.add_child(UIK.hbox([UIK.icon("ui_level"), pts], 3))
+		info.add_child(nxt)
+		info.add_child(retrain_box)
+		b.add_child(info)
+	# Net effect on stats.
+	b.add_child(UIK.header(I18n.t("attr.effects"), "ui_chart"))
+	var fx := Fmt.attr_fx_lines(Attrs.mods_of(m))
+	if fx.is_empty():
+		b.add_child(UIK.label(I18n.t("attr.neutral"), "DimLabel", true, 300))
+	else:
+		var g := UIK.flow(10)
+		g.add_theme_constant_override("v_separation", 0)
+		for e in fx:
+			g.add_child(UIK.label(e[0], "GoodLabel" if e[1] else "BadLabel"))
+		b.add_child(g)
+	if keys.size() >= 2:
+		b.add_child(UIK.hbox([UIK.icon("ui_star", Art.GOLD), UIK.label(I18n.t("attr.class_keys", {"cls": "class.%s.name" % m.classId,
+			"a": "attr.%s.name" % keys[0], "b": "attr.%s.name" % keys[1]}), "DimLabel", true, 280)], 3))
+	# Trait nudges.
+	b.add_child(UIK.header(I18n.t("attr.from_traits"), "ui_info"))
+	for t in m.traits:
+		var sh: Dictionary = Attrs.TRAIT_SHIFT.get(String(t), {})
+		b.add_child(UIK.label(I18n.t("attr.trait_line", {"trait": I18n.t("trait." + t), "list": Fmt.shift_text(sh)}), "DimLabel", true, 300))
+	b.add_child(UIK.para(I18n.t("attr.hint", {"n": Attrs.LEVELS_PER_POINT}), "DimLabel", 300))
+
+
+func _attr_row(m: Dictionary, a: String, v: int, key: bool, can_train: bool) -> Control:
+	var name_l := UIK.label(Fmt.attr_name(a), "GoldLabel" if key else "", false, 70)
+	var val := UIK.label(str(v), Fmt.attr_variation(v), false, 18)
+	val.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	var bar := UIK.bar(float(v) / 20.0, "xp", 54, 5)
+	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var tr := Attrs.trained(m, a)
+	var extra := UIK.label(("+%d" % tr) if tr > 0 else "", "DimLabel", false, 18)
+	var block := Attrs.train_block(m, a)
+	var plus := UIK.icon_button("ui_plus", I18n.t("attr.train", {"attr": "attr.%s.name" % a}) if block == "" else I18n.t(block),
+		_train.bind(m.id, a), "FlatButton", can_train and block == "")
+	plus.custom_minimum_size = Vector2(18, 18)
+	var row := UIK.hbox([UIK.icon(Attrs.ICONS[a]), name_l, val, bar, extra, plus], 3)
+	row.tooltip_text = Fmt.attr_tip(m, a)
+	row.mouse_filter = Control.MOUSE_FILTER_PASS
+	return row
+
+
+func _train(crew_id: String, a: String) -> void:
+	act(Actions.train_attr(Game.state, crew_id, a))
+
+
+func _retrain(crew_id: String) -> void:
+	var m = Rules.member(st(), crew_id)
+	if m == null:
+		return
+	confirm(I18n.t("attr.retrain_confirm", {"name": I18n.crew_name(m)}), I18n.t("attr.retrain_body", {"n": Attrs.points_spent(m)}),
+		func(): act(Actions.retrain(Game.state, crew_id)))
 
 
 # ------------------------------------------------------------- equipment
